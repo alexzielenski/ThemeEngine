@@ -22,6 +22,8 @@
 - (NSArray *)allElementNames;
 - (CFElement *)elementWithName:(NSString *)name;
 
+- (NSSet *)allAssets;
+
 - (NSSet *)assetsWithIdiom:(CoreThemeIdiom)idiom;
 - (NSSet *)assetsWithScale:(double)scale;
 - (NSSet *)assetsWithLayer:(CoreThemeLayer)layer;

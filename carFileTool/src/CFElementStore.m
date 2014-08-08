@@ -94,13 +94,17 @@
 }
 
 - (void)save {
-    NSSet *assets = [self valueForKeyPath:@"elements.@unionOfSets.assets"];
+    NSSet *assets = self.allAssets;
     for (CFAsset *asset in assets) {
         if (asset.isDirty)
             [asset commitToStorage:(CUIMutableCommonAssetStorage *)self.assetStorage :self.themeStore];
     }
     
     [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
+}
+
+- (NSSet *)allAssets {
+    return [self valueForKeyPath:@"elements.@distinctUnionOfSets.assets"];
 }
 
 #pragma mark - Filters
