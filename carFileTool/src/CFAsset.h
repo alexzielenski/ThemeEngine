@@ -14,14 +14,31 @@
 #import "CUIPSDGradient.h"
 
 @interface CFAsset : NSObject
-@property (readonly, strong) CUIThemeRendition *rendition;
 @property (readonly, assign) CGRect *slices;
 @property (readonly, assign) NSUInteger nslices;
 @property (readonly, assign) CUIMetrics *metrics;
 @property (readonly, assign) NSUInteger nmetrics;
 @property (readwrite, strong) CUIPSDGradient *gradient;
-@property (readwrite, strong) NSBitmapImageRep *image;
+@property (readonly, strong) CUIRenditionKey *key;
+
 @property (readwrite, strong) CUIShapeEffectPreset *effectPreset;
+@property CGPDFDocumentRef pdfDocument;
+@property CGImageRef image;
+
+//!TODO: find what each value does and make an enum
+@property (assign) unsigned int gradientStyle;
+@property (assign) CGFloat gradientAngle;
+@property (assign) CoreThemeLayout layout;
+@property (assign) CoreThemeType type;
+@property (assign) CGFloat scale;
+@property (readonly, copy) NSString *name;
+@property (copy) NSString *utiType;
+//!TODO: find what each value does and make an enum. i think it is CGBlendMode
+@property (assign) unsigned int blendMode;
+@property (assign) CGFloat opacity;
+@property (assign) CFEXIFOrientation exifOrientation;
+@property (assign) unsigned long long colorspaceID;
+
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 - (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage  :(CUIStructuredThemeStore *)storage;

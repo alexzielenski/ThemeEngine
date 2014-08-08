@@ -47,7 +47,7 @@
 }
 
 + (NSString *)elementNameForAsset:(CFAsset *)asset {
-    NSString *name = [[asset.rendition.name stringByReplacingOccurrencesOfString:@"@2x" withString:@""] stringByDeletingPathExtension];
+    NSString *name = [[asset.name stringByReplacingOccurrencesOfString:@"@2x" withString:@""] stringByDeletingPathExtension];
     // element is to be size agnostic
     name = [name stringByReplacingOccurrencesOfString:@"_Mini" withString:@""];
     name = [name stringByReplacingOccurrencesOfString:@"_Regular" withString:@""];

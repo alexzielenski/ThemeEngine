@@ -98,4 +98,15 @@ typedef NS_ENUM(NSUInteger, CoreThemeType) {
     kCoreThemeTypeRawPixel            = 1245774599
 };
 
+typedef NS_ENUM(NSUInteger, CFEXIFOrientation) {
+    CFEXIFOrientationNormal           = 1,
+    CFEXIFOrientationReverse          = 2,
+    CFEXIFOrientationRotate180        = 3,
+    CFEXIFOrientationReverseRotate180 = 4,
+    CFEXIFOrientationReverseRotate90  = 5,
+    CFEXIFOrientationRotate90         = 6,
+    CFEXIFOrientationReverseRotate270 = 7,
+    CFEXIFOrientationRotate270        = 8
+};
+
 #endif

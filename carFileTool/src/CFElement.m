@@ -46,39 +46,39 @@
 }
 
 - (NSSet *)assetsWithIdiom:(CoreThemeIdiom)idiom {
-    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rendition.key.themeIdiom == %d", idiom]];
+    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themeIdiom == %d", idiom]];
 }
 
 - (NSSet *)assetsWithScale:(double)scale {
-    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rendition.scale == %f", scale]];
+    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"scale == %f", scale]];
 }
 
 - (NSSet *)assetsWithLayer:(CoreThemeLayer)layer {
-    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rendition.key.themeLayer == %d", layer]];
+    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themeLayer == %d", layer]];
 }
 
 - (NSSet *)assetsWithPresentationState:(CoreThemePresentationState)state {
-    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rendition.key.themePresentationState == %d", state]];
+    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themePresentationState == %d", state]];
 }
 
 - (NSSet *)assetsWithState:(CoreThemeState)state {
-    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rendition.key.themeState == %d", state]];
+    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themeState == %d", state]];
 }
 
 - (NSSet *)assetsWithValue:(CoreThemeValue)value {
-    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rendition.key.themeValue == %d", value]];
+    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themeValue == %d", value]];
 }
 
 - (NSSet *)assetsWithDirection:(CoreThemeDirection)direction {
-    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rendition.key.themeDirection == %d", direction]];
+    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themeDirection == %d", direction]];
 }
 
 - (NSSet *)assetsWithSize:(CoreThemeSize)size {
-    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rendition.key.themeSize == %d", size]];
+    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themeSize == %d", size]];
 }
 
 - (NSSet *)assetsWithType:(CoreThemeType)type {
-    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"rendition.type == %d", type]];
+    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"type == %d", type]];
 }
 
 @end

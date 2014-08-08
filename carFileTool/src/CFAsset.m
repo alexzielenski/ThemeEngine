@@ -11,7 +11,6 @@
 #import "CUIThemeGradient.h"
 #import "CUIPSDGradientEvaluator.h"
 #import "CUIMutableCommonAssetStorage.h"
-#import <Opee/Opee.h>
 #import <objc/runtime.h>
 
 #define kSLICES 1001
@@ -19,59 +18,6 @@
 #define kFLAGS 1004
 #define kUTI 1005
 #define kEXIF 1006
-
-struct _csibitmap {
-    unsigned int _field1;
-    union {
-        unsigned int _field1;
-        struct _csibitmapflags {
-            unsigned int :1;
-            unsigned int :1;
-            unsigned int :30;
-        } _field2;
-    } _field2;
-    unsigned int _field3;
-    unsigned int _field4;
-    unsigned char _field5[0];
-};
-
-struct _slice {
-    unsigned int x;
-    unsigned int y;
-    unsigned int width;
-    unsigned int height;
-};
-
-
-@interface AZThemePixelRendition : NSObject
-@end
-@implementation AZThemePixelRendition
-
-- (struct CGImage *)newImageFromCSIDataSlice:(struct _slice)arg1 ofBitmap:(struct _csibitmap *)arg2 usingColorspace:(struct CGColorSpace *)arg3 {
-    NSMutableArray *sliceRects = objc_getAssociatedObject(self, "sliceRects");
-    if (!sliceRects) {
-        sliceRects = [NSMutableArray array];
-        objc_setAssociatedObject(self, "sliceRects", sliceRects, OBJC_ASSOCIATION_RETAIN);
-    } else
-        [sliceRects addObject:[NSValue valueWithRect:NSMakeRect(arg1.x, arg1.y, arg1.width, arg1.height)]];
-    return ZKOrig(CGImageRef, arg1, arg2, arg3);
-}
-
-@end
-
-static CGRect *originalSlicesFromRendition(CUIThemeRendition *rendition, unsigned int *amount) {
-    NSArray *sliceRects = objc_getAssociatedObject(rendition, "sliceRects");
-    unsigned int nimages = (unsigned int)sliceRects.count;
-    *amount = nimages;
-    CGRect *slices = malloc(sizeof(CGRect) * nimages);
-    
-    for (unsigned int x = 0; x < sliceRects.count; x++) {
-        slices[x] = [sliceRects[x] rectValue];
-    }
-    
-    *amount = nimages;
-    return slices;
-}
 
 /* CSI Format
  csi_header (in CUIThemeRendition.h)
@@ -101,22 +47,23 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
 }
 
 
-@interface CFAsset ()
+@interface CFAsset () {
+    CGImageRef _image;
+    CGPDFDocumentRef _pdfDocument;
+}
 @property (readwrite, strong) CUIThemeRendition *rendition;
 @property (readwrite, assign) CGRect *slices;
 @property (readwrite, assign) NSUInteger nslices;
 @property (readwrite, assign) CUIMetrics *metrics;
 @property (readwrite, assign) NSUInteger nmetrics;
-@property (strong) CUIRenditionKey *key;
+@property (readwrite, copy) NSString *name;
+@property (readwrite, strong) CUIRenditionKey *key;
 - (void)_initializeSlicesFromCSIData:(NSData *)csiData;
 - (void)_initializeMetricsFromCSIData:(NSData *)csiData;
 @end
 
 @implementation CFAsset
-
-+ (void)initialize {
-    ZKSwizzle(AZThemePixelRendition, _CUIThemePixelRendition);
-}
+@dynamic image, pdfDocument;
 
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key {
     return [[self alloc] initWithRenditionCSIData:csiData forKey:key];
@@ -128,11 +75,22 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
         
         self.key = [CUIRenditionKey renditionKeyWithKeyList:key];
         self.rendition = [[objc_getClass("CUIThemeRendition") alloc] initWithCSIData:csiData forKey:key];
-
         self.gradient = psdGradientFromRendition(self.rendition);
         self.effectPreset = self.rendition.effectPreset;
-        if (self.rendition.unslicedImage)
-            self.image = [[NSBitmapImageRep alloc] initWithCGImage:self.rendition.unslicedImage];
+        self.image = self.rendition.unslicedImage;
+        self.pdfDocument = self.rendition.pdfDocument;
+        self.gradientStyle = self.rendition.gradientStyle;
+        self.gradientAngle = self.rendition.gradientDrawingAngle;
+        self.layout = self.rendition.subtype;
+        self.type = self.rendition.type;
+        self.scale = self.rendition.scale;
+        self.name = self.rendition.name;
+        self.utiType = self.rendition.utiType;
+        self.blendMode = self.rendition.blendMode;
+        self.opacity = self.rendition.opacity;
+        self.exifOrientation = self.rendition.exifOrientation;
+        self.colorspaceID = self.rendition.colorSpaceID;
+        
         [self _initializeSlicesFromCSIData:csiData];
         [self _initializeMetricsFromCSIData:csiData];
     }
@@ -214,15 +172,16 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
     } else {
         CGSize size = CGSizeZero;
         if ([self.rendition isKindOfClass:objc_getClass("_CUIThemePixelRendition")]) {
-            size = CGSizeMake(CGImageGetWidth(self.image.CGImage), CGImageGetHeight(self.image.CGImage));
+            size = CGSizeMake(CGImageGetWidth(self.image), CGImageGetHeight(self.image));
         }
         gen = [[CSIGenerator alloc] initWithCanvasSize:size sliceCount:(unsigned int)self.nslices layout:self.rendition.subtype];
     }
     
     if (self.image) {
-        CSIBitmapWrapper *wrapper = [[CSIBitmapWrapper alloc] initWithPixelWidth:(unsigned int)self.image.pixelsWide
-                                                                     pixelHeight:(unsigned int)self.image.pixelsHigh];
-        CGContextDrawImage(wrapper.bitmapContext, CGRectMake(0, 0, self.image.pixelsWide, self.image.pixelsHigh), self.image.CGImage);
+        CGSize imageSize = CGSizeMake(CGImageGetWidth(self.image), CGImageGetHeight(self.image));
+        CSIBitmapWrapper *wrapper = [[CSIBitmapWrapper alloc] initWithPixelWidth:imageSize.width
+                                                                     pixelHeight:imageSize.height];
+        CGContextDrawImage(wrapper.bitmapContext, CGRectMake(0, 0, imageSize.width, imageSize.height), self.image);
         [gen addBitmap:wrapper];
     }
     
@@ -237,20 +196,52 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
     gen.gradient = self.gradient;
     gen.effectPreset = self.effectPreset;
     
-    gen.scaleFactor = self.rendition.scale;
-    gen.exifOrientation = self.rendition.exifOrientation;
-    gen.opacity = self.rendition.opacity;
-    gen.blendMode = self.rendition.blendMode;
-    gen.colorSpaceID = self.rendition.colorSpaceID;
+    gen.scaleFactor = self.scale;
+    gen.exifOrientation = self.exifOrientation;
+    gen.opacity = self.opacity;
+    gen.blendMode = self.blendMode;
+    gen.colorSpaceID = self.colorspaceID;
     gen.templateRenderingMode = self.rendition.templateRenderingMode;
     gen.isVectorBased = self.rendition.isVectorBased;
-    gen.utiType = self.rendition.utiType;
+    gen.utiType = self.utiType;
     gen.isRenditionFPO = self.rendition.isHeaderFlaggedFPO;
     gen.name = self.rendition.name;
 //    gen.excludedFromContrastFilter = YES;
     
     NSData *renditionKey = [storage _newRenditionKeyDataFromKey:(struct _renditionkeytoken *)self.rendition.key];
     [assetStorage setAsset:[gen CSIRepresentationWithCompression:YES] forKey:renditionKey];
+}
+
+#pragma mark - Properties
+
+- (CGImageRef)image {
+    @synchronized(self) {
+        return _image;
+    }
+}
+
+- (void)setImage:(CGImageRef)image {
+    @synchronized(self) {
+        if (_image != NULL)
+            CGImageRelease(_image);
+        
+        _image = CGImageRetain(image);
+    }
+}
+
+- (CGPDFDocumentRef)pdfDocument {
+    @synchronized(self) {
+        return _pdfDocument;
+    }
+}
+
+- (void)setPdfDocument:(CGPDFDocumentRef)pdfDocument {
+    @synchronized(self) {
+        if (_pdfDocument != NULL)
+            CGPDFDocumentRelease(_pdfDocument);
+        
+        _pdfDocument = CGPDFDocumentRetain(pdfDocument);
+    }
 }
 
 @end
