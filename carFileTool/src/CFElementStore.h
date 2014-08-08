@@ -35,6 +35,17 @@
 - (NSSet *)assetsWithType:(CoreThemeType)type;
 - (NSSet *)assetsWithLayout:(CoreThemeLayout)layout;
 
+- (NSSet *)elementsWithAssetsWithIdiom:(CoreThemeIdiom)idiom;
+- (NSSet *)elementsWithAssetsWithScale:(double)scale;
+- (NSSet *)elementsWithAssetsWithLayer:(CoreThemeLayer)layer;
+- (NSSet *)elementsWithAssetsWithPresentationState:(CoreThemePresentationState)state;
+- (NSSet *)elementsWithAssetsWithState:(CoreThemeState)state;
+- (NSSet *)elementsWithAssetsWithValue:(CoreThemeValue)value;
+- (NSSet *)elementsWithAssetsWithDirection:(CoreThemeDirection)direction;
+- (NSSet *)elementsWithAssetsWithSize:(CoreThemeSize)size;
+- (NSSet *)elementsWithAssetsWithType:(CoreThemeType)type;
+- (NSSet *)elementsWithAssetsWithLayout:(CoreThemeLayout)layout;
+
 - (void)save;
 
 @end

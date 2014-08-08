@@ -150,4 +150,43 @@
     return [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"layout == %d", layout]];
 }
 
+- (NSSet *)elementsWithAssetsWithIdiom:(CoreThemeIdiom)idiom {
+    return [[self assetsWithIdiom:idiom] valueForKeyPath:@"element"];
+}
+
+- (NSSet *)elementsWithAssetsWithScale:(double)scale {
+    return [[self assetsWithScale:scale] valueForKeyPath:@"element"];
+}
+
+- (NSSet *)elementsWithAssetsWithLayer:(CoreThemeLayer)layer {
+    return [[self assetsWithLayer:layer] valueForKeyPath:@"element"];
+}
+
+- (NSSet *)elementsWithAssetsWithPresentationState:(CoreThemePresentationState)state {
+    return [[self assetsWithPresentationState:state] valueForKeyPath:@"element"];
+}
+
+- (NSSet *)elementsWithAssetsWithState:(CoreThemeState)state {
+    return [[self assetsWithState:state] valueForKeyPath:@"element"];
+}
+- (NSSet *)elementsWithAssetsWithValue:(CoreThemeValue)value {
+    return [[self assetsWithValue:value] valueForKeyPath:@"element"];
+}
+
+- (NSSet *)elementsWithAssetsWithDirection:(CoreThemeDirection)direction {
+    return [[self assetsWithDirection:direction] valueForKeyPath:@"element"];
+}
+
+- (NSSet *)elementsWithAssetsWithSize:(CoreThemeSize)size {
+    return [[self assetsWithSize:size] valueForKeyPath:@"element"];
+}
+
+- (NSSet *)elementsWithAssetsWithType:(CoreThemeType)type {
+    return [[self assetsWithType:type] valueForKeyPath:@"element"];
+}
+
+- (NSSet *)elementsWithAssetsWithLayout:(CoreThemeLayout)layout {
+    return [[self assetsWithLayout:layout] valueForKeyPath:@"element"];
+}
+
 @end
