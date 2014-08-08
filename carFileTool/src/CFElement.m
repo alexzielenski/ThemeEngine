@@ -42,6 +42,7 @@
 }
 
 - (void)addAsset:(CFAsset *)asset {
+    [asset setValue:self forKey:@"element"];
     [self.assets addObject:asset];
 }
 
@@ -79,6 +80,10 @@
 
 - (NSSet *)assetsWithType:(CoreThemeType)type {
     return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"type == %d", type]];
+}
+
+- (NSSet *)assetsWithLayout:(CoreThemeLayout)layout {
+    return [self.assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"layout == %d", layout]];
 }
 
 @end

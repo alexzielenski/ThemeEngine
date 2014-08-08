@@ -26,6 +26,7 @@
 - (NSSet *)assetsWithDirection:(CoreThemeDirection)direction;
 - (NSSet *)assetsWithSize:(CoreThemeSize)size;
 - (NSSet *)assetsWithType:(CoreThemeType)type;
+- (NSSet *)assetsWithLayout:(CoreThemeLayout)layout;
 
 @end
 

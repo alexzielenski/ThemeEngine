@@ -13,7 +13,9 @@
 #import "CSIGenerator.h"
 #import "CUIPSDGradient.h"
 
+@class CFElement;
 @interface CFAsset : NSObject
+@property (readonly, weak) CFElement *element;
 @property (readonly, assign) CGRect *slices;
 @property (readonly, assign) NSUInteger nslices;
 @property (readonly, assign) CUIMetrics *metrics;
@@ -37,9 +39,12 @@
 @property (assign) unsigned int blendMode;
 @property (assign) CGFloat opacity;
 @property (assign) CFEXIFOrientation exifOrientation;
-@property (assign) unsigned long long colorspaceID;
+@property (assign) unsigned long long colorSpaceID;
 
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 - (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage  :(CUIStructuredThemeStore *)storage;
+
+- (BOOL)isDirty;
+
 @end

@@ -22,6 +22,17 @@
 - (NSArray *)allElementNames;
 - (CFElement *)elementWithName:(NSString *)name;
 
+- (NSSet *)assetsWithIdiom:(CoreThemeIdiom)idiom;
+- (NSSet *)assetsWithScale:(double)scale;
+- (NSSet *)assetsWithLayer:(CoreThemeLayer)layer;
+- (NSSet *)assetsWithPresentationState:(CoreThemePresentationState)state;
+- (NSSet *)assetsWithState:(CoreThemeState)state;
+- (NSSet *)assetsWithValue:(CoreThemeValue)value;
+- (NSSet *)assetsWithDirection:(CoreThemeDirection)direction;
+- (NSSet *)assetsWithSize:(CoreThemeSize)size;
+- (NSSet *)assetsWithType:(CoreThemeType)type;
+- (NSSet *)assetsWithLayout:(CoreThemeLayout)layout;
+
 - (void)save;
 
 @end

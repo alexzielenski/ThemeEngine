@@ -46,11 +46,19 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
     return psdGradientFromThemeGradient(rendition.gradient, rendition.gradientDrawingAngle, rendition.gradientStyle);
 }
 
+static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd) {
+    Ivar ivar = class_getInstanceVariable([themeGradient class], "gradientEvaluator");
+    CUIPSDGradientEvaluator *evaluator = object_getIvar(themeGradient, ivar);
+    
+    //!TODO: compare values instead of pointers
+    return psd.evaluator == evaluator;
+}
 
 @interface CFAsset () {
     CGImageRef _image;
     CGPDFDocumentRef _pdfDocument;
 }
+@property (readwrite, weak) CFElement *element;
 @property (readwrite, strong) CUIThemeRendition *rendition;
 @property (readwrite, assign) CGRect *slices;
 @property (readwrite, assign) NSUInteger nslices;
@@ -89,7 +97,7 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
         self.blendMode = self.rendition.blendMode;
         self.opacity = self.rendition.opacity;
         self.exifOrientation = self.rendition.exifOrientation;
-        self.colorspaceID = self.rendition.colorSpaceID;
+        self.colorSpaceID = self.rendition.colorSpaceID;
         
         [self _initializeSlicesFromCSIData:csiData];
         [self _initializeMetricsFromCSIData:csiData];
@@ -200,7 +208,7 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
     gen.exifOrientation = self.exifOrientation;
     gen.opacity = self.opacity;
     gen.blendMode = self.blendMode;
-    gen.colorSpaceID = self.colorspaceID;
+    gen.colorSpaceID = self.colorSpaceID;
     gen.templateRenderingMode = self.rendition.templateRenderingMode;
     gen.isVectorBased = self.rendition.isVectorBased;
     gen.utiType = self.utiType;
@@ -210,6 +218,29 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
     
     NSData *renditionKey = [storage _newRenditionKeyDataFromKey:(struct _renditionkeytoken *)self.rendition.key];
     [assetStorage setAsset:[gen CSIRepresentationWithCompression:YES] forKey:renditionKey];
+}
+
+- (BOOL)isDirty {
+    BOOL clean = YES;
+#define COMPARE(KEY) clean &= self.KEY == self.rendition.KEY
+    COMPARE(scale);
+    COMPARE(exifOrientation);
+    COMPARE(opacity);
+    COMPARE(blendMode);
+    COMPARE(colorSpaceID);
+    COMPARE(utiType);
+    COMPARE(type);
+    COMPARE(gradientStyle);
+    COMPARE(pdfDocument);
+    
+    clean &= self.layout == self.rendition.subtype;
+    clean &= self.gradientAngle == self.rendition.gradientDrawingAngle;
+    clean &= self.image == self.rendition.unslicedImage;
+    clean &= gradientsEqual(self.rendition.gradient, self.gradient);
+    
+    //!TODO: slice changes
+    
+    return !clean;
 }
 
 #pragma mark - Properties

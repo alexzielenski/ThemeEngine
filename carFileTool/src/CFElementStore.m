@@ -96,11 +96,54 @@
 - (void)save {
     NSSet *assets = [self valueForKeyPath:@"elements.@unionOfSets.assets"];
     for (CFAsset *asset in assets) {
-        //!TODO: Commit only if needed
-        [asset commitToStorage:(CUIMutableCommonAssetStorage *)self.assetStorage :self.themeStore];
+        if (asset.isDirty)
+            [asset commitToStorage:(CUIMutableCommonAssetStorage *)self.assetStorage :self.themeStore];
     }
     
     [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
+}
+
+#pragma mark - Filters
+
+
+- (NSSet *)assetsWithIdiom:(CoreThemeIdiom)idiom {
+    return [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themeIdiom == %d", idiom]];
+}
+
+- (NSSet *)assetsWithScale:(double)scale {
+    return [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"scale == %f", scale]];
+}
+
+- (NSSet *)assetsWithLayer:(CoreThemeLayer)layer {
+    return [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themeLayer == %d", layer]];
+}
+
+- (NSSet *)assetsWithPresentationState:(CoreThemePresentationState)state {
+    return [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themePresentationState == %d", state]];
+}
+
+- (NSSet *)assetsWithState:(CoreThemeState)state {
+    return [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themeState == %d", state]];
+}
+
+- (NSSet *)assetsWithValue:(CoreThemeValue)value {
+    return [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themeValue == %d", value]];
+}
+
+- (NSSet *)assetsWithDirection:(CoreThemeDirection)direction {
+    return [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themeDirection == %d", direction]];
+}
+
+- (NSSet *)assetsWithSize:(CoreThemeSize)size {
+    return [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"key.themeSize == %d", size]];
+}
+
+- (NSSet *)assetsWithType:(CoreThemeType)type {
+    return [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"type == %d", type]];
+}
+
+- (NSSet *)assetsWithLayout:(CoreThemeLayout)layout {
+    return [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"layout == %d", layout]];
 }
 
 @end

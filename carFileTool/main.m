@@ -16,8 +16,7 @@ int main(int argc, const char * argv[]) {
         [[NSFileManager defaultManager] copyItemAtPath:@"/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/SystemAppearance.car copy" toPath:path error:nil];
         
         CFElementStore *store = [CFElementStore storeWithPath:path];
-        CFElement *element = [store elementWithName:@"ScrollBarOverlay_ExpandedThumb"];
-        NSLog(@"%@", [[element assetsWithScale:2] valueForKeyPath:@"rendition.name"]);
+        NSLog(@"%@", [[store assetsWithLayout:kCoreThemeNinePartTile] valueForKeyPath:@"element.name"]);
     }
     return 0;
 }
