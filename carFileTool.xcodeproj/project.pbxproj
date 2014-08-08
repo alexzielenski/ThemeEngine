@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		FACFC2CB199485E900ED936C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2CA199485E900ED936C /* main.m */; };
+		FACFC2D21994861800ED936C /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACFC2D11994861800ED936C /* CoreUI.framework */; };
+		FACFC2DE199492C500ED936C /* CFAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2DD199492C500ED936C /* CFAsset.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,24 @@
 /* Begin PBXFileReference section */
 		FACFC2C7199485E900ED936C /* carFileTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = carFileTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACFC2CA199485E900ED936C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FACFC2D11994861800ED936C /* CoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreUI.framework; path = ../../../../../../../../System/Library/PrivateFrameworks/CoreUI.framework; sourceTree = "<group>"; };
+		FACFC2D41994927100ED936C /* CSIBitmapWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSIBitmapWrapper.h; sourceTree = "<group>"; };
+		FACFC2D51994927100ED936C /* CSIGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSIGenerator.h; sourceTree = "<group>"; };
+		FACFC2D61994927100ED936C /* CUIMutableCommonAssetStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIMutableCommonAssetStorage.h; sourceTree = "<group>"; };
+		FACFC2D71994927100ED936C /* CUIRenditionKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIRenditionKey.h; sourceTree = "<group>"; };
+		FACFC2D81994927100ED936C /* CUIRenditionMetrics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIRenditionMetrics.h; sourceTree = "<group>"; };
+		FACFC2D91994927100ED936C /* CUIShapeEffectPreset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIShapeEffectPreset.h; sourceTree = "<group>"; };
+		FACFC2DA1994927100ED936C /* CUIThemeGradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIThemeGradient.h; sourceTree = "<group>"; };
+		FACFC2DB1994927100ED936C /* CUIThemeRendition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIThemeRendition.h; sourceTree = "<group>"; };
+		FACFC2DC199492C500ED936C /* CFAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFAsset.h; path = src/CFAsset.h; sourceTree = "<group>"; };
+		FACFC2DD199492C500ED936C /* CFAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFAsset.m; path = src/CFAsset.m; sourceTree = "<group>"; };
+		FACFC2DF199494AB00ED936C /* CUIMutableStructuredThemeStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIMutableStructuredThemeStore.h; sourceTree = "<group>"; };
+		FACFC2E0199494AB00ED936C /* CUIStructuredThemeStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIStructuredThemeStore.h; sourceTree = "<group>"; };
+		FACFC2E1199494C100ED936C /* CUICommonAssetStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUICommonAssetStorage.h; sourceTree = "<group>"; };
+		FACFC2E21994998C00ED936C /* CFDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFDefines.h; sourceTree = "<group>"; };
+		FACFC2E3199499C000ED936C /* prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = prefix.pch; sourceTree = "<group>"; };
+		FACFC2E419949B1B00ED936C /* CUIPSDGradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradient.h; sourceTree = "<group>"; };
+		FACFC2E519949BEC00ED936C /* CUIPSDGradientEvaluator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradientEvaluator.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FACFC2D21994861800ED936C /* CoreUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +62,7 @@
 		FACFC2BE199485E900ED936C = {
 			isa = PBXGroup;
 			children = (
+				FACFC2D11994861800ED936C /* CoreUI.framework */,
 				FACFC2C9199485E900ED936C /* carFileTool */,
 				FACFC2C8199485E900ED936C /* Products */,
 			);
@@ -57,9 +79,34 @@
 		FACFC2C9199485E900ED936C /* carFileTool */ = {
 			isa = PBXGroup;
 			children = (
+				FACFC2D31994927100ED936C /* CoreUI */,
 				FACFC2CA199485E900ED936C /* main.m */,
+				FACFC2DC199492C500ED936C /* CFAsset.h */,
+				FACFC2DD199492C500ED936C /* CFAsset.m */,
+				FACFC2E21994998C00ED936C /* CFDefines.h */,
+				FACFC2E3199499C000ED936C /* prefix.pch */,
 			);
 			path = carFileTool;
+			sourceTree = "<group>";
+		};
+		FACFC2D31994927100ED936C /* CoreUI */ = {
+			isa = PBXGroup;
+			children = (
+				FACFC2D41994927100ED936C /* CSIBitmapWrapper.h */,
+				FACFC2D51994927100ED936C /* CSIGenerator.h */,
+				FACFC2E419949B1B00ED936C /* CUIPSDGradient.h */,
+				FACFC2E519949BEC00ED936C /* CUIPSDGradientEvaluator.h */,
+				FACFC2D61994927100ED936C /* CUIMutableCommonAssetStorage.h */,
+				FACFC2E1199494C100ED936C /* CUICommonAssetStorage.h */,
+				FACFC2DF199494AB00ED936C /* CUIMutableStructuredThemeStore.h */,
+				FACFC2E0199494AB00ED936C /* CUIStructuredThemeStore.h */,
+				FACFC2D71994927100ED936C /* CUIRenditionKey.h */,
+				FACFC2D81994927100ED936C /* CUIRenditionMetrics.h */,
+				FACFC2D91994927100ED936C /* CUIShapeEffectPreset.h */,
+				FACFC2DA1994927100ED936C /* CUIThemeGradient.h */,
+				FACFC2DB1994927100ED936C /* CUIThemeRendition.h */,
+			);
+			path = CoreUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FACFC2CB199485E900ED936C /* main.m in Sources */,
+				FACFC2DE199492C500ED936C /* CFAsset.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +250,11 @@
 		FACFC2CF199485E900ED936C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
+				GCC_PREFIX_HEADER = "${SRCROOT}/carFileTool/prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -209,6 +262,11 @@
 		FACFC2D0199485E900ED936C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
+				GCC_PREFIX_HEADER = "${SRCROOT}/carFileTool/prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

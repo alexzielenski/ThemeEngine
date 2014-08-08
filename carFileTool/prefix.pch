@@ -1,0 +1,15 @@
+//
+//  prefix.pch
+//  carFileTool
+//
+//  Created by Alexander Zielenski on 8/8/14.
+//  Copyright (c) 2014 Alexander Zielenski. All rights reserved.
+//
+
+#ifndef carFileTool_prefix_pch
+#define carFileTool_prefix_pch
+
+#import <Foundation/Foundation.h>
+#import "CFDefines.h"
+
+#endif
