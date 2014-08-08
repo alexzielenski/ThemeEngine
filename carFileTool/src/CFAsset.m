@@ -11,13 +11,67 @@
 #import "CUIThemeGradient.h"
 #import "CUIPSDGradientEvaluator.h"
 #import "CUIMutableCommonAssetStorage.h"
+#import <Opee/Opee.h>
 #import <objc/runtime.h>
 
-#define kSLICES 0xE903
-#define kMETRICS 0xEB03
-#define kFLAGS 0xEC03
-#define kUTI 0xED03
-#define kEXIF 0xEE03
+#define kSLICES 1001
+#define kMETRICS 1003
+#define kFLAGS 1004
+#define kUTI 1005
+#define kEXIF 1006
+
+struct _csibitmap {
+    unsigned int _field1;
+    union {
+        unsigned int _field1;
+        struct _csibitmapflags {
+            unsigned int :1;
+            unsigned int :1;
+            unsigned int :30;
+        } _field2;
+    } _field2;
+    unsigned int _field3;
+    unsigned int _field4;
+    unsigned char _field5[0];
+};
+
+struct _slice {
+    unsigned int x;
+    unsigned int y;
+    unsigned int width;
+    unsigned int height;
+};
+
+
+@interface AZThemePixelRendition : NSObject
+@end
+@implementation AZThemePixelRendition
+
+- (struct CGImage *)newImageFromCSIDataSlice:(struct _slice)arg1 ofBitmap:(struct _csibitmap *)arg2 usingColorspace:(struct CGColorSpace *)arg3 {
+    NSMutableArray *sliceRects = objc_getAssociatedObject(self, "sliceRects");
+    if (!sliceRects) {
+        sliceRects = [NSMutableArray array];
+        objc_setAssociatedObject(self, "sliceRects", sliceRects, OBJC_ASSOCIATION_RETAIN);
+    } else
+        [sliceRects addObject:[NSValue valueWithRect:NSMakeRect(arg1.x, arg1.y, arg1.width, arg1.height)]];
+    return ZKOrig(CGImageRef, arg1, arg2, arg3);
+}
+
+@end
+
+static CGRect *originalSlicesFromRendition(CUIThemeRendition *rendition, unsigned int *amount) {
+    NSArray *sliceRects = objc_getAssociatedObject(rendition, "sliceRects");
+    unsigned int nimages = (unsigned int)sliceRects.count;
+    *amount = nimages;
+    CGRect *slices = malloc(sizeof(CGRect) * nimages);
+    
+    for (unsigned int x = 0; x < sliceRects.count; x++) {
+        slices[x] = [sliceRects[x] rectValue];
+    }
+    
+    *amount = nimages;
+    return slices;
+}
 
 /* CSI Format
  csi_header (in CUIThemeRendition.h)
@@ -38,8 +92,7 @@
 
 static CUIPSDGradient *psdGradientFromThemeGradient(CUIThemeGradient *themeGradient, double angle, unsigned int style) {
     Ivar ivar = class_getInstanceVariable([themeGradient class], "gradientEvaluator");
-    void *ptr = ivar == NULL ? NULL : (__bridge void *)themeGradient + ivar_getOffset(ivar);
-    CUIPSDGradientEvaluator *evaluator = (__bridge CUIPSDGradientEvaluator *)(ptr);
+    CUIPSDGradientEvaluator *evaluator = object_getIvar(themeGradient, ivar);
     return [[CUIPSDGradient alloc] initWithEvaluator:evaluator drawingAngle:angle gradientStyle:style];
 }
 
@@ -61,19 +114,25 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
 
 @implementation CFAsset
 
++ (void)initialize {
+    ZKSwizzle(AZThemePixelRendition, _CUIThemePixelRendition);
+}
+
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key {
-    return [[self alloc] initWithCSIData:csiData forKey:key];
+    return [[self alloc] initWithRenditionCSIData:csiData forKey:key];
 }
 
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key {
     if ((self = [self init])) {
+        [csiData writeToFile:@"/Users/Alex/Desktop/data" atomically:NO];
+        
         self.key = [CUIRenditionKey renditionKeyWithKeyList:key];
         self.rendition = [[objc_getClass("CUIThemeRendition") alloc] initWithCSIData:csiData forKey:key];
 
         self.gradient = psdGradientFromRendition(self.rendition);
+        self.effectPreset = self.rendition.effectPreset;
         if (self.rendition.unslicedImage)
             self.image = [[NSBitmapImageRep alloc] initWithCGImage:self.rendition.unslicedImage];
-        
         [self _initializeSlicesFromCSIData:csiData];
         [self _initializeMetricsFromCSIData:csiData];
     }
@@ -88,7 +147,7 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
                                            range:NSMakeRange(0, csiData.length)];
     if (sliceLocation.location != NSNotFound) {
         unsigned int nslices = 0;
-        [csiData getBytes:&nslices range:NSMakeRange(sliceLocation.location + sizeof(unsigned int) * 2, 4)];
+        [csiData getBytes:&nslices range:NSMakeRange(sliceLocation.location + sizeof(unsigned int) * 2, sizeof(nslices))];
         self.nslices = nslices;
         CGRect *slices = malloc(sizeof(CGRect) * self.nslices);
         for (int idx = 0; idx < nslices; idx++) {
@@ -98,8 +157,7 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
                 unsigned int w;
                 unsigned int h;
             } sliceInts;
-            
-            [csiData getBytes:&sliceInts range:NSMakeRange(sliceLocation.location + sizeof(sliceInts) * idx, sizeof(sliceInts))];
+            [csiData getBytes:&sliceInts range:NSMakeRange(sliceLocation.location + sizeof(sliceInts) * idx + sizeof(unsigned int) * 3, sizeof(sliceInts))];
             // order may be different
             slices[idx] = NSMakeRect(sliceInts.x, sliceInts.y, sliceInts.w, sliceInts.h);
         }
@@ -115,9 +173,10 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
                                             range:NSMakeRange(0, csiData.length)];
     if (metricLocation.location != NSNotFound) {
         unsigned int nmetrics = 0;
-        [csiData getBytes:&nmetrics range:NSMakeRange(metricLocation.location + sizeof(unsigned int) * 2, 4)];
+        [csiData getBytes:&nmetrics range:NSMakeRange(metricLocation.location + sizeof(unsigned int) * 2, sizeof(nmetrics))];
         self.nmetrics = nmetrics;
-        CUIMetrics *metrics = malloc(sizeof(metrics) * self.nmetrics);
+
+        CUIMetrics *metrics = malloc(sizeof(CUIMetrics) * self.nmetrics);
         for (int idx = 0; idx < nmetrics; idx++) {
             CUIMetrics renditionMetric;
 
@@ -130,7 +189,7 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
                 unsigned int f;
             } mtr;
             
-            [csiData getBytes:&mtr range:NSMakeRange(metricLocation.location + sizeof(mtr) * idx, sizeof(mtr))];
+            [csiData getBytes:&mtr range:NSMakeRange(metricLocation.location + sizeof(mtr) * idx + sizeof(unsigned int) * 3, sizeof(mtr))];
             renditionMetric.edgeTR = CGSizeMake(mtr.c, mtr.b);
             renditionMetric.edgeBL = CGSizeMake(mtr.a, mtr.d);
             renditionMetric.imageSize = CGSizeMake(mtr.e, mtr.f);
@@ -141,7 +200,7 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
     }
 }
 
-- (void)commitToStorage:(CUIMutableStructuredThemeStore *)storage {
+- (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage  :(CUIStructuredThemeStore *)storage {
     if (![self.rendition isKindOfClass:objc_getClass("_CUIThemePixelRendition")] &&
         ![self.rendition isKindOfClass:objc_getClass("_CUIThemeGradientRendition")] &&
         ![self.rendition isKindOfClass:objc_getClass("_CUIThemeEffectRendition")]) {
@@ -176,11 +235,12 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
     }
     
     gen.gradient = self.gradient;
+    gen.effectPreset = self.effectPreset;
+    
     gen.scaleFactor = self.rendition.scale;
     gen.exifOrientation = self.rendition.exifOrientation;
     gen.opacity = self.rendition.opacity;
     gen.blendMode = self.rendition.blendMode;
-    gen.effectPreset = self.rendition.effectPreset;
     gen.colorSpaceID = self.rendition.colorSpaceID;
     gen.templateRenderingMode = self.rendition.templateRenderingMode;
     gen.isVectorBased = self.rendition.isVectorBased;
@@ -190,7 +250,6 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
 //    gen.excludedFromContrastFilter = YES;
     
     NSData *renditionKey = [storage _newRenditionKeyDataFromKey:(struct _renditionkeytoken *)self.rendition.key];
-    CUIMutableCommonAssetStorage *assetStorage = storage.themeStore;
     [assetStorage setAsset:[gen CSIRepresentationWithCompression:YES] forKey:renditionKey];
 }
 

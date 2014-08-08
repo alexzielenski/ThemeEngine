@@ -9,6 +9,7 @@
 #import "CUIRenditionKey.h"
 #import "CUIThemeRendition.h"
 #import "CUIMutableStructuredThemeStore.h"
+#import "CUIMutableCommonAssetStorage.h"
 #import "CSIGenerator.h"
 #import "CUIPSDGradient.h"
 
@@ -20,7 +21,8 @@
 @property (readonly, assign) NSUInteger nmetrics;
 @property (readwrite, strong) CUIPSDGradient *gradient;
 @property (readwrite, strong) NSBitmapImageRep *image;
+@property (readwrite, strong) CUIShapeEffectPreset *effectPreset;
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
-- (void)commitToStorage:(CUIMutableStructuredThemeStore *)storage;
+- (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage  :(CUIStructuredThemeStore *)storage;
 @end

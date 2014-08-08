@@ -5,6 +5,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "CUIThemeGradient.h"
+#import "CUIShapeEffectPreset.h"
 
 struct _csiheader {
     unsigned int prefix; // ISTC
@@ -43,7 +45,7 @@ struct _csiheader {
  I know know why it has a last object with variable length in the struct from the class dump
  */
 
-@class NSData, NSString;
+@class CUIImage;
 
 __attribute__((visibility("hidden")))
 @interface CUIThemeRendition : NSObject
@@ -72,29 +74,29 @@ __attribute__((visibility("hidden")))
     int _exifOrientation;
 }
 
-+ (id)displayNameForRenditionType:(long long)arg1;
++ (NSString *)displayNameForRenditionType:(long long)arg1;
 + (id)filteredCSIDataFromBaseCSIData:(id)arg1;
 + (Class)renditionClassForRenditionType:(long long)arg1 andPixelFormat:(unsigned int)arg2;
 @property(nonatomic) int exifOrientation; // @synthesize exifOrientation=_exifOrientation;
 @property(nonatomic) int blendMode; // @synthesize blendMode=_blendMode;
 @property(nonatomic) double opacity; // @synthesize opacity=_opacity;
 - (unsigned short)valueForTokenIdentifier:(unsigned short)arg1;
-- (id)data;
+- (NSData *)data;
 - (struct CGPDFDocument *)pdfDocument;
-- (id)effectPreset;
+- (CUIShapeEffectPreset *)effectPreset;
 - (unsigned int)subtype;
 - (unsigned int)gradientStyle;
-- (id)gradient;
+- (CUIThemeGradient *)gradient;
 - (double)gradientDrawingAngle;
 - (BOOL)isScaled;
 - (BOOL)isTiled;
 - (id)sliceInformation;
-- (id)metrics;
+- (NSArray *)metrics;
 - (double)scale;
-- (id)maskForSliceIndex:(long long)arg1;
-- (id)imageForSliceIndex:(long long)arg1;
+- (CUIImage *)maskForSliceIndex:(long long)arg1;
+- (CUIImage *)imageForSliceIndex:(long long)arg1;
 - (struct CGImage *)unslicedImage;
-- (id)description;
+- (NSString *)description;
 - (BOOL)isValidForLookGradation:(long long)arg1;
 - (unsigned long long)colorSpaceID;
 - (long long)artworkStatus;
@@ -102,9 +104,9 @@ __attribute__((visibility("hidden")))
 - (BOOL)isOpaque;
 - (BOOL)isVectorBased;
 - (BOOL)isHeaderFlaggedFPO;
-- (id)utiType;
-- (id)name;
-- (long long)type;
+- (NSString *)utiType;
+- (NSString *)name;
+- (CoreThemeType)type;
 - (const struct _renditionkeytoken *)key;
 - (void)dealloc;
 - (id)_initWithCSIData:(id)arg1 forKey:(const struct _renditionkeytoken *)arg2 artworkStatus:(long long)arg3;
