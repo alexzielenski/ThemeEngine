@@ -10,6 +10,7 @@
 #import "CSIBitmapWrapper.h"
 #import "CUIThemeGradient.h"
 #import "CUIPSDGradientEvaluator.h"
+#import "CUIMutableCommonAssetStorage.h"
 #import <objc/runtime.h>
 
 #define kSLICES 0xE903
@@ -70,7 +71,8 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
         self.rendition = [[objc_getClass("CUIThemeRendition") alloc] initWithCSIData:csiData forKey:key];
 
         self.gradient = psdGradientFromRendition(self.rendition);
-        self.image = [[NSBitmapImageRep alloc] initWithCGImage:self.rendition.unslicedImage];
+        if (self.rendition.unslicedImage)
+            self.image = [[NSBitmapImageRep alloc] initWithCGImage:self.rendition.unslicedImage];
         
         [self _initializeSlicesFromCSIData:csiData];
         [self _initializeMetricsFromCSIData:csiData];
@@ -140,7 +142,56 @@ static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
 }
 
 - (void)commitToStorage:(CUIMutableStructuredThemeStore *)storage {
+    if (![self.rendition isKindOfClass:objc_getClass("_CUIThemePixelRendition")] &&
+        ![self.rendition isKindOfClass:objc_getClass("_CUIThemeGradientRendition")] &&
+        ![self.rendition isKindOfClass:objc_getClass("_CUIThemeEffectRendition")]) {
+        // we only save shape effects, gradients, and bitmaps
+        return;
+    }
     
+    CSIGenerator *gen = nil;
+    if ([self.rendition isKindOfClass:objc_getClass("_CUIThemeEffectRendition")]) {
+        gen = [[CSIGenerator alloc] initWithShapeEffectPreset:self.rendition.effectPreset forScaleFactor:self.rendition.scale];
+    } else {
+        CGSize size = CGSizeZero;
+        if ([self.rendition isKindOfClass:objc_getClass("_CUIThemePixelRendition")]) {
+            size = CGSizeMake(CGImageGetWidth(self.image.CGImage), CGImageGetHeight(self.image.CGImage));
+        }
+        gen = [[CSIGenerator alloc] initWithCanvasSize:size sliceCount:(unsigned int)self.nslices layout:self.rendition.subtype];
+    }
+    
+    if (self.image) {
+        CSIBitmapWrapper *wrapper = [[CSIBitmapWrapper alloc] initWithPixelWidth:(unsigned int)self.image.pixelsWide
+                                                                     pixelHeight:(unsigned int)self.image.pixelsHigh];
+        CGContextDrawImage(wrapper.bitmapContext, CGRectMake(0, 0, self.image.pixelsWide, self.image.pixelsHigh), self.image.CGImage);
+        [gen addBitmap:wrapper];
+    }
+    
+    for (unsigned int idx = 0; idx < self.nslices; idx++) {
+        [gen addSliceRect:self.slices[idx]];
+    }
+    
+    for (unsigned int idx = 0; idx < self.nmetrics; idx++) {
+        [gen addMetrics:self.metrics[idx]];
+    }
+    
+    gen.gradient = self.gradient;
+    gen.scaleFactor = self.rendition.scale;
+    gen.exifOrientation = self.rendition.exifOrientation;
+    gen.opacity = self.rendition.opacity;
+    gen.blendMode = self.rendition.blendMode;
+    gen.effectPreset = self.rendition.effectPreset;
+    gen.colorSpaceID = self.rendition.colorSpaceID;
+    gen.templateRenderingMode = self.rendition.templateRenderingMode;
+    gen.isVectorBased = self.rendition.isVectorBased;
+    gen.utiType = self.rendition.utiType;
+    gen.isRenditionFPO = self.rendition.isHeaderFlaggedFPO;
+    gen.name = self.rendition.name;
+//    gen.excludedFromContrastFilter = YES;
+    
+    NSData *renditionKey = [storage _newRenditionKeyDataFromKey:(struct _renditionkeytoken *)self.rendition.key];
+    CUIMutableCommonAssetStorage *assetStorage = storage.themeStore;
+    [assetStorage setAsset:[gen CSIRepresentationWithCompression:YES] forKey:renditionKey];
 }
 
 @end
