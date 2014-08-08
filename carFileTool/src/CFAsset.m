@@ -71,6 +71,7 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 @property (readwrite, strong) CUIRenditionKey *key;
 - (void)_initializeSlicesFromCSIData:(NSData *)csiData;
 - (void)_initializeMetricsFromCSIData:(NSData *)csiData;
+- (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format;
 @end
 
 @implementation CFAsset
@@ -167,14 +168,40 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     }
 }
 
-- (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage  :(CUIStructuredThemeStore *)storage {
-    NSData *renditionKey = [storage _newRenditionKeyDataFromKey:(struct _renditionkeytoken *)self.rendition.key];
+- (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format {
+    NSMutableData *data = [[NSMutableData alloc] initWithLength:format->numTokens * sizeof(uint16_t)];
+    struct _renditionkeytoken currentToken = self.key.keyList[0];
+    unsigned int idx = 0;
+    do {
+        int tokenIdx = -1;
+        unsigned int keyIdx = 0;
+        do {
+            if (format->attributes[keyIdx] == currentToken.identifier)
+                tokenIdx = keyIdx;
+            keyIdx++;
+        } while (tokenIdx == -1 && keyIdx < format->numTokens);
+        
+        if (tokenIdx != -1) {
+            size_t size = sizeof(currentToken.value);
+            [data replaceBytesInRange:NSMakeRange(tokenIdx * size, size) withBytes:&currentToken.value length:size];
+        }
+        
+        currentToken = self.key.keyList[++idx];
+    } while (currentToken.identifier != 0);
+    
+    return data;
+}
+
+- (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage {
+    NSData *renditionKey = [self _keyDataWithFormat:(struct _renditionkeyfmt *)assetStorage.keyFormat];
 
     if (self.shouldRemove) {
-        NSLog(@"Remove %@", self.name);
         [assetStorage removeAssetForKey:renditionKey];
         return;
     }
+    
+    if (!self.isDirty)
+        return;
     
     if (self.type > kCoreThemeTypeAnimation) {
         // we only save shape effects, gradients, and bitmaps
@@ -223,7 +250,6 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 //    gen.excludedFromContrastFilter = YES;
     
     NSData *csiData = [gen CSIRepresentationWithCompression:YES];
-
     [assetStorage setAsset:csiData forKey:renditionKey];
 }
 

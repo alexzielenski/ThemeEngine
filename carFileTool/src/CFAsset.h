@@ -42,8 +42,7 @@
 
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
-- (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage  :(CUIStructuredThemeStore *)storage;
-
+- (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage;
 - (BOOL)isDirty;
 
 @end

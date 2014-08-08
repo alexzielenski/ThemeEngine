@@ -6,10 +6,10 @@
 
 #import <Cocoa/Cocoa.h>
 struct _renditionkeyfmt {
-    unsigned int _field1;
+    unsigned int prefix; // 'kfmt'
     unsigned int _field2;
-    unsigned int _field3;
-    unsigned int _field4[0];
+    unsigned int numTokens; // i've seen 14
+    unsigned int attributes[0]; // list of the order of token attributes in a keylist
 };
 struct _renditionkeytoken {
     unsigned short identifier;

@@ -95,11 +95,7 @@
 
 - (void)save {
     NSSet *assets = self.allAssets;
-    for (CFAsset *asset in assets) {
-        if (asset.isDirty)
-            [asset commitToStorage:(CUIMutableCommonAssetStorage *)self.assetStorage :self.themeStore];
-    }
-    
+    [assets makeObjectsPerformSelector:@selector(commitToStorage:) withObject:self.assetStorage];
     [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
 }
 

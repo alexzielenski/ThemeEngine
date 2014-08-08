@@ -109,4 +109,27 @@ typedef NS_ENUM(NSUInteger, CFEXIFOrientation) {
     CFEXIFOrientationRotate270        = 8
 };
 
+typedef NS_ENUM(NSUInteger, CFThemeAttribute) {
+    CFThemeAttributeElement             = 1,
+    CFThemeAttributePart                = 2,
+    CFThemeAttributeSize                = 3,
+    CFThemeAttributeDirection           = 4,
+    CFThemeAttributeValue               = 6,
+    CFThemeAttributeDimension1          = 8,
+    CFThemeAttributeDimension2          = 9,
+    CFThemeAttributeState               = 10,
+    CFThemeAttributeLayer               = 11,
+    CFThemeAttributeScale               = 12,
+    CFThemeAttributePresentationState   = 14,
+    CFThemeAttributeIdiom               = 15,
+    CFThemeAttributeSubtype             = 16,
+    CFThemeAttributeIdentifier          = 17,
+    CFThemeAttributePreviousValue       = 18,
+    CFThemeAttributePreviousState       = 19,
+    CFThemeAttributeSizeClassHorizontal = 20,
+    CFThemeAttributeSizeClassVertical   = 21,
+    CFThemeAttributeMemoryClass         = 22,
+    CFThemeAttributeGraphicsClass       = 23
+};
+
 #endif
