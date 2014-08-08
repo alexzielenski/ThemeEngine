@@ -41,16 +41,12 @@ int main(int argc, const char * argv[]) {
          */
         CFTElement *element = [store elementWithName:@"WindowFrame_Background_Active"];
         for (CFTAsset *asset in [element assetsWithType:kCoreThemeTypeGradient]) {
-            CGColorRef top = CGColorCreateGenericRGB(1.0, 0.0, 0.0, 1.0);
-            CGColorRef bottom = CGColorCreateGenericRGB(0.0, 0.0, 1.0, 1.0);
-            CUIPSDGradient *gradient = [CUIPSDGradient cuiPSDGradientWithColors:@[ (__bridge id)top, (__bridge id)bottom ]
-                                                                      locations:@[ @0, @1]
-                                                              midpointLocations:@[ ]
-                                                                          angle:270
-                                                                       isRadial:NO];
+            CFTGradient *gradient = [CFTGradient gradientWithColors:@[ [NSColor redColor], [NSColor blueColor] ]
+                                                        atLocations:@[ @0, @1]
+                                                          midPoints:@[ ]
+                                                              angle:270
+                                                             radial:NO];
             asset.gradient = gradient;
-            CGColorRelease(top);
-            CGColorRelease(bottom);
         }
         
         /**

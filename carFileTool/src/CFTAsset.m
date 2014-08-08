@@ -19,6 +19,8 @@
 #define kFLAGS 1004
 #define kUTI 1005
 #define kEXIF 1006
+#define kRAWD 'RAWD'
+#define kPDF 'PDF '
 
 /* CSI Format
  csi_header (in CUIThemeRendition.h)
@@ -38,26 +40,6 @@
  RAW DATA: marts 'RAWD' followed by 4 bytes of zero and an unsigned int of the length of the raw data
  */
 
-static CUIPSDGradient *psdGradientFromThemeGradient(CUIThemeGradient *themeGradient, double angle, unsigned int style) {
-    if (!themeGradient)
-        return nil;
-    
-    Ivar ivar = class_getInstanceVariable([themeGradient class], "gradientEvaluator");
-    CUIPSDGradientEvaluator *evaluator = object_getIvar(themeGradient, ivar);
-    return [[CUIPSDGradient alloc] initWithEvaluator:evaluator drawingAngle:angle gradientStyle:style];
-}
-
-static CUIPSDGradient *psdGradientFromRendition(CUIThemeRendition *rendition) {
-    return psdGradientFromThemeGradient(rendition.gradient, rendition.gradientDrawingAngle, rendition.gradientStyle);
-}
-
-static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd) {
-    Ivar ivar = class_getInstanceVariable([themeGradient class], "gradientEvaluator");
-    CUIPSDGradientEvaluator *evaluator = object_getIvar(themeGradient, ivar);
-    
-    //!TODO: compare values instead of pointers
-    return psd.evaluator == evaluator;
-}
 
 @interface CFTAsset () {
     CGImageRef _image;
@@ -84,11 +66,9 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key {
     if ((self = [self init])) {
-        [csiData writeToFile:@"/Users/Alex/Desktop/data" atomically:NO];
-        //!TODO: Get renditionflags from raw data
         self.key = [CUIRenditionKey renditionKeyWithKeyList:key];
         self.rendition = [[objc_getClass("CUIThemeRendition") alloc] initWithCSIData:csiData forKey:key];
-        self.gradient = psdGradientFromRendition(self.rendition);
+        self.gradient = [CFTGradient gradientWithThemeGradient:self.rendition.gradient angle:self.rendition.gradientDrawingAngle style:self.rendition.gradientStyle];
         self.effectPreset = self.rendition.effectPreset;
         self.image = self.rendition.unslicedImage;
         self.type = self.rendition.type;
@@ -175,7 +155,7 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     
     unsigned int type = 0;
     [csiData getBytes:&type range:NSMakeRange(listOffset, sizeof(type))];
-    if (type != 'RAWD')
+    if (type != kRAWD)
         return;
     
     listOffset += 8;
@@ -254,7 +234,7 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     if (self.type == kCoreThemeTypeEffect) {
         gen = [[CSIGenerator alloc] initWithShapeEffectPreset:self.effectPreset forScaleFactor:self.scale];
     } else if (self.type == kCoreThemeTypePDF) {
-        gen = [[CSIGenerator alloc] initWithRawData:self.pdfData pixelFormat:'PDF ' layout:self.layout];
+        gen = [[CSIGenerator alloc] initWithRawData:self.pdfData pixelFormat:kPDF layout:self.layout];
     } else {
         CGSize size = CGSizeZero;
         if (self.type != kCoreThemeTypeGradient) {
@@ -282,7 +262,7 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
         [gen addMetrics:metrics];
     }
 
-    gen.gradient = self.gradient;
+    gen.gradient = [self.gradient valueForKey:@"pdfGradient"];
     gen.effectPreset = self.effectPreset;
     if (self.type <= 8) {
         gen.scaleFactor = self.scale;
@@ -299,17 +279,11 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     gen.isRenditionFPO = self.isRenditionFPO;
     gen.name = self.rendition.name;
 //    gen.excludedFromContrastFilter = YES;
-    
     NSData *csiData = [gen CSIRepresentationWithCompression:YES];
-    if (self.type == kCoreThemeTypePDF) {
-        [csiData writeToFile:@"/Users/Alex/Desktop/csi_new" atomically:NO];
-        [[self.rendition valueForKey:@"_srcData"] writeToFile:@"/Users/Alex/Desktop/csi_old" atomically:NO];
-    }
     [assetStorage setAsset:csiData forKey:renditionKey];
 }
 
 - (BOOL)isDirty {
-    return self.type == kCoreThemeTypePDF;
     BOOL clean = YES;
 #define COMPARE(KEY) clean &= self.KEY == self.rendition.KEY
     COMPARE(scale);
@@ -322,7 +296,7 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     
     clean &= self.layout == self.rendition.subtype;
     clean &= self.image == self.rendition.unslicedImage;
-    clean &= gradientsEqual(self.rendition.gradient, self.gradient);
+    clean &= [self.gradient isEqualToThemeGradient:self.rendition.gradient];
 
     //!TODO: PDF Data
     //!TODO: slice changes

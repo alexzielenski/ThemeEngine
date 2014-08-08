@@ -96,7 +96,7 @@
 - (void)save {
     NSSet *assets = self.allAssets;
     [assets makeObjectsPerformSelector:@selector(commitToStorage:) withObject:self.assetStorage];
-//    [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
+    [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
 }
 
 - (NSSet *)allAssets {

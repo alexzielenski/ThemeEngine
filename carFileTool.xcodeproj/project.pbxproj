@@ -14,6 +14,7 @@
 		FACFC2EA1994B52900ED936C /* CFTElement.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2E91994B52900ED936C /* CFTElement.m */; };
 		FACFC2ED1994B91000ED936C /* CFTElementStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2EC1994B91000ED936C /* CFTElementStore.m */; };
 		FACFC2EF19955F6800ED936C /* CFTDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2EE19955F6800ED936C /* CFTDefines.m */; };
+		FACFC2F219958E7000ED936C /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2F119958E7000ED936C /* CFTGradient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +56,9 @@
 		FACFC2EB1994B91000ED936C /* CFTElementStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTElementStore.h; path = src/CFTElementStore.h; sourceTree = "<group>"; };
 		FACFC2EC1994B91000ED936C /* CFTElementStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFTElementStore.m; path = src/CFTElementStore.m; sourceTree = "<group>"; };
 		FACFC2EE19955F6800ED936C /* CFTDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFTDefines.m; sourceTree = "<group>"; };
+		FACFC2F019958E7000ED936C /* CFTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTGradient.h; path = src/CFTGradient.h; sourceTree = "<group>"; };
+		FACFC2F119958E7000ED936C /* CFTGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFTGradient.m; path = src/CFTGradient.m; sourceTree = "<group>"; };
+		FACFC2F31995977F00ED936C /* CUIPSDGradientColorStop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradientColorStop.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 				FACFC2E91994B52900ED936C /* CFTElement.m */,
 				FACFC2EB1994B91000ED936C /* CFTElementStore.h */,
 				FACFC2EC1994B91000ED936C /* CFTElementStore.m */,
+				FACFC2F019958E7000ED936C /* CFTGradient.h */,
+				FACFC2F119958E7000ED936C /* CFTGradient.m */,
 				FACFC2E21994998C00ED936C /* CFTDefines.h */,
 				FACFC2EE19955F6800ED936C /* CFTDefines.m */,
 				FACFC2E3199499C000ED936C /* prefix.pch */,
@@ -113,6 +119,7 @@
 				FACFC2D51994927100ED936C /* CSIGenerator.h */,
 				FACFC2E419949B1B00ED936C /* CUIPSDGradient.h */,
 				FACFC2E519949BEC00ED936C /* CUIPSDGradientEvaluator.h */,
+				FACFC2F31995977F00ED936C /* CUIPSDGradientColorStop.h */,
 				FACFC2D61994927100ED936C /* CUIMutableCommonAssetStorage.h */,
 				FACFC2E1199494C100ED936C /* CUICommonAssetStorage.h */,
 				FACFC2DF199494AB00ED936C /* CUIMutableStructuredThemeStore.h */,
@@ -183,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FACFC2EF19955F6800ED936C /* CFTDefines.m in Sources */,
+				FACFC2F219958E7000ED936C /* CFTGradient.m in Sources */,
 				FACFC2CB199485E900ED936C /* main.m in Sources */,
 				FACFC2EA1994B52900ED936C /* CFTElement.m in Sources */,
 				FACFC2DE199492C500ED936C /* CFTAsset.m in Sources */,
@@ -312,6 +320,7 @@
 				FACFC2D0199485E900ED936C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

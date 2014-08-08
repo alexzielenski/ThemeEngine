@@ -11,7 +11,7 @@
 #import "CUIMutableStructuredThemeStore.h"
 #import "CUIMutableCommonAssetStorage.h"
 #import "CSIGenerator.h"
-#import "CUIPSDGradient.h"
+#import "CFTGradient.h"
 
 //!TODO: Implement undo manager
 @class CFTElement;
@@ -20,7 +20,7 @@
 @property (readonly, strong) NSArray *slices;
 @property (readonly, strong) NSArray *metrics;
 //!TODO: Make a wrapper class CFTThemeGradient
-@property (readwrite, strong) CUIPSDGradient *gradient;
+@property (readwrite, strong) CFTGradient *gradient;
 @property (readonly, strong) CUIRenditionKey *key;
 @property (readwrite, assign) BOOL shouldRemove;
 
