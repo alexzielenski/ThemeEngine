@@ -32,8 +32,7 @@
 @property (assign) CGFloat scale;
 @property (readonly, copy) NSString *name;
 @property (copy) NSString *utiType;
-//!TODO: find what each value does and make an enum. i think it is CGBlendMode
-@property (assign) unsigned int blendMode;
+@property (assign) CGBlendMode blendMode;
 @property (assign) CGFloat opacity;
 @property (assign) CFEXIFOrientation exifOrientation;
 @property (assign) unsigned long long colorSpaceID;

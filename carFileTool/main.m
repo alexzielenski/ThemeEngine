@@ -31,6 +31,13 @@ int main(int argc, const char * argv[]) {
         NSLog(@"%@", store.allElementNames);
         
         /**
+         Example showing how to make each element use the exclusion blend mode and look like utter trash
+         */
+        for (CFAsset *asset in store.allAssets) {
+            asset.blendMode = kCGBlendModeExclusion;
+        }
+        
+        /**
          Example showing how to change a gradient image within a store. This will change all window active gradients to a disgusting red-green
          */
         CFElement *element = [store elementWithName:@"WindowFrame_Background_Active"];
