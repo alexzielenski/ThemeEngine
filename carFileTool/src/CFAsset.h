@@ -22,6 +22,7 @@
 @property (readonly, assign) NSUInteger nmetrics;
 @property (readwrite, strong) CUIPSDGradient *gradient;
 @property (readonly, strong) CUIRenditionKey *key;
+@property (readwrite, assign) BOOL shouldRemove;
 
 @property (readwrite, strong) CUIShapeEffectPreset *effectPreset;
 @property CGPDFDocumentRef pdfDocument;

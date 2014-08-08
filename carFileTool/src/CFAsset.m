@@ -168,6 +168,14 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 }
 
 - (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage  :(CUIStructuredThemeStore *)storage {
+    NSData *renditionKey = [storage _newRenditionKeyDataFromKey:(struct _renditionkeytoken *)self.rendition.key];
+
+    if (self.shouldRemove) {
+        NSLog(@"Remove %@", self.name);
+        [assetStorage removeAssetForKey:renditionKey];
+        return;
+    }
+    
     if (self.type > kCoreThemeTypeAnimation) {
         // we only save shape effects, gradients, and bitmaps
         return;
@@ -214,9 +222,7 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     gen.name = self.rendition.name;
 //    gen.excludedFromContrastFilter = YES;
     
-    NSData *renditionKey = [storage _newRenditionKeyDataFromKey:(struct _renditionkeytoken *)self.rendition.key];
     NSData *csiData = [gen CSIRepresentationWithCompression:YES];
-    NSData *srcData = [self.rendition valueForKey:@"_srcData"];
 
     [assetStorage setAsset:csiData forKey:renditionKey];
 }

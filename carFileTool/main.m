@@ -28,18 +28,23 @@ int main(int argc, const char * argv[]) {
         [[NSFileManager defaultManager] copyItemAtPath:@"/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/SystemAppearance.car copy" toPath:path error:nil];
         
         CFElementStore *store = [CFElementStore storeWithPath:path];
+        NSLog(@"%@", store.allElementNames);
         
         /**
          Example showing how to change a gradient image within a store. This will change all window active gradients to a disgusting red-green
          */
         CFElement *element = [store elementWithName:@"WindowFrame_Background_Active"];
         for (CFAsset *asset in [element assetsWithType:kCoreThemeTypeGradient]) {
-            CUIPSDGradient *gradient = [CUIPSDGradient cuiPSDGradientWithColors:@[ (__bridge id)CGColorCreateGenericRGB(1.0, 0.0, 0.0, 1.0), (__bridge id)CGColorCreateGenericRGB(0.0, 1.0, 0.0, 1.0) ]
+            CGColorRef top = CGColorCreateGenericRGB(1.0, 0.0, 0.0, 1.0);
+            CGColorRef bottom = CGColorCreateGenericRGB(0.0, 0.0, 1.0, 1.0);
+            CUIPSDGradient *gradient = [CUIPSDGradient cuiPSDGradientWithColors:@[ (__bridge id)top, (__bridge id)bottom ]
                                                                       locations:@[ @0, @1]
                                                               midpointLocations:@[ ]
                                                                           angle:270
                                                                        isRadial:NO];
             asset.gradient = gradient;
+            CGColorRelease(top);
+            CGColorRelease(bottom);
         }
         
         /**
@@ -98,6 +103,45 @@ int main(int argc, const char * argv[]) {
         rgb.b = 0;
         rgb.a = 255;
         [(CUIMutableCommonAssetStorage *)store.assetStorage setColor:rgb forName:"CUIWindowRimColor" excludeFromFilter:NO];
+        
+        
+        /**
+         Another example which removes all bottom bar gradients and instead makes the image a gradient image,
+         then makes the image scale instead of its default of tile
+         */
+        element = [store elementWithName:@"WindowFrame_WindowBottomBar_Active"];
+        for (CFAsset *asset in element.assets) {
+            if (asset.type == kCoreThemeTypeGradient) {
+                asset.shouldRemove = YES;
+            } else {
+                NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                                                pixelsWide:CGImageGetWidth(asset.image)
+                                                                                pixelsHigh:CGImageGetHeight(asset.image)
+                                                                             bitsPerSample:8
+                                                                           samplesPerPixel:4
+                                                                                  hasAlpha:YES
+                                                                                  isPlanar:NO
+                                                                            colorSpaceName:NSDeviceRGBColorSpace
+                                                                               bytesPerRow:4 * CGImageGetWidth(asset.image)
+                                                                              bitsPerPixel:32];
+                NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
+                [NSGraphicsContext saveGraphicsState];
+                [NSGraphicsContext setCurrentContext:ctx];
+                CGFloat colors[] = { 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
+                CGFloat locations[] = { 0.0, 1.0 };
+                CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
+                CGGradientRef gradient = CGGradientCreateWithColorComponents(space, colors, locations, 2);
+                CGContextDrawLinearGradient(ctx.graphicsPort, gradient,
+                                            CGPointMake(0, 0), CGPointMake(0, rep.pixelsWide), kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
+                
+                [NSGraphicsContext restoreGraphicsState];
+                asset.layout = kCoreThemeOnePartScale;
+                asset.image = rep.CGImage;
+                
+                CGGradientRelease(gradient);
+                CGColorSpaceRelease(space);
+            }
+        }
         
 //        for (CFAsset *asset in store.allAssets) {
 //            if (asset.image != NULL)
