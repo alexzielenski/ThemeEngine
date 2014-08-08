@@ -87,6 +87,18 @@ int main(int argc, const char * argv[]) {
             asset.effectPreset = preset;
         }
         
+        /**
+         // Example to show to how to change a named text color. This makes the rim around a window black
+         // You can find names for colors by opening the car in a hex editor, scrolling down and looking for
+         // the strings
+         */
+        struct _rgbquad rgb;
+        rgb.r = 0;
+        rgb.g = 0;
+        rgb.b = 0;
+        rgb.a = 255;
+        [(CUIMutableCommonAssetStorage *)store.assetStorage setColor:rgb forName:"CUIWindowRimColor" excludeFromFilter:NO];
+        
 //        for (CFAsset *asset in store.allAssets) {
 //            if (asset.image != NULL)
 //                CGImageWriteToFile(asset.image, [@"/Users/Alex/Desktop/dump2" stringByAppendingPathComponent:asset.name]);
