@@ -25,7 +25,8 @@
 @property (readwrite, assign) BOOL shouldRemove;
 
 @property (readwrite, strong) CUIShapeEffectPreset *effectPreset;
-@property CGPDFDocumentRef pdfDocument;
+@property (readwrite, strong) NSData *rawData;
+@property (readwrite, strong) NSData *pdfData;
 @property CGImageRef image;
 @property (assign) CoreThemeLayout layout;
 @property (assign) CoreThemeType type;
@@ -35,7 +36,7 @@
 @property (assign) CGBlendMode blendMode;
 @property (assign) CGFloat opacity;
 @property (assign) CFEXIFOrientation exifOrientation;
-@property (assign) unsigned long long colorSpaceID;
+@property (assign) short colorSpaceID;
 
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;

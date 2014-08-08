@@ -12,6 +12,7 @@
 #import "CUIPSDGradientEvaluator.h"
 #import "CUIMutableCommonAssetStorage.h"
 #import <objc/runtime.h>
+#import <stddef.h>
 
 #define kSLICES 1001
 #define kMETRICS 1003
@@ -26,7 +27,7 @@
  
  0xE903 - 1001: Slice rects, First 4 bytes length, next num slices rects, next a list of the slice rects
  0xEB03 - 1003: Metrics – First 4 length, next 4 num metrics, next a list of metrics (struct of 3 CGSizes)
- 0xEC03 - 1004: Composition - First 4 lenght, second is the blendmode, third is a float for opacity
+ 0xEC03 - 1004: Composition - First 4 length, second is the blendmode, third is a float for opacity
  0xED03 - 1005: UTI Type, First 4 length, next 4 length of string, then the string
  0xEE03 - 1006: Image Metadata: First 4 length, next 4 EXIF orientation, (UTI type...?)
  
@@ -34,6 +35,7 @@
  
  GRADIENTS marked DARG with colors as RLOC, and opacity a TCPO format unknown
  0x4D4C4543 - MLEC: Start Image Data?
+ RAW DATA: marts 'RAWD' followed by 4 bytes of zero and an unsigned int of the length of the raw data
  */
 
 static CUIPSDGradient *psdGradientFromThemeGradient(CUIThemeGradient *themeGradient, double angle, unsigned int style) {
@@ -71,11 +73,12 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 @property (readwrite, strong) CUIRenditionKey *key;
 - (void)_initializeSlicesFromCSIData:(NSData *)csiData;
 - (void)_initializeMetricsFromCSIData:(NSData *)csiData;
+- (void)_initializeRawDataFromCSIData:(NSData *)csiData;
 - (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format;
 @end
 
 @implementation CFAsset
-@dynamic image, pdfDocument;
+@dynamic image, pdfData;
 
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key {
     return [[self alloc] initWithRenditionCSIData:csiData forKey:key];
@@ -84,13 +87,12 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key {
     if ((self = [self init])) {
         [csiData writeToFile:@"/Users/Alex/Desktop/data" atomically:NO];
-        
+        //!TODO: Get renditionflags from raw data
         self.key = [CUIRenditionKey renditionKeyWithKeyList:key];
         self.rendition = [[objc_getClass("CUIThemeRendition") alloc] initWithCSIData:csiData forKey:key];
         self.gradient = psdGradientFromRendition(self.rendition);
         self.effectPreset = self.rendition.effectPreset;
         self.image = self.rendition.unslicedImage;
-        self.pdfDocument = self.rendition.pdfDocument;
         self.type = self.rendition.type;
         self.scale = self.rendition.scale;
         self.name = self.rendition.name;
@@ -98,11 +100,12 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
         self.blendMode = self.rendition.blendMode;
         self.opacity = self.rendition.opacity;
         self.exifOrientation = self.rendition.exifOrientation;
-        self.colorSpaceID = self.rendition.colorSpaceID;
+        self.colorSpaceID = (short)self.rendition.colorSpaceID;
         [csiData getBytes:&_layout range:NSMakeRange(offsetof(struct _csiheader, metadata.layout), 2)];
 
         [self _initializeSlicesFromCSIData:csiData];
         [self _initializeMetricsFromCSIData:csiData];
+        [self _initializeRawDataFromCSIData:csiData];
     }
     
     return self;
@@ -168,6 +171,28 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     }
 }
 
+- (void)_initializeRawDataFromCSIData:(NSData *)csiData {
+    unsigned int listOffset = offsetof(struct _csiheader, listLength);
+    unsigned int listLength = 0;
+    [csiData getBytes:&listLength range:NSMakeRange(listOffset, sizeof(listLength))];
+    listOffset += listLength + sizeof(unsigned int) * 4;
+    
+    unsigned int type = 0;
+    [csiData getBytes:&type range:NSMakeRange(listOffset, sizeof(type))];
+    if (type != 'RAWD')
+        return;
+    
+    listOffset += 8;
+    unsigned int dataLength = 0;
+    [csiData getBytes:&dataLength range:NSMakeRange(listOffset, sizeof(dataLength))];
+    
+    if (dataLength == 0)
+        return;
+    
+    listOffset += sizeof(dataLength);
+    self.rawData = [csiData subdataWithRange:NSMakeRange(listOffset, dataLength)];
+}
+
 // same as calling CUIStructuredThemeStore _newRenditionKeyDataFromKey:
 - (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format {
     /*
@@ -210,14 +235,16 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     if (!self.isDirty)
         return;
     
-    if (self.type > kCoreThemeTypeAnimation) {
-        // we only save shape effects, gradients, and bitmaps
+    if (self.type > kCoreThemeTypePDF) {
+        // we only save shape effects, gradients, pdfs, and bitmaps
         return;
     }
     
     CSIGenerator *gen = nil;
     if (self.type == kCoreThemeTypeEffect) {
         gen = [[CSIGenerator alloc] initWithShapeEffectPreset:self.effectPreset forScaleFactor:self.scale];
+    } else if (self.type == kCoreThemeTypePDF) {
+        gen = [[CSIGenerator alloc] initWithRawData:self.pdfData pixelFormat:'PDF ' layout:self.layout];
     } else {
         CGSize size = CGSizeZero;
         if (self.type != kCoreThemeTypeGradient) {
@@ -244,11 +271,15 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 
     gen.gradient = self.gradient;
     gen.effectPreset = self.effectPreset;
-    gen.scaleFactor = self.scale;
+    if (self.type <= 8) {
+        gen.scaleFactor = self.scale;
+    }
+    
+//!TODO: For some reason whenever I compile PDFs i get a colorspaceID of 15 even when I set it to something else
     gen.exifOrientation = self.exifOrientation;
+    gen.colorSpaceID = self.colorSpaceID;
     gen.opacity = self.opacity;
     gen.blendMode = self.blendMode;
-    gen.colorSpaceID = self.colorSpaceID;
     gen.templateRenderingMode = self.rendition.templateRenderingMode;
     gen.isVectorBased = self.rendition.isVectorBased;
     gen.utiType = self.utiType;
@@ -257,10 +288,15 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 //    gen.excludedFromContrastFilter = YES;
     
     NSData *csiData = [gen CSIRepresentationWithCompression:YES];
+    if (self.type == kCoreThemeTypePDF) {
+        [csiData writeToFile:@"/Users/Alex/Desktop/csi_new" atomically:NO];
+        [[self.rendition valueForKey:@"_srcData"] writeToFile:@"/Users/Alex/Desktop/csi_old" atomically:NO];
+    }
     [assetStorage setAsset:csiData forKey:renditionKey];
 }
 
 - (BOOL)isDirty {
+    return self.type == kCoreThemeTypePDF;
     BOOL clean = YES;
 #define COMPARE(KEY) clean &= self.KEY == self.rendition.KEY
     COMPARE(scale);
@@ -270,12 +306,12 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     COMPARE(colorSpaceID);
     COMPARE(utiType);
     COMPARE(type);
-    COMPARE(pdfDocument);
     
     clean &= self.layout == self.rendition.subtype;
     clean &= self.image == self.rendition.unslicedImage;
     clean &= gradientsEqual(self.rendition.gradient, self.gradient);
-    
+
+    //!TODO: PDF Data
     //!TODO: slice changes
     
     return !clean;
@@ -298,19 +334,16 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     }
 }
 
-- (CGPDFDocumentRef)pdfDocument {
-    @synchronized(self) {
-        return _pdfDocument;
-    }
+- (NSData *)pdfData {
+    return self.rawData;
 }
 
-- (void)setPdfDocument:(CGPDFDocumentRef)pdfDocument {
-    @synchronized(self) {
-        if (_pdfDocument != NULL)
-            CGPDFDocumentRelease(_pdfDocument);
-        
-        _pdfDocument = CGPDFDocumentRetain(pdfDocument);
-    }
+- (void)setPdfData:(NSData *)pdfData {
+    [self setRawData:pdfData];
+}
+
++ (NSSet *)keyPathsForValuesAffectingPdfData {
+    return [NSSet setWithObject:@"rawData"];
 }
 
 @end

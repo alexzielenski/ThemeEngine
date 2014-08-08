@@ -19,7 +19,7 @@ struct _csiheader {
     unsigned int width;
     unsigned int height;
     unsigned int scaleFactor; // scale * 100. 100 is 1x, 200 is 2x, etc.
-    unsigned int pixelFormat; // 'ARGB' ('BGRA' in little endian), if it is 0x47413820 (GA8) then the colorspace will be gray
+    unsigned int pixelFormat; // 'ARGB' ('BGRA' in little endian), if it is 0x47413820 (GA8) then the colorspace will be gray or 'PDF ' if a pdf
     unsigned int :4; // colorspace ID. 0 for sRGB, all else for generic rgb, used only if pixelFormat 'ARGB'
     unsigned int :28; // buffer?
     struct _csimetadata {
@@ -28,7 +28,7 @@ struct _csiheader {
         unsigned short _field3;
         char name[128];
     } metadata;
-    unsigned int metadatalength;
+    unsigned int listLength;
     struct _csibitmaplist {
         unsigned int _field1; // numreps?
         unsigned int _field2[0];
@@ -38,8 +38,8 @@ struct _csiheader {
 /*
  The last few ints are
  metadatalength
- unk
- unk
+ unk (i've only seen 1)
+ unk (i've only seen 0)
  size of payload
  
  I know know why it has a last object with variable length in the struct from the class dump
