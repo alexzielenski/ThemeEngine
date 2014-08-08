@@ -68,7 +68,6 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 
 - (instancetype)initWithThemeGradient:(CUIThemeGradient *)gradient angle:(CGFloat)angle style:(NSUInteger)style {
     if ((self = [self init])) {
-        NSLog(@"%lu", (unsigned long)style);
         self.psdGradient = psdGradientFromThemeGradient(gradient, angle, (unsigned int)style);
         self.angle = angle;
         self.midPoints = self.psdGradient.evaluator.colorMidpointLocations;

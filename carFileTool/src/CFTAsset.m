@@ -262,7 +262,7 @@
         [gen addMetrics:metrics];
     }
 
-    gen.gradient = [self.gradient valueForKey:@"pdfGradient"];
+    gen.gradient = [self.gradient valueForKey:@"psdGradient"];
     gen.effectPreset = self.effectPreset;
     if (self.type <= 8) {
         gen.scaleFactor = self.scale;
