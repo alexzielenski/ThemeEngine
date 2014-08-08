@@ -13,13 +13,13 @@
 #import "CSIGenerator.h"
 #import "CUIPSDGradient.h"
 
+//!TODO: Implement undo manager
 @class CFElement;
 @interface CFAsset : NSObject
 @property (readonly, weak) CFElement *element;
-@property (readonly, assign) CGRect *slices;
-@property (readonly, assign) NSUInteger nslices;
-@property (readonly, assign) CUIMetrics *metrics;
-@property (readonly, assign) NSUInteger nmetrics;
+@property (readonly, strong) NSArray *slices;
+@property (readonly, strong) NSArray *metrics;
+//!TODO: Make a wrapper class CFThemeGradient
 @property (readwrite, strong) CUIPSDGradient *gradient;
 @property (readonly, strong) CUIRenditionKey *key;
 @property (readwrite, assign) BOOL shouldRemove;
@@ -37,6 +37,11 @@
 @property (assign) CGFloat opacity;
 @property (assign) CFEXIFOrientation exifOrientation;
 @property (assign) short colorSpaceID;
+
+@property (assign, getter=isExcludedFromContrastFilter) BOOL excludedFromContrastFilter;
+@property (assign, getter=isRenditionFPO) BOOL renditionFPO;
+@property (assign, getter=isVector) BOOL vector;
+@property (assign, getter=isOpaque) BOOL opaque;
 
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;

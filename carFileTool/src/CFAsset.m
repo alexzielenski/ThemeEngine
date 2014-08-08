@@ -33,8 +33,8 @@
  
  unk
  
- GRADIENTS marked DARG with colors as RLOC, and opacity a TCPO format unknown
- 0x4D4C4543 - MLEC: Start Image Data?
+ GRADIENTS marked DARG with colors as COLR, and opacity a OPCT format unknown
+ 0x4D4C4543 - 'CELM': C-Element. I wish I knew what the C stood for
  RAW DATA: marts 'RAWD' followed by 4 bytes of zero and an unsigned int of the length of the raw data
  */
 
@@ -61,19 +61,17 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 
 @interface CFAsset () {
     CGImageRef _image;
-    CGPDFDocumentRef _pdfDocument;
 }
 @property (readwrite, weak) CFElement *element;
 @property (readwrite, strong) CUIThemeRendition *rendition;
-@property (readwrite, assign) CGRect *slices;
-@property (readwrite, assign) NSUInteger nslices;
-@property (readwrite, assign) CUIMetrics *metrics;
-@property (readwrite, assign) NSUInteger nmetrics;
+@property (readwrite, strong) NSArray *slices;
+@property (readwrite, strong) NSArray *metrics;
 @property (readwrite, copy) NSString *name;
 @property (readwrite, strong) CUIRenditionKey *key;
 - (void)_initializeSlicesFromCSIData:(NSData *)csiData;
 - (void)_initializeMetricsFromCSIData:(NSData *)csiData;
 - (void)_initializeRawDataFromCSIData:(NSData *)csiData;
+- (void)_initializeMetadataFromCSIData:(NSData *)csiData;
 - (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format;
 @end
 
@@ -94,15 +92,13 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
         self.effectPreset = self.rendition.effectPreset;
         self.image = self.rendition.unslicedImage;
         self.type = self.rendition.type;
-        self.scale = self.rendition.scale;
         self.name = self.rendition.name;
         self.utiType = self.rendition.utiType;
         self.blendMode = self.rendition.blendMode;
         self.opacity = self.rendition.opacity;
         self.exifOrientation = self.rendition.exifOrientation;
-        self.colorSpaceID = (short)self.rendition.colorSpaceID;
-        [csiData getBytes:&_layout range:NSMakeRange(offsetof(struct _csiheader, metadata.layout), 2)];
 
+        [self _initializeMetadataFromCSIData:csiData];
         [self _initializeSlicesFromCSIData:csiData];
         [self _initializeMetricsFromCSIData:csiData];
         [self _initializeRawDataFromCSIData:csiData];
@@ -119,8 +115,8 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     if (sliceLocation.location != NSNotFound) {
         unsigned int nslices = 0;
         [csiData getBytes:&nslices range:NSMakeRange(sliceLocation.location + sizeof(unsigned int) * 2, sizeof(nslices))];
-        self.nslices = nslices;
-        CGRect *slices = malloc(sizeof(CGRect) * self.nslices);
+        
+        NSMutableArray *slices = [NSMutableArray arrayWithCapacity:nslices];
         for (int idx = 0; idx < nslices; idx++) {
             struct {
                 unsigned int x;
@@ -128,9 +124,9 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
                 unsigned int w;
                 unsigned int h;
             } sliceInts;
+            
             [csiData getBytes:&sliceInts range:NSMakeRange(sliceLocation.location + sizeof(sliceInts) * idx + sizeof(unsigned int) * 3, sizeof(sliceInts))];
-            // order may be different
-            slices[idx] = NSMakeRect(sliceInts.x, sliceInts.y, sliceInts.w, sliceInts.h);
+            [slices addObject:[NSValue valueWithRect:NSMakeRect(sliceInts.x, sliceInts.y, sliceInts.w, sliceInts.h)]];
         }
         
         self.slices = slices;
@@ -145,9 +141,8 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     if (metricLocation.location != NSNotFound) {
         unsigned int nmetrics = 0;
         [csiData getBytes:&nmetrics range:NSMakeRange(metricLocation.location + sizeof(unsigned int) * 2, sizeof(nmetrics))];
-        self.nmetrics = nmetrics;
 
-        CUIMetrics *metrics = malloc(sizeof(CUIMetrics) * self.nmetrics);
+        NSMutableArray *metrics = [NSMutableArray arrayWithCapacity:nmetrics];
         for (int idx = 0; idx < nmetrics; idx++) {
             CUIMetrics renditionMetric;
 
@@ -164,7 +159,8 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
             renditionMetric.edgeTR = CGSizeMake(mtr.c, mtr.b);
             renditionMetric.edgeBL = CGSizeMake(mtr.a, mtr.d);
             renditionMetric.imageSize = CGSizeMake(mtr.e, mtr.f);
-            metrics[idx] = renditionMetric;
+            
+            [metrics addObject:[NSValue valueWithBytes:&renditionMetric objCType:@encode(CUIMetrics)]];
         }
         
         self.metrics = metrics;
@@ -191,6 +187,20 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     
     listOffset += sizeof(dataLength);
     self.rawData = [csiData subdataWithRange:NSMakeRange(listOffset, dataLength)];
+}
+
+- (void)_initializeMetadataFromCSIData:(NSData *)csiData {
+    struct _csiheader header;
+    [csiData getBytes:&header range:NSMakeRange(0, offsetof(struct _csiheader, listLength) + sizeof(unsigned int))];
+    
+    self.renditionFPO = header.renditionFlags.isHeaderFlaggedFPO;
+    self.excludedFromContrastFilter = header.renditionFlags.isExcludedFromContrastFilter;
+    self.vector = header.renditionFlags.isVectorBased;
+    self.opaque = header.renditionFlags.isOpaque;
+    
+    self.layout = header.metadata.layout;
+    self.scale  = (CGFloat)header.scaleFactor / 100.0;
+    self.colorSpaceID = (short)header.colorspaceID;
 }
 
 // same as calling CUIStructuredThemeStore _newRenditionKeyDataFromKey:
@@ -250,7 +260,7 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
         if (self.type != kCoreThemeTypeGradient) {
             size = CGSizeMake(CGImageGetWidth(self.image), CGImageGetHeight(self.image));
         }
-        gen = [[CSIGenerator alloc] initWithCanvasSize:size sliceCount:(unsigned int)self.nslices layout:self.layout];
+        gen = [[CSIGenerator alloc] initWithCanvasSize:size sliceCount:(unsigned int)self.slices.count layout:self.layout];
     }
     
     if (self.image) {
@@ -261,12 +271,15 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
         [gen addBitmap:wrapper];
     }
     
-    for (unsigned int idx = 0; idx < self.nslices; idx++) {
-        [gen addSliceRect:self.slices[idx]];
+    
+    for (unsigned int idx = 0; idx < self.slices.count; idx++) {
+        [gen addSliceRect:[self.slices[idx] rectValue]];
     }
     
-    for (unsigned int idx = 0; idx < self.nmetrics; idx++) {
-        [gen addMetrics:self.metrics[idx]];
+    for (unsigned int idx = 0; idx < self.metrics.count; idx++) {
+        CUIMetrics metrics;
+        [self.metrics[idx] getValue:&metrics];
+        [gen addMetrics:metrics];
     }
 
     gen.gradient = self.gradient;
@@ -281,9 +294,9 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     gen.opacity = self.opacity;
     gen.blendMode = self.blendMode;
     gen.templateRenderingMode = self.rendition.templateRenderingMode;
-    gen.isVectorBased = self.rendition.isVectorBased;
+    gen.isVectorBased = self.isVector;
     gen.utiType = self.utiType;
-    gen.isRenditionFPO = self.rendition.isHeaderFlaggedFPO;
+    gen.isRenditionFPO = self.isRenditionFPO;
     gen.name = self.rendition.name;
 //    gen.excludedFromContrastFilter = YES;
     
