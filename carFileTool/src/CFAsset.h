@@ -28,8 +28,6 @@
 @property CGImageRef image;
 
 //!TODO: find what each value does and make an enum
-@property (assign) unsigned int gradientStyle;
-@property (assign) CGFloat gradientAngle;
 @property (assign) CoreThemeLayout layout;
 @property (assign) CoreThemeType type;
 @property (assign) CGFloat scale;

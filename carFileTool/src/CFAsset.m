@@ -37,6 +37,9 @@
  */
 
 static CUIPSDGradient *psdGradientFromThemeGradient(CUIThemeGradient *themeGradient, double angle, unsigned int style) {
+    if (!themeGradient)
+        return nil;
+    
     Ivar ivar = class_getInstanceVariable([themeGradient class], "gradientEvaluator");
     CUIPSDGradientEvaluator *evaluator = object_getIvar(themeGradient, ivar);
     return [[CUIPSDGradient alloc] initWithEvaluator:evaluator drawingAngle:angle gradientStyle:style];
@@ -87,9 +90,6 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
         self.effectPreset = self.rendition.effectPreset;
         self.image = self.rendition.unslicedImage;
         self.pdfDocument = self.rendition.pdfDocument;
-        self.gradientStyle = self.rendition.gradientStyle;
-        self.gradientAngle = self.rendition.gradientDrawingAngle;
-        self.layout = self.rendition.subtype;
         self.type = self.rendition.type;
         self.scale = self.rendition.scale;
         self.name = self.rendition.name;
@@ -98,6 +98,7 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
         self.opacity = self.rendition.opacity;
         self.exifOrientation = self.rendition.exifOrientation;
         self.colorSpaceID = self.rendition.colorSpaceID;
+        [csiData getBytes:&_layout range:NSMakeRange(36, 2)];
         
         [self _initializeSlicesFromCSIData:csiData];
         [self _initializeMetricsFromCSIData:csiData];
@@ -167,22 +168,20 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 }
 
 - (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage  :(CUIStructuredThemeStore *)storage {
-    if (![self.rendition isKindOfClass:objc_getClass("_CUIThemePixelRendition")] &&
-        ![self.rendition isKindOfClass:objc_getClass("_CUIThemeGradientRendition")] &&
-        ![self.rendition isKindOfClass:objc_getClass("_CUIThemeEffectRendition")]) {
+    if (self.type > kCoreThemeTypeAnimation) {
         // we only save shape effects, gradients, and bitmaps
         return;
     }
     
     CSIGenerator *gen = nil;
-    if ([self.rendition isKindOfClass:objc_getClass("_CUIThemeEffectRendition")]) {
-        gen = [[CSIGenerator alloc] initWithShapeEffectPreset:self.rendition.effectPreset forScaleFactor:self.rendition.scale];
+    if (self.type == kCoreThemeTypeEffect) {
+        gen = [[CSIGenerator alloc] initWithShapeEffectPreset:self.effectPreset forScaleFactor:self.scale];
     } else {
         CGSize size = CGSizeZero;
-        if ([self.rendition isKindOfClass:objc_getClass("_CUIThemePixelRendition")]) {
+        if (self.type != kCoreThemeTypeGradient) {
             size = CGSizeMake(CGImageGetWidth(self.image), CGImageGetHeight(self.image));
         }
-        gen = [[CSIGenerator alloc] initWithCanvasSize:size sliceCount:(unsigned int)self.nslices layout:self.rendition.subtype];
+        gen = [[CSIGenerator alloc] initWithCanvasSize:size sliceCount:(unsigned int)self.nslices layout:self.layout];
     }
     
     if (self.image) {
@@ -200,10 +199,9 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     for (unsigned int idx = 0; idx < self.nmetrics; idx++) {
         [gen addMetrics:self.metrics[idx]];
     }
-    
+
     gen.gradient = self.gradient;
     gen.effectPreset = self.effectPreset;
-    
     gen.scaleFactor = self.scale;
     gen.exifOrientation = self.exifOrientation;
     gen.opacity = self.opacity;
@@ -217,7 +215,10 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 //    gen.excludedFromContrastFilter = YES;
     
     NSData *renditionKey = [storage _newRenditionKeyDataFromKey:(struct _renditionkeytoken *)self.rendition.key];
-    [assetStorage setAsset:[gen CSIRepresentationWithCompression:YES] forKey:renditionKey];
+    NSData *csiData = [gen CSIRepresentationWithCompression:YES];
+    NSData *srcData = [self.rendition valueForKey:@"_srcData"];
+
+    [assetStorage setAsset:csiData forKey:renditionKey];
 }
 
 - (BOOL)isDirty {
@@ -230,11 +231,9 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     COMPARE(colorSpaceID);
     COMPARE(utiType);
     COMPARE(type);
-    COMPARE(gradientStyle);
     COMPARE(pdfDocument);
     
     clean &= self.layout == self.rendition.subtype;
-    clean &= self.gradientAngle == self.rendition.gradientDrawingAngle;
     clean &= self.image == self.rendition.unslicedImage;
     clean &= gradientsEqual(self.rendition.gradient, self.gradient);
     
