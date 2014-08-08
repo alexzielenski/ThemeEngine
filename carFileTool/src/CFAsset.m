@@ -168,7 +168,14 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     }
 }
 
+// same as calling CUIStructuredThemeStore _newRenditionKeyDataFromKey:
 - (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format {
+    /*
+     The key format contains a list of the order of attributes for which they should appear
+     for each key in data. The list has just ints corresponding to the identifier for each attribute
+     so we find which index each value in the attribute list shall go into and place its value at the
+     right offset. Identifiers correspond to CFThemeAttributeName
+     */
     NSMutableData *data = [[NSMutableData alloc] initWithLength:format->numTokens * sizeof(uint16_t)];
     struct _renditionkeytoken currentToken = self.key.keyList[0];
     unsigned int idx = 0;

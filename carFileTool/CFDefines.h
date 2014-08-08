@@ -45,8 +45,8 @@ typedef NS_ENUM(NSUInteger, CoreThemeValue) {
 };
 
 typedef NS_ENUM(NSUInteger, CoreThemeDirection) {
-    kCoreThemeDirectionHorizontal    = 1,
-    kCoreThemeDirectionVertical      = 2,
+    kCoreThemeDirectionHorizontal    = 0,
+    kCoreThemeDirectionVertical      = 1,
     kCoreThemeDirectionPointingUp    = 2,
     kCoreThemeDirectionPointingDown  = 3,
     kCoreThemeDirectionPointingLeft  = 4,
@@ -131,5 +131,16 @@ typedef NS_ENUM(NSUInteger, CFThemeAttribute) {
     CFThemeAttributeMemoryClass         = 22,
     CFThemeAttributeGraphicsClass       = 23
 };
+
+extern NSString *CoreThemeTypeToString(CoreThemeType value);
+extern NSString *CFEXifOrientationToString(CFEXIFOrientation value);
+extern NSString *CoreThemeLayerToString(CoreThemeLayer value);
+extern NSString *CoreThemeIdiomToString(CoreThemeIdiom value);
+extern NSString *CoreThemeSizeToString(CoreThemeSize value);
+extern NSString *CoreThemeValueToString(CoreThemeValue value);
+extern NSString *CoreThemeDirectionToString(CoreThemeDirection value);
+extern NSString *CoreThemeStateToString(CoreThemeState value);
+extern NSString *CoreThemePresentationStateToString(CoreThemePresentationState value);
+extern NSString *CoreThemeLayoutToString(CoreThemeLayout value);
 
 #endif

@@ -27,8 +27,6 @@
 @property (readwrite, strong) CUIShapeEffectPreset *effectPreset;
 @property CGPDFDocumentRef pdfDocument;
 @property CGImageRef image;
-
-//!TODO: find what each value does and make an enum
 @property (assign) CoreThemeLayout layout;
 @property (assign) CoreThemeType type;
 @property (assign) CGFloat scale;

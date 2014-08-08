@@ -13,6 +13,7 @@
 		FACFC2E71994AED300ED936C /* Opee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACFC2E61994AED300ED936C /* Opee.framework */; };
 		FACFC2EA1994B52900ED936C /* CFElement.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2E91994B52900ED936C /* CFElement.m */; };
 		FACFC2ED1994B91000ED936C /* CFElementStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2EC1994B91000ED936C /* CFElementStore.m */; };
+		FACFC2EF19955F6800ED936C /* CFDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2EE19955F6800ED936C /* CFDefines.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +54,7 @@
 		FACFC2E91994B52900ED936C /* CFElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFElement.m; path = src/CFElement.m; sourceTree = "<group>"; };
 		FACFC2EB1994B91000ED936C /* CFElementStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFElementStore.h; path = src/CFElementStore.h; sourceTree = "<group>"; };
 		FACFC2EC1994B91000ED936C /* CFElementStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFElementStore.m; path = src/CFElementStore.m; sourceTree = "<group>"; };
+		FACFC2EE19955F6800ED936C /* CFDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFDefines.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				FACFC2EB1994B91000ED936C /* CFElementStore.h */,
 				FACFC2EC1994B91000ED936C /* CFElementStore.m */,
 				FACFC2E21994998C00ED936C /* CFDefines.h */,
+				FACFC2EE19955F6800ED936C /* CFDefines.m */,
 				FACFC2E3199499C000ED936C /* prefix.pch */,
 			);
 			path = carFileTool;
@@ -179,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FACFC2EF19955F6800ED936C /* CFDefines.m in Sources */,
 				FACFC2CB199485E900ED936C /* main.m in Sources */,
 				FACFC2EA1994B52900ED936C /* CFElement.m in Sources */,
 				FACFC2DE199492C500ED936C /* CFAsset.m in Sources */,

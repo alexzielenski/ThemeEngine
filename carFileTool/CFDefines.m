@@ -1,0 +1,139 @@
+//
+//  CFDefines.m
+//  carFileTool
+//
+//  Created by Alexander Zielenski on 8/8/14.
+//  Copyright (c) 2014 Alexander Zielenski. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+#define BEGINSTRINGIFY(PREFIX) \
+    NSUInteger prefixLength = [@(#PREFIX) length];\
+    switch (value) {
+#define STRINGIFY(NUM) \
+    case NUM: \
+        return [@(#NUM) substringFromIndex: prefixLength].lowercaseString;
+#define ENDSTRINGIFY \
+    default: \
+        return @""; \
+    }
+
+NSString *CoreThemeTypeToString(CoreThemeType value) {
+    BEGINSTRINGIFY(kCoreThemeType)
+    STRINGIFY(kCoreThemeTypeOnePart)
+    STRINGIFY(kCoreThemeTypeThreePartHorizontal)
+    STRINGIFY(kCoreThemeTypeThreePartVertical)
+    STRINGIFY(kCoreThemeTypeNinePart)
+    STRINGIFY(kCoreThemeTypeSixPart)
+    STRINGIFY(kCoreThemeTypeGradient)
+    STRINGIFY(kCoreThemeTypeEffect)
+    STRINGIFY(kCoreThemeTypeAnimation)
+    STRINGIFY(kCoreThemeTypePDF)
+    STRINGIFY(kCoreThemeTypeRawData)
+    STRINGIFY(kCoreThemeTypeRawPixel)
+    ENDSTRINGIFY
+}
+
+NSString *CFEXifOrientationToString(CFEXIFOrientation value) {
+    BEGINSTRINGIFY(CFEXIFOrientation)
+    STRINGIFY(CFEXIFOrientationNormal)
+    STRINGIFY(CFEXIFOrientationReverse)
+    STRINGIFY(CFEXIFOrientationRotate180)
+    STRINGIFY(CFEXIFOrientationReverseRotate180)
+    STRINGIFY(CFEXIFOrientationReverseRotate90)
+    STRINGIFY(CFEXIFOrientationRotate90)
+    STRINGIFY(CFEXIFOrientationReverseRotate270)
+    STRINGIFY(CFEXIFOrientationRotate270)
+    ENDSTRINGIFY
+}
+
+NSString *CoreThemeLayerToString(CoreThemeLayer value) {
+    BEGINSTRINGIFY(kCoreThemeLayer)
+    STRINGIFY(kCoreThemeLayerBase)
+    STRINGIFY(kCoreThemeLayerHighlight)
+    STRINGIFY(kCoreThemeLayerMask)
+    STRINGIFY(kCoreThemeLayerPulse)
+    STRINGIFY(kCoreThemeLayerHitMask)
+    STRINGIFY(kCoreThemeLayerPatternOverlay)
+    STRINGIFY(kCoreThemeLayerOutline)
+    STRINGIFY(kCoreThemeLayerInterior)
+    ENDSTRINGIFY
+}
+
+NSString *CoreThemeIdiomToString(CoreThemeIdiom value) {
+    BEGINSTRINGIFY(kCoreThemeIdion)
+    STRINGIFY(kCoreThemeIdiomUniversal)
+    STRINGIFY(kCoreThemeIdiomPhone)
+    STRINGIFY(kCoreThemeIdiomPad)
+    STRINGIFY(kCoreThemeIdiomTV)
+    STRINGIFY(kCoreThemeIdiomCar)
+    STRINGIFY(kCoreThemeIdiom5)
+    ENDSTRINGIFY
+}
+
+NSString *CoreThemeSizeToString(CoreThemeSize value) {
+    BEGINSTRINGIFY(kCoreThemeSize)
+    STRINGIFY(kCoreThemeSizeRegular)
+    STRINGIFY(kCoreThemeSizeSmall)
+    STRINGIFY(kCoreThemeSizeMini)
+    STRINGIFY(kCoreThemeSizeLarge)
+    ENDSTRINGIFY
+}
+
+NSString *CoreThemeValueToString(CoreThemeValue value) {
+    BEGINSTRINGIFY(kCoreThemeValue)
+    STRINGIFY(kCoreThemeValueOff)
+    STRINGIFY(kCoreThemeValueOn)
+    STRINGIFY(kCoreThemeValueMixed)
+    ENDSTRINGIFY
+}
+
+NSString *CoreThemeDirectionToString(CoreThemeDirection value) {
+    BEGINSTRINGIFY(kCoreThemeDirection)
+    STRINGIFY(kCoreThemeDirectionHorizontal)
+    STRINGIFY(kCoreThemeDirectionVertical)
+    STRINGIFY(kCoreThemeDirectionPointingUp)
+    STRINGIFY(kCoreThemeDirectionPointingDown)
+    STRINGIFY(kCoreThemeDirectionPointingLeft)
+    STRINGIFY(kCoreThemeDirectionPointingRight)
+    ENDSTRINGIFY
+}
+
+NSString *CoreThemeStateToString(CoreThemeState value) {
+    BEGINSTRINGIFY(kCoreThemeState)
+    STRINGIFY(kCoreThemeStateNormal)
+    STRINGIFY(kCoreThemeStateRollover)
+    STRINGIFY(kCoreThemeStatePressed)
+    case obsolete_kCoreThemeInactive:
+        return @"obselete_inactive";
+    ENDSTRINGIFY
+}
+
+NSString *CoreThemePresentationStateToString(CoreThemePresentationState value) {
+    BEGINSTRINGIFY(kCoreThemePresentationState)
+    STRINGIFY(kCoreThemePresentationStateActive)
+    STRINGIFY(kCoreThemePresentationStateInactive)
+    STRINGIFY(kCoreThemePresentationStateActiveMain)
+    ENDSTRINGIFY
+}
+
+NSString *CoreThemeLayoutToString(CoreThemeLayout value) {
+    BEGINSTRINGIFY(kCoreTheme)
+    STRINGIFY(kCoreThemeOnePartFixedSize)
+    STRINGIFY(kCoreThemeOnePartTile)
+    STRINGIFY(kCoreThemeOnePartScale)
+    STRINGIFY(kCoreThemeThreePartHTile)
+    STRINGIFY(kCoreThemeThreePartHScale)
+    STRINGIFY(kCoreThemeThreePartHUniform)
+    STRINGIFY(kCoreThemeThreePartVTile)
+    STRINGIFY(kCoreThemeThreePartVScale)
+    STRINGIFY(kCoreThemeThreePartVUniform)
+    STRINGIFY(kCoreThemeNinePartTile)
+    STRINGIFY(kCoreThemeNinePartScale)
+    STRINGIFY(kCoreThemeNinePartHorizontalUniformVerticalScale)
+    STRINGIFY(kCoreThemeNinePartHorizontalScaleVerticalUniform)
+    STRINGIFY(kCoreThemeManyPartLayoutUnknown)
+    STRINGIFY(kCoreThemeAnimationFilmstrip)
+    ENDSTRINGIFY
+}
