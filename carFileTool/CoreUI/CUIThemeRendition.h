@@ -8,29 +8,34 @@
 #import "CUIThemeGradient.h"
 #import "CUIShapeEffectPreset.h"
 
+// 0x143545349 – first few bytes of every file
 struct _csiheader {
     unsigned int prefix; // ISTC
-    unsigned int field2; // only have seen '1'
-    unsigned int flag; // 0 is none
-    // excluded from contrast filter & 0x2
-    // is vector: flags >> 0x2 & 0x1
-    // is flagged as an FPO (I don't know what this acronym means, but apple uses it): flags & 1
-    // is opaque: flags >> 0x3 & 0x1
+    unsigned int pad; // always 1
+    struct {
+        unsigned int isHeaderFlaggedFPO:1;
+        unsigned int isExcludedFromContrastFilter:1;
+        unsigned int isVectorBased:1;
+        unsigned int isOpaque:1;
+        unsigned int reserved:28;
+    } renditionFlags;
     unsigned int width;
     unsigned int height;
     unsigned int scaleFactor; // scale * 100. 100 is 1x, 200 is 2x, etc.
     unsigned int pixelFormat; // 'ARGB' ('BGRA' in little endian), if it is 0x47413820 (GA8) then the colorspace will be gray or 'PDF ' if a pdf
-    unsigned int :4; // colorspace ID. 0 for sRGB, all else for generic rgb, used only if pixelFormat 'ARGB'
-    unsigned int :28; // buffer?
+    unsigned int colorspaceID:4; // colorspace ID. 0 for sRGB, all else for generic rgb, used only if pixelFormat 'ARGB'
+    unsigned int reserved:28;
     struct _csimetadata {
         unsigned int modDate;  // modification date in seconds since 1970
         unsigned short layout; // layout of the image, can be 1(0?)-30
-        unsigned short _field3;
+        unsigned short reserved; // always zero
         char name[128];
     } metadata;
-    unsigned int listLength;
+    unsigned int listLength; // size of the list of information after header but before bitmap
     struct _csibitmaplist {
-        unsigned int _field1; // numreps?
+        unsigned int bitmapCount;
+        unsigned int reserved;
+        unsigned int payloadSize; // size of all the proceeding information listLength + data
         unsigned int _field2[0];
     } _field10;
 };
@@ -38,11 +43,27 @@ struct _csiheader {
 /*
  The last few ints are
  metadatalength
- unk (i've only seen 1)
- unk (i've only seen 0)
+ bitmapcount (i've only seen 1)
+ reserved (always zero)
  size of payload
  
  I know know why it has a last object with variable length in the struct from the class dump
+ */
+/*
+ Template rending modes change the rending flags
+
+ // *(int8_t *)(r12 + 0x8) is the pointer to the int8_t of rendering flags
+ r12 = header;
+ rax = templateRenderingMode;
+ if (rax == 0x2) {
+
+     *(int8_t *)(r12 + 0x8) = *(int8_t *)(r12 + 0x8) | 0x10;
+ } else {
+     if (rax == 0x1) {
+         *(int8_t *)(r12 + 0x8) = *(int8_t *)(r12 + 0x8) | 0x8;
+     }
+ }
+ 
  */
 
 @class CUIImage;
