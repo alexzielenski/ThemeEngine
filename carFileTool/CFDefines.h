@@ -81,7 +81,7 @@ typedef NS_ENUM(NSUInteger, CoreThemeLayout) {
     kCoreThemeNinePartHorizontalUniformVerticalScale = 32,
     kCoreThemeNinePartHorizontalScaleVerticalUniform = 33,
     kCoreThemeManyPartLayoutUnknown                  = 40,
-    kCoreThemeAnimationFilmstrip                     = 50
+    kCoreThemeAnimationFilmstrip                     = 50,
 };
 
 typedef NS_ENUM(NSUInteger, CoreThemeType) {
