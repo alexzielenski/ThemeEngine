@@ -1,5 +1,5 @@
 //
-//  CFDefines.m
+//  CFTDefines.m
 //  carFileTool
 //
 //  Created by Alexander Zielenski on 8/8/14.
@@ -35,16 +35,16 @@ NSString *CoreThemeTypeToString(CoreThemeType value) {
     ENDSTRINGIFY
 }
 
-NSString *CFEXifOrientationToString(CFEXIFOrientation value) {
-    BEGINSTRINGIFY(CFEXIFOrientation)
-    STRINGIFY(CFEXIFOrientationNormal)
-    STRINGIFY(CFEXIFOrientationReverse)
-    STRINGIFY(CFEXIFOrientationRotate180)
-    STRINGIFY(CFEXIFOrientationReverseRotate180)
-    STRINGIFY(CFEXIFOrientationReverseRotate90)
-    STRINGIFY(CFEXIFOrientationRotate90)
-    STRINGIFY(CFEXIFOrientationReverseRotate270)
-    STRINGIFY(CFEXIFOrientationRotate270)
+NSString *CFTEXifOrientationToString(CFTEXIFOrientation value) {
+    BEGINSTRINGIFY(CFTEXIFOrientation)
+    STRINGIFY(CFTEXIFOrientationNormal)
+    STRINGIFY(CFTEXIFOrientationReverse)
+    STRINGIFY(CFTEXIFOrientationRotate180)
+    STRINGIFY(CFTEXIFOrientationReverseRotate180)
+    STRINGIFY(CFTEXIFOrientationReverseRotate90)
+    STRINGIFY(CFTEXIFOrientationRotate90)
+    STRINGIFY(CFTEXIFOrientationReverseRotate270)
+    STRINGIFY(CFTEXIFOrientationRotate270)
     ENDSTRINGIFY
 }
 

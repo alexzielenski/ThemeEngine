@@ -10,6 +10,6 @@
 #define carFileTool_prefix_pch
 
 #import <Foundation/Foundation.h>
-#import "CFDefines.h"
+#import "CFTDefines.h"
 
 #endif

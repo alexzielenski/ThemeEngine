@@ -1,26 +1,26 @@
 //
-//  CFElementStore.m
+//  CFTElementStore.m
 //  carFileTool
 //
 //  Created by Alexander Zielenski on 8/8/14.
 //  Copyright (c) 2014 Alexander Zielenski. All rights reserved.
 //
 
-#import "CFElementStore.h"
+#import "CFTElementStore.h"
 #import <objc/runtime.h>
 
-@interface CFElementStore ()
+@interface CFTElementStore ()
 @property (readwrite, strong) CUIMutableStructuredThemeStore *themeStore;
 @property (readwrite, strong) CUIMutableCommonAssetStorage *assetStorage;
 @property (readwrite, copy) NSString *path;
 @property (readwrite, strong) NSMutableSet *elements;
 - (void)_enumerateAssets;
-- (void)_addAsset:(CFAsset *)asset;
-- (void)_addElement:(CFElement *)element;
-+ (NSString *)elementNameForAsset:(CFAsset *)asset;
+- (void)_addAsset:(CFTAsset *)asset;
+- (void)_addElement:(CFTElement *)element;
++ (NSString *)elementNameForAsset:(CFTAsset *)asset;
 @end
 
-@implementation CFElementStore
+@implementation CFTElementStore
 
 + (instancetype)storeWithPath:(NSString *)path {
     return [[self alloc] initWithPath:path];
@@ -46,7 +46,7 @@
     return self;
 }
 
-+ (NSString *)elementNameForAsset:(CFAsset *)asset {
++ (NSString *)elementNameForAsset:(CFTAsset *)asset {
     NSString *name = [[asset.name stringByReplacingOccurrencesOfString:@"@2x" withString:@""] stringByDeletingPathExtension];
     // element is to be size agnostic
     name = [name stringByReplacingOccurrencesOfString:@"_Mini" withString:@""];
@@ -62,25 +62,25 @@
 }
 
 - (void)_enumerateAssets {
-    __weak CFElementStore *weakSelf = self;
+    __weak CFTElementStore *weakSelf = self;
     [self.assetStorage enumerateKeysAndObjectsUsingBlock:^(struct _renditionkeytoken *key, NSData *csiData) {
-        CFAsset *asset = [CFAsset assetWithRenditionCSIData:csiData forKey:key];
+        CFTAsset *asset = [CFTAsset assetWithRenditionCSIData:csiData forKey:key];
         [weakSelf _addAsset:asset];
     }];
 }
 
-- (void)_addAsset:(CFAsset *)asset {
+- (void)_addAsset:(CFTAsset *)asset {
     NSString *elementName = [self.class elementNameForAsset:asset];
-    CFElement *element = [self elementWithName:elementName];
+    CFTElement *element = [self elementWithName:elementName];
     if (!element) {
-        element = [CFElement elementWithAssets:nil name:elementName];
+        element = [CFTElement elementWithAssets:nil name:elementName];
         [self _addElement:element];
     }
     
     [element addAsset:asset];
 }
 
-- (void)_addElement:(CFElement *)element {
+- (void)_addElement:(CFTElement *)element {
     [self.elements addObject:element];
 }
 
@@ -88,7 +88,7 @@
     return [self valueForKeyPath:@"elements.name"];
 }
 
-- (CFElement *)elementWithName:(NSString *)name {
+- (CFTElement *)elementWithName:(NSString *)name {
     NSSet *filtered = [self.elements filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"name == %@", name]];
     return filtered.anyObject;
 }
@@ -96,7 +96,7 @@
 - (void)save {
     NSSet *assets = self.allAssets;
     [assets makeObjectsPerformSelector:@selector(commitToStorage:) withObject:self.assetStorage];
-    [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
+//    [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
 }
 
 - (NSSet *)allAssets {

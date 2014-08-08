@@ -1,5 +1,5 @@
 //
-//  CFDefines.h
+//  CFTDefines.h
 //  carFileTool
 //
 //  Created by Alexander Zielenski on 8/8/14.
@@ -8,8 +8,8 @@
 
 @import Foundation;
 
-#ifndef carFileTool_CFDefines_h
-#define carFileTool_CFDefines_h
+#ifndef carFileTool_CFTDefines_h
+#define carFileTool_CFTDefines_h
 
 typedef NS_ENUM(NSUInteger, CoreThemeLayer) {
     kCoreThemeLayerBase             = 0,
@@ -98,42 +98,42 @@ typedef NS_ENUM(NSUInteger, CoreThemeType) {
     kCoreThemeTypeRawPixel            = 1245774599
 };
 
-typedef NS_ENUM(NSUInteger, CFEXIFOrientation) {
-    CFEXIFOrientationNormal           = 1,
-    CFEXIFOrientationReverse          = 2,
-    CFEXIFOrientationRotate180        = 3,
-    CFEXIFOrientationReverseRotate180 = 4,
-    CFEXIFOrientationReverseRotate90  = 5,
-    CFEXIFOrientationRotate90         = 6,
-    CFEXIFOrientationReverseRotate270 = 7,
-    CFEXIFOrientationRotate270        = 8
+typedef NS_ENUM(NSUInteger, CFTEXIFOrientation) {
+    CFTEXIFOrientationNormal           = 1,
+    CFTEXIFOrientationReverse          = 2,
+    CFTEXIFOrientationRotate180        = 3,
+    CFTEXIFOrientationReverseRotate180 = 4,
+    CFTEXIFOrientationReverseRotate90  = 5,
+    CFTEXIFOrientationRotate90         = 6,
+    CFTEXIFOrientationReverseRotate270 = 7,
+    CFTEXIFOrientationRotate270        = 8
 };
 
-typedef NS_ENUM(NSUInteger, CFThemeAttribute) {
-    CFThemeAttributeElement             = 1,
-    CFThemeAttributePart                = 2,
-    CFThemeAttributeSize                = 3,
-    CFThemeAttributeDirection           = 4,
-    CFThemeAttributeValue               = 6,
-    CFThemeAttributeDimension1          = 8,
-    CFThemeAttributeDimension2          = 9,
-    CFThemeAttributeState               = 10,
-    CFThemeAttributeLayer               = 11,
-    CFThemeAttributeScale               = 12,
-    CFThemeAttributePresentationState   = 14,
-    CFThemeAttributeIdiom               = 15,
-    CFThemeAttributeSubtype             = 16,
-    CFThemeAttributeIdentifier          = 17,
-    CFThemeAttributePreviousValue       = 18,
-    CFThemeAttributePreviousState       = 19,
-    CFThemeAttributeSizeClassHorizontal = 20,
-    CFThemeAttributeSizeClassVertical   = 21,
-    CFThemeAttributeMemoryClass         = 22,
-    CFThemeAttributeGraphicsClass       = 23
+typedef NS_ENUM(NSUInteger, CFTThemeAttribute) {
+    CFTThemeAttributeElement             = 1,
+    CFTThemeAttributePart                = 2,
+    CFTThemeAttributeSize                = 3,
+    CFTThemeAttributeDirection           = 4,
+    CFTThemeAttributeValue               = 6,
+    CFTThemeAttributeDimension1          = 8,
+    CFTThemeAttributeDimension2          = 9,
+    CFTThemeAttributeState               = 10,
+    CFTThemeAttributeLayer               = 11,
+    CFTThemeAttributeScale               = 12,
+    CFTThemeAttributePresentationState   = 14,
+    CFTThemeAttributeIdiom               = 15,
+    CFTThemeAttributeSubtype             = 16,
+    CFTThemeAttributeIdentifier          = 17,
+    CFTThemeAttributePreviousValue       = 18,
+    CFTThemeAttributePreviousState       = 19,
+    CFTThemeAttributeSizeClassHorizontal = 20,
+    CFTThemeAttributeSizeClassVertical   = 21,
+    CFTThemeAttributeMemoryClass         = 22,
+    CFTThemeAttributeGraphicsClass       = 23
 };
 
 extern NSString *CoreThemeTypeToString(CoreThemeType value);
-extern NSString *CFEXifOrientationToString(CFEXIFOrientation value);
+extern NSString *CFTEXifOrientationToString(CFTEXIFOrientation value);
 extern NSString *CoreThemeLayerToString(CoreThemeLayer value);
 extern NSString *CoreThemeIdiomToString(CoreThemeIdiom value);
 extern NSString *CoreThemeSizeToString(CoreThemeSize value);

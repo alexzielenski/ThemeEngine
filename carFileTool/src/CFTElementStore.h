@@ -1,5 +1,5 @@
 //
-//  CFElementStore.h
+//  CFTElementStore.h
 //  carFileTool
 //
 //  Created by Alexander Zielenski on 8/8/14.
@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CFElement.h"
+#import "CFTElement.h"
 #import "CUIMutableCommonAssetStorage.h"
 #import "CUIMutableStructuredThemeStore.h"
 
-@interface CFElementStore : NSObject
+@interface CFTElementStore : NSObject
 @property (readonly, strong) CUIStructuredThemeStore *themeStore;
 @property (readonly, strong) CUICommonAssetStorage *assetStorage;
 @property (readonly, copy) NSString *path;
@@ -20,7 +20,7 @@
 - (instancetype)initWithPath:(NSString *)path;
 
 - (NSArray *)allElementNames;
-- (CFElement *)elementWithName:(NSString *)name;
+- (CFTElement *)elementWithName:(NSString *)name;
 
 - (NSSet *)allAssets;
 
@@ -50,6 +50,6 @@
 
 @end
 
-@interface CFElementStore (Properties)
+@interface CFTElementStore (Properties)
 @property (readonly, strong) NSSet *elements;
 @end

@@ -1,5 +1,5 @@
 //
-//  CFAsset.h
+//  CFTAsset.h
 //  carFileTool
 //
 //  Created by Alexander Zielenski on 8/8/14.
@@ -14,12 +14,12 @@
 #import "CUIPSDGradient.h"
 
 //!TODO: Implement undo manager
-@class CFElement;
-@interface CFAsset : NSObject
-@property (readonly, weak) CFElement *element;
+@class CFTElement;
+@interface CFTAsset : NSObject
+@property (readonly, weak) CFTElement *element;
 @property (readonly, strong) NSArray *slices;
 @property (readonly, strong) NSArray *metrics;
-//!TODO: Make a wrapper class CFThemeGradient
+//!TODO: Make a wrapper class CFTThemeGradient
 @property (readwrite, strong) CUIPSDGradient *gradient;
 @property (readonly, strong) CUIRenditionKey *key;
 @property (readwrite, assign) BOOL shouldRemove;
@@ -35,7 +35,7 @@
 @property (copy) NSString *utiType;
 @property (assign) CGBlendMode blendMode;
 @property (assign) CGFloat opacity;
-@property (assign) CFEXIFOrientation exifOrientation;
+@property (assign) CFTEXIFOrientation exifOrientation;
 @property (assign) short colorSpaceID;
 
 @property (assign, getter=isExcludedFromContrastFilter) BOOL excludedFromContrastFilter;

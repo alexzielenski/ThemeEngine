@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Alexander Zielenski. All rights reserved.
 //
 
-#import "CFElementStore.h"
+#import "CFTElementStore.h"
 
 void CGImageWriteToFile(CGImageRef image, NSString *path)
 {
@@ -27,21 +27,20 @@ int main(int argc, const char * argv[]) {
         [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
         [[NSFileManager defaultManager] copyItemAtPath:@"/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/SystemAppearance.car copy" toPath:path error:nil];
         
-        CFElementStore *store = [CFElementStore storeWithPath:path];
-        NSLog(@"%@", store.allElementNames);
+        CFTElementStore *store = [CFTElementStore storeWithPath:path];
         
         /**
          Example showing how to make each element use the exclusion blend mode and look like utter trash
          */
-        for (CFAsset *asset in store.allAssets) {
+        for (CFTAsset *asset in store.allAssets) {
             asset.blendMode = kCGBlendModeExclusion;
         }
         
         /**
          Example showing how to change a gradient image within a store. This will change all window active gradients to a disgusting red-green
          */
-        CFElement *element = [store elementWithName:@"WindowFrame_Background_Active"];
-        for (CFAsset *asset in [element assetsWithType:kCoreThemeTypeGradient]) {
+        CFTElement *element = [store elementWithName:@"WindowFrame_Background_Active"];
+        for (CFTAsset *asset in [element assetsWithType:kCoreThemeTypeGradient]) {
             CGColorRef top = CGColorCreateGenericRGB(1.0, 0.0, 0.0, 1.0);
             CGColorRef bottom = CGColorCreateGenericRGB(0.0, 0.0, 1.0, 1.0);
             CUIPSDGradient *gradient = [CUIPSDGradient cuiPSDGradientWithColors:@[ (__bridge id)top, (__bridge id)bottom ]
@@ -60,7 +59,7 @@ int main(int argc, const char * argv[]) {
          // a nasty blue to match our titlebar
          */
         element = [store elementWithName:@"WindowFrame_WindowControlButtons"];
-        for (CFAsset *asset in element.assets) {
+        for (CFTAsset *asset in element.assets) {
             NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
                                                                             pixelsWide:CGImageGetWidth(asset.image)
                                                                             pixelsHigh:CGImageGetHeight(asset.image)
@@ -89,7 +88,7 @@ int main(int argc, const char * argv[]) {
          // By making menu bar images that use apple's templating turn yellow (currently I only see it on the apple logo with opaque menubar)
          */
         element = [store elementWithName:@"Menubar Image"];
-        for (CFAsset *asset in element.assets) {
+        for (CFTAsset *asset in element.assets) {
             CUIShapeEffectPreset *preset = [[CUIShapeEffectPreset alloc] init];
             [preset addColorFillWithRed:255
                                   green:255
@@ -117,7 +116,7 @@ int main(int argc, const char * argv[]) {
          then makes the image scale instead of its default of tile
          */
         element = [store elementWithName:@"WindowFrame_WindowBottomBar_Active"];
-        for (CFAsset *asset in element.assets) {
+        for (CFTAsset *asset in element.assets) {
             if (asset.type == kCoreThemeTypeGradient) {
                 asset.shouldRemove = YES;
             } else {
@@ -150,7 +149,7 @@ int main(int argc, const char * argv[]) {
             }
         }
         
-//        for (CFAsset *asset in store.allAssets) {
+//        for (CFTAsset *asset in store.allAssets) {
 //            if (asset.image != NULL)
 //                CGImageWriteToFile(asset.image, [@"/Users/Alex/Desktop/dump2" stringByAppendingPathComponent:asset.name]);
 //        }

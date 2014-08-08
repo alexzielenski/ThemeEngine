@@ -1,19 +1,19 @@
 //
-//  CFElement.m
+//  CFTElement.m
 //  carFileTool
 //
 //  Created by Alexander Zielenski on 8/8/14.
 //  Copyright (c) 2014 Alexander Zielenski. All rights reserved.
 //
 
-#import "CFElement.h"
+#import "CFTElement.h"
 
-@interface CFElement ()
+@interface CFTElement ()
 @property (readwrite, copy) NSString *name;
 @property (readwrite, strong) NSMutableSet *assets;
 @end
 
-@implementation CFElement
+@implementation CFTElement
 
 + (instancetype)elementWithAssets:(NSSet *)assets name:(NSString *)name {
     return [[self alloc] initWithAssets:assets name:name];
@@ -37,11 +37,11 @@
 }
 
 - (void)addAssets:(NSSet *)assets {
-    for (CFAsset *asset in assets)
+    for (CFTAsset *asset in assets)
         [self addAsset:asset];
 }
 
-- (void)addAsset:(CFAsset *)asset {
+- (void)addAsset:(CFTAsset *)asset {
     [asset setValue:self forKey:@"element"];
     [self.assets addObject:asset];
 }

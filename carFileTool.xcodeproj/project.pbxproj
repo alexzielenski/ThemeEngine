@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		FACFC2CB199485E900ED936C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2CA199485E900ED936C /* main.m */; };
 		FACFC2D21994861800ED936C /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACFC2D11994861800ED936C /* CoreUI.framework */; };
-		FACFC2DE199492C500ED936C /* CFAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2DD199492C500ED936C /* CFAsset.m */; };
+		FACFC2DE199492C500ED936C /* CFTAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2DD199492C500ED936C /* CFTAsset.m */; };
 		FACFC2E71994AED300ED936C /* Opee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACFC2E61994AED300ED936C /* Opee.framework */; };
-		FACFC2EA1994B52900ED936C /* CFElement.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2E91994B52900ED936C /* CFElement.m */; };
-		FACFC2ED1994B91000ED936C /* CFElementStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2EC1994B91000ED936C /* CFElementStore.m */; };
-		FACFC2EF19955F6800ED936C /* CFDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2EE19955F6800ED936C /* CFDefines.m */; };
+		FACFC2EA1994B52900ED936C /* CFTElement.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2E91994B52900ED936C /* CFTElement.m */; };
+		FACFC2ED1994B91000ED936C /* CFTElementStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2EC1994B91000ED936C /* CFTElementStore.m */; };
+		FACFC2EF19955F6800ED936C /* CFTDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2EE19955F6800ED936C /* CFTDefines.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,21 +40,21 @@
 		FACFC2D91994927100ED936C /* CUIShapeEffectPreset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIShapeEffectPreset.h; sourceTree = "<group>"; };
 		FACFC2DA1994927100ED936C /* CUIThemeGradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIThemeGradient.h; sourceTree = "<group>"; };
 		FACFC2DB1994927100ED936C /* CUIThemeRendition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIThemeRendition.h; sourceTree = "<group>"; };
-		FACFC2DC199492C500ED936C /* CFAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFAsset.h; path = src/CFAsset.h; sourceTree = "<group>"; };
-		FACFC2DD199492C500ED936C /* CFAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFAsset.m; path = src/CFAsset.m; sourceTree = "<group>"; };
+		FACFC2DC199492C500ED936C /* CFTAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTAsset.h; path = src/CFTAsset.h; sourceTree = "<group>"; };
+		FACFC2DD199492C500ED936C /* CFTAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFTAsset.m; path = src/CFTAsset.m; sourceTree = "<group>"; };
 		FACFC2DF199494AB00ED936C /* CUIMutableStructuredThemeStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIMutableStructuredThemeStore.h; sourceTree = "<group>"; };
 		FACFC2E0199494AB00ED936C /* CUIStructuredThemeStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIStructuredThemeStore.h; sourceTree = "<group>"; };
 		FACFC2E1199494C100ED936C /* CUICommonAssetStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUICommonAssetStorage.h; sourceTree = "<group>"; };
-		FACFC2E21994998C00ED936C /* CFDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFDefines.h; sourceTree = "<group>"; };
+		FACFC2E21994998C00ED936C /* CFTDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFTDefines.h; sourceTree = "<group>"; };
 		FACFC2E3199499C000ED936C /* prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = prefix.pch; sourceTree = "<group>"; };
 		FACFC2E419949B1B00ED936C /* CUIPSDGradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradient.h; sourceTree = "<group>"; };
 		FACFC2E519949BEC00ED936C /* CUIPSDGradientEvaluator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradientEvaluator.h; sourceTree = "<group>"; };
 		FACFC2E61994AED300ED936C /* Opee.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Opee.framework; path = ../../../../../../../../Library/Frameworks/Opee.framework; sourceTree = "<group>"; };
-		FACFC2E81994B52900ED936C /* CFElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFElement.h; path = src/CFElement.h; sourceTree = "<group>"; };
-		FACFC2E91994B52900ED936C /* CFElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFElement.m; path = src/CFElement.m; sourceTree = "<group>"; };
-		FACFC2EB1994B91000ED936C /* CFElementStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFElementStore.h; path = src/CFElementStore.h; sourceTree = "<group>"; };
-		FACFC2EC1994B91000ED936C /* CFElementStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFElementStore.m; path = src/CFElementStore.m; sourceTree = "<group>"; };
-		FACFC2EE19955F6800ED936C /* CFDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFDefines.m; sourceTree = "<group>"; };
+		FACFC2E81994B52900ED936C /* CFTElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTElement.h; path = src/CFTElement.h; sourceTree = "<group>"; };
+		FACFC2E91994B52900ED936C /* CFTElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFTElement.m; path = src/CFTElement.m; sourceTree = "<group>"; };
+		FACFC2EB1994B91000ED936C /* CFTElementStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTElementStore.h; path = src/CFTElementStore.h; sourceTree = "<group>"; };
+		FACFC2EC1994B91000ED936C /* CFTElementStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFTElementStore.m; path = src/CFTElementStore.m; sourceTree = "<group>"; };
+		FACFC2EE19955F6800ED936C /* CFTDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFTDefines.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,14 +93,14 @@
 			children = (
 				FACFC2D31994927100ED936C /* CoreUI */,
 				FACFC2CA199485E900ED936C /* main.m */,
-				FACFC2DC199492C500ED936C /* CFAsset.h */,
-				FACFC2DD199492C500ED936C /* CFAsset.m */,
-				FACFC2E81994B52900ED936C /* CFElement.h */,
-				FACFC2E91994B52900ED936C /* CFElement.m */,
-				FACFC2EB1994B91000ED936C /* CFElementStore.h */,
-				FACFC2EC1994B91000ED936C /* CFElementStore.m */,
-				FACFC2E21994998C00ED936C /* CFDefines.h */,
-				FACFC2EE19955F6800ED936C /* CFDefines.m */,
+				FACFC2DC199492C500ED936C /* CFTAsset.h */,
+				FACFC2DD199492C500ED936C /* CFTAsset.m */,
+				FACFC2E81994B52900ED936C /* CFTElement.h */,
+				FACFC2E91994B52900ED936C /* CFTElement.m */,
+				FACFC2EB1994B91000ED936C /* CFTElementStore.h */,
+				FACFC2EC1994B91000ED936C /* CFTElementStore.m */,
+				FACFC2E21994998C00ED936C /* CFTDefines.h */,
+				FACFC2EE19955F6800ED936C /* CFTDefines.m */,
 				FACFC2E3199499C000ED936C /* prefix.pch */,
 			);
 			path = carFileTool;
@@ -182,11 +182,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FACFC2EF19955F6800ED936C /* CFDefines.m in Sources */,
+				FACFC2EF19955F6800ED936C /* CFTDefines.m in Sources */,
 				FACFC2CB199485E900ED936C /* main.m in Sources */,
-				FACFC2EA1994B52900ED936C /* CFElement.m in Sources */,
-				FACFC2DE199492C500ED936C /* CFAsset.m in Sources */,
-				FACFC2ED1994B91000ED936C /* CFElementStore.m in Sources */,
+				FACFC2EA1994B52900ED936C /* CFTElement.m in Sources */,
+				FACFC2DE199492C500ED936C /* CFTAsset.m in Sources */,
+				FACFC2ED1994B91000ED936C /* CFTElementStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

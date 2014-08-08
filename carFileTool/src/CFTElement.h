@@ -1,5 +1,5 @@
 //
-//  CFElement.h
+//  CFTElement.h
 //  carFileTool
 //
 //  Created by Alexander Zielenski on 8/8/14.
@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CFAsset.h"
+#import "CFTAsset.h"
 
-@interface CFElement : NSObject
+@interface CFTElement : NSObject
 @property (readonly, copy) NSString *name;
 + (instancetype)elementWithAssets:(NSSet *)assets name:(NSString *)name;
 - (instancetype)initWithAssets:(NSSet *)assets name:(NSString *)name;
 
 - (void)addAssets:(NSSet *)assets;
-- (void)addAsset:(CFAsset *)asset;
+- (void)addAsset:(CFTAsset *)asset;
 
 - (NSSet *)assetsWithIdiom:(CoreThemeIdiom)idiom;
 - (NSSet *)assetsWithScale:(double)scale;
@@ -30,6 +30,6 @@
 
 @end
 
-@interface CFElement (Properties)
+@interface CFTElement (Properties)
 @property (readonly, strong) NSSet *assets;
 @end

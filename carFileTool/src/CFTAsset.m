@@ -1,12 +1,12 @@
 //
-//  CFAsset.m
+//  CFTAsset.m
 //  carFileTool
 //
 //  Created by Alexander Zielenski on 8/8/14.
 //  Copyright (c) 2014 Alexander Zielenski. All rights reserved.
 //
 
-#import "CFAsset.h"
+#import "CFTAsset.h"
 #import "CSIBitmapWrapper.h"
 #import "CUIThemeGradient.h"
 #import "CUIPSDGradientEvaluator.h"
@@ -59,10 +59,10 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
     return psd.evaluator == evaluator;
 }
 
-@interface CFAsset () {
+@interface CFTAsset () {
     CGImageRef _image;
 }
-@property (readwrite, weak) CFElement *element;
+@property (readwrite, weak) CFTElement *element;
 @property (readwrite, strong) CUIThemeRendition *rendition;
 @property (readwrite, strong) NSArray *slices;
 @property (readwrite, strong) NSArray *metrics;
@@ -75,7 +75,7 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 - (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format;
 @end
 
-@implementation CFAsset
+@implementation CFTAsset
 @dynamic image, pdfData;
 
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key {
@@ -209,7 +209,7 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
      The key format contains a list of the order of attributes for which they should appear
      for each key in data. The list has just ints corresponding to the identifier for each attribute
      so we find which index each value in the attribute list shall go into and place its value at the
-     right offset. Identifiers correspond to CFThemeAttributeName
+     right offset. Identifiers correspond to CFTThemeAttributeName
      */
     NSMutableData *data = [[NSMutableData alloc] initWithLength:format->numTokens * sizeof(uint16_t)];
     struct _renditionkeytoken currentToken = self.key.keyList[0];
