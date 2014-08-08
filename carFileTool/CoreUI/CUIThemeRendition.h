@@ -27,7 +27,7 @@ struct _csiheader {
         unsigned short layout; // layout of the image, can be 1(0?)-30
         unsigned short _field3;
         char name[128];
-    } _field8;
+    } metadata;
     unsigned int metadatalength;
     struct _csibitmaplist {
         unsigned int _field1; // numreps?

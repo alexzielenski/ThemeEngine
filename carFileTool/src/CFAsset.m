@@ -99,8 +99,8 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
         self.opacity = self.rendition.opacity;
         self.exifOrientation = self.rendition.exifOrientation;
         self.colorSpaceID = self.rendition.colorSpaceID;
-        [csiData getBytes:&_layout range:NSMakeRange(36, 2)];
-        
+        [csiData getBytes:&_layout range:NSMakeRange(offsetof(struct _csiheader, metadata.layout), 2)];
+
         [self _initializeSlicesFromCSIData:csiData];
         [self _initializeMetricsFromCSIData:csiData];
     }
