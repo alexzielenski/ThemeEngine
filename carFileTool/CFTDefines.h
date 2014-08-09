@@ -57,7 +57,8 @@ typedef NS_ENUM(NSUInteger, CoreThemeState) {
     kCoreThemeStateNormal       = 0,
     kCoreThemeStateRollover     = 1,
     kCoreThemeStatePressed      = 2,
-    obsolete_kCoreThemeInactive = 3
+    obsolete_kCoreThemeInactive = 3,
+    kCoreThemeStateDisabled     = 4
 };
 
 typedef NS_ENUM(NSUInteger, CoreThemePresentationState) {

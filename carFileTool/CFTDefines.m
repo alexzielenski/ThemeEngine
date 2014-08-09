@@ -16,7 +16,7 @@
         return [@(#NUM) substringFromIndex: prefixLength].lowercaseString;
 #define ENDSTRINGIFY \
     default: \
-        return @""; \
+        return @"Unknown"; \
     }
 
 NSString *CoreThemeTypeToString(CoreThemeType value) {
@@ -105,9 +105,11 @@ NSString *CoreThemeStateToString(CoreThemeState value) {
     STRINGIFY(kCoreThemeStateNormal)
     STRINGIFY(kCoreThemeStateRollover)
     STRINGIFY(kCoreThemeStatePressed)
+    STRINGIFY(kCoreThemeStateDisabled)
     case obsolete_kCoreThemeInactive:
         return @"obselete_inactive";
     ENDSTRINGIFY
+    
 }
 
 NSString *CoreThemePresentationStateToString(CoreThemePresentationState value) {

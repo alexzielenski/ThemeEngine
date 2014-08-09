@@ -76,7 +76,12 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
         NSMutableArray *locations = [NSMutableArray array];
         for (CUIPSDGradientColorStop *stop in self.psdGradient.evaluator.colorStops) {
             [locations addObject:@(stop.colorLocation)];
+            
+#if TARGET_OS_IPHONE
+            [colors addObject:[UIColor colorWithRed:stop.gradientColor.red green:stop.gradientColor.green blue:stop.gradientColor.blue alpha:stop.gradientColor.alpha]];
+#else
             [colors addObject:[NSColor colorWithCalibratedRed:stop.gradientColor.red green:stop.gradientColor.green blue:stop.gradientColor.blue alpha:stop.gradientColor.alpha]];
+#endif
         }
         
         self.colors = colors;
@@ -89,6 +94,14 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 
 - (BOOL)isEqualToThemeGradient:(CUIThemeGradient *)themeGradient {
     return gradientsEqual(themeGradient, self.psdGradient);
+}
+
+- (CUIThemeGradient *)themeGradientRepresentation {
+    CGColorSpaceRef space = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+    CUIThemeGradient *gradient = [[CUIThemeGradient alloc] _initWithGradientEvaluator:self.psdGradient.evaluator
+                                                                           colorSpace:space];
+    CGColorSpaceRelease(space);
+    return gradient;
 }
 
 @end

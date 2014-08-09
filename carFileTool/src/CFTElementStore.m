@@ -57,6 +57,13 @@
     // element is direction agnostic. basically agnostic of all states/types except for the element
     name = [name stringByReplacingOccurrencesOfString:@"_Horizontal" withString:@""];
     name = [name stringByReplacingOccurrencesOfString:@"_Vertical" withString:@""];
+    name = [name stringByReplacingOccurrencesOfString:@"_PointingUp" withString:@""];
+    name = [name stringByReplacingOccurrencesOfString:@"_PointingDown" withString:@""];
+    name = [name stringByReplacingOccurrencesOfString:@"_PointingLeft" withString:@""];
+    name = [name stringByReplacingOccurrencesOfString:@"_PointingRight" withString:@""];
+    
+    name = [name stringByReplacingOccurrencesOfString:@"_Active" withString:@""];
+    name = [name stringByReplacingOccurrencesOfString:@"_Inactive" withString:@""];
     
     return name;
 }

@@ -19,7 +19,6 @@
 @property (readonly, weak) CFTElement *element;
 @property (readonly, strong) NSArray *slices;
 @property (readonly, strong) NSArray *metrics;
-//!TODO: Make a wrapper class CFTThemeGradient
 @property (readwrite, strong) CFTGradient *gradient;
 @property (readonly, strong) CUIRenditionKey *key;
 @property (readwrite, assign) BOOL shouldRemove;
@@ -37,15 +36,23 @@
 @property (assign) CGFloat opacity;
 @property (assign) CFTEXIFOrientation exifOrientation;
 @property (assign) short colorSpaceID;
-
 @property (assign, getter=isExcludedFromContrastFilter) BOOL excludedFromContrastFilter;
 @property (assign, getter=isRenditionFPO) BOOL renditionFPO;
 @property (assign, getter=isVector) BOOL vector;
 @property (assign, getter=isOpaque) BOOL opaque;
 
+#if TARGET_OS_IPHONE
+@property (readonly) UIImage *previewImage;
+#else
+@property (readonly) NSImage *previewImage;
+#endif
+
+
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 - (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage;
 - (BOOL)isDirty;
+
+- (NSString *)debugDescription;
 
 @end

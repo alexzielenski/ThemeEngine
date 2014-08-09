@@ -7,14 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA7B5F78199600FF00D0B2AD /* CHAssetDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7B5F76199600FF00D0B2AD /* CHAssetDetailViewController.m */; };
+		FA7B5F79199600FF00D0B2AD /* CHAssetDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7B5F77199600FF00D0B2AD /* CHAssetDetailViewController.xib */; };
 		FACFC2CB199485E900ED936C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2CA199485E900ED936C /* main.m */; };
 		FACFC2D21994861800ED936C /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACFC2D11994861800ED936C /* CoreUI.framework */; };
 		FACFC2DE199492C500ED936C /* CFTAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2DD199492C500ED936C /* CFTAsset.m */; };
-		FACFC2E71994AED300ED936C /* Opee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACFC2E61994AED300ED936C /* Opee.framework */; };
 		FACFC2EA1994B52900ED936C /* CFTElement.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2E91994B52900ED936C /* CFTElement.m */; };
 		FACFC2ED1994B91000ED936C /* CFTElementStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2EC1994B91000ED936C /* CFTElementStore.m */; };
 		FACFC2EF19955F6800ED936C /* CFTDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2EE19955F6800ED936C /* CFTDefines.m */; };
 		FACFC2F219958E7000ED936C /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2F119958E7000ED936C /* CFTGradient.m */; };
+		FACFC3211995A21700ED936C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC3201995A21700ED936C /* main.m */; };
+		FACFC3291995A21700ED936C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FACFC3281995A21700ED936C /* Images.xcassets */; };
+		FACFC32C1995A21700ED936C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACFC32A1995A21700ED936C /* MainMenu.xib */; };
+		FACFC3401995A26A00ED936C /* CFTAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2DD199492C500ED936C /* CFTAsset.m */; };
+		FACFC3411995A26A00ED936C /* CFTElement.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2E91994B52900ED936C /* CFTElement.m */; };
+		FACFC3421995A26A00ED936C /* CFTElementStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2EC1994B91000ED936C /* CFTElementStore.m */; };
+		FACFC3431995A26A00ED936C /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2F119958E7000ED936C /* CFTGradient.m */; };
+		FACFC3441995A26A00ED936C /* CFTDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2EE19955F6800ED936C /* CFTDefines.m */; };
+		FACFC3451995A36900ED936C /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACFC2D11994861800ED936C /* CoreUI.framework */; };
+		FACFC3481995A3B700ED936C /* CHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC3471995A3B700ED936C /* CHAppDelegate.m */; };
+		FACFC34C1995A3D300ED936C /* CHDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC34A1995A3D300ED936C /* CHDocument.m */; };
+		FACFC34D1995A3D300ED936C /* CHDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACFC34B1995A3D300ED936C /* CHDocument.xib */; };
+		FACFC3571995BA9400ED936C /* CHElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC3551995BA9400ED936C /* CHElementViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,6 +44,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FA7B5F75199600FF00D0B2AD /* CHAssetDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHAssetDetailViewController.h; path = src/controllers/CHAssetDetailViewController.h; sourceTree = "<group>"; };
+		FA7B5F76199600FF00D0B2AD /* CHAssetDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHAssetDetailViewController.m; path = src/controllers/CHAssetDetailViewController.m; sourceTree = "<group>"; };
+		FA7B5F77199600FF00D0B2AD /* CHAssetDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CHAssetDetailViewController.xib; path = src/controllers/CHAssetDetailViewController.xib; sourceTree = "<group>"; };
 		FACFC2C7199485E900ED936C /* carFileTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = carFileTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACFC2CA199485E900ED936C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FACFC2D11994861800ED936C /* CoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreUI.framework; path = ../../../../../../../../System/Library/PrivateFrameworks/CoreUI.framework; sourceTree = "<group>"; };
@@ -50,7 +67,6 @@
 		FACFC2E3199499C000ED936C /* prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = prefix.pch; sourceTree = "<group>"; };
 		FACFC2E419949B1B00ED936C /* CUIPSDGradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradient.h; sourceTree = "<group>"; };
 		FACFC2E519949BEC00ED936C /* CUIPSDGradientEvaluator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradientEvaluator.h; sourceTree = "<group>"; };
-		FACFC2E61994AED300ED936C /* Opee.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Opee.framework; path = ../../../../../../../../Library/Frameworks/Opee.framework; sourceTree = "<group>"; };
 		FACFC2E81994B52900ED936C /* CFTElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTElement.h; path = src/CFTElement.h; sourceTree = "<group>"; };
 		FACFC2E91994B52900ED936C /* CFTElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFTElement.m; path = src/CFTElement.m; sourceTree = "<group>"; };
 		FACFC2EB1994B91000ED936C /* CFTElementStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTElementStore.h; path = src/CFTElementStore.h; sourceTree = "<group>"; };
@@ -59,6 +75,22 @@
 		FACFC2F019958E7000ED936C /* CFTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTGradient.h; path = src/CFTGradient.h; sourceTree = "<group>"; };
 		FACFC2F119958E7000ED936C /* CFTGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFTGradient.m; path = src/CFTGradient.m; sourceTree = "<group>"; };
 		FACFC2F31995977F00ED936C /* CUIPSDGradientColorStop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradientColorStop.h; sourceTree = "<group>"; };
+		FACFC31C1995A21700ED936C /* Charade.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Charade.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACFC31F1995A21700ED936C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FACFC3201995A21700ED936C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FACFC3281995A21700ED936C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		FACFC32B1995A21700ED936C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		FACFC3461995A3B700ED936C /* CHAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHAppDelegate.h; path = src/controllers/CHAppDelegate.h; sourceTree = "<group>"; };
+		FACFC3471995A3B700ED936C /* CHAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHAppDelegate.m; path = src/controllers/CHAppDelegate.m; sourceTree = "<group>"; };
+		FACFC3491995A3D300ED936C /* CHDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHDocument.h; path = src/models/CHDocument.h; sourceTree = "<group>"; };
+		FACFC34A1995A3D300ED936C /* CHDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHDocument.m; path = src/models/CHDocument.m; sourceTree = "<group>"; };
+		FACFC34B1995A3D300ED936C /* CHDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CHDocument.xib; path = src/models/CHDocument.xib; sourceTree = "<group>"; };
+		FACFC34E1995A56100ED936C /* CUICatalog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUICatalog.h; sourceTree = "<group>"; };
+		FACFC34F1995A5E700ED936C /* NSAppearance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSAppearance.h; sourceTree = "<group>"; };
+		FACFC3541995BA9400ED936C /* CHElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHElementViewController.h; path = src/controllers/CHElementViewController.h; sourceTree = "<group>"; };
+		FACFC3551995BA9400ED936C /* CHElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHElementViewController.m; path = src/controllers/CHElementViewController.m; sourceTree = "<group>"; };
+		FAF726C41996131400CC2366 /* CUIShapeEffectStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIShapeEffectStack.h; sourceTree = "<group>"; };
+		FAF726C51996131400CC2366 /* CUITextEffectStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUITextEffectStack.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +98,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FACFC2E71994AED300ED936C /* Opee.framework in Frameworks */,
 				FACFC2D21994861800ED936C /* CoreUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FACFC3191995A21700ED936C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FACFC3451995A36900ED936C /* CoreUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,9 +116,9 @@
 		FACFC2BE199485E900ED936C = {
 			isa = PBXGroup;
 			children = (
-				FACFC2E61994AED300ED936C /* Opee.framework */,
 				FACFC2D11994861800ED936C /* CoreUI.framework */,
 				FACFC2C9199485E900ED936C /* carFileTool */,
+				FACFC31D1995A21700ED936C /* Charade */,
 				FACFC2C8199485E900ED936C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				FACFC2C7199485E900ED936C /* carFileTool */,
+				FACFC31C1995A21700ED936C /* Charade.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,6 +155,8 @@
 		FACFC2D31994927100ED936C /* CoreUI */ = {
 			isa = PBXGroup;
 			children = (
+				FACFC34F1995A5E700ED936C /* NSAppearance.h */,
+				FACFC34E1995A56100ED936C /* CUICatalog.h */,
 				FACFC2D41994927100ED936C /* CSIBitmapWrapper.h */,
 				FACFC2D51994927100ED936C /* CSIGenerator.h */,
 				FACFC2E419949B1B00ED936C /* CUIPSDGradient.h */,
@@ -127,10 +169,41 @@
 				FACFC2D71994927100ED936C /* CUIRenditionKey.h */,
 				FACFC2D81994927100ED936C /* CUIRenditionMetrics.h */,
 				FACFC2D91994927100ED936C /* CUIShapeEffectPreset.h */,
+				FAF726C41996131400CC2366 /* CUIShapeEffectStack.h */,
+				FAF726C51996131400CC2366 /* CUITextEffectStack.h */,
 				FACFC2DA1994927100ED936C /* CUIThemeGradient.h */,
 				FACFC2DB1994927100ED936C /* CUIThemeRendition.h */,
 			);
 			path = CoreUI;
+			sourceTree = "<group>";
+		};
+		FACFC31D1995A21700ED936C /* Charade */ = {
+			isa = PBXGroup;
+			children = (
+				FACFC3461995A3B700ED936C /* CHAppDelegate.h */,
+				FACFC3471995A3B700ED936C /* CHAppDelegate.m */,
+				FACFC3491995A3D300ED936C /* CHDocument.h */,
+				FACFC34A1995A3D300ED936C /* CHDocument.m */,
+				FACFC34B1995A3D300ED936C /* CHDocument.xib */,
+				FACFC3541995BA9400ED936C /* CHElementViewController.h */,
+				FACFC3551995BA9400ED936C /* CHElementViewController.m */,
+				FA7B5F75199600FF00D0B2AD /* CHAssetDetailViewController.h */,
+				FA7B5F76199600FF00D0B2AD /* CHAssetDetailViewController.m */,
+				FA7B5F77199600FF00D0B2AD /* CHAssetDetailViewController.xib */,
+				FACFC3281995A21700ED936C /* Images.xcassets */,
+				FACFC32A1995A21700ED936C /* MainMenu.xib */,
+				FACFC33F1995A22A00ED936C /* Supporting Files */,
+			);
+			path = Charade;
+			sourceTree = "<group>";
+		};
+		FACFC33F1995A22A00ED936C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FACFC3201995A21700ED936C /* main.m */,
+				FACFC31F1995A21700ED936C /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +226,23 @@
 			productReference = FACFC2C7199485E900ED936C /* carFileTool */;
 			productType = "com.apple.product-type.tool";
 		};
+		FACFC31B1995A21700ED936C /* Charade */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FACFC3391995A21700ED936C /* Build configuration list for PBXNativeTarget "Charade" */;
+			buildPhases = (
+				FACFC3181995A21700ED936C /* Sources */,
+				FACFC3191995A21700ED936C /* Frameworks */,
+				FACFC31A1995A21700ED936C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Charade;
+			productName = Charade;
+			productReference = FACFC31C1995A21700ED936C /* Charade.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -165,6 +255,9 @@
 					FACFC2C6199485E900ED936C = {
 						CreatedOnToolsVersion = 6.0;
 					};
+					FACFC31B1995A21700ED936C = {
+						CreatedOnToolsVersion = 6.0;
+					};
 				};
 			};
 			buildConfigurationList = FACFC2C2199485E900ED936C /* Build configuration list for PBXProject "carFileTool" */;
@@ -173,6 +266,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = FACFC2BE199485E900ED936C;
 			productRefGroup = FACFC2C8199485E900ED936C /* Products */;
@@ -180,9 +274,24 @@
 			projectRoot = "";
 			targets = (
 				FACFC2C6199485E900ED936C /* carFileTool */,
+				FACFC31B1995A21700ED936C /* Charade */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FACFC31A1995A21700ED936C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FACFC34D1995A3D300ED936C /* CHDocument.xib in Resources */,
+				FACFC3291995A21700ED936C /* Images.xcassets in Resources */,
+				FA7B5F79199600FF00D0B2AD /* CHAssetDetailViewController.xib in Resources */,
+				FACFC32C1995A21700ED936C /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FACFC2C3199485E900ED936C /* Sources */ = {
@@ -198,7 +307,35 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FACFC3181995A21700ED936C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FACFC3401995A26A00ED936C /* CFTAsset.m in Sources */,
+				FACFC3481995A3B700ED936C /* CHAppDelegate.m in Sources */,
+				FACFC3411995A26A00ED936C /* CFTElement.m in Sources */,
+				FA7B5F78199600FF00D0B2AD /* CHAssetDetailViewController.m in Sources */,
+				FACFC3421995A26A00ED936C /* CFTElementStore.m in Sources */,
+				FACFC3571995BA9400ED936C /* CHElementViewController.m in Sources */,
+				FACFC34C1995A3D300ED936C /* CHDocument.m in Sources */,
+				FACFC3431995A26A00ED936C /* CFTGradient.m in Sources */,
+				FACFC3441995A26A00ED936C /* CFTDefines.m in Sources */,
+				FACFC3211995A21700ED936C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FACFC32A1995A21700ED936C /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FACFC32B1995A21700ED936C /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		FACFC2CC199485E900ED936C /* Debug */ = {
@@ -223,6 +360,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "${SRCROOT}/carFileTool/prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -263,6 +401,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREFIX_HEADER = "${SRCROOT}/carFileTool/prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -283,7 +422,6 @@
 					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
-				GCC_PREFIX_HEADER = "${SRCROOT}/carFileTool/prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -296,7 +434,42 @@
 					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
-				GCC_PREFIX_HEADER = "${SRCROOT}/carFileTool/prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		FACFC33A1995A21700ED936C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Charade/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FACFC33B1995A21700ED936C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
+				INFOPLIST_FILE = Charade/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -318,6 +491,15 @@
 			buildConfigurations = (
 				FACFC2CF199485E900ED936C /* Debug */,
 				FACFC2D0199485E900ED936C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FACFC3391995A21700ED936C /* Build configuration list for PBXNativeTarget "Charade" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FACFC33A1995A21700ED936C /* Debug */,
+				FACFC33B1995A21700ED936C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

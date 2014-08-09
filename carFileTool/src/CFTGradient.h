@@ -23,5 +23,6 @@
 - (instancetype)initWithThemeGradient:(CUIThemeGradient *)gradient angle:(CGFloat)angle style:(NSUInteger)style;
 
 - (BOOL)isEqualToThemeGradient:(CUIThemeGradient *)themeGradient;
+- (CUIThemeGradient *)themeGradientRepresentation;
 
 @end

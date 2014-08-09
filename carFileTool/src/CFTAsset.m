@@ -13,7 +13,8 @@
 #import "CUIMutableCommonAssetStorage.h"
 #import <objc/runtime.h>
 #import <stddef.h>
-
+#import <CoreText/CoreText.h>
+#import "CUITextEffectStack.h"
 #define kSLICES 1001
 #define kMETRICS 1003
 #define kFLAGS 1004
@@ -58,7 +59,7 @@
 @end
 
 @implementation CFTAsset
-@dynamic image, pdfData;
+@dynamic image, pdfData, previewImage;
 
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key {
     return [[self alloc] initWithRenditionCSIData:csiData forKey:key];
@@ -331,6 +332,100 @@
 
 + (NSSet *)keyPathsForValuesAffectingPdfData {
     return [NSSet setWithObject:@"rawData"];
+}
+
+
+//!TODO: Generate gradient and effect previews
+#if TARGET_OS_IPHONE
+- (UIImage *)previewImage {
+    return [UIImage imageWithCGImage:self.image];
+}
+#else
+- (NSImage *)previewImage {
+    NSImage *image = [[NSImage alloc] init];
+    if (self.image) {
+        NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithCGImage:self.image];
+        [image addRepresentation:rep];
+    } else if (self.type == kCoreThemeTypePDF) {
+        NSPDFImageRep *rep = [[NSPDFImageRep alloc] initWithData:self.pdfData];
+        [image addRepresentation:rep];
+    } else if (self.type == kCoreThemeTypeGradient) {
+        NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                                        pixelsWide:40
+                                                                        pixelsHigh:40
+                                                                     bitsPerSample:8
+                                                                   samplesPerPixel:4
+                                                                          hasAlpha:YES
+                                                                          isPlanar:NO
+                                                                    colorSpaceName:NSDeviceRGBColorSpace
+                                                                       bytesPerRow:4 * 40
+                                                                      bitsPerPixel:32];
+        NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
+        CUIThemeGradient *grad = self.gradient.themeGradientRepresentation;
+        if (self.gradient.isRadial) {
+            [grad drawFromPoint:CGPointMake(rep.pixelsWide / 2, rep.pixelsHigh / 2) toPoint:CGPointZero
+                        options:0
+                    withContext:ctx.graphicsPort];
+        } else {
+            [grad drawInRect:CGRectMake(0, 0, rep.pixelsWide, rep.pixelsHigh) angle:self.gradient.angle withContext:ctx.graphicsPort];
+        }
+        
+        [image addRepresentation:rep];
+        
+    } else if (self.type == kCoreThemeTypeEffect) {
+        //!TODO: Don't use coretext
+        NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                                        pixelsWide:32
+                                                                        pixelsHigh:32
+                                                                     bitsPerSample:8
+                                                                   samplesPerPixel:4
+                                                                          hasAlpha:YES
+                                                                          isPlanar:NO
+                                                                    colorSpaceName:NSDeviceRGBColorSpace
+                                                                       bytesPerRow:4 * 32
+                                                                      bitsPerPixel:32];
+        NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
+        
+        unichar chars[2] = { 0x41, 0x61 };
+        CGGlyph glyphs[2];
+        CGPoint positions[2];
+        CGSize advances[2];
+        
+        CTFontRef font = CTFontCreateWithName(CFSTR("HelveticaNeue-Medium"), 18.0, NULL);
+        CTFontGetGlyphsForCharacters(font, chars, glyphs, 2);
+        CTFontGetAdvancesForGlyphs(font, kCTFontDefaultOrientation, glyphs, advances, 2);
+        
+        CGPoint position = CGPointZero;
+        for (NSUInteger i = 0; i < 2; i++) {
+            positions[i] = CGPointMake(position.x, position.y);
+            CGSize advance = advances[i];
+            position.x += advance.width;
+            position.y += advance.height;
+        }
+        
+        positions[0].x += rep.pixelsWide / 2 - position.x / 2;
+        positions[0].y += rep.pixelsHigh / 2 - position.y / 2 - 6;
+        positions[1].x += rep.pixelsWide / 2 - position.x / 2;
+        positions[1].y += rep.pixelsHigh / 2 - position.y / 2 - 6;
+
+        CUITextEffectStack *stack = [[CUITextEffectStack alloc] initWithEffectPreset:self.effectPreset];
+        CTFontDrawGlyphs(font, glyphs, positions, 2, ctx.graphicsPort);
+
+        [image addRepresentation:[[NSBitmapImageRep alloc] initWithCGImage:[stack newFlattenedImageFromShapeCGImage:rep.CGImage]]];
+    } else {
+        image = [NSImage imageNamed:@"NSApplicationIcon"];
+    }
+
+    return image;
+}
+#endif
+
++ (NSSet *)keyPathsForValuesAffectingPreviewImage {
+    return [NSSet setWithObjects:@"image", @"pdfData", @"gradient", @"effectPreset", nil];
+}
+
+- (NSString *)debugDescription {
+    return [NSString stringWithFormat:@"Type: %@, State: %@, Scale: %lld, Layer: %@, Idiom: %@, Size: %@, Value: %@, Presentation: %@, Dimension1: %lld, Dimension2: %lld, Direction: %@", CoreThemeTypeToString(self.type), CoreThemeStateToString(self.key.themeState), self.key.themeScale, CoreThemeLayerToString(self.key.themeLayer), CoreThemeIdiomToString(self.key.themeIdiom), CoreThemeSizeToString(self.key.themeSize), CoreThemeValueToString(self.key.themeValue), CoreThemePresentationStateToString(self.key.themePresentationState), self.key.themeDimension1, self.key.themeDimension2, CoreThemeDirectionToString(self.key.themeDirection)];
 }
 
 @end
