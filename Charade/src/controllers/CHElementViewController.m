@@ -193,10 +193,17 @@
         case kCoreThemeTypeNinePart:
         case kCoreThemeTypeSixPart:
         case kCoreThemeTypeAnimation:
-        case kCoreThemeTypeGradient:
+        case kCoreThemeTypeGradient: {
             // bitmaps
-            asset.image = [[NSBitmapImageRep imageRepsWithPasteboard:sender.draggingPasteboard][0] CGImage];
+            CGImageRef image = [[NSBitmapImageRep imageRepsWithPasteboard:sender.draggingPasteboard][0] CGImage];
+            //!TODO Remove this restriction
+            if (CGImageGetWidth(asset.image) == CGImageGetWidth(image) && CGImageGetHeight(asset.image) == CGImageGetHeight(image)) {
+                asset.image = image;
+            } else {
+                NSRunAlertPanel(@"Invalid Image", @"Sizes must be equal", @"Sorry, boss", nil, nil);
+            }
             break;
+        }
         case kCoreThemeTypePDF:
             asset.pdfData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[sender.draggingPasteboard stringForType:(__bridge NSString *)kUTTypeFileURL]]];
         default:
@@ -233,6 +240,9 @@
         return self.gradient.description;
     else if (self.type == kCoreThemeTypeEffect)
         return self.effectPreset.description;
+    else if (self.type == kCoreThemeTypeColor) {
+        return [NSString stringWithFormat:@"%f, %f, %f, %f", self.color.redComponent, self.color.greenComponent, self.color.blueComponent, self.color.alphaComponent];
+    }
     return [(__bridge id)self.image description];
 }
 

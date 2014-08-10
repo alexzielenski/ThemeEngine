@@ -66,6 +66,15 @@ struct _csiheader {
  
  */
 
+/*
+ Raw Tree Structs
+ */
+
+struct _colorkey {
+    unsigned int reserved;
+    char name[128];
+};
+
 @class CUIImage;
 
 __attribute__((visibility("hidden")))

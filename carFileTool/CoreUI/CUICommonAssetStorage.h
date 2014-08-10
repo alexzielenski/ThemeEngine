@@ -15,9 +15,9 @@ struct _rgbquad {
 };
 
 struct _colordef {
-    unsigned int _field1;
-    unsigned int _field2;
-    struct _rgbquad _field3;
+    unsigned int _field1; // always 1
+    unsigned int reserved; // always 0
+    struct _rgbquad color;
 };
 
 __attribute__((visibility("hidden")))

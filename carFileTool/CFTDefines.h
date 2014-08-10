@@ -96,7 +96,8 @@ typedef NS_ENUM(NSUInteger, CoreThemeType) {
     kCoreThemeTypeAnimation           = 8,
     kCoreThemeTypePDF                 = 9,
     kCoreThemeTypeRawData             = 1000,
-    kCoreThemeTypeRawPixel            = 1245774599
+    kCoreThemeTypeRawPixel            = 1245774599,
+    kCoreThemeTypeColor               = 1001
 };
 
 typedef NS_ENUM(NSUInteger, CFTEXIFOrientation) {

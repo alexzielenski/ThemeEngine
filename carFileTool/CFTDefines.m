@@ -32,6 +32,7 @@ NSString *CoreThemeTypeToString(CoreThemeType value) {
     STRINGIFY(kCoreThemeTypePDF)
     STRINGIFY(kCoreThemeTypeRawData)
     STRINGIFY(kCoreThemeTypeRawPixel)
+    STRINGIFY(kCoreThemeTypeColor)
     ENDSTRINGIFY
 }
 

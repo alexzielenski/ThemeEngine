@@ -99,6 +99,38 @@
     return self;
 }
 
++ (instancetype)assetWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key {
+    return [[self alloc] initWithColorDef:colordef forKey:key];
+}
+
+- (id)initWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key {
+    if ((self = [self init])) {
+        
+#if TARGET_OS_IPHONE
+        self.color = [UIColor colorWithRed:(double)colordef.color.r / 255.0
+                                     green:(double)colordef.color.g / 255.0
+                                      blue:(double)colordef.color.b / 255.0
+                                     alpha:(double)colordef.color.a / 255.0];
+#else
+        self.color = [NSColor colorWithRed:(double)colordef.color.r / 255.0
+                                     green:(double)colordef.color.g / 255.0
+                                      blue:(double)colordef.color.b / 255.0
+                                     alpha:(double)colordef.color.a / 255.0];
+#endif
+        self.name = [NSString stringWithCString:key.name encoding:NSUTF8StringEncoding];
+        self.type = kCoreThemeTypeColor;
+        NSString *name = [self.name stringByReplacingOccurrencesOfString:@"_" withString:@""];
+        name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
+        name = [name stringByReplacingOccurrencesOfString:@"([a-z])([A-Z])"
+                                               withString:@"$1 $2"
+                                                  options:NSRegularExpressionSearch
+                                                    range:NSMakeRange(0, name.length)];
+        self.keywords = [NSSet setWithArray:[name componentsSeparatedByString:@" "]];
+    }
+    
+    return self;
+}
+
 - (void)_initializeSlicesFromCSIData:(NSData *)csiData {
     unsigned int bytes = kSLICES;
     NSRange sliceLocation = [csiData rangeOfData:[NSData dataWithBytes:&bytes length:sizeof(bytes)]
@@ -237,10 +269,23 @@
     if (!self.isDirty)
         return;
     
+    if (self.type == kCoreThemeTypeColor) {
+        struct _rgbquad quad;
+        quad.r = (uint8_t)(self.color.redComponent * 255);
+        quad.g = (uint8_t)(self.color.greenComponent * 255);
+        quad.b = (uint8_t)(self.color.blueComponent * 255);
+        quad.a = (uint8_t)(self.color.alphaComponent * 255);
+        
+        [assetStorage setColor:quad
+                       forName:self.name.UTF8String
+             excludeFromFilter:NO];
+    }
+    
     if (self.type > kCoreThemeTypePDF) {
         // we only save shape effects, gradients, pdfs, and bitmaps
         return;
     }
+    
     
     CSIGenerator *gen = nil;
     if (self.type == kCoreThemeTypeEffect) {
@@ -423,6 +468,22 @@
         CTFontDrawGlyphs(font, glyphs, positions, 2, ctx.graphicsPort);
 
         [image addRepresentation:[[NSBitmapImageRep alloc] initWithCGImage:[stack newFlattenedImageFromShapeCGImage:rep.CGImage]]];
+    } else if (self.type == kCoreThemeTypeColor) {
+        NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                                        pixelsWide:40
+                                                                        pixelsHigh:40
+                                                                     bitsPerSample:8
+                                                                   samplesPerPixel:4
+                                                                          hasAlpha:YES
+                                                                          isPlanar:NO
+                                                                    colorSpaceName:NSDeviceRGBColorSpace
+                                                                       bytesPerRow:4 * 40
+                                                                      bitsPerPixel:32];
+        NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
+        CGContextSetFillColorWithColor(ctx.graphicsPort, self.color.CGColor);
+        CGContextFillRect(ctx.graphicsPort, CGRectMake(0, 0, rep.pixelsWide, rep.pixelsHigh));
+        
+        [image addRepresentation:rep];
     } else {
         image = [NSImage imageNamed:@"NSApplicationIcon"];
     }
@@ -436,7 +497,11 @@
 }
 
 - (NSString *)debugDescription {
-    return [NSString stringWithFormat:@"%@: Type: %@, State: %@, Scale: %lld, Layer: %@, Idiom: %@, Size: %@, Value: %@, Presentation: %@, Dimension1: %lld, Direction: %@", self.name, CoreThemeTypeToString(self.type), CoreThemeStateToString(self.key.themeState), self.key.themeScale, CoreThemeLayerToString(self.key.themeLayer), CoreThemeIdiomToString(self.key.themeIdiom), CoreThemeSizeToString(self.key.themeSize), CoreThemeValueToString(self.key.themeValue), CoreThemePresentationStateToString(self.key.themePresentationState), self.key.themeDimension1, CoreThemeDirectionToString(self.key.themeDirection)];
+    if (self.type != kCoreThemeTypeColor) {
+        return [NSString stringWithFormat:@"%@: Type: %@, State: %@, Scale: %lld, Layer: %@, Idiom: %@, Size: %@, Value: %@, Presentation: %@, Dimension1: %lld, Direction: %@", self.name, CoreThemeTypeToString(self.type), CoreThemeStateToString(self.key.themeState), self.key.themeScale, CoreThemeLayerToString(self.key.themeLayer), CoreThemeIdiomToString(self.key.themeIdiom), CoreThemeSizeToString(self.key.themeSize), CoreThemeValueToString(self.key.themeValue), CoreThemePresentationStateToString(self.key.themePresentationState), self.key.themeDimension1, CoreThemeDirectionToString(self.key.themeDirection)];
+    }
+    
+    return [NSString stringWithFormat:@"%@: {r: %d, g: %d, b: %d, a: %d}", self.name, (uint32_t)(self.color.redComponent * 255), (uint32_t)(self.color.greenComponent * 255), (uint32_t)(self.color.blueComponent * 255), (uint32_t)(self.color.alphaComponent * 255)];
 }
 
 #pragma mark - NSPasteboardWriting
@@ -445,7 +510,7 @@
     self.currentPasteboard = pasteboard;
     if (self.type > kCoreThemeTypePDF)
         return @[];
-    
+    //!TODO: Color
     return @[ self.type == kCoreThemeTypePDF ? NSPasteboardTypePDF : NSPasteboardTypePNG, (__bridge NSString *)kPasteboardTypeFilePromiseContent, (__bridge NSString *)kUTTypeFileURL ];
 }
 
@@ -454,8 +519,6 @@
 }
 
 - (id)pasteboardPropertyListForType:(NSString *)type {
-    NSLog(@"%@", self.currentPasteboard);
-    NSLog(@"%@", self.currentPasteboard.types);
     if ([type isEqualToString:NSPasteboardTypePDF])
         return self.pdfData;
     else if ([type isEqualToString:NSPasteboardTypePNG])

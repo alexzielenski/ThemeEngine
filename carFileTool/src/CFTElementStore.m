@@ -9,12 +9,27 @@
 #import "CFTElementStore.h"
 #import <objc/runtime.h>
 
+typedef void *BOMTreeIteratorRef;
+typedef void *BOMTreeRef;
+extern BOMTreeIteratorRef BOMTreeIteratorNew(BOMTreeRef tree, int unk, int numberOfKeys, int unk3);
+extern BOOL BOMTreeIteratorIsAtEnd(BOMTreeIteratorRef iterator);
+extern void BOMTreeIteratorFree(BOMTreeIteratorRef iterator);
+extern size_t BOMTreeIteratorKeySize(BOMTreeIteratorRef iterator);
+extern void *BOMTreeIteratorKey(BOMTreeIteratorRef iterator);
+extern size_t BOMTreeIteratorValueSize(BOMTreeIteratorRef iterator);
+extern void *BOMTreeIteratorValue(BOMTreeIteratorRef iterator);
+extern void BOMTreeIteratorNext(BOMTreeIteratorRef iterator);
+
+extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
+
+
 @interface CFTElementStore ()
 @property (readwrite, strong) CUIMutableStructuredThemeStore *themeStore;
 @property (readwrite, strong) CUIMutableCommonAssetStorage *assetStorage;
 @property (readwrite, copy) NSString *path;
 @property (readwrite, strong) NSMutableSet *elements;
 - (void)_enumerateAssets;
+- (void)_enumerateColors;
 - (void)_addAsset:(CFTAsset *)asset;
 - (void)_addElement:(CFTElement *)element;
 + (NSString *)elementNameForAsset:(CFTAsset *)asset;
@@ -33,6 +48,7 @@
         self.assetStorage = [[objc_getClass("CUIMutableCommonAssetStorage") alloc] initWithPath:path forWriting:YES];
         
         [self _enumerateAssets];
+        [self _enumerateColors];
     }
     
     return self;
@@ -47,6 +63,9 @@
 }
 
 + (NSString *)elementNameForAsset:(CFTAsset *)asset {
+    if (asset.type == kCoreThemeTypeColor)
+        return @"Colors";
+    
     NSString *name = [[asset.name stringByReplacingOccurrencesOfString:@"@2x" withString:@""] stringByDeletingPathExtension];
     // element is to be size agnostic
     name = [name stringByReplacingOccurrencesOfString:@"_Mini" withString:@""];
@@ -74,6 +93,28 @@
         CFTAsset *asset = [CFTAsset assetWithRenditionCSIData:csiData forKey:key];
         [weakSelf _addAsset:asset];
     }];
+}
+
+- (void)_enumerateColors {
+    Ivar ivar = class_getInstanceVariable(object_getClass(self.assetStorage), "_colordb");
+    BOMTreeRef treeRef = *(BOMTreeRef *)((__bridge void *)self.assetStorage + ivar_getOffset(ivar));
+    BOMTreeIteratorRef iterator = BOMTreeIteratorNew(treeRef, 0x0, 0x0, 0x0);
+    do {
+        size_t size = BOMTreeIteratorKeySize(iterator);
+        void *bytes = BOMTreeIteratorKey(iterator);
+        
+        size_t valueSize = BOMTreeIteratorValueSize(iterator);
+        void *valueBytes = BOMTreeIteratorValue(iterator);
+        
+        if (size > 0 && valueSize > 0) {
+            CFTAsset *asset = [CFTAsset assetWithColorDef:*(struct _colordef *)valueBytes forKey:*(struct _colorkey *)bytes];
+            [self _addAsset: asset];
+        }
+        
+        BOMTreeIteratorNext(iterator);
+        
+    } while (!BOMTreeIteratorIsAtEnd(iterator));
+    BOMTreeIteratorFree(iterator);
 }
 
 - (void)_addAsset:(CFTAsset *)asset {

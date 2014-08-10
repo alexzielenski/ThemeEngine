@@ -26,6 +26,11 @@
 @property (readwrite, strong) CUIShapeEffectPreset *effectPreset;
 @property (readwrite, strong) NSData *rawData;
 @property (readwrite, strong) NSData *pdfData;
+#if TARGET_OS_IPHONE
+@property (strong) UIColor *color;
+#else
+@property (strong) NSColor *color;
+#endif
 @property CGImageRef image;
 @property (assign) CoreThemeLayout layout;
 @property (assign) CoreThemeType type;
@@ -51,6 +56,8 @@
 
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
++ (instancetype)assetWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key;
+- (id)initWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key;
 - (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage;
 - (BOOL)isDirty;
 

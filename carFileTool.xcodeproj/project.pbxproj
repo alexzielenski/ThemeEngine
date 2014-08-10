@@ -29,6 +29,8 @@
 		FACFC34C1995A3D300ED936C /* CHDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC34A1995A3D300ED936C /* CHDocument.m */; };
 		FACFC34D1995A3D300ED936C /* CHDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACFC34B1995A3D300ED936C /* CHDocument.xib */; };
 		FACFC3571995BA9400ED936C /* CHElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC3551995BA9400ED936C /* CHElementViewController.m */; };
+		FAF726C91996E72E00CC2366 /* Bom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF726C81996E72E00CC2366 /* Bom.framework */; };
+		FAF726CC1997056100CC2366 /* Bom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF726C81996E72E00CC2366 /* Bom.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -91,6 +93,7 @@
 		FACFC3551995BA9400ED936C /* CHElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHElementViewController.m; path = src/controllers/CHElementViewController.m; sourceTree = "<group>"; };
 		FAF726C41996131400CC2366 /* CUIShapeEffectStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIShapeEffectStack.h; sourceTree = "<group>"; };
 		FAF726C51996131400CC2366 /* CUITextEffectStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUITextEffectStack.h; sourceTree = "<group>"; };
+		FAF726C81996E72E00CC2366 /* Bom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bom.framework; path = ../../../../../../../../System/Library/PrivateFrameworks/Bom.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAF726C91996E72E00CC2366 /* Bom.framework in Frameworks */,
 				FACFC2D21994861800ED936C /* CoreUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,6 +111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FACFC3451995A36900ED936C /* CoreUI.framework in Frameworks */,
+				FAF726CC1997056100CC2366 /* Bom.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +121,7 @@
 		FACFC2BE199485E900ED936C = {
 			isa = PBXGroup;
 			children = (
+				FAF726C81996E72E00CC2366 /* Bom.framework */,
 				FACFC2D11994861800ED936C /* CoreUI.framework */,
 				FACFC2C9199485E900ED936C /* carFileTool */,
 				FACFC31D1995A21700ED936C /* Charade */,
@@ -442,7 +448,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -462,7 +468,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
