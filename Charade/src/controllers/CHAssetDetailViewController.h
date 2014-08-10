@@ -7,7 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "CHImageSliceView.h"
+#import "CFTAsset.h"
 
 @interface CHAssetDetailViewController : NSViewController
-
+@property (weak) IBOutlet CHImageSliceView *imageSliceView;
+@property (weak) IBOutlet NSSegmentedControl *typeSegment;
+@property (strong) CFTAsset *asset;
 @end

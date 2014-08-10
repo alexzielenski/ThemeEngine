@@ -14,6 +14,12 @@
 
 @implementation CHAppDelegate
 
+- (void)applicationDidFinishLaunching:(NSNotification *)notification {
+    NSColor *color = [NSColor colorWithCatalogName:@"System" colorName:@"_sourceListBackgroundColor"];
+
+    NSLog(@"%f", color.blueComponent);
+}
+
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
     NSAppearance *appearance = [NSAppearance currentAppearance];
     CUICatalog *catalog = appearance._coreUICatalog;

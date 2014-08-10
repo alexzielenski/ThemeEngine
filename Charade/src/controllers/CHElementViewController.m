@@ -7,13 +7,15 @@
 //
 
 #import "CHElementViewController.h"
+#import "CHAssetDetailViewController.h"
 #import <Quartz/Quartz.h>
-#import <objc/runtime.h>
 
-@interface CHElementViewController () <NSPasteboardItemDataProvider>
+@interface CHElementViewController ()
 @property (strong) NSArray *assets;
 @property (strong) NSArray *filteredAssets;
 @property (strong) NSString *lastQuery;
+@property (strong) NSPopover *detailPopover;
+@property (strong) CHAssetDetailViewController *detailPopoverViewController;
 - (void)_initialize;
 - (void)_filterPredicates;
 @end
@@ -140,6 +142,18 @@
 
 - (void) imageBrowser:(IKImageBrowserView *)browser cellWasDoubleClickedAtIndex:(NSUInteger)index {
     // open up popover where the user can edit shit like gradients, effects
+    if (!self.detailPopoverViewController) {
+        self.detailPopoverViewController = [[CHAssetDetailViewController alloc] initWithNibName:@"CHAssetDetailViewController" bundle:nil];
+    }
+    
+    if (!self.detailPopover) {
+        self.detailPopover = [[NSPopover alloc] init];
+        self.detailPopover.contentViewController = self.detailPopoverViewController;
+    }
+    
+    IKImageBrowserCell *cell = [browser cellForItemAtIndex:index];
+    [self.detailPopover showRelativeToRect:cell.frame ofView:cell.imageBrowserView preferredEdge:CGRectMaxXEdge];
+    self.detailPopoverViewController.asset = self.filteredAssets[index];
 }
 
 - (void)imageBrowserSelectionDidChange:(IKImageBrowserView *) browser {
