@@ -139,3 +139,11 @@ NSString *CoreThemeLayoutToString(CoreThemeLayout value) {
     STRINGIFY(kCoreThemeAnimationFilmstrip)
     ENDSTRINGIFY
 }
+
+NSString *CFTScaleToString(double scale) {
+    if (scale == 1.0)
+        return @"@1x";
+    else if (scale == 2.0)
+        return @"@2x";
+    return @"";
+}

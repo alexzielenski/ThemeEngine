@@ -143,5 +143,5 @@ extern NSString *CoreThemeDirectionToString(CoreThemeDirection value);
 extern NSString *CoreThemeStateToString(CoreThemeState value);
 extern NSString *CoreThemePresentationStateToString(CoreThemePresentationState value);
 extern NSString *CoreThemeLayoutToString(CoreThemeLayout value);
-
+extern NSString *CFTScaleToString(double scale);
 #endif

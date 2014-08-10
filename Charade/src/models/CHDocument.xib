@@ -100,7 +100,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <scrollView focusRingType="none" borderType="none" horizontalLineScroll="64" horizontalPageScroll="10" verticalLineScroll="64" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Rn-Pk-5eL">
-                                        <rect key="frame" x="0.0" y="0.0" width="347" height="391"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="347" height="365"/>
                                         <clipView key="contentView" copiesOnScroll="NO" id="U6y-qh-1FV">
                                             <rect key="frame" x="1" y="1" width="166" height="79"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -127,12 +127,40 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="RHL-eP-LXh">
+                                        <rect key="frame" x="0.0" y="365" width="347" height="26"/>
+                                        <subviews>
+                                            <searchField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TL7-dU-BAj">
+                                                <rect key="frame" x="20" y="4" width="307" height="19"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="0f6-Kh-bKd"/>
+                                                </constraints>
+                                                <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" id="4GF-mX-9kB">
+                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </searchFieldCell>
+                                                <connections>
+                                                    <action selector="searchChanged:" target="kDe-jO-4eI" id="vQv-Ov-h2G"/>
+                                                </connections>
+                                            </searchField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="IVI-na-Ydh"/>
+                                            <constraint firstAttribute="trailing" secondItem="TL7-dU-BAj" secondAttribute="trailing" constant="20" symbolic="YES" id="Tja-sN-BHP"/>
+                                            <constraint firstItem="TL7-dU-BAj" firstAttribute="centerY" secondItem="RHL-eP-LXh" secondAttribute="centerY" id="Wb1-r4-qz5"/>
+                                            <constraint firstItem="TL7-dU-BAj" firstAttribute="leading" secondItem="RHL-eP-LXh" secondAttribute="leading" constant="20" id="rdr-uD-iRi"/>
+                                        </constraints>
+                                    </customView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="8Rn-Pk-5eL" secondAttribute="trailing" id="I71-fe-0pR"/>
+                                    <constraint firstItem="RHL-eP-LXh" firstAttribute="trailing" secondItem="8Rn-Pk-5eL" secondAttribute="trailing" id="Pxb-aI-ISE"/>
                                     <constraint firstItem="8Rn-Pk-5eL" firstAttribute="leading" secondItem="7Iw-xe-zm2" secondAttribute="leading" id="SYo-bV-6hf"/>
-                                    <constraint firstItem="8Rn-Pk-5eL" firstAttribute="top" secondItem="7Iw-xe-zm2" secondAttribute="top" id="YzU-Vj-U1k"/>
+                                    <constraint firstItem="8Rn-Pk-5eL" firstAttribute="top" secondItem="7Iw-xe-zm2" secondAttribute="top" constant="26" id="YzU-Vj-U1k"/>
+                                    <constraint firstItem="RHL-eP-LXh" firstAttribute="leading" secondItem="8Rn-Pk-5eL" secondAttribute="leading" id="f2d-BM-s3d"/>
                                     <constraint firstAttribute="bottom" secondItem="8Rn-Pk-5eL" secondAttribute="bottom" id="n8E-yM-WwI"/>
+                                    <constraint firstItem="RHL-eP-LXh" firstAttribute="top" secondItem="7Iw-xe-zm2" secondAttribute="top" id="x5l-AM-5Oq"/>
                                 </constraints>
                             </customView>
                         </subviews>
@@ -191,6 +219,7 @@
         <viewController nibName="CHElementViewController" id="kDe-jO-4eI" customClass="CHElementViewController">
             <connections>
                 <outlet property="imageBrowserView" destination="GBq-Ox-GKj" id="gcE-uQ-FpO"/>
+                <outlet property="search" destination="TL7-dU-BAj" id="gJV-pp-lRQ"/>
                 <outlet property="statusLabel" destination="23A-MO-APY" id="2mW-nH-rKk"/>
             </connections>
         </viewController>

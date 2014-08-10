@@ -15,7 +15,7 @@
 
 //!TODO: Implement undo manager
 @class CFTElement;
-@interface CFTAsset : NSObject
+@interface CFTAsset : NSObject <NSPasteboardWriting>
 @property (readonly, weak) CFTElement *element;
 @property (readonly, strong) NSArray *slices;
 @property (readonly, strong) NSArray *metrics;
@@ -40,6 +40,7 @@
 @property (assign, getter=isRenditionFPO) BOOL renditionFPO;
 @property (assign, getter=isVector) BOOL vector;
 @property (assign, getter=isOpaque) BOOL opaque;
+@property (readonly, strong) NSSet *keywords;
 
 #if TARGET_OS_IPHONE
 @property (readonly) UIImage *previewImage;
@@ -54,5 +55,4 @@
 - (BOOL)isDirty;
 
 - (NSString *)debugDescription;
-
 @end

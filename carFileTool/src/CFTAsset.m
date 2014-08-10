@@ -51,6 +51,9 @@
 @property (readwrite, strong) NSArray *metrics;
 @property (readwrite, copy) NSString *name;
 @property (readwrite, strong) CUIRenditionKey *key;
+@property (readwrite, strong) NSSet *keywords;
+@property (strong) NSPasteboard *currentPasteboard;
+
 - (void)_initializeSlicesFromCSIData:(NSData *)csiData;
 - (void)_initializeMetricsFromCSIData:(NSData *)csiData;
 - (void)_initializeRawDataFromCSIData:(NSData *)csiData;
@@ -83,6 +86,14 @@
         [self _initializeSlicesFromCSIData:csiData];
         [self _initializeMetricsFromCSIData:csiData];
         [self _initializeRawDataFromCSIData:csiData];
+        
+        NSString *name = [self.name stringByReplacingOccurrencesOfString:@"_" withString:@""];
+        name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
+        name = [name stringByReplacingOccurrencesOfString:@"([a-z])([A-Z])"
+                                               withString:@"$1 $2"
+                                                  options:NSRegularExpressionSearch
+                                                    range:NSMakeRange(0, name.length)];
+        self.keywords = [[NSSet setWithObjects:CoreThemeTypeToString(self.type), CoreThemeStateToString(self.key.themeState), CoreThemeLayerToString(self.key.themeLayer), CoreThemeIdiomToString(self.key.themeIdiom), CoreThemeSizeToString(self.key.themeSize), CoreThemeValueToString(self.key.themeValue), CoreThemePresentationStateToString(self.key.themePresentationState), CoreThemeDirectionToString(self.key.themeDirection), CFTScaleToString(self.key.themeScale), nil] setByAddingObjectsFromArray:[name componentsSeparatedByString:@" "]];
     }
     
     return self;
@@ -425,7 +436,45 @@
 }
 
 - (NSString *)debugDescription {
-    return [NSString stringWithFormat:@"Type: %@, State: %@, Scale: %lld, Layer: %@, Idiom: %@, Size: %@, Value: %@, Presentation: %@, Dimension1: %lld, Dimension2: %lld, Direction: %@", CoreThemeTypeToString(self.type), CoreThemeStateToString(self.key.themeState), self.key.themeScale, CoreThemeLayerToString(self.key.themeLayer), CoreThemeIdiomToString(self.key.themeIdiom), CoreThemeSizeToString(self.key.themeSize), CoreThemeValueToString(self.key.themeValue), CoreThemePresentationStateToString(self.key.themePresentationState), self.key.themeDimension1, self.key.themeDimension2, CoreThemeDirectionToString(self.key.themeDirection)];
+    return [NSString stringWithFormat:@"%@: Type: %@, State: %@, Scale: %lld, Layer: %@, Idiom: %@, Size: %@, Value: %@, Presentation: %@, Dimension1: %lld, Direction: %@", self.name, CoreThemeTypeToString(self.type), CoreThemeStateToString(self.key.themeState), self.key.themeScale, CoreThemeLayerToString(self.key.themeLayer), CoreThemeIdiomToString(self.key.themeIdiom), CoreThemeSizeToString(self.key.themeSize), CoreThemeValueToString(self.key.themeValue), CoreThemePresentationStateToString(self.key.themePresentationState), self.key.themeDimension1, CoreThemeDirectionToString(self.key.themeDirection)];
+}
+
+#pragma mark - NSPasteboardWriting
+
+- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
+    self.currentPasteboard = pasteboard;
+    if (self.type > kCoreThemeTypePDF)
+        return @[];
+    
+    return @[ self.type == kCoreThemeTypePDF ? NSPasteboardTypePDF : NSPasteboardTypePNG, (__bridge NSString *)kPasteboardTypeFilePromiseContent, (__bridge NSString *)kUTTypeFileURL ];
+}
+
+- (NSPasteboardWritingOptions)writingOptionsForType:(NSString *)type pasteboard:(NSPasteboard *)pasteboard {
+    return NSPasteboardWritingPromised;
+}
+
+- (id)pasteboardPropertyListForType:(NSString *)type {
+    NSLog(@"%@", self.currentPasteboard);
+    NSLog(@"%@", self.currentPasteboard.types);
+    if ([type isEqualToString:NSPasteboardTypePDF])
+        return self.pdfData;
+    else if ([type isEqualToString:NSPasteboardTypePNG])
+        return [self.previewImage.representations[0] representationUsingType:NSPNGFileType properties:nil];
+    else if ([type isEqualToString:(__bridge NSString *)kPasteboardTypeFilePromiseContent]) {
+        return self.type == kCoreThemeTypePDF ? (__bridge NSString *)kUTTypePDF : (__bridge NSString *)kUTTypePNG;
+    }
+
+    NSURL *finalURL = [NSURL URLWithString:[[[[NSUUID UUID] UUIDString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByAppendingPathExtension:self.type == kCoreThemeTypePDF ? @"pdf" : @"png"] relativeToURL:[NSURL fileURLWithPath:NSTemporaryDirectory()]];
+    
+    if (self.type == kCoreThemeTypePDF)
+        [self.pdfData writeToURL:finalURL atomically:NO];
+    else
+        [[self.previewImage.representations[0] representationUsingType:NSPNGFileType properties:nil] writeToURL:finalURL atomically:NO];
+    
+    
+    // Write your file to finalURL here
+    
+    return [finalURL absoluteString];
 }
 
 @end

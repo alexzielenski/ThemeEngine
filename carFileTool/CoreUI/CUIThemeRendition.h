@@ -36,8 +36,8 @@ struct _csiheader {
         unsigned int bitmapCount;
         unsigned int reserved;
         unsigned int payloadSize; // size of all the proceeding information listLength + data
-        unsigned int _field2[0];
-    } _field10;
+        unsigned int contextList[0];
+    } bitmaps;
 };
 
 /*
