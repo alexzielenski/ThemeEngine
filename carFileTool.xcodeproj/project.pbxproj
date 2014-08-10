@@ -31,6 +31,7 @@
 		FACFC3571995BA9400ED936C /* CHElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC3551995BA9400ED936C /* CHElementViewController.m */; };
 		FAF726C91996E72E00CC2366 /* Bom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF726C81996E72E00CC2366 /* Bom.framework */; };
 		FAF726CC1997056100CC2366 /* Bom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF726C81996E72E00CC2366 /* Bom.framework */; };
+		FAF726CF199719D500CC2366 /* CHImageSliceView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF726CE199719D500CC2366 /* CHImageSliceView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -94,6 +95,8 @@
 		FAF726C41996131400CC2366 /* CUIShapeEffectStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIShapeEffectStack.h; sourceTree = "<group>"; };
 		FAF726C51996131400CC2366 /* CUITextEffectStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUITextEffectStack.h; sourceTree = "<group>"; };
 		FAF726C81996E72E00CC2366 /* Bom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bom.framework; path = ../../../../../../../../System/Library/PrivateFrameworks/Bom.framework; sourceTree = "<group>"; };
+		FAF726CD199719D500CC2366 /* CHImageSliceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHImageSliceView.h; path = src/views/CHImageSliceView.h; sourceTree = "<group>"; };
+		FAF726CE199719D500CC2366 /* CHImageSliceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHImageSliceView.m; path = src/views/CHImageSliceView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +199,8 @@
 				FA7B5F75199600FF00D0B2AD /* CHAssetDetailViewController.h */,
 				FA7B5F76199600FF00D0B2AD /* CHAssetDetailViewController.m */,
 				FA7B5F77199600FF00D0B2AD /* CHAssetDetailViewController.xib */,
+				FAF726CD199719D500CC2366 /* CHImageSliceView.h */,
+				FAF726CE199719D500CC2366 /* CHImageSliceView.m */,
 				FACFC3281995A21700ED936C /* Images.xcassets */,
 				FACFC32A1995A21700ED936C /* MainMenu.xib */,
 				FACFC33F1995A22A00ED936C /* Supporting Files */,
@@ -317,6 +322,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAF726CF199719D500CC2366 /* CHImageSliceView.m in Sources */,
 				FACFC3401995A26A00ED936C /* CFTAsset.m in Sources */,
 				FACFC3481995A3B700ED936C /* CHAppDelegate.m in Sources */,
 				FACFC3411995A26A00ED936C /* CFTElement.m in Sources */,
@@ -382,6 +388,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
 			};
 			name = Debug;
 		};
@@ -417,6 +424,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
 			};
 			name = Release;
 		};

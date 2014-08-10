@@ -259,16 +259,6 @@
 }
 
 - (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage {
-    NSData *renditionKey = [self _keyDataWithFormat:(struct _renditionkeyfmt *)assetStorage.keyFormat];
-
-    if (self.shouldRemove) {
-        [assetStorage removeAssetForKey:renditionKey];
-        return;
-    }
-    
-    if (!self.isDirty)
-        return;
-    
     if (self.type == kCoreThemeTypeColor) {
         struct _rgbquad quad;
         quad.r = (uint8_t)(self.color.redComponent * 255);
@@ -279,7 +269,18 @@
         [assetStorage setColor:quad
                        forName:self.name.UTF8String
              excludeFromFilter:NO];
+        
+        return;
     }
+    NSData *renditionKey = [self _keyDataWithFormat:(struct _renditionkeyfmt *)assetStorage.keyFormat];
+
+    if (self.shouldRemove) {
+        [assetStorage removeAssetForKey:renditionKey];
+        return;
+    }
+    
+    if (!self.isDirty)
+        return;
     
     if (self.type > kCoreThemeTypePDF) {
         // we only save shape effects, gradients, pdfs, and bitmaps
@@ -355,6 +356,10 @@
     clean &= self.image == self.rendition.unslicedImage;
     clean &= [self.gradient isEqualToThemeGradient:self.rendition.gradient];
 
+    //!TODO: Make this better
+    if (self.type == kCoreThemeTypeColor)
+        return YES;
+    
     //!TODO: PDF Data
     //!TODO: slice changes
     
