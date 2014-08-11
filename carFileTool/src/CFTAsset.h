@@ -62,4 +62,16 @@
 - (BOOL)isDirty;
 
 - (NSString *)debugDescription;
+
+- (NSString *)keyTypeString;
+- (NSString *)keyStateString;
+- (NSString *)keyScaleString;
+- (NSString *)keyLayerString;
+- (NSString *)keyIdiomString;
+- (NSString *)keySizeString;
+- (NSString *)keyValueString;
+- (NSString *)keyPresentationStateString;
+- (NSString *)keyDirectionString;
+- (NSString *)keyDimension1String;
+- (NSString *)keyDimension2String;
 @end

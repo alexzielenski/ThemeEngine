@@ -93,7 +93,7 @@
                                                withString:@"$1 $2"
                                                   options:NSRegularExpressionSearch
                                                     range:NSMakeRange(0, name.length)];
-        self.keywords = [[NSSet setWithObjects:CoreThemeTypeToString(self.type), CoreThemeStateToString(self.key.themeState), CoreThemeLayerToString(self.key.themeLayer), CoreThemeIdiomToString(self.key.themeIdiom), CoreThemeSizeToString(self.key.themeSize), CoreThemeValueToString(self.key.themeValue), CoreThemePresentationStateToString(self.key.themePresentationState), CoreThemeDirectionToString(self.key.themeDirection), CFTScaleToString(self.key.themeScale), nil] setByAddingObjectsFromArray:[name componentsSeparatedByString:@" "]];
+        self.keywords = [[NSSet setWithObjects:self.keyTypeString, self.keyStateString, self.keyLayerString, self.keyIdiomString, self.keySizeString, self.keyValueString, self.keyPresentationStateString, self.keyDirectionString, self.keyScaleString, nil] setByAddingObjectsFromArray:[name componentsSeparatedByString:@" "]];        
     }
     
     return self;
@@ -503,10 +503,61 @@
 
 - (NSString *)debugDescription {
     if (self.type != kCoreThemeTypeColor) {
-        return [NSString stringWithFormat:@"%@: Type: %@, State: %@, Scale: %lld, Layer: %@, Idiom: %@, Size: %@, Value: %@, Presentation: %@, Dimension1: %lld, Direction: %@", self.name, CoreThemeTypeToString(self.type), CoreThemeStateToString(self.key.themeState), self.key.themeScale, CoreThemeLayerToString(self.key.themeLayer), CoreThemeIdiomToString(self.key.themeIdiom), CoreThemeSizeToString(self.key.themeSize), CoreThemeValueToString(self.key.themeValue), CoreThemePresentationStateToString(self.key.themePresentationState), self.key.themeDimension1, CoreThemeDirectionToString(self.key.themeDirection)];
+        return [NSString stringWithFormat:@"%@: Type: %@, State: %@, Scale: %lld, Layer: %@, Idiom: %@, Size: %@, Value: %@, Presentation: %@, Dimension1: %@, Direction: %@", self.name, self.keyTypeString, self.keyStateString, self.key.themeScale, self.keyLayerString, self.keyIdiomString, self.keySizeString, self.keyValueString, self.keyPresentationStateString, self.keyDimension1String, self.keyDirectionString];
     }
     
     return [NSString stringWithFormat:@"%@: {r: %d, g: %d, b: %d, a: %d}", self.name, (uint32_t)(self.color.redComponent * 255), (uint32_t)(self.color.greenComponent * 255), (uint32_t)(self.color.blueComponent * 255), (uint32_t)(self.color.alphaComponent * 255)];
+}
+
+- (NSString *)keyTypeString {
+    return CoreThemeTypeToString(self.type);
+}
+
+- (NSString *)keyStateString {
+    return CoreThemeStateToString(self.key.themeState);
+}
+
+- (NSString *)keyScaleString {
+    return CFTScaleToString(self.key.themeScale);
+}
+
+- (NSString *)keyLayerString {
+    return CoreThemeLayerToString(self.key.themeLayer);
+}
+
+- (NSString *)keyIdiomString {
+    return CoreThemeIdiomToString(self.key.themeIdiom);
+}
+
+- (NSString *)keySizeString {
+    return CoreThemeSizeToString(self.key.themeSize);
+}
+
+- (NSString *)keyValueString {
+    return CoreThemeValueToString(self.key.themeValue);
+}
+
+- (NSString *)keyPresentationStateString {
+    return CoreThemePresentationStateToString(self.key.themePresentationState);
+}
+
+- (NSString *)keyDirectionString {
+    return CoreThemeDirectionToString(self.key.themeDirection);
+}
+
+- (NSString *)keyDimension1String {
+    return [@(self.key.themeDimension1) stringValue];
+}
+
+- (NSString *)keyDimension2String {
+    return [@(self.key.themeDimension2) stringValue];
+}
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    if ([key hasPrefix:@"key"] && [key hasSuffix:@"String"]) {
+        return [NSSet setWithObjects:@"key", nil];
+    }
+    return [super keyPathsForValuesAffectingValueForKey:key];
 }
 
 #pragma mark - NSPasteboardWriting
