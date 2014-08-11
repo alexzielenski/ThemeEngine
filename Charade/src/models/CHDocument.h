@@ -12,6 +12,7 @@
 
 @interface CHDocument : NSDocument
 @property (weak) IBOutlet NSTableView *elementTableView;
+@property (weak) IBOutlet NSView *elementContentView;
 @property (readonly, strong) CFTElementStore *elementStore;
 @property (readonly, strong) NSArray *sortDescriptors;
 @property (weak) IBOutlet NSView *contentView;

@@ -29,6 +29,19 @@
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController {
     [super windowControllerDidLoadNib:aController];
+    [self.elementContentView addSubview:self.elementViewController.view];
+    self.elementViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+    NSView *elements = self.elementViewController.view;
+    NSDictionary *views = NSDictionaryOfVariableBindings(elements);
+    [self.elementContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[elements]|"
+                                                                                    options:0
+                                                                                    metrics:nil
+                                                                                      views:views]];
+    [self.elementContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[elements]|"
+                                                                                    options:0
+                                                                                    metrics:nil
+                                                                                      views:views]];
+    
     [self.elementViewController bind:@"elements" toObject:self.elementArrayController withKeyPath:@"selectedObjects" options:nil];
 }
 

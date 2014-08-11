@@ -8,7 +8,7 @@
 
 #import "CHAssetDetailViewController.h"
 
-@interface CHAssetDetailViewController ()
+@interface CHAssetDetailViewController () <ZKInspectorDelegate>
 
 @end
 
@@ -23,6 +23,7 @@
     [self.imageSliceView bind:@"themeType" toObject:self withKeyPath:@"asset.type" options:nil];
     [self.imageSliceView bind:@"sliceRects" toObject:self withKeyPath:@"asset.slices" options:nil];
     
+    [self addObserver:self forKeyPath:@"asset" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.image" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.type" options:0 context:nil];
     
@@ -32,6 +33,11 @@
 //    self.imageSliceView.autohidesScrollers = NO;
 //    self.imageSliceView.autoresizes = NO;
     self.imageSliceView.backgroundColor = [NSColor whiteColor];
+    
+    self.inspector.inspectorDelegate = self;
+    [self.inspector addView:self.attributesPanel withTitle:@"Attributes" expanded:YES];
+    [self.inspector addView:self.infoPanel withTitle:@"Info" expanded:NO];
+    [self.inspector expandViewAtIndex:0];
 }
 
 - (void)dealloc {
@@ -53,7 +59,26 @@
         } else
             self.typeSegment.hidden = YES;
         
+    } else if ([keyPath isEqualToString:@"asset"]) {
+        self.exifOrientation = self.asset.exifOrientation;
+        self.utiType = self.asset.utiType;
+        self.opacity = self.asset.opacity;
+        self.blendMode = self.asset.blendMode;
     }
 }
+
+- (IBAction)cancel:(id)sender {
+    [self.presentingViewController dismissViewController:self];
+}
+
+- (IBAction)save:(id)sender {
+    [self cancel:sender];
+//    self.asset.slices = self.imageSliceView.sliceRects;
+    self.asset.exifOrientation = self.exifOrientation;
+    self.asset.utiType = self.utiType;
+    self.asset.blendMode = self.blendMode;
+    self.asset.opacity = self.opacity;
+}
+
 
 @end

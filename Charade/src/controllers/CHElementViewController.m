@@ -140,21 +140,25 @@
 
 #pragma mark - IKImageBrowserView
 
-- (void) imageBrowser:(IKImageBrowserView *)browser cellWasDoubleClickedAtIndex:(NSUInteger)index {
+- (void)imageBrowser:(IKImageBrowserView *)browser cellWasDoubleClickedAtIndex:(NSUInteger)index {
     // open up popover where the user can edit shit like gradients, effects
     if (!self.detailPopoverViewController) {
         self.detailPopoverViewController = [[CHAssetDetailViewController alloc] initWithNibName:@"CHAssetDetailViewController" bundle:nil];
-    }
-    
-    if (!self.detailPopover) {
-        self.detailPopover = [[NSPopover alloc] init];
-        self.detailPopover.contentViewController = self.detailPopoverViewController;
-    }
-    
+     }
+
     IKImageBrowserCell *cell = [browser cellForItemAtIndex:index];
-    [self.detailPopover showRelativeToRect:cell.frame ofView:cell.imageBrowserView preferredEdge:CGRectMaxXEdge];
+    
+    if (self.detailPopoverViewController.presentingViewController)
+        [self dismissViewController:self.detailPopoverViewController];
+    [self presentViewController:self.detailPopoverViewController
+        asPopoverRelativeToRect:cell.frame
+                         ofView:cell.imageBrowserView
+                  preferredEdge:CGRectMaxXEdge
+                       behavior:NSPopoverBehaviorApplicationDefined];
+    
     self.detailPopoverViewController.asset = self.filteredAssets[index];
 }
+
 
 - (void)imageBrowserSelectionDidChange:(IKImageBrowserView *) browser {
     if (browser.selectionIndexes.count == 1) {
