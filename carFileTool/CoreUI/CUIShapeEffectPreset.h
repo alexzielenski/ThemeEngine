@@ -3,7 +3,33 @@
 //
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
+//
 
+
+typedef NS_ENUM(unsigned int, CUIEffectType) {
+    CUIEffectTypeColorFill      = 'Colr',
+    CUIEffectTypeOutputOpacity  = 'Fade',
+    CUIEffectTypeShapeOpacity   = 'SOpc',
+    CUIEffectTypeBevelAndEmboss = 'Embs',
+    CUIEffectTypeDropShadow     = 'Drop',
+    CUIEffectTypeInnerGlow      = 'iGlw',
+    CUIEffectTypeOuterGlow      = 'oGlw',
+    CUIEffectTypeExtraShadow    = 'Xtra',
+    CUIEffectTypeInnerShadow    = 'inSh'
+};
+
+typedef NS_ENUM(unsigned int, CUIEffectParameter) {
+    CUIEffectParameterColor      = 0, // rgb
+    CUIEffectParameterColor2     = 1, // rgb
+    CUIEffectParameterOpacity    = 2, // float
+    CUIEffectParameterOpacity2   = 3, // float
+    CUIEffectParameterBlurRadius = 4, // int
+    CUIEffectParameterOffset     = 5, // int
+    CUIEffectParameterAngle      = 6, // int
+    CUIEffectParameterBlendMode  = 7, // enum (CGBlendMode)
+    CUIEffectParameterSoften     = 8, // int
+    CUIEffectParameterSpread     = 9  // int
+};
 
 typedef union {
     double floatValue;
@@ -15,17 +41,61 @@ typedef union {
     } colorValue;
     short angleValue;
     unsigned int enumValue;
-} CDUnion_577fdfa6;
+} CUIEffectValue;
 
+typedef struct {
+    CUIEffectType effectType;
+    CUIEffectParameter effectParameter;
+    CUIEffectValue effectValue;
+} CUIEffectTuple;
+
+typedef struct {
+    unsigned long long unk1; // 0
+    unsigned long long unk2; // 0
+    unsigned long long unk3; // 0
+    unsigned long long numEffects;
+    CUIEffectTuple parameterList[]; // max 35
+} CDStruct_52ca6128;
+
+
+/*
+ *******************************
+ CoreUI Shape Effect Data Format
+ *******************************
+ */
+
+struct shape_effect_list_header {
+    unsigned int magic; // CTFX – Core Theme Effects
+    unsigned int reserved[3];
+    unsigned int num_effects;
+    unsigned int start_effects; // offset relative to end of effects list where effects start, i've only seen 0 so its just a guess
+    unsigned int offset_effects[]; // offsets relative to the end of this list of the end of each effect
+};
+
+// List of Effects
+
+struct shape_effect {
+    CUIEffectType magic;
+    unsigned int num_parameters;
+    struct {
+        CUIEffectParameter parameter;
+        char value[4]; // byte aligned CUIEffectValue
+    } parameters[];
+};
+
+/*
+ // Colors Are just RGB values with the last byte being padding, opacities are specifid elsewhere.
+ // However i've seen the last byte of color values vary in bevel emboss, inner glow, between 64, 65. May be a color flag
+ */
 
 @interface CUIShapeEffectPreset : NSObject
 {
-    id /*CDStruct_c57d91d4*/ _parameterList[35];
+    CUIEffectTuple *_parameterList[35];
     unsigned int _effectIndex[8];
-    double _scaleFactor;
+    CGFloat _scaleFactor;
 }
 
-+ (id)requiredEffectParametersForEffectType:(unsigned int)arg1;
++ (id)requiredEffectParametersForEffectType:(CUIEffectType)arg1;
 - (void)addBevelEmbossWithHighlightColorRed:(unsigned int)arg1 green:(unsigned int)arg2 blue:(unsigned int)arg3 opacity:(double)arg4 shadowColorRed:(unsigned int)arg5 green:(unsigned int)arg6 blue:(unsigned int)arg7 opacity:(double)arg8 blur:(int)arg9 soften:(int)arg10;
 - (void)addExtraShadowWithColorRed:(unsigned int)arg1 green:(unsigned int)arg2 blue:(unsigned int)arg3 opacity:(double)arg4 blur:(int)arg5 spread:(int)arg6 offset:(int)arg7 angle:(int)arg8;
 - (void)addDropShadowWithColorRed:(unsigned int)arg1 green:(unsigned int)arg2 blue:(unsigned int)arg3 opacity:(double)arg4 blur:(int)arg5 spread:(int)arg6 offset:(int)arg7 angle:(int)arg8;
@@ -36,30 +106,30 @@ typedef union {
 - (void)addColorFillWithRed:(unsigned int)arg1 green:(unsigned int)arg2 blue:(unsigned int)arg3 opacity:(double)arg4 blendMode:(unsigned int)arg5;
 - (void)addOutputOpacityWithOpacity:(double)arg1;
 - (void)addShapeOpacityWithOpacity:(double)arg1;
-- (void)appendColorValueRed:(unsigned int)arg1 green:(unsigned int)arg2 blue:(unsigned int)arg3 forParameter:(unsigned int)arg4 withEffectType:(unsigned int)arg5;
-- (void)appendEnumValue:(unsigned int)arg1 forParameter:(unsigned int)arg2 withEffectType:(unsigned int)arg3;
-- (void)appendIntValue:(unsigned long long)arg1 forParameter:(unsigned int)arg2 withEffectType:(unsigned int)arg3;
-- (void)appendAngleValue:(long long)arg1 forParameter:(unsigned int)arg2 withEffectType:(unsigned int)arg3;
-- (void)appendFloatValue:(double)arg1 forParameter:(unsigned int)arg2 withEffectType:(unsigned int)arg3;
-- (void)addColorValueRed:(unsigned int)arg1 green:(unsigned int)arg2 blue:(unsigned int)arg3 forParameter:(unsigned int)arg4 withNewEffectType:(unsigned int)arg5;
-- (void)addEnumValue:(unsigned int)arg1 forParameter:(unsigned int)arg2 withNewEffectType:(unsigned int)arg3;
-- (void)addIntValue:(unsigned long long)arg1 forParameter:(unsigned int)arg2 withNewEffectType:(unsigned int)arg3;
-- (void)addFloatValue:(double)arg1 forParameter:(unsigned int)arg2 withNewEffectType:(unsigned int)arg3;
-- (void)addValue:(id /*CDUnion_577fdfa6*/)arg1 forParameter:(unsigned int)arg2 withNewEffectType:(unsigned int)arg3;
-- (void)appendValue:(id /*CDUnion_577fdfa6*/)arg1 forParameter:(unsigned int)arg2 withEffectType:(unsigned int)arg3;
-- (void)addValue:(id /*CDUnion_577fdfa6*/)arg1 forParameter:(unsigned int)arg2 withEffectType:(unsigned int)arg3 atEffectIndex:(unsigned long long)arg4;
-- (void)getEffectTuples:(id *)arg1 count:(unsigned long long *)arg2 atEffectIndex:(unsigned long long)arg3;
-- (void)_insertEffectTuple:(id /*CDStruct_c57d91d4*/)arg1 atEffectIndex:(unsigned long long)arg2;
-- (CDUnion_577fdfa6)valueForParameter:(unsigned int)arg1 inEffectAtIndex:(unsigned long long)arg2;
-- (unsigned int)effectTypeAtIndex:(unsigned long long)arg1;
-- (unsigned long long)effectCount;
-- (double)effectScale;
-- (id)initWithEffectScale:(double)arg1;
+- (void)appendColorValueRed:(unsigned int)arg1 green:(unsigned int)arg2 blue:(unsigned int)arg3 forParameter:(CUIEffectParameter)arg4 withEffectType:(CUIEffectType)arg5;
+- (void)appendEnumValue:(unsigned int)arg1 forParameter:(CUIEffectParameter)arg2 withEffectType:(CUIEffectType)arg3;
+- (void)appendIntValue:(unsigned long long)arg1 forParameter:(CUIEffectParameter)arg2 withEffectType:(CUIEffectType)arg3;
+- (void)appendAngleValue:(long long)arg1 forParameter:(CUIEffectParameter)arg2 withEffectType:(CUIEffectType)arg3;
+- (void)appendFloatValue:(double)arg1 forParameter:(CUIEffectParameter)arg2 withEffectType:(CUIEffectType)arg3;
+- (void)addColorValueRed:(unsigned int)arg1 green:(unsigned int)arg2 blue:(unsigned int)arg3 forParameter:(CUIEffectParameter)arg4 withNewEffectType:(CUIEffectType)arg5;
+- (void)addEnumValue:(unsigned int)arg1 forParameter:(CUIEffectParameter)arg2 withNewEffectType:(CUIEffectType)arg3;
+- (void)addIntValue:(unsigned long long)arg1 forParameter:(CUIEffectParameter)arg2 withNewEffectType:(CUIEffectType)arg3;
+- (void)addFloatValue:(double)arg1 forParameter:(CUIEffectParameter)arg2 withNewEffectType:(CUIEffectType)arg3;
+- (void)addValue:(CUIEffectValue)arg1 forParameter:(CUIEffectParameter)arg2 withNewEffectType:(CUIEffectType)arg3;
+- (void)appendValue:(CUIEffectValue)arg1 forParameter:(CUIEffectParameter)arg2 withEffectType:(CUIEffectType)arg3;
+- (void)addValue:(CUIEffectValue)arg1 forParameter:(CUIEffectParameter)arg2 withEffectType:(CUIEffectType)arg3 atEffectIndex:(unsigned long long)arg4;
+- (void)getEffectTuples:(CUIEffectTuple **)arg1 count:(unsigned long long *)arg2 atEffectIndex:(unsigned long long)arg3;
+- (void)_insertEffectTuple:(CUIEffectTuple)arg1 atEffectIndex:(NSUInteger)arg2;
+- (CUIEffectValue)valueForParameter:(CUIEffectParameter)arg1 inEffectAtIndex:(NSUInteger)arg2;
+- (unsigned int)effectTypeAtIndex:(NSUInteger)arg1;
+- (NSUInteger)effectCount;
+- (CGFloat)effectScale;
+- (id)initWithEffectScale:(CGFloat)arg1;
 - (id)init;
-- (id)initWithConstantPreset:(/* const CDStruct_52ca6128 **/)arg1;
+- (id)initWithConstantPreset:(CDStruct_52ca6128 *)arg1;
 - (id)layerEffectsRepresentation;
 - (id)CUIEffectDataRepresentation;
-- (unsigned long long)_parameterCount;
+- (NSUInteger)_parameterCount;
 
 @end
 
