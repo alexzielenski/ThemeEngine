@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA472ABC19985AB4003631BC /* ZKInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA472AAC19985AB4003631BC /* ZKInspector.m */; };
 		FA7B5F78199600FF00D0B2AD /* CHAssetDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7B5F76199600FF00D0B2AD /* CHAssetDetailViewController.m */; };
 		FA7B5F79199600FF00D0B2AD /* CHAssetDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7B5F77199600FF00D0B2AD /* CHAssetDetailViewController.xib */; };
+		FAAD570F19994D4600229C3D /* Elements.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAAD570E19994D4600229C3D /* Elements.xib */; };
 		FACFC2CB199485E900ED936C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2CA199485E900ED936C /* main.m */; };
 		FACFC2D21994861800ED936C /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACFC2D11994861800ED936C /* CoreUI.framework */; };
 		FACFC2DE199492C500ED936C /* CFTAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2DD199492C500ED936C /* CFTAsset.m */; };
@@ -47,9 +49,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FA472AAB19985AB4003631BC /* ZKInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKInspector.h; path = ZKInspector/ZKInspector.h; sourceTree = "<group>"; };
+		FA472AAC19985AB4003631BC /* ZKInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKInspector.m; path = ZKInspector/ZKInspector.m; sourceTree = "<group>"; };
 		FA7B5F75199600FF00D0B2AD /* CHAssetDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CHAssetDetailViewController.h; path = src/controllers/CHAssetDetailViewController.h; sourceTree = "<group>"; };
 		FA7B5F76199600FF00D0B2AD /* CHAssetDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CHAssetDetailViewController.m; path = src/controllers/CHAssetDetailViewController.m; sourceTree = "<group>"; };
 		FA7B5F77199600FF00D0B2AD /* CHAssetDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CHAssetDetailViewController.xib; path = src/controllers/CHAssetDetailViewController.xib; sourceTree = "<group>"; };
+		FAAD570E19994D4600229C3D /* Elements.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Elements.xib; path = src/controllers/Elements.xib; sourceTree = "<group>"; };
 		FACFC2C7199485E900ED936C /* carFileTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = carFileTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACFC2CA199485E900ED936C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FACFC2D11994861800ED936C /* CoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreUI.framework; path = ../../../../../../../../System/Library/PrivateFrameworks/CoreUI.framework; sourceTree = "<group>"; };
@@ -121,6 +126,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA472A9D19985AB4003631BC /* external */ = {
+			isa = PBXGroup;
+			children = (
+				FA472A9E19985AB4003631BC /* ZKInspector */,
+			);
+			name = external;
+			path = src/external;
+			sourceTree = "<group>";
+		};
+		FA472A9E19985AB4003631BC /* ZKInspector */ = {
+			isa = PBXGroup;
+			children = (
+				FA472AAB19985AB4003631BC /* ZKInspector.h */,
+				FA472AAC19985AB4003631BC /* ZKInspector.m */,
+			);
+			path = ZKInspector;
+			sourceTree = "<group>";
+		};
 		FACFC2BE199485E900ED936C = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +212,7 @@
 		FACFC31D1995A21700ED936C /* Charade */ = {
 			isa = PBXGroup;
 			children = (
+				FA472A9D19985AB4003631BC /* external */,
 				FACFC3461995A3B700ED936C /* CHAppDelegate.h */,
 				FACFC3471995A3B700ED936C /* CHAppDelegate.m */,
 				FACFC3491995A3D300ED936C /* CHDocument.h */,
@@ -196,6 +220,7 @@
 				FACFC34B1995A3D300ED936C /* CHDocument.xib */,
 				FACFC3541995BA9400ED936C /* CHElementViewController.h */,
 				FACFC3551995BA9400ED936C /* CHElementViewController.m */,
+				FAAD570E19994D4600229C3D /* Elements.xib */,
 				FA7B5F75199600FF00D0B2AD /* CHAssetDetailViewController.h */,
 				FA7B5F76199600FF00D0B2AD /* CHAssetDetailViewController.m */,
 				FA7B5F77199600FF00D0B2AD /* CHAssetDetailViewController.xib */,
@@ -298,6 +323,7 @@
 				FACFC34D1995A3D300ED936C /* CHDocument.xib in Resources */,
 				FACFC3291995A21700ED936C /* Images.xcassets in Resources */,
 				FA7B5F79199600FF00D0B2AD /* CHAssetDetailViewController.xib in Resources */,
+				FAAD570F19994D4600229C3D /* Elements.xib in Resources */,
 				FACFC32C1995A21700ED936C /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +354,7 @@
 				FACFC3411995A26A00ED936C /* CFTElement.m in Sources */,
 				FA7B5F78199600FF00D0B2AD /* CHAssetDetailViewController.m in Sources */,
 				FACFC3421995A26A00ED936C /* CFTElementStore.m in Sources */,
+				FA472ABC19985AB4003631BC /* ZKInspector.m in Sources */,
 				FACFC3571995BA9400ED936C /* CHElementViewController.m in Sources */,
 				FACFC34C1995A3D300ED936C /* CHDocument.m in Sources */,
 				FACFC3431995A26A00ED936C /* CFTGradient.m in Sources */,
