@@ -44,6 +44,8 @@
     if ([keyPath isEqualToString:@"asset.image"]) {
         [self.imageSliceView setImage:self.asset.image imageProperties:nil];
         [self.imageSliceView setZoomFactor:1.0];
+        
+        self.sizeField.stringValue = [NSString stringWithFormat:@"%zupx x %zupx", CGImageGetWidth(self.asset.image), CGImageGetHeight(self.asset.image)];
     } else if ([keyPath isEqualToString:@"asset.type"]) {
         if (self.asset.type <= 3) {
             self.typeSegment.hidden = NO;

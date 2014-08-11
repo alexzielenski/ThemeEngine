@@ -14,4 +14,5 @@
 @property (weak) IBOutlet CHImageSliceView *imageSliceView;
 @property (weak) IBOutlet NSSegmentedControl *typeSegment;
 @property (strong) CFTAsset *asset;
+@property (weak) IBOutlet NSTextField *sizeField;
 @end
