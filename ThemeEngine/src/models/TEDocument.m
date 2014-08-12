@@ -47,21 +47,26 @@
 
 - (BOOL)writeToURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError {
     [self.elementStore save];
-    return [[NSFileManager defaultManager] copyItemAtPath:self.elementStore.path toPath:url.path error:outError];
+    return YES;// [[NSFileManager defaultManager] copyItemAtPath:self.elementStore.path toPath:url.path error:outError];
 }
 
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError {
-    NSString *tempPath = [[NSTemporaryDirectory() stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]] stringByAppendingPathExtension:@"car"];
-    if (![[NSFileManager defaultManager] copyItemAtURL:url toURL:[NSURL fileURLWithPath:tempPath] error:outError]) {
-        return NO;
-    }
+//    NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:[NSBundle.mainBundle bundleIdentifier]] stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]] stringByAppendingPathExtension:@"car"];
+//    if (![[NSFileManager defaultManager] copyItemAtURL:url toURL:[NSURL fileURLWithPath:tempPath] error:outError]) {
+//        return NO;
+//    }
     
-    self.elementStore = [CFTElementStore storeWithPath:tempPath];
+    self.elementStore = [CFTElementStore storeWithPath:url.path];
     return YES;
 }
 
 + (BOOL)autosavesInPlace {
     return NO;
+}
+
+- (void)dealloc {
+    // remove temporary storage
+//    [[NSFileManager defaultManager] removeItemAtPath:self.elementStore.path error:nil];
 }
 
 @end
