@@ -68,7 +68,10 @@
 }
 
 - (IBAction)cancel:(id)sender {
-    [self.presentingViewController dismissViewController:self];
+    __weak CHAssetDetailViewController *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.presentingViewController dismissViewController:self];
+    });
 }
 
 - (IBAction)save:(id)sender {

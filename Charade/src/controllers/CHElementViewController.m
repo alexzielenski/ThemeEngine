@@ -14,7 +14,6 @@
 @property (strong) NSArray *assets;
 @property (strong) NSArray *filteredAssets;
 @property (strong) NSString *lastQuery;
-@property (strong) NSPopover *detailPopover;
 @property (strong) CHAssetDetailViewController *detailPopoverViewController;
 - (void)_initialize;
 - (void)_filterPredicates;
@@ -64,6 +63,13 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"elements"]) {
+        
+        __weak CHElementViewController *weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (weakSelf.detailPopoverViewController.presentingViewController)
+                [weakSelf dismissViewController:self.detailPopoverViewController];
+        });
+        
         self.assets = [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] allObjects];
         self.filteredAssets = self.assets;
         [self _filterPredicates];
