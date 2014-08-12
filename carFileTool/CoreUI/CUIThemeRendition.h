@@ -80,9 +80,12 @@ struct csi_info {
 };
 
 /* CSI Format
- csi_header (in CUIThemeRendition.h)
+ csi_header (above)
  
- list of metadata in this format:
+ list of metadata
+ 
+ MAGIC VALUES
+ for csi_info in a list
  
  0xE903 - 1001: Slice rects, First 4 bytes length, next num slices rects, next a list of the slice rects
  0xEB03 - 1003: Metrics – First 4 length, next 4 num metrics, next a list of metrics (struct of 3 CGSizes)
@@ -90,10 +93,11 @@ struct csi_info {
  0xED03 - 1005: UTI Type, First 4 length, next 4 length of string, then the string
  0xEE03 - 1006: Image Metadata: First 4 length, next 4 EXIF orientation, (UTI type...?)
  
- GRADIENTS marked DARG with colors as COLR, and opacity a OPCT format unknown
- 0x4D4C4543 - 'CELM': C-Element. I wish I knew what the C stood for
- RAW DATA: marts 'RAWD' followed by 4 bytes of zero and an unsigned int of the length of the raw data
+ GRADIENT format documented in CFTGradient.h
+ SHAPE EFFECT format documented in CUIShapeEffectPreset.h
  
+ IMAGES: 'CELM' – Core Element – Header followed by Zipped up raw image data, format coming soon
+ RAW DATA: marts 'RAWD' followed by 4 bytes of zero and an unsigned int of the length of the raw data
  
  */
 
