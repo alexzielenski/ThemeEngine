@@ -97,6 +97,8 @@ extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
 
 - (void)_enumerateColors {
     Ivar ivar = class_getInstanceVariable(object_getClass(self.assetStorage), "_colordb");
+    if (ivar ==  NULL)
+        return;
     BOMTreeRef treeRef = *(BOMTreeRef *)((__bridge void *)self.assetStorage + ivar_getOffset(ivar));
     BOMTreeIteratorRef iterator = BOMTreeIteratorNew(treeRef, 0x0, 0x0, 0x0);
     do {
