@@ -51,6 +51,11 @@ static BOOL pointsWithinDistance(NSPoint p1, NSPoint p2, CGFloat d) {
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super dealloc];
+}
+
 - (void)drawRect: (NSRect)dirtyRect
 {
     [NSGraphicsContext saveGraphicsState];
