@@ -62,6 +62,16 @@
 // Effects
 @property (weak) IBOutlet NSTableView *effectTableView;
 @property (copy) CFTEffectWrapper *effectWrapper;
+@property (weak) IBOutlet NSColorWell *effectColorView;
+@property (weak) IBOutlet NSColorWell *effectColor2View;
+@property (weak) IBOutlet NSControl *effectOpacityView;
+@property (weak) IBOutlet NSControl *effectOpacity2View;
+@property (weak) IBOutlet NSControl *effectBlurRadiusView;
+@property (weak) IBOutlet NSControl *effectOffsetView;
+@property (weak) IBOutlet NSControl *effectAngleView;
+@property (weak) IBOutlet NSControl *effectBlendModeView;
+@property (weak) IBOutlet NSControl *effectSoftenView;
+@property (weak) IBOutlet NSControl *effectSpreadView;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)save:(id)sender;

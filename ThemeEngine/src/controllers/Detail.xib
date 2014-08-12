@@ -14,7 +14,17 @@
                 <outlet property="colorPreview" destination="LWm-BC-Hpl" id="ZM5-wO-WTl"/>
                 <outlet property="colorView" destination="fhm-XX-yGX" id="PLg-Ag-Shq"/>
                 <outlet property="contentView" destination="dR4-Zs-TVg" id="A1O-5b-RnM"/>
+                <outlet property="effectAngleView" destination="afR-7h-CUr" id="BsC-eR-kzQ"/>
+                <outlet property="effectBlendModeView" destination="JYm-7b-1xU" id="Kqk-DO-yc7"/>
+                <outlet property="effectBlurRadiusView" destination="M7p-cn-EjQ" id="fOr-90-6eA"/>
+                <outlet property="effectColor2View" destination="9Ta-dT-1fx" id="jIT-4K-r5R"/>
+                <outlet property="effectColorView" destination="WQP-sx-C2Y" id="pLF-74-49e"/>
+                <outlet property="effectOffsetView" destination="e16-sV-BmC" id="Urj-gl-aku"/>
+                <outlet property="effectOpacity2View" destination="B38-JB-FEm" id="5vP-1C-EFj"/>
+                <outlet property="effectOpacityView" destination="lwX-h6-Q0e" id="EPW-XO-5Pg"/>
                 <outlet property="effectPanel" destination="HPS-kx-vgd" id="snA-25-ADg"/>
+                <outlet property="effectSoftenView" destination="J5f-Rw-MBK" id="3An-V0-tpo"/>
+                <outlet property="effectSpreadView" destination="b9w-DE-OiZ" id="kNE-zR-SXT"/>
                 <outlet property="effectTableView" destination="HPS-kx-vgd" id="hdL-1T-LHQ"/>
                 <outlet property="effectView" destination="Ada-OV-vWA" id="qpL-e6-Rzm"/>
                 <outlet property="gradientEditor" destination="KV8-Ho-4rg" id="yNH-hr-ra2"/>
@@ -333,11 +343,6 @@ Gw
                     <rect key="frame" x="107" y="243" width="193" height="19"/>
                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
-                        <binding destination="-2" name="enabled" keyPath="currentEffect" id="ltk-HB-Km5">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSIsNotNil</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="-2" name="value" keyPath="currentEffect.colorValue" id="AYu-34-DVY"/>
                     </connections>
                 </colorWell>
@@ -345,11 +350,6 @@ Gw
                     <rect key="frame" x="107" y="218" width="193" height="19"/>
                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
-                        <binding destination="-2" name="enabled" keyPath="currentEffect" id="sKZ-Zz-Gbq">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSIsNotNil</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="-2" name="value" keyPath="currentEffect.color2Value" id="nX7-5U-olO"/>
                     </connections>
                 </colorWell>
@@ -365,11 +365,6 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="enabled" keyPath="currentEffect" id="kG2-Re-YW8">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSIsNotNil</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="-2" name="value" keyPath="currentEffect.opacityValue" id="tNH-ZC-U1E"/>
                     </connections>
                 </textField>
@@ -385,11 +380,6 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="enabled" keyPath="currentEffect" id="nB4-Af-MyS">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSIsNotNil</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="-2" name="value" keyPath="currentEffect.opacity2Value" id="L54-eb-dRd"/>
                     </connections>
                 </textField>
@@ -407,11 +397,6 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="enabled" keyPath="currentEffect" id="qrn-HH-JwG">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSIsNotNil</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="-2" name="value" keyPath="currentEffect.blurRadiusValue" id="035-Vt-QJZ"/>
                     </connections>
                 </textField>
@@ -426,11 +411,6 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="enabled" keyPath="currentEffect" id="jw5-hY-oLM">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSIsNotNil</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="-2" name="value" keyPath="currentEffect.offsetValue" id="T2r-BM-Gpt"/>
                     </connections>
                 </textField>
@@ -445,11 +425,6 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="enabled" keyPath="currentEffect" id="fyk-ND-nsu">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSIsNotNil</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="-2" name="value" keyPath="currentEffect.angleValue" id="AnU-Ij-NQP"/>
                     </connections>
                 </textField>
@@ -464,11 +439,6 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="enabled" keyPath="currentEffect" id="IHU-wZ-4dc">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSIsNotNil</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="-2" name="value" keyPath="currentEffect.softenValue" id="CHu-nW-ha8"/>
                     </connections>
                 </textField>
@@ -483,11 +453,6 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="enabled" keyPath="currentEffect" id="0Rh-rT-xts">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSIsNotNil</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="-2" name="value" keyPath="currentEffect.spreadValue" id="nsU-S5-qoz"/>
                     </connections>
                 </textField>
@@ -520,11 +485,6 @@ Gw
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <binding destination="-2" name="enabled" keyPath="currentEffect" id="80d-lN-U1F">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSIsNotNil</string>
-                            </dictionary>
-                        </binding>
                         <binding destination="-2" name="selectedIndex" keyPath="currentEffect.blendModeValue" id="upx-rO-q8A"/>
                     </connections>
                 </popUpButton>

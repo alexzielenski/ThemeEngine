@@ -37,6 +37,7 @@
     [self addObserver:self forKeyPath:@"asset.pdfData" options:0 context:nil];
     [self addObserver:self forKeyPath:@"color" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.gradient" options:0 context:nil];
+    [self addObserver:self forKeyPath:@"currentEffect" options:0 context:nil];
     
     //!TODO: Get scrolling in the image view to work
     //    self.imageSliceView.hasHorizontalScroller = YES;
@@ -141,6 +142,110 @@
         self.gradientRadial = self.asset.gradient.isRadial;
         self.gradient = self.asset.gradient.gradientRepresentation;
         self.gradientEditor.gradient = self.gradient;
+    } else if ([keyPath isEqualToString:@"currentEffect"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            switch (self.currentEffect.type) {
+                case CUIEffectTypeBevelAndEmboss:
+                    self.effectColorView.enabled = YES;
+                    self.effectColor2View.enabled = YES;
+                    self.effectBlurRadiusView.enabled = YES;
+                    self.effectSoftenView.enabled = YES;
+                    self.effectOpacityView.enabled = YES;
+                    self.effectOpacity2View.enabled = YES;
+                    self.effectBlendModeView.enabled = NO;
+                    self.effectOffsetView.enabled = NO;
+                    self.effectAngleView.enabled = NO;
+                    self.effectSpreadView.enabled = NO;
+                    break;
+                case CUIEffectTypeColorFill:
+                    self.effectColorView.enabled = YES;
+                    self.effectColor2View.enabled = NO;
+                    self.effectBlurRadiusView.enabled = NO;
+                    self.effectSoftenView.enabled = NO;
+                    self.effectOpacityView.enabled = YES;
+                    self.effectOpacity2View.enabled = NO;
+                    self.effectBlendModeView.enabled = YES;
+                    self.effectOffsetView.enabled = NO;
+                    self.effectAngleView.enabled = NO;
+                    self.effectSpreadView.enabled = NO;
+                    break;
+                case CUIEffectTypeDropShadow:
+                case CUIEffectTypeExtraShadow:
+                    self.effectColorView.enabled = YES;
+                    self.effectColor2View.enabled = NO;
+                    self.effectBlurRadiusView.enabled = YES;
+                    self.effectSoftenView.enabled = NO;
+                    self.effectOpacityView.enabled = YES;
+                    self.effectOpacity2View.enabled = NO;
+                    self.effectBlendModeView.enabled = NO;
+                    self.effectOffsetView.enabled = YES;
+                    self.effectAngleView.enabled = YES;
+                    self.effectSpreadView.enabled = NO;
+                    break;
+                case CUIEffectTypeGradient:
+                    self.effectColorView.enabled = YES;
+                    self.effectColor2View.enabled = YES;
+                    self.effectBlurRadiusView.enabled = NO;
+                    self.effectSoftenView.enabled = NO;
+                    self.effectOpacityView.enabled = YES;
+                    self.effectOpacity2View.enabled = YES; //!TODO: Find out if we can use two opacities on gradients
+                    self.effectBlendModeView.enabled = NO;
+                    self.effectOffsetView.enabled = NO;
+                    self.effectAngleView.enabled = NO;
+                    self.effectSpreadView.enabled = NO;
+                    break;
+                case CUIEffectTypeInnerGlow:
+                    self.effectColorView.enabled = YES;
+                    self.effectColor2View.enabled = NO;
+                    self.effectBlurRadiusView.enabled = YES;
+                    self.effectSoftenView.enabled = NO;
+                    self.effectOpacityView.enabled = YES;
+                    self.effectOpacity2View.enabled = NO;
+                    self.effectBlendModeView.enabled = YES;
+                    self.effectOffsetView.enabled = NO;
+                    self.effectAngleView.enabled = NO;
+                    self.effectSpreadView.enabled = NO;
+                    break;
+                case CUIEffectTypeInnerShadow:
+                    self.effectColorView.enabled = YES;
+                    self.effectColor2View.enabled = NO;
+                    self.effectBlurRadiusView.enabled = YES;
+                    self.effectSoftenView.enabled = YES;
+                    self.effectOpacityView.enabled = YES;
+                    self.effectOpacity2View.enabled = NO;
+                    self.effectBlendModeView.enabled = YES;
+                    self.effectOffsetView.enabled = YES;
+                    self.effectAngleView.enabled = YES;
+                    self.effectSpreadView.enabled = NO;
+                    break;
+                case CUIEffectTypeOuterGlow:
+                    self.effectColorView.enabled = YES;
+                    self.effectColor2View.enabled = NO;
+                    self.effectBlurRadiusView.enabled = YES;
+                    self.effectSoftenView.enabled = NO;
+                    self.effectOpacityView.enabled = YES;
+                    self.effectOpacity2View.enabled = NO;
+                    self.effectBlendModeView.enabled = NO;
+                    self.effectOffsetView.enabled = NO;
+                    self.effectAngleView.enabled = NO;
+                    self.effectSpreadView.enabled = YES;
+                    break;
+                case CUIEffectTypeOutputOpacity:
+                case CUIEffectTypeShapeOpacity:
+                    self.effectColorView.enabled = NO;
+                    self.effectColor2View.enabled = NO;
+                    self.effectBlurRadiusView.enabled = NO;
+                    self.effectSoftenView.enabled = NO;
+                    self.effectOpacityView.enabled = YES;
+                    self.effectOpacity2View.enabled = NO;
+                    self.effectBlendModeView.enabled = NO;
+                    self.effectOffsetView.enabled = NO;
+                    self.effectAngleView.enabled = NO;
+                    self.effectSpreadView.enabled = NO;
+                default:
+                    break;
+            }
+        });
     }
 }
 
