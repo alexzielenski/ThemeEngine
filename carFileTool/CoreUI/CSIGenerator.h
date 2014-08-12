@@ -59,7 +59,7 @@ typedef struct {
 - (id)CSIRepresentationWithCompression:(BOOL)arg1;
 - (unsigned long long)writeRawDataToData:(id)arg1;
 - (unsigned long long)writeGradientToData:(id)arg1;
-- (void)_addNodes:(id)arg1 toNodeList:(struct _csigradientdatanode *)arg2;
+//- (void)_addNodes:(id)arg1 toNodeList:(struct _csigradientdatanode *)arg2;
 - (unsigned long long)writeBitmap:(id)arg1 toData:(id)arg2 compress:(BOOL)arg3;
 - (unsigned long long)writeResourcesToData:(id)arg1;
 - (void)writeHeader:(struct _csiheader *)arg1 toData:(id)arg2;

@@ -31,7 +31,7 @@
 - (id)opacityStops;
 - (id)colorLocations;
 - (id)colorStops;
-- (id)_colorFromPSDGradientColor:(struct _psdGradientColor)arg1;
+//- (id)_colorFromPSDGradientColor:(struct _psdGradientColor)arg1;
 - (id)initWithColors:(id)arg1 colorlocations:(id)arg2 colorMidpoints:(id)arg3 opacities:(id)arg4 opacityLocations:(id)arg5 opacityMidpoints:(id)arg6 smoothingCoefficient:(double)arg7 fillColor:(id)arg8 colorSpace:(struct CGColorSpace *)arg9 dither:(BOOL)arg10;
 - (id)initWithColors:(id)arg1 colorlocations:(id)arg2 colorMidpoints:(id)arg3 opacities:(id)arg4 opacityLocations:(id)arg5 opacityMidpoints:(id)arg6 smoothingCoefficient:(double)arg7 fillColor:(id)arg8 colorSpace:(struct CGColorSpace *)arg9;
 - (id)_initWithGradientEvaluator:(id)arg1 colorSpace:(struct CGColorSpace *)arg2;
