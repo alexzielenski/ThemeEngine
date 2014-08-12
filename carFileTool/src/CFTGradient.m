@@ -72,6 +72,8 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
         self.angle = angle;
         self.midPoints = self.psdGradient.evaluator.colorMidpointLocations;
 
+        //!TODO: Do something with style
+        
         NSMutableArray *colors = [NSMutableArray array];
         NSMutableArray *locations = [NSMutableArray array];
         for (CUIPSDGradientColorStop *stop in self.psdGradient.evaluator.colorStops) {
@@ -102,6 +104,16 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
                                                                            colorSpace:space];
     CGColorSpaceRelease(space);
     return gradient;
+}
+
+- (NSGradient *)gradientRepresentation {
+    CGFloat *locations = malloc(sizeof(CGFloat) * self.locations.count);
+    for (NSUInteger x = 0; x < self.locations.count; x++)
+        locations[x] = [self.locations[x] doubleValue];
+    
+    return [[NSGradient alloc] initWithColors:self.colors
+                                  atLocations:locations
+                                   colorSpace:[NSColorSpace sRGBColorSpace]];
 }
 
 @end

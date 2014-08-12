@@ -136,6 +136,31 @@ typedef NS_ENUM(NSUInteger, CFTThemeAttribute) {
     CFTThemeAttributeGraphicsClass       = 23
 };
 
+typedef NS_ENUM(unsigned int, CUIEffectType) {
+    CUIEffectTypeColorFill      = 'Colr',
+    CUIEffectTypeOutputOpacity  = 'Fade',
+    CUIEffectTypeShapeOpacity   = 'SOpc',
+    CUIEffectTypeBevelAndEmboss = 'Embs',
+    CUIEffectTypeDropShadow     = 'Drop',
+    CUIEffectTypeInnerGlow      = 'iGlw',
+    CUIEffectTypeOuterGlow      = 'oGlw',
+    CUIEffectTypeExtraShadow    = 'Xtra',
+    CUIEffectTypeInnerShadow    = 'inSh'
+};
+
+typedef NS_ENUM(unsigned int, CUIEffectParameter) {
+    CUIEffectParameterColor      = 0, // rgb
+    CUIEffectParameterColor2     = 1, // rgb
+    CUIEffectParameterOpacity    = 2, // float
+    CUIEffectParameterOpacity2   = 3, // float
+    CUIEffectParameterBlurRadius = 4, // int
+    CUIEffectParameterOffset     = 5, // int
+    CUIEffectParameterAngle      = 6, // int
+    CUIEffectParameterBlendMode  = 7, // enum (CGBlendMode)
+    CUIEffectParameterSoften     = 8, // int
+    CUIEffectParameterSpread     = 9  // int
+};
+
 extern NSString *CoreThemeTypeToString(CoreThemeType value);
 extern NSString *CFTEXifOrientationToString(CFTEXIFOrientation value);
 extern NSString *CoreThemeLayerToString(CoreThemeLayer value);
@@ -147,4 +172,5 @@ extern NSString *CoreThemeStateToString(CoreThemeState value);
 extern NSString *CoreThemePresentationStateToString(CoreThemePresentationState value);
 extern NSString *CoreThemeLayoutToString(CoreThemeLayout value);
 extern NSString *CFTScaleToString(double scale);
+extern NSString *CUIEffectTypeToString(CUIEffectType value);
 #endif

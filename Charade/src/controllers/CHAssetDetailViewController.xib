@@ -3,73 +3,38 @@
     <dependencies>
         <deployment defaultVersion="101000" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6205"/>
+        <plugIn identifier="com.apple.pdfkit.ibplugin" version="6205"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CHAssetDetailViewController">
             <connections>
                 <outlet property="attributesPanel" destination="Xje-k6-UOa" id="g7n-2H-ffJ"/>
-                <outlet property="imageSliceView" destination="f2f-EJ-9BG" id="c1R-8T-sDh"/>
+                <outlet property="bitmapView" destination="uuf-CX-lqd" id="PYy-aJ-LqP"/>
+                <outlet property="colorPanel" destination="rtp-NP-8dK" id="WU8-uT-NyE"/>
+                <outlet property="colorPreview" destination="LWm-BC-Hpl" id="ZM5-wO-WTl"/>
+                <outlet property="colorView" destination="fhm-XX-yGX" id="PLg-Ag-Shq"/>
+                <outlet property="contentView" destination="dR4-Zs-TVg" id="A1O-5b-RnM"/>
+                <outlet property="effectPanel" destination="HPS-kx-vgd" id="snA-25-ADg"/>
+                <outlet property="effectView" destination="Ada-OV-vWA" id="qpL-e6-Rzm"/>
+                <outlet property="gradientEditor" destination="KV8-Ho-4rg" id="yNH-hr-ra2"/>
+                <outlet property="gradientPanel" destination="FuC-gm-cz0" id="gLV-f4-UNa"/>
+                <outlet property="gradientPreview" destination="6F0-vq-Cor" id="tM9-D8-fB0"/>
+                <outlet property="gradientView" destination="7mb-HR-uTN" id="ZdI-Ym-TIB"/>
+                <outlet property="imageSliceView" destination="Odf-36-59F" id="qmK-4g-vTI"/>
                 <outlet property="infoPanel" destination="IRS-Fw-P0b" id="Mdz-w5-uKb"/>
                 <outlet property="inspector" destination="2P6-dX-BDD" id="ACF-9z-mhB"/>
+                <outlet property="pdfPreview" destination="ygv-6y-Zod" id="ILv-ho-dw2"/>
+                <outlet property="pdfView" destination="Unv-da-J3u" id="jNB-xL-cvb"/>
                 <outlet property="sizeField" destination="5mt-iA-biV" id="qPI-5s-ePP"/>
-                <outlet property="typeSegment" destination="xYF-nD-gWk" id="dQi-BG-Gwj"/>
-                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="typeSegment" destination="O7P-Hb-CnU" id="bqN-nu-dz0"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="Fey-MU-aG1"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView wantsLayer="YES" id="Hz6-mo-xeY" userLabel="Bitmap">
+        <customView wantsLayer="YES" id="Hz6-mo-xeY" userLabel="Main">
             <rect key="frame" x="0.0" y="0.0" width="636" height="356"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xYF-nD-gWk">
-                    <rect key="frame" x="18" y="18" width="137" height="24"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="47u-nX-K7i"/>
-                        <constraint firstAttribute="width" constant="133" id="5ed-Px-iHr"/>
-                    </constraints>
-                    <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="jKP-9c-4vn">
-                        <font key="font" metaFont="system"/>
-                        <segments>
-                            <segment label="O" width="32"/>
-                            <segment width="32" selected="YES" tag="1">
-                                <nil key="label"/>
-                            </segment>
-                            <segment width="32">
-                                <nil key="label"/>
-                            </segment>
-                            <segment width="32">
-                                <nil key="label"/>
-                            </segment>
-                        </segments>
-                    </segmentedCell>
-                </segmentedControl>
-                <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTf-1x-rCK">
-                    <rect key="frame" x="20" y="49" width="282" height="282"/>
-                    <clipView key="contentView" copiesOnScroll="NO" id="qhW-Xm-Kdk">
-                        <rect key="frame" x="1" y="1" width="166" height="79"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view translatesAutoresizingMaskIntoConstraints="NO" id="f2f-EJ-9BG" customClass="CHImageSliceView">
-                                <rect key="frame" x="0.0" y="0.0" width="280" height="280"/>
-                            </view>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="f2f-EJ-9BG" firstAttribute="top" secondItem="qhW-Xm-Kdk" secondAttribute="top" id="3RI-C0-eBB"/>
-                            <constraint firstAttribute="bottom" secondItem="f2f-EJ-9BG" secondAttribute="bottom" id="TKi-7d-te2"/>
-                            <constraint firstAttribute="trailing" secondItem="f2f-EJ-9BG" secondAttribute="trailing" id="ld3-cd-7Z9"/>
-                            <constraint firstItem="f2f-EJ-9BG" firstAttribute="leading" secondItem="qhW-Xm-Kdk" secondAttribute="leading" id="yPT-k7-c8Z"/>
-                        </constraints>
-                    </clipView>
-                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="iIE-S4-Hx3">
-                        <rect key="frame" x="1" y="80" width="166" height="15"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="pbt-Su-JcR">
-                        <rect key="frame" x="167" y="1" width="15" height="79"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </scroller>
-                </scrollView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gpC-GX-SQs">
                     <rect key="frame" x="551" y="13" width="71" height="32"/>
                     <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Tvy-7L-5VG">
@@ -117,13 +82,13 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <scrollView wantsLayer="YES" canDrawConcurrently="YES" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WY-vb-LGs">
+                <scrollView wantsLayer="YES" canDrawConcurrently="YES" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WY-vb-LGs">
                     <rect key="frame" x="315" y="49" width="301" height="282"/>
                     <clipView key="contentView" wantsLayer="YES" drawsBackground="NO" copiesOnScroll="NO" id="UNo-Yz-og9">
                         <rect key="frame" x="1" y="17" width="238" height="117"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView wantsLayer="YES" canDrawConcurrently="YES" appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="automatic" headerView="ojH-kR-c1Y" viewBased="YES" indentationPerLevel="14" autoresizesOutlineColumn="YES" outlineTableColumn="5sH-si-I4I" id="2P6-dX-BDD" customClass="ZKInspector">
+                            <outlineView wantsLayer="YES" canDrawConcurrently="YES" appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="ojH-kR-c1Y" viewBased="YES" indentationPerLevel="14" autoresizesOutlineColumn="YES" outlineTableColumn="5sH-si-I4I" id="2P6-dX-BDD" customClass="ZKInspector">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="0.0"/>
                                 <color key="backgroundColor" red="0.0" green="0.41176470590000003" blue="0.85098039219999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -179,56 +144,162 @@ Gw
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
-                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kUy-IQ-1Bx">
-                    <rect key="frame" x="186" y="20" width="118" height="21"/>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="dR4-Zs-TVg">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="0Jr-kB-Q1v" firstAttribute="top" secondItem="0WY-vb-LGs" secondAttribute="bottom" constant="8" id="0w7-D2-0wU"/>
+                <constraint firstItem="0WY-vb-LGs" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="315" id="9zF-G4-eGR"/>
+                <constraint firstItem="0WY-vb-LGs" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="25" id="Bgx-bx-92Q"/>
+                <constraint firstAttribute="trailing" secondItem="0WY-vb-LGs" secondAttribute="trailing" constant="20" id="Imn-be-J4u"/>
+                <constraint firstAttribute="trailing" secondItem="gpC-GX-SQs" secondAttribute="trailing" constant="20" id="K0r-W9-N7Y"/>
+                <constraint firstItem="gpC-GX-SQs" firstAttribute="centerY" secondItem="0Jr-kB-Q1v" secondAttribute="centerY" id="M8Q-NU-M8T"/>
+                <constraint firstItem="5mt-iA-biV" firstAttribute="centerY" secondItem="AyG-5I-gaj" secondAttribute="centerY" id="McQ-6c-ngL"/>
+                <constraint firstAttribute="bottom" secondItem="dR4-Zs-TVg" secondAttribute="bottom" id="Qog-xv-WaO"/>
+                <constraint firstItem="0WY-vb-LGs" firstAttribute="leading" secondItem="dR4-Zs-TVg" secondAttribute="trailing" constant="15" id="T3C-mY-lW9"/>
+                <constraint firstItem="AyG-5I-gaj" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="4" id="TQc-uS-hAA"/>
+                <constraint firstItem="5mt-iA-biV" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="XLe-HC-ufk"/>
+                <constraint firstAttribute="centerX" secondItem="AyG-5I-gaj" secondAttribute="centerX" constant="-0.5" id="aGH-5V-Os5"/>
+                <constraint firstItem="dR4-Zs-TVg" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="cKh-8G-FpE"/>
+                <constraint firstItem="dR4-Zs-TVg" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="25" id="eiE-g7-CXk"/>
+                <constraint firstAttribute="bottom" secondItem="0Jr-kB-Q1v" secondAttribute="bottom" constant="20" id="m8R-oI-bYe"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AyG-5I-gaj" secondAttribute="trailing" constant="20" symbolic="YES" id="suA-6v-NYV"/>
+                <constraint firstItem="gpC-GX-SQs" firstAttribute="leading" secondItem="0Jr-kB-Q1v" secondAttribute="trailing" constant="12" id="yRp-xH-hzc"/>
+            </constraints>
+            <point key="canvasLocation" x="661" y="704"/>
+        </customView>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView wantsLayer="YES" id="uuf-CX-lqd" userLabel="Bitmap">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="O7P-Hb-CnU">
+                    <rect key="frame" x="16" y="18" width="137" height="24"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="114" id="8pr-7x-AJx"/>
-                        <constraint firstAttribute="height" constant="17" id="NaC-jg-nnR"/>
+                        <constraint firstAttribute="width" constant="133" id="HpG-ji-6xe"/>
                     </constraints>
-                    <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="10" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="xze-Gb-APT"/>
+                    <segmentedCell key="cell" enabled="NO" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="OnX-K9-SGo">
+                        <font key="font" metaFont="system"/>
+                        <segments>
+                            <segment label="O" width="32"/>
+                            <segment width="32" selected="YES" tag="1">
+                                <nil key="label"/>
+                            </segment>
+                            <segment width="32">
+                                <nil key="label"/>
+                            </segment>
+                            <segment width="32">
+                                <nil key="label"/>
+                            </segment>
+                        </segments>
+                    </segmentedCell>
+                </segmentedControl>
+                <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qc1-fN-QNE">
+                    <rect key="frame" x="18" y="49" width="282" height="282"/>
+                    <clipView key="contentView" copiesOnScroll="NO" id="BXk-Ld-pwy">
+                        <rect key="frame" x="1" y="1" width="166" height="79"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view translatesAutoresizingMaskIntoConstraints="NO" id="Odf-36-59F" customClass="CHImageSliceView">
+                                <rect key="frame" x="0.0" y="0.0" width="280" height="280"/>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Odf-36-59F" secondAttribute="trailing" id="0kd-Qt-620"/>
+                            <constraint firstItem="Odf-36-59F" firstAttribute="leading" secondItem="BXk-Ld-pwy" secondAttribute="leading" id="2ih-S7-ZDA"/>
+                            <constraint firstItem="Odf-36-59F" firstAttribute="top" secondItem="BXk-Ld-pwy" secondAttribute="top" id="ZzQ-d7-ee0"/>
+                            <constraint firstAttribute="bottom" secondItem="Odf-36-59F" secondAttribute="bottom" id="xc6-ZL-hDe"/>
+                        </constraints>
+                    </clipView>
+                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="via-xb-a7W">
+                        <rect key="frame" x="1" y="80" width="166" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="8Rn-eh-gdH">
+                        <rect key="frame" x="167" y="1" width="15" height="79"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eIE-w2-RT8">
+                    <rect key="frame" x="184" y="20" width="118" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="114" id="4Ky-dV-LJD"/>
+                    </constraints>
+                    <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="10" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="6Ky-h7-zEM"/>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="imageSliceView.zoomFactor" id="PB9-u3-nTn"/>
+                        <binding destination="-2" name="value" keyPath="imageSliceView.zoomFactor" id="jVx-i1-HeW"/>
                     </connections>
                 </slider>
             </subviews>
             <constraints>
-                <constraint firstItem="gpC-GX-SQs" firstAttribute="top" secondItem="0WY-vb-LGs" secondAttribute="bottom" constant="8" id="5ag-tC-rVn"/>
-                <constraint firstAttribute="trailing" secondItem="0WY-vb-LGs" secondAttribute="trailing" constant="20" id="7c3-mt-tkt"/>
-                <constraint firstAttribute="trailing" secondItem="rTf-1x-rCK" secondAttribute="trailing" constant="334" id="Adt-WT-fG2"/>
-                <constraint firstAttribute="trailing" secondItem="gpC-GX-SQs" secondAttribute="trailing" constant="20" id="Aph-a8-IFu"/>
-                <constraint firstItem="rTf-1x-rCK" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="IMe-5I-P1w"/>
-                <constraint firstItem="xYF-nD-gWk" firstAttribute="top" secondItem="rTf-1x-rCK" secondAttribute="bottom" constant="8" id="IWE-jx-MEb"/>
-                <constraint firstAttribute="centerX" secondItem="AyG-5I-gaj" secondAttribute="centerX" id="JZA-8h-ckH"/>
-                <constraint firstItem="kUy-IQ-1Bx" firstAttribute="centerY" secondItem="0Jr-kB-Q1v" secondAttribute="centerY" id="L7T-oe-hbo"/>
-                <constraint firstItem="xYF-nD-gWk" firstAttribute="centerY" secondItem="kUy-IQ-1Bx" secondAttribute="centerY" id="M7n-Cz-CA2"/>
-                <constraint firstItem="rTf-1x-rCK" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="25" id="Miq-Uj-Zgi"/>
-                <constraint firstItem="0WY-vb-LGs" firstAttribute="leading" secondItem="rTf-1x-rCK" secondAttribute="trailing" constant="13" id="Ref-tD-XtM"/>
-                <constraint firstItem="rTf-1x-rCK" firstAttribute="top" secondItem="0WY-vb-LGs" secondAttribute="top" id="XQ5-ky-cpx"/>
-                <constraint firstItem="rTf-1x-rCK" firstAttribute="leading" secondItem="5mt-iA-biV" secondAttribute="leading" id="a8Q-qJ-xSG"/>
-                <constraint firstItem="gpC-GX-SQs" firstAttribute="leading" secondItem="0Jr-kB-Q1v" secondAttribute="trailing" constant="12" id="dt5-CE-hgi"/>
-                <constraint firstItem="5mt-iA-biV" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="4" id="gJA-qC-aZO"/>
-                <constraint firstAttribute="bottom" secondItem="xYF-nD-gWk" secondAttribute="bottom" constant="20" symbolic="YES" id="hmK-DS-i7Z"/>
-                <constraint firstItem="AyG-5I-gaj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5mt-iA-biV" secondAttribute="trailing" constant="8" symbolic="YES" id="noL-MK-JIJ"/>
-                <constraint firstItem="rTf-1x-rCK" firstAttribute="leading" secondItem="xYF-nD-gWk" secondAttribute="leading" id="r6X-aB-xWB"/>
-                <constraint firstItem="rTf-1x-rCK" firstAttribute="trailing" secondItem="kUy-IQ-1Bx" secondAttribute="trailing" id="sAg-YX-6px"/>
-                <constraint firstItem="gpC-GX-SQs" firstAttribute="centerY" secondItem="0Jr-kB-Q1v" secondAttribute="centerY" id="uJH-gV-yz9"/>
-                <constraint firstItem="AyG-5I-gaj" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="4" id="x7r-ND-RIH"/>
+                <constraint firstAttribute="trailing" secondItem="Qc1-fN-QNE" secondAttribute="trailing" id="5c3-1B-MIM"/>
+                <constraint firstAttribute="bottom" secondItem="O7P-Hb-CnU" secondAttribute="bottom" constant="20" id="7e4-14-8gC"/>
+                <constraint firstItem="eIE-w2-RT8" firstAttribute="centerY" secondItem="O7P-Hb-CnU" secondAttribute="centerY" id="GYE-1h-LXI"/>
+                <constraint firstAttribute="trailing" secondItem="eIE-w2-RT8" secondAttribute="trailing" id="X2k-9C-rLQ"/>
+                <constraint firstItem="Qc1-fN-QNE" firstAttribute="leading" secondItem="uuf-CX-lqd" secondAttribute="leading" constant="18" id="la9-pl-0Kk"/>
+                <constraint firstItem="O7P-Hb-CnU" firstAttribute="leading" secondItem="Qc1-fN-QNE" secondAttribute="leading" id="tPc-tu-8av"/>
+                <constraint firstItem="Qc1-fN-QNE" firstAttribute="top" secondItem="uuf-CX-lqd" secondAttribute="top" id="u0D-4Z-f4O"/>
+                <constraint firstItem="O7P-Hb-CnU" firstAttribute="top" secondItem="Qc1-fN-QNE" secondAttribute="bottom" constant="8" id="uvw-8s-4rl"/>
             </constraints>
-            <point key="canvasLocation" x="661" y="704"/>
+            <point key="canvasLocation" x="493" y="310.5"/>
         </customView>
         <customView id="Ada-OV-vWA" userLabel="Effect">
             <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
         </customView>
         <customView id="7mb-HR-uTN" userLabel="Gradient">
-            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KV8-Ho-4rg" customClass="ACTGradientEditor">
+                    <rect key="frame" x="20" y="286" width="280" height="45"/>
+                </customView>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6F0-vq-Cor" customClass="CHGradientView">
+                    <rect key="frame" x="20" y="20" width="280" height="258"/>
+                </customView>
+            </subviews>
+            <point key="canvasLocation" x="910" y="221.5"/>
+        </customView>
+        <customView wantsLayer="YES" id="fhm-XX-yGX" userLabel="Color">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LWm-BC-Hpl">
+                    <rect key="frame" x="20" y="20" width="280" height="311"/>
+                </customView>
+            </subviews>
+            <point key="canvasLocation" x="871" y="310.5"/>
         </customView>
         <customView id="Unv-da-J3u" userLabel="PDF">
-            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <pdfView autoresizesSubviews="NO" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ygv-6y-Zod">
+                    <rect key="frame" x="20" y="45" width="280" height="286"/>
+                </pdfView>
+                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ig4-zX-hXL">
+                    <rect key="frame" x="206" y="18" width="96" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="92" id="Fc7-2f-eHD"/>
+                    </constraints>
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="10" tickMarkPosition="above" sliderType="linear" id="qVY-rC-N4s"/>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="pdfPreview.scaleFactor" id="sAJ-bp-2zu"/>
+                    </connections>
+                </slider>
+            </subviews>
+            <constraints>
+                <constraint firstItem="ygv-6y-Zod" firstAttribute="top" secondItem="Unv-da-J3u" secondAttribute="top" id="Dgv-Of-jGC"/>
+                <constraint firstAttribute="bottom" secondItem="Ig4-zX-hXL" secondAttribute="bottom" constant="20" id="Jwg-fL-YmR"/>
+                <constraint firstAttribute="trailing" secondItem="ygv-6y-Zod" secondAttribute="trailing" id="TNq-gi-WoY"/>
+                <constraint firstAttribute="trailing" secondItem="Ig4-zX-hXL" secondAttribute="trailing" id="Ual-lx-7Gn"/>
+                <constraint firstAttribute="bottom" secondItem="ygv-6y-Zod" secondAttribute="bottom" constant="45" id="eBF-e7-jdQ"/>
+                <constraint firstItem="ygv-6y-Zod" firstAttribute="leading" secondItem="Unv-da-J3u" secondAttribute="leading" constant="20" id="siA-Dg-92y"/>
+            </constraints>
+            <point key="canvasLocation" x="426" y="269.5"/>
         </customView>
-        <customView wantsLayer="YES" canDrawConcurrently="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xje-k6-UOa" userLabel="Attributes">
+        <customView wantsLayer="YES" canDrawConcurrently="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xje-k6-UOa" userLabel="Attributes Panel">
             <rect key="frame" x="0.0" y="0.0" width="300" height="132"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PJR-Tp-v6f">
@@ -377,11 +448,11 @@ Gw
                 <constraint firstItem="ZKQ-EL-Bvw" firstAttribute="top" secondItem="YtJ-vt-5XC" secondAttribute="bottom" constant="6" id="kkz-Ji-otc"/>
                 <constraint firstItem="jXJ-Hd-kRO" firstAttribute="centerY" secondItem="J1P-c9-eox" secondAttribute="centerY" constant="0.5" id="qOD-Pp-2fe"/>
             </constraints>
-            <point key="canvasLocation" x="767.5" y="316"/>
+            <point key="canvasLocation" x="829" y="311"/>
         </customView>
         <menuItem title="Screen" id="8ss-E9-TRa"/>
         <menuItem title="Hard Light" id="7xl-Ew-yMO"/>
-        <customView wantsLayer="YES" canDrawConcurrently="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IRS-Fw-P0b" userLabel="Info">
+        <customView wantsLayer="YES" canDrawConcurrently="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IRS-Fw-P0b" userLabel="Info Panel">
             <rect key="frame" x="0.0" y="0.0" width="300" height="304"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hrW-O0-1Bw">
@@ -662,7 +733,97 @@ Gw
                 <constraint firstItem="02x-wY-Ww2" firstAttribute="top" secondItem="JfJ-JO-xLA" secondAttribute="bottom" constant="8" symbolic="YES" id="yfl-8N-Tza"/>
                 <constraint firstItem="XPT-tq-pbB" firstAttribute="trailing" secondItem="yeF-Ca-Crg" secondAttribute="trailing" id="yk5-CB-s2I"/>
             </constraints>
-            <point key="canvasLocation" x="1130" y="325"/>
+            <point key="canvasLocation" x="1319" y="345"/>
+        </customView>
+        <customView wantsLayer="YES" id="rtp-NP-8dK" userLabel="Color Panel">
+            <rect key="frame" x="0.0" y="0.0" width="233" height="57"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GoA-Fo-g0p">
+                    <rect key="frame" x="18" y="20" width="42" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Color:" id="xlp-aI-lHd">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="iRG-Zj-LMQ">
+                    <rect key="frame" x="66" y="17" width="147" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="23" id="tEd-w3-CWP"/>
+                    </constraints>
+                    <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="color" id="Vrb-zw-XKJ"/>
+                    </connections>
+                </colorWell>
+            </subviews>
+            <constraints>
+                <constraint firstItem="iRG-Zj-LMQ" firstAttribute="leading" secondItem="GoA-Fo-g0p" secondAttribute="trailing" constant="8" symbolic="YES" id="6lZ-Q9-xk6"/>
+                <constraint firstAttribute="bottom" secondItem="GoA-Fo-g0p" secondAttribute="bottom" constant="20" symbolic="YES" id="FPW-Dx-OWB"/>
+                <constraint firstItem="iRG-Zj-LMQ" firstAttribute="centerY" secondItem="GoA-Fo-g0p" secondAttribute="centerY" id="bQl-F9-reO"/>
+                <constraint firstItem="GoA-Fo-g0p" firstAttribute="top" secondItem="rtp-NP-8dK" secondAttribute="top" constant="20" symbolic="YES" id="fAD-UU-DDK"/>
+                <constraint firstItem="GoA-Fo-g0p" firstAttribute="leading" secondItem="rtp-NP-8dK" secondAttribute="leading" constant="20" symbolic="YES" id="fp3-pU-Aem"/>
+                <constraint firstAttribute="trailing" secondItem="iRG-Zj-LMQ" secondAttribute="trailing" constant="20" symbolic="YES" id="qI8-Z7-ZL0"/>
+            </constraints>
+            <point key="canvasLocation" x="1232.5" y="160"/>
+        </customView>
+        <customView wantsLayer="YES" id="FuC-gm-cz0" userLabel="Gradient Panel">
+            <rect key="frame" x="0.0" y="0.0" width="233" height="79"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cQW-Lh-KUX">
+                    <rect key="frame" x="22" y="42" width="43" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Angle:" id="qEb-1L-1uX">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ae8-02-4QX">
+                    <rect key="frame" x="18" y="20" width="47" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Radial:" id="iyt-IK-bN6">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PCc-b3-i7D">
+                    <rect key="frame" x="69" y="18" width="18" height="18"/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" state="on" inset="2" id="ZOO-HO-ubl">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="gradientRadial" id="cfF-7S-7eO"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zk9-M7-M1g">
+                    <rect key="frame" x="71" y="40" width="39" height="19"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="90°" drawsBackground="YES" id="lU3-4Y-OhC">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#°" negativeFormat="#°" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" id="kN7-qD-WjU">
+                            <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="360"/>
+                        </numberFormatter>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="gradientAngle" id="03R-8t-b0C"/>
+                    </connections>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="1232.5" y="169.5"/>
+        </customView>
+        <customView wantsLayer="YES" id="HPS-kx-vgd" userLabel="Effect Panel" customClass="NSTableView">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <connections>
+                <outlet property="dataSource" destination="-2" id="qY3-eX-LT8"/>
+                <outlet property="delegate" destination="-2" id="9Ni-SL-VE4"/>
+            </connections>
+            <point key="canvasLocation" x="886" y="574.5"/>
         </customView>
     </objects>
 </document>

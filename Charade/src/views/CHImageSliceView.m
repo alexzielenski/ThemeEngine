@@ -110,10 +110,13 @@ void *kSlicingContext;
     
     [self _toggleDisplay];
     self.slicing = YES;
+    
 }
 
 - (void)viewDidMoveToSuperview {
     [self addTrackingArea:[[NSTrackingArea alloc] initWithRect:self.bounds options:NSTrackingActiveInActiveApp | NSTrackingMouseMoved owner:self userInfo:nil]];
+    
+    NSLog(@"%@", NSStringFromRect(self.bounds));
 }
 
 - (void)dealloc {
@@ -121,6 +124,7 @@ void *kSlicingContext;
     [self removeObserver:self forKeyPath:@"themeType"];
     [self removeObserver:self forKeyPath:@"sliceRects"];
     [self removeObserver:self forKeyPath:@"slicing"];
+        [self addTrackingArea:[[NSTrackingArea alloc] initWithRect:self.bounds options:NSTrackingActiveInActiveApp | NSTrackingMouseMoved owner:self userInfo:nil]];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -196,6 +200,7 @@ void *kSlicingContext;
     NSPoint windowPoint = event.locationInWindow;
     NSPoint viewPoint = [self convertPoint:windowPoint fromView:nil];
     CALayer *handle = [self.sliceLayer hitTest:viewPoint];
+    
     if (handle == self.leftHandle || handle == self.rightHandle) {
         [[NSCursor resizeLeftRightCursor] push];
     } else if (handle == self.topHandle || handle == self.bottomHandle) {
@@ -206,7 +211,7 @@ void *kSlicingContext;
     
 }
 
-- (void)mouseDown:(NSEvent *)event {
+- (void)mouseDown:(NSEvent *)event {    
     NSPoint windowPoint = event.locationInWindow;
     NSPoint viewPoint = [self convertPoint:windowPoint fromView:nil];
     CALayer *handle = [self.sliceLayer hitTest:viewPoint];

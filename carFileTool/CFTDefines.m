@@ -8,19 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
-#define BEGINSTRINGIFY(PREFIX) \
+#define BEGINSTRINGIFY(PREFIX, DECAMEL) \
     NSUInteger prefixLength = [@(#PREFIX) length];\
+    BOOL decamel = DECAMEL; \
     switch (value) {
 #define STRINGIFY(NUM) \
-    case NUM: \
-        return [@(#NUM) substringFromIndex: prefixLength].lowercaseString;
+    case NUM: { \
+        NSString *num = [@(#NUM) substringFromIndex: prefixLength];\
+        if (decamel) \
+            return [num stringByReplacingOccurrencesOfString:@"([a-z])([A-Z])" \
+                                                  withString:@"$1 $2" \
+                                                     options:NSRegularExpressionSearch \
+                                                       range:NSMakeRange(0, num.length)]; \
+        return num.lowercaseString; \
+    }
 #define ENDSTRINGIFY \
     default: \
         return @"Unknown"; \
     }
 
 NSString *CoreThemeTypeToString(CoreThemeType value) {
-    BEGINSTRINGIFY(kCoreThemeType)
+    BEGINSTRINGIFY(kCoreThemeType, NO)
     STRINGIFY(kCoreThemeTypeOnePart)
     STRINGIFY(kCoreThemeTypeThreePartHorizontal)
     STRINGIFY(kCoreThemeTypeThreePartVertical)
@@ -37,7 +45,7 @@ NSString *CoreThemeTypeToString(CoreThemeType value) {
 }
 
 NSString *CFTEXifOrientationToString(CFTEXIFOrientation value) {
-    BEGINSTRINGIFY(CFTEXIFOrientation)
+    BEGINSTRINGIFY(CFTEXIFOrientation, NO)
     STRINGIFY(CFTEXIFOrientationNormal)
     STRINGIFY(CFTEXIFOrientationReverse)
     STRINGIFY(CFTEXIFOrientationRotate180)
@@ -50,7 +58,7 @@ NSString *CFTEXifOrientationToString(CFTEXIFOrientation value) {
 }
 
 NSString *CoreThemeLayerToString(CoreThemeLayer value) {
-    BEGINSTRINGIFY(kCoreThemeLayer)
+    BEGINSTRINGIFY(kCoreThemeLayer, NO)
     STRINGIFY(kCoreThemeLayerBase)
     STRINGIFY(kCoreThemeLayerHighlight)
     STRINGIFY(kCoreThemeLayerMask)
@@ -63,7 +71,7 @@ NSString *CoreThemeLayerToString(CoreThemeLayer value) {
 }
 
 NSString *CoreThemeIdiomToString(CoreThemeIdiom value) {
-    BEGINSTRINGIFY(kCoreThemeIdion)
+    BEGINSTRINGIFY(kCoreThemeIdiom, NO)
     STRINGIFY(kCoreThemeIdiomUniversal)
     STRINGIFY(kCoreThemeIdiomPhone)
     STRINGIFY(kCoreThemeIdiomPad)
@@ -74,7 +82,7 @@ NSString *CoreThemeIdiomToString(CoreThemeIdiom value) {
 }
 
 NSString *CoreThemeSizeToString(CoreThemeSize value) {
-    BEGINSTRINGIFY(kCoreThemeSize)
+    BEGINSTRINGIFY(kCoreThemeSize, NO)
     STRINGIFY(kCoreThemeSizeRegular)
     STRINGIFY(kCoreThemeSizeSmall)
     STRINGIFY(kCoreThemeSizeMini)
@@ -83,7 +91,7 @@ NSString *CoreThemeSizeToString(CoreThemeSize value) {
 }
 
 NSString *CoreThemeValueToString(CoreThemeValue value) {
-    BEGINSTRINGIFY(kCoreThemeValue)
+    BEGINSTRINGIFY(kCoreThemeValue, NO)
     STRINGIFY(kCoreThemeValueOff)
     STRINGIFY(kCoreThemeValueOn)
     STRINGIFY(kCoreThemeValueMixed)
@@ -91,7 +99,7 @@ NSString *CoreThemeValueToString(CoreThemeValue value) {
 }
 
 NSString *CoreThemeDirectionToString(CoreThemeDirection value) {
-    BEGINSTRINGIFY(kCoreThemeDirection)
+    BEGINSTRINGIFY(kCoreThemeDirection, NO)
     STRINGIFY(kCoreThemeDirectionHorizontal)
     STRINGIFY(kCoreThemeDirectionVertical)
     STRINGIFY(kCoreThemeDirectionPointingUp)
@@ -102,7 +110,7 @@ NSString *CoreThemeDirectionToString(CoreThemeDirection value) {
 }
 
 NSString *CoreThemeStateToString(CoreThemeState value) {
-    BEGINSTRINGIFY(kCoreThemeState)
+    BEGINSTRINGIFY(kCoreThemeState, NO)
     STRINGIFY(kCoreThemeStateNormal)
     STRINGIFY(kCoreThemeStateRollover)
     STRINGIFY(kCoreThemeStatePressed)
@@ -114,7 +122,7 @@ NSString *CoreThemeStateToString(CoreThemeState value) {
 }
 
 NSString *CoreThemePresentationStateToString(CoreThemePresentationState value) {
-    BEGINSTRINGIFY(kCoreThemePresentationState)
+    BEGINSTRINGIFY(kCoreThemePresentationState, NO)
     STRINGIFY(kCoreThemePresentationStateActive)
     STRINGIFY(kCoreThemePresentationStateInactive)
     STRINGIFY(kCoreThemePresentationStateActiveMain)
@@ -122,7 +130,7 @@ NSString *CoreThemePresentationStateToString(CoreThemePresentationState value) {
 }
 
 NSString *CoreThemeLayoutToString(CoreThemeLayout value) {
-    BEGINSTRINGIFY(kCoreTheme)
+    BEGINSTRINGIFY(kCoreTheme, NO)
     STRINGIFY(kCoreThemeOnePartFixedSize)
     STRINGIFY(kCoreThemeOnePartTile)
     STRINGIFY(kCoreThemeOnePartScale)
@@ -140,6 +148,21 @@ NSString *CoreThemeLayoutToString(CoreThemeLayout value) {
     STRINGIFY(kCoreThemeAnimationFilmstrip)
     ENDSTRINGIFY
 }
+
+NSString *CUIEffectTypeToString(CUIEffectType value) {
+    BEGINSTRINGIFY(CUIEffectType, YES)
+    STRINGIFY(CUIEffectTypeBevelAndEmboss)
+    STRINGIFY(CUIEffectTypeColorFill)
+    STRINGIFY(CUIEffectTypeDropShadow)
+    STRINGIFY(CUIEffectTypeExtraShadow)
+    STRINGIFY(CUIEffectTypeInnerGlow)
+    STRINGIFY(CUIEffectTypeInnerShadow)
+    STRINGIFY(CUIEffectTypeOuterGlow)
+    STRINGIFY(CUIEffectTypeOutputOpacity)
+    STRINGIFY(CUIEffectTypeShapeOpacity)
+    ENDSTRINGIFY
+}
+
 
 NSString *CFTScaleToString(double scale) {
     if (scale == 1.0)

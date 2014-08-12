@@ -63,5 +63,6 @@ struct gradient_stop {
 
 - (BOOL)isEqualToThemeGradient:(CUIThemeGradient *)themeGradient;
 - (CUIThemeGradient *)themeGradientRepresentation;
+- (NSGradient *)gradientRepresentation;
 
 @end
