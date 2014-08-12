@@ -1,0 +1,3 @@
+[submodule "ThemeEngine/src/external/ZKInspector"]
+	path = ThemeEngine/src/external/ZKInspector
+	url = git@github.com:alexzielenski/ZKInspector.git
