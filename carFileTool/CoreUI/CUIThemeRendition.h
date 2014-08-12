@@ -8,9 +8,9 @@
 #import "CUIThemeGradient.h"
 #import "CUIShapeEffectPreset.h"
 
-// 0x143545349 – first few bytes of every file
+// CSI Stands for Core Structured Image
 struct _csiheader {
-    unsigned int prefix; // ISTC
+    unsigned int prefix; // CTSI – Core Theme Structured Image
     unsigned int pad; // always 1
     struct {
         unsigned int isHeaderFlaggedFPO:1;
@@ -31,7 +31,7 @@ struct _csiheader {
         unsigned short reserved; // always zero
         char name[128];
     } metadata;
-    unsigned int listLength; // size of the list of information after header but before bitmap
+    unsigned int infolistLength; // size of the list of information after header but before bitmap
     struct _csibitmaplist {
         unsigned int bitmapCount;
         unsigned int reserved;
@@ -49,6 +49,7 @@ struct _csiheader {
  
  I know know why it has a last object with variable length in the struct from the class dump
  */
+
 /*
  Template rending modes change the rending flags
 
@@ -66,8 +67,39 @@ struct _csiheader {
  
  */
 
+/************
+ 
+ After the header, there is a list of metadata before the payload
+ 
+ ***/
+
+struct csi_info {
+    unsigned int magic;
+    unsigned int length;
+    unsigned int values[];
+};
+
+/* CSI Format
+ csi_header (in CUIThemeRendition.h)
+ 
+ list of metadata in this format:
+ 
+ 0xE903 - 1001: Slice rects, First 4 bytes length, next num slices rects, next a list of the slice rects
+ 0xEB03 - 1003: Metrics – First 4 length, next 4 num metrics, next a list of metrics (struct of 3 CGSizes)
+ 0xEC03 - 1004: Composition - First 4 length, second is the blendmode, third is a float for opacity
+ 0xED03 - 1005: UTI Type, First 4 length, next 4 length of string, then the string
+ 0xEE03 - 1006: Image Metadata: First 4 length, next 4 EXIF orientation, (UTI type...?)
+ 
+ GRADIENTS marked DARG with colors as COLR, and opacity a OPCT format unknown
+ 0x4D4C4543 - 'CELM': C-Element. I wish I knew what the C stood for
+ RAW DATA: marts 'RAWD' followed by 4 bytes of zero and an unsigned int of the length of the raw data
+ 
+ 
+ */
+
+
 /*
- Raw Tree Structs
+ Raw BOMTree Structs
  */
 
 struct _colorkey {

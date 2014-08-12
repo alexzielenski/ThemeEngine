@@ -68,7 +68,9 @@ typedef NS_ENUM(NSUInteger, CoreThemePresentationState) {
 };
 
 typedef NS_ENUM(NSUInteger, CoreThemeLayout) {
-    kCoreThemeOnePartFixedSize                       = 10 ,
+    kCoreThemeGradient                               = 6,
+    kCoreThemeEffect                                 = 7,
+    kCoreThemeOnePartFixedSize                       = 10,
     kCoreThemeOnePartTile                            = 11,
     kCoreThemeOnePartScale                           = 12,
     kCoreThemeThreePartHTile                         = 20,

@@ -64,7 +64,7 @@ typedef struct {
  *******************************
  */
 
-struct shape_effect_list_header {
+struct shape_effect_header {
     unsigned int magic; // CTFX – Core Theme Effects
     unsigned int reserved[3];
     unsigned int num_effects;
@@ -84,8 +84,8 @@ struct shape_effect {
 };
 
 /*
- // Colors Are just RGB values with the last byte being padding, opacities are specifid elsewhere.
- // However i've seen the last byte of color values vary in bevel emboss, inner glow, between 64, 65. May be a color flag
+ // Colors Are just RGB values with the last byte being padding, opacities are specified elsewhere.
+ // However, I've seen the last byte of color values vary in bevel emboss, inner glow, between 64, 65. May be a color flag
  */
 
 @interface CUIShapeEffectPreset : NSObject

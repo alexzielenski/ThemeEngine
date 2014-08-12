@@ -23,25 +23,6 @@
 #define kRAWD 'RAWD'
 #define kPDF 'PDF '
 
-/* CSI Format
- csi_header (in CUIThemeRendition.h)
- 
- list of metadata in this format:
- 
- 0xE903 - 1001: Slice rects, First 4 bytes length, next num slices rects, next a list of the slice rects
- 0xEB03 - 1003: Metrics – First 4 length, next 4 num metrics, next a list of metrics (struct of 3 CGSizes)
- 0xEC03 - 1004: Composition - First 4 length, second is the blendmode, third is a float for opacity
- 0xED03 - 1005: UTI Type, First 4 length, next 4 length of string, then the string
- 0xEE03 - 1006: Image Metadata: First 4 length, next 4 EXIF orientation, (UTI type...?)
- 
- unk
- 
- GRADIENTS marked DARG with colors as COLR, and opacity a OPCT format unknown
- 0x4D4C4543 - 'CELM': C-Element. I wish I knew what the C stood for
- RAW DATA: marts 'RAWD' followed by 4 bytes of zero and an unsigned int of the length of the raw data
- */
-
-
 @interface CFTAsset () {
     CGImageRef _image;
 }
@@ -93,7 +74,8 @@
                                                withString:@"$1 $2"
                                                   options:NSRegularExpressionSearch
                                                     range:NSMakeRange(0, name.length)];
-        self.keywords = [[NSSet setWithObjects:self.keyTypeString, self.keyStateString, self.keyLayerString, self.keyIdiomString, self.keySizeString, self.keyValueString, self.keyPresentationStateString, self.keyDirectionString, self.keyScaleString, nil] setByAddingObjectsFromArray:[name componentsSeparatedByString:@" "]];        
+        self.keywords = [[NSSet setWithObjects:self.keyTypeString, self.keyStateString, self.keyLayerString, self.keyIdiomString, self.keySizeString, self.keyValueString, self.keyPresentationStateString, self.keyDirectionString, self.keyScaleString, nil] setByAddingObjectsFromArray:[name componentsSeparatedByString:@" "]];
+
     }
     
     return self;
@@ -192,7 +174,7 @@
 }
 
 - (void)_initializeRawDataFromCSIData:(NSData *)csiData {
-    unsigned int listOffset = offsetof(struct _csiheader, listLength);
+    unsigned int listOffset = offsetof(struct _csiheader, infolistLength);
     unsigned int listLength = 0;
     [csiData getBytes:&listLength range:NSMakeRange(listOffset, sizeof(listLength))];
     listOffset += listLength + sizeof(unsigned int) * 4;
@@ -215,7 +197,7 @@
 
 - (void)_initializeMetadataFromCSIData:(NSData *)csiData {
     struct _csiheader header;
-    [csiData getBytes:&header range:NSMakeRange(0, offsetof(struct _csiheader, listLength) + sizeof(unsigned int))];
+    [csiData getBytes:&header range:NSMakeRange(0, offsetof(struct _csiheader, infolistLength) + sizeof(unsigned int))];
     
     self.renditionFPO = header.renditionFlags.isHeaderFlaggedFPO;
     self.excludedFromContrastFilter = header.renditionFlags.isExcludedFromContrastFilter;
