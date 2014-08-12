@@ -15,9 +15,7 @@
 @implementation TEAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-    NSColor *color = [NSColor colorWithCatalogName:@"System" colorName:@"_sourceListBackgroundColor"];
 
-    NSLog(@"%f", color.blueComponent);
 }
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
