@@ -15,7 +15,6 @@
 @implementation TEAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-
 }
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
@@ -23,10 +22,9 @@
     CUICatalog *catalog = appearance._coreUICatalog;
     CUIStructuredThemeStore *themeStore = catalog._themeStore;
     CUICommonAssetStorage *assetStorage = themeStore.themeStore;
-    
     [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL fileURLWithPath:assetStorage.path]
-                                                                            display:YES
-                                                                  completionHandler:nil];
+                                                                           display:YES
+                                                                 completionHandler:nil];
     return NO;
 }
 

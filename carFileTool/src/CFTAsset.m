@@ -31,12 +31,15 @@
 @property (readwrite, strong) CUIRenditionKey *key;
 @property (readwrite, strong) NSSet *keywords;
 @property (strong) NSPasteboard *currentPasteboard;
+@property (assign) NSUInteger changeCount;
+@property (assign) NSUInteger lastChangeCount;
 + (NSArray *)undoProperties;
 - (void)_initializeSlicesFromCSIData:(NSData *)csiData;
 - (void)_initializeMetricsFromCSIData:(NSData *)csiData;
 - (void)_initializeRawDataFromCSIData:(NSData *)csiData;
 - (void)_initializeMetadataFromCSIData:(NSData *)csiData;
 - (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format;
+- (void)updateChangeCount:(NSDocumentChangeType)change;
 @end
 
 //!TODO: When slices/metrics change, have the rendition generate a new unsliced image
@@ -111,6 +114,8 @@
 
 - (id)init {
     if ((self = [super init])) {
+        self.changeCount = 0;
+        self.lastChangeCount = 0;
         REGISTER_UNDO_PROPERTIES(self.class.undoProperties);
     }
     return self;
@@ -276,6 +281,7 @@
 
     if (self.shouldRemove) {
         [assetStorage removeAssetForKey:renditionKey];
+        [self updateChangeCount:NSChangeCleared];
         return;
     }
     
@@ -286,7 +292,7 @@
         // we only save shape effects, gradients, pdfs, and bitmaps
         return;
     }
-    
+
     CUIShapeEffectPreset *effectPreset = self.effectPreset.effectPreset;
     CSIGenerator *gen = nil;
     if (self.type == kCoreThemeTypeEffect) {
@@ -326,7 +332,7 @@
         gen.scaleFactor = self.scale;
     }
     
-//!TODO: For some reason whenever I compile PDFs i get a colorspaceID of 15 even when I set it to something else
+    //!TODO: For some reason whenever I compile PDFs i get a colorspaceID of 15 even when I set it to something else
     gen.exifOrientation = self.exifOrientation;
     gen.colorSpaceID = self.colorSpaceID;
     gen.opacity = self.opacity;
@@ -339,32 +345,22 @@
 //    gen.excludedFromContrastFilter = YES;
     NSData *csiData = [gen CSIRepresentationWithCompression:YES];
     [assetStorage setAsset:csiData forKey:renditionKey];
+    
+    [self updateChangeCount:NSChangeCleared];
+}
+
+- (void)updateChangeCount:(NSDocumentChangeType)change {
+    if (change == NSChangeDone || change == NSChangeRedone) {
+        self.changeCount = self.changeCount + 1;
+    } else if (change == NSChangeUndone && self.changeCount > 0) {
+        self.changeCount = self.changeCount - 1;
+    } else if (change == NSChangeCleared || change == NSChangeAutosaved) {
+        self.lastChangeCount = self.changeCount;
+    }
 }
 
 - (BOOL)isDirty {
-    //!TODO Use NSUndoManager
-    BOOL clean = YES;
-#define COMPARE(KEY) clean &= self.KEY == self.rendition.KEY
-    COMPARE(scale);
-    COMPARE(exifOrientation);
-    COMPARE(opacity);
-    COMPARE(blendMode);
-    COMPARE(colorSpaceID);
-    COMPARE(utiType);
-    COMPARE(type);
-    
-    clean &= self.layout == self.rendition.subtype;
-    clean &= [self.gradient isEqualToThemeGradient:self.rendition.gradient];
-    //!TODO Compare Images
-    //!TODO: Make this better
-    if (self.type == kCoreThemeTypeColor)
-        return YES;
-    //!TODO: Shape Effect
-    
-    //!TODO: PDF Data
-    //!TODO: slice changes
-    
-    return !clean;
+    return (self.changeCount != self.lastChangeCount);
 }
 
 #pragma mark - Properties
