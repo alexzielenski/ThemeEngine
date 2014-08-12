@@ -19,7 +19,7 @@
 }
 
 - (BOOL)applicationShouldOpenUntitledFile:(NSApplication *)sender {
-    NSAppearance *appearance = [NSAppearance currentAppearance];
+    NSAppearance *appearance = [NSAppearance appearanceNamed:NSAppearanceNameAqua];
     CUICatalog *catalog = appearance._coreUICatalog;
     CUIStructuredThemeStore *themeStore = catalog._themeStore;
     CUICommonAssetStorage *assetStorage = themeStore.themeStore;
@@ -28,6 +28,10 @@
                                                                             display:YES
                                                                   completionHandler:nil];
     return NO;
+}
+
+- (void)applicationWillTerminate:(NSNotification *)notification {
+    [[NSFileManager defaultManager] removeItemAtPath:[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier] error:nil];
 }
 
 @end

@@ -147,9 +147,11 @@ extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
 }
 
 - (void)save {
-    NSSet *assets = self.allAssets;
-    [assets makeObjectsPerformSelector:@selector(commitToStorage:) withObject:self.assetStorage];
-    [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSSet *assets = self.allAssets;
+        [assets makeObjectsPerformSelector:@selector(commitToStorage:) withObject:self.assetStorage];
+        [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
+    });
 }
 
 - (NSSet *)allAssets {

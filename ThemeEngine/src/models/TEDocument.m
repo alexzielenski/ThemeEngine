@@ -45,13 +45,11 @@
     [self.elementViewController bind:@"elements" toObject:self.elementArrayController withKeyPath:@"selectedObjects" options:nil];
 }
 
-/**
- We can't change the path a BOM writes to so we save in place then copy over if the path is different
- */
 - (BOOL)writeToURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError {
     NSFileManager *manager = [NSFileManager defaultManager];
     if ([manager isWritableFileAtPath:url.path.stringByDeletingLastPathComponent]) {
         [self.elementStore save];
+        
         if (![self.elementStore.path isEqualToString:url.path]) {
             return [manager copyItemAtPath:self.elementStore.path toPath:url.path error:outError];
         }
@@ -65,21 +63,17 @@
 
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError {
     NSFileManager *manager = [NSFileManager defaultManager];
-    if (![manager isWritableFileAtPath:url.path.stringByDeletingLastPathComponent]) {
-        NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:[NSBundle.mainBundle bundleIdentifier]] stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]] stringByAppendingPathExtension:@"car"];
-        
-        if (![manager createDirectoryAtPath:tempPath.stringByDeletingLastPathComponent withIntermediateDirectories:YES attributes:nil error:outError]) {
-            return NO;
-        }
-        
-        if (![[NSFileManager defaultManager] copyItemAtURL:url toURL:[NSURL fileURLWithPath:tempPath] error:outError]) {
-            return NO;
-        }
-        
-        self.elementStore = [CFTElementStore storeWithPath:tempPath];
-    } else {
-        self.elementStore = [CFTElementStore storeWithPath:url.path];
+    NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:[NSBundle.mainBundle bundleIdentifier]] stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]] stringByAppendingPathExtension:@"car"];
+    
+    if (![manager createDirectoryAtPath:tempPath.stringByDeletingLastPathComponent withIntermediateDirectories:YES attributes:nil error:outError]) {
+        return NO;
     }
+        
+    if (![[NSFileManager defaultManager] copyItemAtURL:url toURL:[NSURL fileURLWithPath:tempPath] error:outError]) {
+        return NO;
+    }
+    
+    self.elementStore = [CFTElementStore storeWithPath:tempPath];
     self.undoManager = self.elementStore.undoManager;
     return YES;
 }
@@ -90,7 +84,8 @@
 
 - (void)dealloc {
     // remove temporary storage
-    [[NSFileManager defaultManager] removeItemAtPath:self.elementStore.path error:nil];
+    if ([self.elementStore.path hasPrefix:NSTemporaryDirectory()])
+        [[NSFileManager defaultManager] removeItemAtPath:self.elementStore.path error:nil];
 }
 
 @end
