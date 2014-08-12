@@ -31,6 +31,7 @@
 @property (weak) IBOutlet NSView *colorPanel;
 @property (weak) IBOutlet NSView *gradientPanel;
 @property (weak) IBOutlet NSView *effectPanel;
+@property (weak) IBOutlet NSView *slicePanel;
 
 // Attributes
 @property (assign) CGFloat opacity;
@@ -43,6 +44,10 @@
 @property (weak) IBOutlet NSSegmentedControl *typeSegment;
 @property (weak) IBOutlet ZKInspector *inspector;
 @property (weak) IBOutlet NSTextField *sizeField;
+@property (assign) CGFloat topInset;
+@property (assign) CGFloat leftInset;
+@property (assign) CGFloat rightInset;
+@property (assign) CGFloat bottomInset;
 
 // Color
 @property (weak) IBOutlet NSView *colorPreview;

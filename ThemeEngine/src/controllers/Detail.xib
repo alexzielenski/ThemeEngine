@@ -37,6 +37,7 @@
                 <outlet property="pdfPreview" destination="ygv-6y-Zod" id="ILv-ho-dw2"/>
                 <outlet property="pdfView" destination="Unv-da-J3u" id="jNB-xL-cvb"/>
                 <outlet property="sizeField" destination="5mt-iA-biV" id="qPI-5s-ePP"/>
+                <outlet property="slicePanel" destination="6dK-DR-Hel" id="Gkr-k3-0rk"/>
                 <outlet property="typeSegment" destination="O7P-Hb-CnU" id="bqN-nu-dz0"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="Fey-MU-aG1"/>
             </connections>
@@ -1067,6 +1068,151 @@ Gw
                 <outlet property="delegate" destination="-2" id="9Ni-SL-VE4"/>
             </connections>
             <point key="canvasLocation" x="788" y="742.5"/>
+        </customView>
+        <customView wantsLayer="YES" id="6dK-DR-Hel" userLabel="Slice Panel">
+            <rect key="frame" x="0.0" y="0.0" width="243" height="135"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bl0-Rq-e4B">
+                    <rect key="frame" x="39" y="98" width="68" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Left Edge:" id="aH8-JB-v5p">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xKL-8h-Rr5">
+                    <rect key="frame" x="31" y="73" width="76" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Right Edge:" id="2yv-HQ-4rj">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lWg-9G-StS">
+                    <rect key="frame" x="41" y="48" width="66" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Top Edge:" id="gws-BM-emL">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nfC-m1-gKo">
+                    <rect key="frame" x="18" y="23" width="89" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Bottom Edge:" id="2Lj-5w-eHI">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Je7-Cr-XNk">
+                    <rect key="frame" x="113" y="95" width="110" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="kze-c0-Mb1"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="W2D-CC-LDO">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="dzH-JK-02M"/>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="enabled" keyPath="imageSliceView.themeType" id="3L9-S2-JeO">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">TEHorizontalInsetValueTransformer</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="value" keyPath="leftInset" id="225-pa-7WG"/>
+                    </connections>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IxH-lq-k1Z">
+                    <rect key="frame" x="113" y="70" width="110" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="eXb-IS-Iez"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="SMx-40-vzH">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="AZt-Re-gkM"/>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="enabled" keyPath="imageSliceView.themeType" id="brg-yF-LM5">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">TEHorizontalInsetValueTransformer</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="value" keyPath="rightInset" id="36h-R8-a8H"/>
+                    </connections>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oIU-GO-sDh">
+                    <rect key="frame" x="113" y="20" width="110" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="T1A-Dd-hdi"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="tBX-bD-wU0">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="x7R-ae-Xr5"/>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="enabled" keyPath="imageSliceView.themeType" id="nQx-dX-hIo">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">TEVerticalInsetValueTransformer</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="value" keyPath="bottomInset" id="mya-r5-Ozw"/>
+                    </connections>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wv0-IL-9Wi">
+                    <rect key="frame" x="113" y="45" width="110" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="6SN-KJ-bxa"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="dhE-cm-4KW">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="C8F-gH-jpO"/>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="enabled" keyPath="imageSliceView.themeType" id="8Ll-pt-dFN">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">TEVerticalInsetValueTransformer</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="value" keyPath="topInset" id="iRP-wh-7N6"/>
+                    </connections>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="IxH-lq-k1Z" firstAttribute="leading" secondItem="xKL-8h-Rr5" secondAttribute="trailing" constant="8" symbolic="YES" id="2LZ-vA-45k"/>
+                <constraint firstAttribute="trailing" secondItem="Je7-Cr-XNk" secondAttribute="trailing" constant="20" id="AJn-KA-j0c"/>
+                <constraint firstItem="bl0-Rq-e4B" firstAttribute="trailing" secondItem="xKL-8h-Rr5" secondAttribute="trailing" id="Cto-Rg-bL6"/>
+                <constraint firstItem="xKL-8h-Rr5" firstAttribute="top" secondItem="bl0-Rq-e4B" secondAttribute="bottom" constant="8" symbolic="YES" id="FBe-6W-k7T"/>
+                <constraint firstItem="wv0-IL-9Wi" firstAttribute="leading" secondItem="lWg-9G-StS" secondAttribute="trailing" constant="8" symbolic="YES" id="LEJ-qS-f6d"/>
+                <constraint firstItem="Je7-Cr-XNk" firstAttribute="width" secondItem="wv0-IL-9Wi" secondAttribute="width" id="NHa-u5-5i8"/>
+                <constraint firstAttribute="bottom" secondItem="nfC-m1-gKo" secondAttribute="bottom" constant="23" id="NwZ-oQ-ygt"/>
+                <constraint firstItem="wv0-IL-9Wi" firstAttribute="top" secondItem="IxH-lq-k1Z" secondAttribute="bottom" constant="3" id="OhS-ax-vi2"/>
+                <constraint firstItem="Je7-Cr-XNk" firstAttribute="leading" secondItem="IxH-lq-k1Z" secondAttribute="leading" id="Qcq-rG-yWB"/>
+                <constraint firstItem="nfC-m1-gKo" firstAttribute="top" secondItem="lWg-9G-StS" secondAttribute="bottom" constant="8" symbolic="YES" id="UqC-MY-y7M"/>
+                <constraint firstItem="oIU-GO-sDh" firstAttribute="leading" secondItem="nfC-m1-gKo" secondAttribute="trailing" constant="8" symbolic="YES" id="YgV-RV-zVk"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="nfC-m1-gKo" secondAttribute="bottom" constant="20" symbolic="YES" id="bjF-FR-4xL"/>
+                <constraint firstItem="bl0-Rq-e4B" firstAttribute="trailing" secondItem="lWg-9G-StS" secondAttribute="trailing" id="csm-63-s2F"/>
+                <constraint firstItem="Je7-Cr-XNk" firstAttribute="leading" secondItem="bl0-Rq-e4B" secondAttribute="trailing" constant="8" symbolic="YES" id="fke-HQ-RZG"/>
+                <constraint firstItem="Je7-Cr-XNk" firstAttribute="width" secondItem="IxH-lq-k1Z" secondAttribute="width" id="gdD-Id-QDp"/>
+                <constraint firstItem="bl0-Rq-e4B" firstAttribute="trailing" secondItem="nfC-m1-gKo" secondAttribute="trailing" id="nXA-Zt-VR6"/>
+                <constraint firstItem="Je7-Cr-XNk" firstAttribute="leading" secondItem="wv0-IL-9Wi" secondAttribute="leading" id="nue-cn-hla"/>
+                <constraint firstItem="nfC-m1-gKo" firstAttribute="leading" secondItem="6dK-DR-Hel" secondAttribute="leading" constant="20" id="owX-aj-kOR"/>
+                <constraint firstItem="IxH-lq-k1Z" firstAttribute="top" secondItem="Je7-Cr-XNk" secondAttribute="bottom" constant="3" id="pFd-PQ-xNZ"/>
+                <constraint firstItem="lWg-9G-StS" firstAttribute="top" secondItem="xKL-8h-Rr5" secondAttribute="bottom" constant="8" symbolic="YES" id="rBg-5a-FzN"/>
+                <constraint firstItem="Je7-Cr-XNk" firstAttribute="leading" secondItem="oIU-GO-sDh" secondAttribute="leading" id="sn4-rg-wTL"/>
+                <constraint firstItem="oIU-GO-sDh" firstAttribute="top" secondItem="wv0-IL-9Wi" secondAttribute="bottom" constant="3" id="szo-Au-G03"/>
+                <constraint firstItem="Je7-Cr-XNk" firstAttribute="width" secondItem="oIU-GO-sDh" secondAttribute="width" id="tLx-he-vbk"/>
+                <constraint firstAttribute="bottom" secondItem="oIU-GO-sDh" secondAttribute="bottom" constant="20" symbolic="YES" id="xQE-q5-e7J"/>
+            </constraints>
+            <point key="canvasLocation" x="816.5" y="519.5"/>
         </customView>
     </objects>
 </document>

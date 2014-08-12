@@ -18,6 +18,5 @@ IB_DESIGNABLE
 @property (weak) IBOutlet NSSearchField *search;
 - (IBAction)searchChanged:(NSSearchField *)sender;
 
-- (IBAction)copy:(id)sender;
 - (IBAction)paste:(id)sender;
 @end

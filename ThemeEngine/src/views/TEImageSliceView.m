@@ -10,8 +10,6 @@
 
 @interface TEImageSliceView ()
 @property (strong) CALayer *sliceLayer;
-@property (assign) NSEdgeInsets edgeInsets;
-
 @property (strong) CALayer *leftHandle;
 @property (strong) CALayer *rightHandle;
 @property (strong) CALayer *topHandle;
@@ -51,9 +49,10 @@
     return self;
 }
 
-void *kTypeContext;
-void *kSliceRectContext;
-void *kSlicingContext;
+static void *kTypeContext;
+static void *kSliceRectContext;
+static void *kSlicingContext;
+static void *kInsetsContext;
 #define kHandleSize 3
 #define kSliceBuffer 1
 
@@ -70,6 +69,7 @@ void *kSlicingContext;
     [self addObserver:self forKeyPath:@"themeType" options:0 context:&kTypeContext];
     [self addObserver:self forKeyPath:@"sliceRects" options:0 context:&kSliceRectContext];
     [self addObserver:self forKeyPath:@"slicing" options:0 context:&kSlicingContext];
+    [self addObserver:self forKeyPath:@"edgeInsets" options:0 context:&kInsetsContext];
     
     [self setOverlay:self.sliceLayer forType:IKOverlayTypeImage];
     self.leftHandle = [CALayer layer];
@@ -129,13 +129,13 @@ void *kSlicingContext;
     if (context == &kTypeContext) {
         [self _toggleDisplay];
         [self _generateInsetsFromSlices];
-        [self _repositionHandles];
     } else if (context == &kSliceRectContext) {
         [self _toggleDisplay];
         [self _generateInsetsFromSlices];
-        [self _repositionHandles];
     } else if (context == &kSlicingContext) {
         [self _toggleDisplay];
+    } else if (context ==&kInsetsContext) {
+        [self _repositionHandles];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -254,7 +254,7 @@ void *kSlicingContext;
     }
     
     self.edgeInsets = self.currentInsets;
-    [self _repositionHandles];
+
     [CATransaction commit];
     self.currentInsets = insets;
     self.currentPosition = viewPoint;

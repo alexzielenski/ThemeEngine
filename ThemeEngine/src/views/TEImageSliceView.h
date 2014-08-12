@@ -15,4 +15,5 @@
 @property (assign, getter=isSlicing) BOOL slicing;
 @property (assign) CoreThemeType themeType; // alows only onepart, threepartH, threepartV, ninepart, filmstrip, sixpart slice editing disabled for now
 @property (strong) NSArray *sliceRects; // array of NSValue -rectValue
+@property (assign) NSEdgeInsets edgeInsets;
 @end

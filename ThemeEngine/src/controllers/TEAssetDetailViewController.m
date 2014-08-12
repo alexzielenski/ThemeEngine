@@ -15,7 +15,7 @@
  
 
 @implementation TEAssetDetailViewController
-
+@dynamic topInset, bottomInset, leftInset, rightInset;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.typeSegment setImage:[[NSCursor resizeLeftRightCursor] image] forSegment:1];
@@ -82,8 +82,7 @@
             [self.typeSegment setSelectedSegment:self.asset.type];
         } else
             self.typeSegment.hidden = YES;
-        
-        for (int x = 0; x < self.inspector.numberOfViews - 1; x++)
+        for (int x = (int)self.inspector.numberOfViews - 2; x >= 0; x--)
             [self.inspector removeViewAtIndex:x];
         
         [self.contentView setSubviews:@[]];
@@ -114,11 +113,13 @@
             case kCoreThemeTypeThreePartVertical:
                 self.sizeField.hidden = NO;
                 content = self.bitmapView;
-                [self.inspector insertView:self.attributesPanel withTitle:@"Attributes" atIndex:0 expanded:YES];
+                [self.inspector insertView:self.attributesPanel withTitle:@"Attributes" atIndex:0 expanded:NO];
+                [self.inspector insertView:self.slicePanel withTitle:@"Slices" atIndex:0 expanded:YES];
+                break;
             default:
                 break;
         }
-        
+
         content.frame = self.contentView.bounds;
         [self.contentView addSubview:content];
         
@@ -258,17 +259,68 @@
 
 - (IBAction)save:(id)sender {
     [self cancel:sender];
-    //!TODO set slices
-    //    self.asset.slices = self.imageSliceView.sliceRects;
+    self.asset.slices = self.imageSliceView.sliceRects;
     self.asset.exifOrientation = self.exifOrientation;
     self.asset.utiType = self.utiType;
     self.asset.blendMode = self.blendMode;
     self.asset.opacity = self.opacity;
+    self.asset.effectPreset = self.effectWrapper;
 }
 
 - (void)gradientChanged:(id)sender {
     self.gradient = self.gradientEditor.gradient;
 }
+
+#pragma mark - Properties
+
+- (CGFloat)topInset {
+    return self.imageSliceView.edgeInsets.top;
+}
+
+- (void)setTopInset:(CGFloat)topInset {
+    NSEdgeInsets insets = self.imageSliceView.edgeInsets;
+    insets.top = topInset;
+    self.imageSliceView.edgeInsets = insets;
+}
+
+- (CGFloat)leftInset {
+    return self.imageSliceView.edgeInsets.left;
+}
+
+- (void)setLeftInset:(CGFloat)leftInset {
+    NSEdgeInsets insets = self.imageSliceView.edgeInsets;
+    insets.left = leftInset;
+    self.imageSliceView.edgeInsets = insets;
+}
+
+- (CGFloat)bottomInset {
+    return self.imageSliceView.edgeInsets.bottom;
+}
+
+- (void)setBottomInset:(CGFloat)bottomInset {
+    NSEdgeInsets insets = self.imageSliceView.edgeInsets;
+    insets.bottom = bottomInset;
+    self.imageSliceView.edgeInsets = insets;
+}
+
+- (CGFloat)rightInset {
+    return self.imageSliceView.edgeInsets.right;
+}
+
+- (void)setRightInset:(CGFloat)rightInset {
+    NSEdgeInsets insets = self.imageSliceView.edgeInsets;
+    insets.right = rightInset;
+    self.imageSliceView.edgeInsets = insets;
+}
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    if ([key hasSuffix:@"Inset"]) {
+        return [NSSet setWithObject:@"imageSliceView.edgeInsets"];
+    }
+    return [super keyPathsForValuesAffectingValueForKey:key];
+}
+
+#pragma mark - NSTableViewDataSource
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     return self.effectWrapper.effects.count ?: 1;
@@ -334,15 +386,34 @@
 }
 
 @end
-/*
- @interface CHAlwaysActiveTableView : NSTableView;
- @end
- 
- @implementation CHAlwaysActiveTableView
- 
- - (BOOL)resignFirstResponder {
- return YES;
- }
- 
- @end
- */
+
+@interface TEHorizontalInsetValueTransformer : NSValueTransformer
+@end
+
+@implementation TEHorizontalInsetValueTransformer
+
++ (Class)transformedValueClass {
+    return [NSNumber class];
+}
+
+- (NSNumber *)transformedValue:(NSNumber *)value {
+    return @(value.intValue == kCoreThemeTypeThreePartHorizontal  || value.intValue == kCoreThemeTypeNinePart);
+}
+
+@end
+
+@interface TEVerticalInsetValueTransformer : NSValueTransformer
+@end
+
+@implementation TEVerticalInsetValueTransformer
+
++ (Class)transformedValueClass {
+    return [NSNumber class];
+}
+
+- (NSNumber *)transformedValue:(NSNumber *)value {
+    return @(value.intValue == kCoreThemeTypeThreePartVertical  || value.intValue == kCoreThemeTypeNinePart);
+}
+
+@end
+
