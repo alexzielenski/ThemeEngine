@@ -30,7 +30,6 @@
 @property (readwrite, copy) NSString *name;
 @property (readwrite, strong) CUIRenditionKey *key;
 @property (readwrite, strong) NSSet *keywords;
-@property (strong) NSPasteboard *currentPasteboard;
 @property (assign) NSUInteger changeCount;
 @property (assign) NSUInteger lastChangeCount;
 + (NSArray *)undoProperties;
@@ -42,7 +41,6 @@
 - (void)updateChangeCount:(NSDocumentChangeType)change;
 @end
 
-//!TODO: When slices/metrics change, have the rendition generate a new unsliced image
 @implementation CFTAsset
 @dynamic pdfData, previewImage;
 
@@ -377,8 +375,6 @@
     return [NSSet setWithObject:@"rawData"];
 }
 
-
-//!TODO: Generate gradient and effect previews
 #if TARGET_OS_IPHONE
 - (UIImage *)previewImage {
     return [UIImage imageWithCGImage:self.image];
@@ -539,41 +535,6 @@
         return [NSSet setWithObjects:@"key", nil];
     }
     return [super keyPathsForValuesAffectingValueForKey:key];
-}
-
-//!TODO: PUT THIS IN A SEPARATE CATEGORY
-#pragma mark - NSPasteboardWriting
-
-- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
-    self.currentPasteboard = pasteboard;
-    if (self.type > kCoreThemeTypePDF)
-        return @[];
-    //!TODO: Color
-    return @[ self.type == kCoreThemeTypePDF ? NSPasteboardTypePDF : NSPasteboardTypePNG, (__bridge NSString *)kPasteboardTypeFilePromiseContent, (__bridge NSString *)kUTTypeFileURL ];
-}
-
-- (NSPasteboardWritingOptions)writingOptionsForType:(NSString *)type pasteboard:(NSPasteboard *)pasteboard {
-    return NSPasteboardWritingPromised;
-}
-
-- (id)pasteboardPropertyListForType:(NSString *)type {
-    if ([type isEqualToString:NSPasteboardTypePDF])
-        return self.pdfData;
-    else if ([type isEqualToString:NSPasteboardTypePNG])
-        return [self.previewImage.representations[0] representationUsingType:NSPNGFileType properties:nil];
-    else if ([type isEqualToString:(__bridge NSString *)kPasteboardTypeFilePromiseContent]) {
-        return self.type == kCoreThemeTypePDF ? (__bridge NSString *)kUTTypePDF : (__bridge NSString *)kUTTypePNG;
-    }
-
-    NSURL *finalURL = [NSURL URLWithString:[[[[NSUUID UUID] UUIDString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByAppendingPathExtension:self.type == kCoreThemeTypePDF ? @"pdf" : @"png"] relativeToURL:[NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier]]];
-    
-    if (self.type == kCoreThemeTypePDF)
-        [self.pdfData writeToURL:finalURL atomically:NO];
-    else
-        [[self.previewImage.representations[0] representationUsingType:NSPNGFileType properties:nil] writeToURL:finalURL atomically:NO];
-    
-        
-    return [finalURL absoluteString];
 }
 
 @end

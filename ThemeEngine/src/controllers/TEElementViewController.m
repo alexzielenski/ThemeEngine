@@ -9,6 +9,7 @@
 #import "TEElementViewController.h"
 #import "TEAssetDetailViewController.h"
 #import <Quartz/Quartz.h>
+#import "CFTAsset+Pasteboard.h"
 
 @interface TEElementViewController ()
 @property (strong) NSArray *assets;
@@ -220,8 +221,7 @@
         case kCoreThemeTypeThreePartVertical:
         case kCoreThemeTypeNinePart:
         case kCoreThemeTypeSixPart:
-        case kCoreThemeTypeAnimation:
-        case kCoreThemeTypeGradient: {
+        case kCoreThemeTypeAnimation: {
             // bitmaps
             NSBitmapImageRep *image = [NSBitmapImageRep imageRepsWithPasteboard:pb][0];
             //!TODO Remove this restriction by asking user to re-slice
@@ -234,6 +234,16 @@
         }
         case kCoreThemeTypePDF:
             asset.pdfData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[pb stringForType:(__bridge NSString *)kUTTypeFileURL]]];
+            break;
+        case kCoreThemeTypeColor:
+            asset.color = [NSColor colorFromPasteboard:pb];
+            break;
+        case kCoreThemeTypeEffect:
+            asset.effectPreset = [CFTEffectWrapper effectWrapperFromPasteboard:pb];
+            break;
+        case kCoreThemeTypeGradient:
+            asset.gradient = [CFTGradient gradientFromPasteboard:pb];
+            break;
         default:
             break;
     }

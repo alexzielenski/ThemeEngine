@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA0A02F1199AD112000F56A2 /* CFTAsset+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A02F0199AD112000F56A2 /* CFTAsset+Pasteboard.m */; };
+		FA0A02F7199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */; };
+		FA0A02FA199AD8B8000F56A2 /* CFTGradient+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */; };
 		FA472ABC19985AB4003631BC /* ZKInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA472AAC19985AB4003631BC /* ZKInspector.m */; };
 		FA6BEDB21999B4BC006BF951 /* ACTGradientEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6BEDAF1999B4BC006BF951 /* ACTGradientEditor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA6BEDB31999B4BC006BF951 /* NSColor+ChessboardColor.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6BEDB11999B4BC006BF951 /* NSColor+ChessboardColor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -56,6 +59,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FA0A02EF199AD112000F56A2 /* CFTAsset+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CFTAsset+Pasteboard.h"; path = "src/categories/CFTAsset+Pasteboard.h"; sourceTree = "<group>"; };
+		FA0A02F0199AD112000F56A2 /* CFTAsset+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CFTAsset+Pasteboard.m"; path = "src/categories/CFTAsset+Pasteboard.m"; sourceTree = "<group>"; };
+		FA0A02F5199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CFTEffectWrapper+Pasteboard.h"; path = "src/categories/CFTEffectWrapper+Pasteboard.h"; sourceTree = "<group>"; };
+		FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CFTEffectWrapper+Pasteboard.m"; path = "src/categories/CFTEffectWrapper+Pasteboard.m"; sourceTree = "<group>"; };
+		FA0A02F8199AD8B8000F56A2 /* CFTGradient+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CFTGradient+Pasteboard.h"; path = "src/categories/CFTGradient+Pasteboard.h"; sourceTree = "<group>"; };
+		FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CFTGradient+Pasteboard.m"; path = "src/categories/CFTGradient+Pasteboard.m"; sourceTree = "<group>"; };
 		FA472AAB19985AB4003631BC /* ZKInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKInspector.h; path = ZKInspector/ZKInspector.h; sourceTree = "<group>"; };
 		FA472AAC19985AB4003631BC /* ZKInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKInspector.m; path = ZKInspector/ZKInspector.m; sourceTree = "<group>"; };
 		FA6BEDAE1999B4BC006BF951 /* ACTGradientEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACTGradientEditor.h; sourceTree = "<group>"; };
@@ -261,6 +270,12 @@
 				FAF726CE199719D500CC2366 /* TEImageSliceView.m */,
 				FA6BEDB41999B8D1006BF951 /* TEGradientView.h */,
 				FA6BEDB51999B8D1006BF951 /* TEGradientView.m */,
+				FA0A02EF199AD112000F56A2 /* CFTAsset+Pasteboard.h */,
+				FA0A02F0199AD112000F56A2 /* CFTAsset+Pasteboard.m */,
+				FA0A02F5199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.h */,
+				FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */,
+				FA0A02F8199AD8B8000F56A2 /* CFTGradient+Pasteboard.h */,
+				FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */,
 				FACFC3281995A21700ED936C /* Images.xcassets */,
 				FACFC32A1995A21700ED936C /* MainMenu.xib */,
 				FACFC33F1995A22A00ED936C /* Supporting Files */,
@@ -392,11 +407,14 @@
 				FACFC3411995A26A00ED936C /* CFTElement.m in Sources */,
 				FA6BEDB21999B4BC006BF951 /* ACTGradientEditor.m in Sources */,
 				FA7B5F78199600FF00D0B2AD /* TEAssetDetailViewController.m in Sources */,
+				FA0A02F1199AD112000F56A2 /* CFTAsset+Pasteboard.m in Sources */,
 				FACFC3421995A26A00ED936C /* CFTElementStore.m in Sources */,
 				FA6BEDBD1999F9F8006BF951 /* CFTEffectWrapper.m in Sources */,
+				FA0A02F7199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m in Sources */,
 				FA472ABC19985AB4003631BC /* ZKInspector.m in Sources */,
 				FACFC3571995BA9400ED936C /* TEElementViewController.m in Sources */,
 				FACFC34C1995A3D300ED936C /* TEDocument.m in Sources */,
+				FA0A02FA199AD8B8000F56A2 /* CFTGradient+Pasteboard.m in Sources */,
 				FACFC3431995A26A00ED936C /* CFTGradient.m in Sources */,
 				FA6BEDBE1999F9FA006BF951 /* CFTEffect.m in Sources */,
 				FACFC3441995A26A00ED936C /* CFTDefines.m in Sources */,

@@ -14,10 +14,8 @@
 #import "CFTGradient.h"
 #import "CFTEffectWrapper.h"
 
-//!TODO: Implement undo manager
-//!TODO Move NSPasteboardWriting into a category specific to ThemeEngine
 @class CFTElement;
-@interface CFTAsset : NSObject <NSPasteboardWriting>
+@interface CFTAsset : NSObject
 @property (strong) NSUndoManager *undoManager;
 
 @property (readonly, weak) CFTElement *element;

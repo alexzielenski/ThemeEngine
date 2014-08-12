@@ -31,6 +31,7 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 @property (readwrite, assign) CGFloat angle;
 @property (readwrite, assign, getter=isRadial) BOOL radial;
 @property (readwrite, strong) CUIPSDGradient *psdGradient;
+- (void)_initializeWithColors:(NSArray *)colors atLocations:(NSArray *)locations midPoints:(NSArray *)midPoints angle:(CGFloat)angle radial:(BOOL)radial;
 @end
 
 @implementation CFTGradient
@@ -45,21 +46,29 @@ static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd)
 
 - (instancetype)initWithColors:(NSArray *)colors atLocations:(NSArray *)locations midPoints:(NSArray *)midPoints angle:(CGFloat)angle radial:(BOOL)radial {
     if ((self = [self init])) {
-        self.colors = colors;
-        self.locations = locations;
-        self.midPoints = midPoints;
-        self.angle = angle;
-        self.radial = radial;
-        
-        NSMutableArray *cgColors = [NSMutableArray array];
-        for (NSUInteger idx = 0; idx < colors.count; idx++) {
-            [cgColors addObject:(__bridge id)[colors[idx] CGColor]];
-        }
-        
-        self.psdGradient = [CUIPSDGradient cuiPSDGradientWithColors:cgColors locations:locations midpointLocations:midPoints angle:angle isRadial:radial];
+        [self _initializeWithColors:colors
+                        atLocations:locations
+                          midPoints:midPoints
+                              angle:angle
+                             radial:radial];
     }
     
     return self;
+}
+
+- (void)_initializeWithColors:(NSArray *)colors atLocations:(NSArray *)locations midPoints:(NSArray *)midPoints angle:(CGFloat)angle radial:(BOOL)radial {
+    self.colors = colors;
+    self.locations = locations;
+    self.midPoints = midPoints;
+    self.angle = angle;
+    self.radial = radial;
+    
+    NSMutableArray *cgColors = [NSMutableArray array];
+    for (NSUInteger idx = 0; idx < colors.count; idx++) {
+        [cgColors addObject:(__bridge id)[colors[idx] CGColor]];
+    }
+    
+    self.psdGradient = [CUIPSDGradient cuiPSDGradientWithColors:cgColors locations:locations midpointLocations:midPoints angle:angle isRadial:radial];
 }
 
 + (instancetype)gradientWithThemeGradient:(CUIThemeGradient *)gradient angle:(CGFloat)angle style:(NSUInteger)style {

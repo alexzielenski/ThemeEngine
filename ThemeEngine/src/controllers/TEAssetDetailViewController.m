@@ -30,7 +30,6 @@
     [self.gradientPreview bind:@"radial" toObject:self withKeyPath:@"gradientRadial" options:nil];
     [self.gradientPreview bind:@"gradient" toObject:self withKeyPath:@"gradient" options:nil];
     
-    //!TODO Remove observers
     [self addObserver:self forKeyPath:@"asset" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.image" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.type" options:0 context:nil];
@@ -200,7 +199,7 @@
                     self.effectBlurRadiusView.enabled = NO;
                     self.effectSoftenView.enabled = NO;
                     self.effectOpacityView.enabled = YES;
-                    self.effectOpacity2View.enabled = YES; //!TODO: Find out if we can use two opacities on gradients
+                    self.effectOpacity2View.enabled = NO;
                     self.effectBlendModeView.enabled = NO;
                     self.effectOffsetView.enabled = NO;
                     self.effectAngleView.enabled = NO;
