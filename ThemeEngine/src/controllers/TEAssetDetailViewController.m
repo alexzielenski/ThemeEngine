@@ -265,6 +265,7 @@
     self.asset.blendMode = self.blendMode;
     self.asset.opacity = self.opacity;
     self.asset.effectPreset = self.effectWrapper;
+    self.asset.color = self.color;
 }
 
 - (void)gradientChanged:(id)sender {
