@@ -59,6 +59,7 @@
     self.effectTableView.backgroundColor = [NSColor clearColor];
     self.effectTableView.floatsGroupRows = NO;
     self.effectTableView.focusRingType = NSFocusRingTypeNone;
+//    self.effectTableView.draggingDestinationFeedbackStyle = NSTableViewDraggingDestinationFeedbackStyleGap;
     [self.effectTableView addTableColumn:column];
 }
 
@@ -121,6 +122,8 @@
         [self.contentView addSubview:content];
         
     } else if ([keyPath isEqualToString:@"asset"]) {
+        self.currentEffect = nil;
+        
         self.exifOrientation = self.asset.exifOrientation;
         self.utiType = self.asset.utiType;
         self.opacity = self.asset.opacity;
@@ -200,6 +203,29 @@
         self.currentEffect = self.effectWrapper.effects[self.effectTableView.selectedRow];
     else
         self.currentEffect = nil;
+}
+
+#define kTEDetailType @"asdasdasd"
+
+- (BOOL)tableView:(NSTableView *)aTableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
+    [pboard setPropertyList:@[ @(rowIndexes.firstIndex) ] forType:kTEDetailType];
+    [aTableView registerForDraggedTypes:@[kTEDetailType]];
+    return YES;
+}
+
+- (NSDragOperation)tableView:(NSTableView *)aTableView validateDrop:(id < NSDraggingInfo >)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)operation {
+    if (info.draggingSource == self.effectTableView && operation == NSTableViewDropAbove)
+        return NSDragOperationMove;
+    return NSDragOperationNone;
+}
+
+- (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id < NSDraggingInfo >)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation {
+    if (info.draggingSource != self.effectTableView)
+        return NO;
+    NSUInteger originalRow = [[[info.draggingPasteboard propertyListForType:kTEDetailType] firstObject] unsignedIntegerValue];
+    [self.effectWrapper moveEffectAtIndex:originalRow toIndex:row];
+    [aTableView moveRowAtIndex:originalRow toIndex:row];
+    return YES;
 }
 
 @end
