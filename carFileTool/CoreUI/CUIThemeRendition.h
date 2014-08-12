@@ -36,19 +36,8 @@ struct _csiheader {
         unsigned int bitmapCount;
         unsigned int reserved;
         unsigned int payloadSize; // size of all the proceeding information listLength + data
-        unsigned int contextList[0];
     } bitmaps;
 };
-
-/*
- The last few ints are
- metadatalength
- bitmapcount (i've only seen 1)
- reserved (always zero)
- size of payload
- 
- I know know why it has a last object with variable length in the struct from the class dump
- */
 
 /*
  Template rending modes change the rending flags

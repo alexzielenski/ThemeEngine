@@ -18,8 +18,8 @@
 @class CFTElement;
 @interface CFTAsset : NSObject <NSPasteboardWriting>
 @property (readonly, weak) CFTElement *element;
-@property (readonly, strong) NSArray *slices;
-@property (readonly, strong) NSArray *metrics;
+@property (readwrite, strong) NSArray *slices;
+@property (readwrite, strong) NSArray *metrics;
 @property (readwrite, strong) CFTGradient *gradient;
 @property (readonly, strong) CUIRenditionKey *key;
 @property (readwrite, assign) BOOL shouldRemove;

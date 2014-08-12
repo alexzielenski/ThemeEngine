@@ -28,8 +28,6 @@
 }
 @property (readwrite, weak) CFTElement *element;
 @property (readwrite, strong) CUIThemeRendition *rendition;
-@property (readwrite, strong) NSArray *slices;
-@property (readwrite, strong) NSArray *metrics;
 @property (readwrite, copy) NSString *name;
 @property (readwrite, strong) CUIRenditionKey *key;
 @property (readwrite, strong) NSSet *keywords;
@@ -42,6 +40,7 @@
 - (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format;
 @end
 
+//!TODO: When slices/metrics change, have the rendition generate a new unsliced image
 @implementation CFTAsset
 @dynamic image, pdfData, previewImage;
 
@@ -115,9 +114,12 @@
 
 - (void)_initializeSlicesFromCSIData:(NSData *)csiData {
     unsigned int bytes = kSLICES;
+    unsigned infoLength = 0;
+    [csiData getBytes:&infoLength range:NSMakeRange(offsetof(struct _csiheader, infolistLength), 4)];
+    
     NSRange sliceLocation = [csiData rangeOfData:[NSData dataWithBytes:&bytes length:sizeof(bytes)]
                                          options:0
-                                           range:NSMakeRange(0, csiData.length)];
+                                           range:NSMakeRange(sizeof(struct _csiheader), infoLength)];
     if (sliceLocation.location != NSNotFound) {
         unsigned int nslices = 0;
         [csiData getBytes:&nslices range:NSMakeRange(sliceLocation.location + sizeof(unsigned int) * 2, sizeof(nslices))];
@@ -141,9 +143,13 @@
 
 - (void)_initializeMetricsFromCSIData:(NSData *)csiData {
     unsigned int bytes = kMETRICS;
+    unsigned infoLength = 0;
+    [csiData getBytes:&infoLength range:NSMakeRange(offsetof(struct _csiheader, infolistLength), 4)];
+    
     NSRange metricLocation = [csiData rangeOfData:[NSData dataWithBytes:&bytes length:sizeof(bytes)]
                                           options:0
-                                            range:NSMakeRange(0, csiData.length)];
+                                            range:NSMakeRange(sizeof(struct _csiheader), infoLength)];
+    
     if (metricLocation.location != NSNotFound) {
         unsigned int nmetrics = 0;
         [csiData getBytes:&nmetrics range:NSMakeRange(metricLocation.location + sizeof(unsigned int) * 2, sizeof(nmetrics))];
@@ -543,6 +549,7 @@
     return [super keyPathsForValuesAffectingValueForKey:key];
 }
 
+//!TODO: PUT THIS IN A SEPARATE CATEGORY
 #pragma mark - NSPasteboardWriting
 
 - (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
@@ -591,7 +598,7 @@
     for (NSUInteger x = 0; x < self.effectCount; x++) {
         CUIEffectTuple *tuples = NULL;
         unsigned long long ntuples = 0;
-        [self getEffectTuples:&tuples count:&ntuples atEffectIndex:0];
+        [self getEffectTuples:&tuples count:&ntuples atEffectIndex:x];
         
         for (unsigned long long y = 0; x < ntuples; y++)
             [preset _insertEffectTuple:tuples[y] atEffectIndex:x];
