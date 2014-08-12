@@ -17,6 +17,7 @@
 @property (strong) TEAssetDetailViewController *detailPopoverViewController;
 - (void)_initialize;
 - (void)_filterPredicates;
+- (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndex:(NSUInteger)index;
 @end
 
 @implementation TEElementViewController
@@ -127,18 +128,13 @@
     [self.imageBrowserView reloadData];
 }
 
-- (IBAction)copy:(id)sender {
-    NSLog(@"copy");
-}
-
 - (IBAction)paste:(id)sender {
-    
+    [self _pasteFromPasteboard:[NSPasteboard generalPasteboard] atIndex:self.imageBrowserView.selectionIndexes.firstIndex];
 }
 
 
 - (NSUInteger)imageBrowser:(IKImageBrowserView *) aBrowser writeItemsAtIndexes:(NSIndexSet *) itemIndexes toPasteboard:(NSPasteboard *)pasteboard {
-    NSLog(@"write: %@", [self.filteredAssets objectsAtIndexes:itemIndexes]);
-    [pasteboard clearContents];    
+    [pasteboard clearContents];
     [pasteboard writeObjects:[self.filteredAssets objectsAtIndexes:itemIndexes]];
     return itemIndexes.count;
 }
@@ -208,7 +204,15 @@
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
     NSUInteger idx = [self.imageBrowserView indexAtLocationOfDroppedItem];
-    CFTAsset *asset = self.filteredAssets[idx];
+    return [self _pasteFromPasteboard:sender.draggingPasteboard atIndex:idx];
+}
+
+- (void)concludeDragOperation:(id < NSDraggingInfo >)sender {
+    [self.imageBrowserView reloadData];
+}
+
+- (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndex:(NSUInteger)index {
+    CFTAsset *asset = self.filteredAssets[index];
     
     switch (asset.type) {
         case kCoreThemeTypeOnePart:
@@ -219,8 +223,8 @@
         case kCoreThemeTypeAnimation:
         case kCoreThemeTypeGradient: {
             // bitmaps
-            CGImageRef image = [[NSBitmapImageRep imageRepsWithPasteboard:sender.draggingPasteboard][0] CGImage];
-            //!TODO Remove this restriction
+            CGImageRef image = [[NSBitmapImageRep imageRepsWithPasteboard:pb][0] CGImage];
+            //!TODO Remove this restriction by asking user to re-slice
             if (CGImageGetWidth(asset.image) == CGImageGetWidth(image) && CGImageGetHeight(asset.image) == CGImageGetHeight(image)) {
                 asset.image = image;
             } else {
@@ -229,16 +233,12 @@
             break;
         }
         case kCoreThemeTypePDF:
-            asset.pdfData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[sender.draggingPasteboard stringForType:(__bridge NSString *)kUTTypeFileURL]]];
+            asset.pdfData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[pb stringForType:(__bridge NSString *)kUTTypeFileURL]]];
         default:
             break;
     }
     
     return YES;
-}
-
-- (void)concludeDragOperation:(id < NSDraggingInfo >)sender {
-    [self.imageBrowserView reloadData];
 }
 
 @end

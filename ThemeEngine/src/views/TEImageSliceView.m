@@ -114,9 +114,7 @@ void *kSlicingContext;
 }
 
 - (void)viewDidMoveToSuperview {
-    [self addTrackingArea:[[NSTrackingArea alloc] initWithRect:self.bounds options:NSTrackingActiveInActiveApp | NSTrackingMouseMoved owner:self userInfo:nil]];
-    
-    NSLog(@"%@", NSStringFromRect(self.bounds));
+    [self addTrackingArea:[[NSTrackingArea alloc] initWithRect:self.bounds options:NSTrackingActiveInActiveApp | NSTrackingMouseMoved owner:self userInfo:nil]];    
 }
 
 - (void)dealloc {
