@@ -159,7 +159,10 @@
 - (void)setColor:(NSColor *)color forParameter:(CUIEffectParameter)parameter {
     NSAssert([color isKindOfClass:[NSColor class]], @"Must pass NSColor object to %@", NSStringFromSelector(_cmd));
     [self willChangeValueForKey:@"parameters"];
+    
+    color = [color colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
     self.parameters[@(parameter)] = color;
+    
     [self didChangeValueForKey:@"parameters"];
 }
 
