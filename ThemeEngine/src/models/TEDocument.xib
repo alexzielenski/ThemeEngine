@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6205" systemVersion="14A314h" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="101000" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6205"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="CHDocument">
+        <customObject id="-2" userLabel="File's Owner" customClass="TEDocument">
             <connections>
                 <outlet property="contentView" destination="7Iw-xe-zm2" id="hsE-2q-snm"/>
                 <outlet property="elementArrayController" destination="5vm-Is-DQ2" id="dOX-Jj-kgT"/>
@@ -151,7 +150,7 @@
                 <binding destination="-2" name="sortDescriptors" keyPath="sortDescriptors" id="fNT-rS-SWP"/>
             </connections>
         </arrayController>
-        <viewController title="Elements View Controller" nibName="Elements" id="kDe-jO-4eI" userLabel="Elements View Controller" customClass="CHElementViewController">
+        <viewController title="Elements View Controller" nibName="Elements" id="kDe-jO-4eI" userLabel="Elements View Controller" customClass="TEElementViewController">
             <connections>
                 <outlet property="statusLabel" destination="23A-MO-APY" id="2mW-nH-rKk"/>
             </connections>

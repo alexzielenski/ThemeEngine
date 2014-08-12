@@ -1,3 +1,0 @@
-[submodule "Charade/src/external/ZKInspector"]
-	path = Charade/src/external/ZKInspector
-	url = git@github.com:alexzielenski/ZKInspector.git

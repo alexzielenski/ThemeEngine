@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CHAppDelegate : NSObject <NSApplicationDelegate>
+@interface TEAppDelegate : NSObject <NSApplicationDelegate>
 
 @end

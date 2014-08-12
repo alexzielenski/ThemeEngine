@@ -5,24 +5,6 @@
 //
 //
 
-typedef union {
-    double floatValue;
-    unsigned long long intValue;
-    struct _rgbcolor {
-        unsigned char r;
-        unsigned char g;
-        unsigned char b;
-    } colorValue;
-    short angleValue;
-    unsigned int enumValue;
-} CUIEffectValue;
-
-typedef struct {
-    CUIEffectType effectType;
-    CUIEffectParameter effectParameter;
-    CUIEffectValue effectValue;
-} CUIEffectTuple;
-
 typedef struct {
     unsigned long long unk1; // 0
     unsigned long long unk2; // 0
@@ -59,7 +41,7 @@ struct shape_effect {
 
 /*
  // Colors Are just RGB values with the last byte being padding, opacities are specified elsewhere.
- // However, I've seen the last byte of color values vary in bevel emboss, inner glow, between 64, 65. May be a color flag
+ // However, I've seen the last byte of color values vary in bevel emboss, color fill, inner glow, between 63, 64, 65. May be a color flag
  */
 
 @interface CUIShapeEffectPreset : NSObject

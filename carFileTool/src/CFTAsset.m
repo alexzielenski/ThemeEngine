@@ -54,7 +54,7 @@
         self.key = [CUIRenditionKey renditionKeyWithKeyList:key];
         self.rendition = [[objc_getClass("CUIThemeRendition") alloc] initWithCSIData:csiData forKey:key];
         self.gradient = [CFTGradient gradientWithThemeGradient:self.rendition.gradient angle:self.rendition.gradientDrawingAngle style:self.rendition.gradientStyle];
-        self.effectPreset = self.rendition.effectPreset;
+        self.effectPreset = [CFTEffectWrapper effectWrapperWithEffectPreset:self.rendition.effectPreset];
         self.image = self.rendition.unslicedImage;
         self.type = self.rendition.type;
         self.name = self.rendition.name;
@@ -269,10 +269,10 @@
         return;
     }
     
-    
+    CUIShapeEffectPreset *effectPreset = self.effectPreset.effectPreset;
     CSIGenerator *gen = nil;
     if (self.type == kCoreThemeTypeEffect) {
-        gen = [[CSIGenerator alloc] initWithShapeEffectPreset:self.effectPreset forScaleFactor:self.scale];
+        gen = [[CSIGenerator alloc] initWithShapeEffectPreset:effectPreset forScaleFactor:self.scale];
     } else if (self.type == kCoreThemeTypePDF) {
         gen = [[CSIGenerator alloc] initWithRawData:self.pdfData pixelFormat:kPDF layout:self.layout];
     } else {
@@ -303,7 +303,7 @@
     }
 
     gen.gradient = [self.gradient valueForKey:@"psdGradient"];
-    gen.effectPreset = self.effectPreset;
+    gen.effectPreset = effectPreset;
     if (self.type <= 8) {
         gen.scaleFactor = self.scale;
     }
@@ -341,6 +341,7 @@
     //!TODO: Make this better
     if (self.type == kCoreThemeTypeColor)
         return YES;
+    //!TODO: Shape Effect
     
     //!TODO: PDF Data
     //!TODO: slice changes
@@ -451,7 +452,7 @@
         positions[1].x += rep.pixelsWide / 2 - position.x / 2;
         positions[1].y += rep.pixelsHigh / 2 - position.y / 2 - 6;
 
-        CUITextEffectStack *stack = [[CUITextEffectStack alloc] initWithEffectPreset:self.effectPreset];
+        CUITextEffectStack *stack = [[CUITextEffectStack alloc] initWithEffectPreset:self.effectPreset.effectPreset];
         CTFontDrawGlyphs(font, glyphs, positions, 2, ctx.graphicsPort);
 
         [image addRepresentation:[[NSBitmapImageRep alloc] initWithCGImage:[stack newFlattenedImageFromShapeCGImage:rep.CGImage]]];
@@ -576,6 +577,28 @@
     // Write your file to finalURL here
     
     return [finalURL absoluteString];
+}
+
+@end
+
+@interface CUIShapeEffectPreset (Copying) <NSCopying>
+@end
+
+@implementation CUIShapeEffectPreset (Copying)
+
+- (id)copyWithZone:(NSZone *)zone {
+    CUIShapeEffectPreset *preset = [[CUIShapeEffectPreset allocWithZone:zone] initWithEffectScale:self.effectScale];
+    for (NSUInteger x = 0; x < self.effectCount; x++) {
+        CUIEffectTuple *tuples = NULL;
+        unsigned long long ntuples = 0;
+        [self getEffectTuples:&tuples count:&ntuples atEffectIndex:0];
+        
+        for (unsigned long long y = 0; x < ntuples; y++)
+            [preset _insertEffectTuple:tuples[y] atEffectIndex:x];
+        
+    }
+    
+    return preset;
 }
 
 @end

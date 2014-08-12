@@ -160,6 +160,7 @@ NSString *CUIEffectTypeToString(CUIEffectType value) {
     STRINGIFY(CUIEffectTypeOuterGlow)
     STRINGIFY(CUIEffectTypeOutputOpacity)
     STRINGIFY(CUIEffectTypeShapeOpacity)
+    STRINGIFY(CUIEffectTypeGradient);
     ENDSTRINGIFY
 }
 

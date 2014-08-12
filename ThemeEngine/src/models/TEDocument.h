@@ -8,14 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import "CFTElementStore.h"
-#import "CHElementViewController.h"
+#import "TEElementViewController.h"
 
-@interface CHDocument : NSDocument
+@interface TEDocument : NSDocument
 @property (weak) IBOutlet NSTableView *elementTableView;
 @property (weak) IBOutlet NSView *elementContentView;
 @property (readonly, strong) CFTElementStore *elementStore;
 @property (readonly, strong) NSArray *sortDescriptors;
 @property (weak) IBOutlet NSView *contentView;
-@property (weak) IBOutlet CHElementViewController *elementViewController;
+@property (weak) IBOutlet TEElementViewController *elementViewController;
 @property (weak) IBOutlet NSArrayController *elementArrayController;
 @end

@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 Alexander Zielenski. All rights reserved.
 //
 
-#import "CHAssetDetailViewController.h"
+#import "TEAssetDetailViewController.h"
 
-@interface CHAssetDetailViewController () <ZKInspectorDelegate, NSTableViewDataSource, NSTableViewDelegate>
+@interface TEAssetDetailViewController () <ZKInspectorDelegate, NSTableViewDataSource, NSTableViewDelegate>
 - (void)gradientChanged:(id)sender;
-- (void)toggleEffect:(NSButton *)sender;
 @end
+ 
 
-@implementation CHAssetDetailViewController
+@implementation TEAssetDetailViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];    
+    [super viewDidLoad];
     [self.typeSegment setImage:[[NSCursor resizeLeftRightCursor] image] forSegment:1];
     [self.typeSegment setImage:[[NSCursor resizeUpDownCursor] image] forSegment:2];
     [self.typeSegment setImage:[NSImage imageNamed:@"Square"] forSegment:3];
@@ -29,6 +29,7 @@
     [self.gradientPreview bind:@"radial" toObject:self withKeyPath:@"gradientRadial" options:nil];
     [self.gradientPreview bind:@"gradient" toObject:self withKeyPath:@"gradient" options:nil];
     
+    //!TODO Remove observers
     [self addObserver:self forKeyPath:@"asset" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.image" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.type" options:0 context:nil];
@@ -37,10 +38,10 @@
     [self addObserver:self forKeyPath:@"asset.gradient" options:0 context:nil];
     
     //!TODO: Get scrolling in the image view to work
-//    self.imageSliceView.hasHorizontalScroller = YES;
-//    self.imageSliceView.hasVerticalScroller = YES;
-//    self.imageSliceView.autohidesScrollers = NO;
-//    self.imageSliceView.autoresizes = NO;
+    //    self.imageSliceView.hasHorizontalScroller = YES;
+    //    self.imageSliceView.hasVerticalScroller = YES;
+    //    self.imageSliceView.autohidesScrollers = NO;
+    //    self.imageSliceView.autoresizes = NO;
     self.imageSliceView.backgroundColor = [NSColor whiteColor];
     
     self.inspector.inspectorDelegate = self;
@@ -53,11 +54,11 @@
     column.resizingMask = NSTableColumnAutoresizingMask;
     column.width = self.inspector.frame.size.width;
     column.minWidth = column.width;
-    self.effectPanel.selectionHighlightStyle = NSTableViewSelectionHighlightStyleSourceList;
-    self.effectPanel.backgroundColor = [NSColor clearColor];
-    self.effectPanel.floatsGroupRows = NO;
-    self.effectPanel.focusRingType = NSFocusRingTypeNone;
-    [self.effectPanel addTableColumn:column];
+    self.effectTableView.selectionHighlightStyle = NSTableViewSelectionHighlightStyleSourceList;
+    self.effectTableView.backgroundColor = [NSColor clearColor];
+    self.effectTableView.floatsGroupRows = NO;
+    self.effectTableView.focusRingType = NSFocusRingTypeNone;
+    [self.effectTableView addTableColumn:column];
 }
 
 - (void)dealloc {
@@ -124,6 +125,9 @@
         self.opacity = self.asset.opacity;
         self.blendMode = self.asset.blendMode;
         self.color = self.asset.color;
+        self.effectWrapper = self.asset.effectPreset;
+        
+        [self.effectTableView reloadData];
     } else if ([keyPath isEqualToString:@"color"]) {
         self.colorPreview.layer.backgroundColor = self.color.CGColor;
     } else if ([keyPath isEqualToString:@"asset.pdfData"]) {
@@ -137,7 +141,7 @@
 }
 
 - (IBAction)cancel:(id)sender {
-    __weak CHAssetDetailViewController *weakSelf = self;
+    __weak TEAssetDetailViewController *weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         [weakSelf.presentingViewController dismissViewController:self];
     });
@@ -145,7 +149,8 @@
 
 - (IBAction)save:(id)sender {
     [self cancel:sender];
-//    self.asset.slices = self.imageSliceView.sliceRects;
+    //!TODO set slices
+    //    self.asset.slices = self.imageSliceView.sliceRects;
     self.asset.exifOrientation = self.exifOrientation;
     self.asset.utiType = self.utiType;
     self.asset.blendMode = self.blendMode;
@@ -157,58 +162,52 @@
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return 9;
+    return self.effectWrapper.effects.count ?: 1;
 }
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    static NSDictionary *effectMap = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        effectMap = @{ @0: @(CUIEffectTypeColorFill), @1: @(CUIEffectTypeOutputOpacity), @2: @(CUIEffectTypeShapeOpacity), @3: @(CUIEffectTypeBevelAndEmboss), @4: @(CUIEffectTypeDropShadow), @5: @(CUIEffectTypeInnerGlow), @6: @(CUIEffectTypeOuterGlow), @7: @(CUIEffectTypeExtraShadow), @8: @(CUIEffectTypeInnerShadow) };
-    });
-    
     NSTableCellView *cellView = [[NSTableCellView alloc] initWithFrame:NSMakeRect(4, 0, tableView.frame.size.width, 18)];
-    CUIEffectType type = [effectMap[@(row)] unsignedIntValue];
+    CUIEffectType type = -1;
+    if (self.effectWrapper.effects.count > 0)
+        type = [(CFTEffect *)self.effectWrapper.effects[row] type];
     cellView.wantsLayer = YES;
-    NSButton *button = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 20, 18)];
-    [button setButtonType:NSSwitchButton];
-    button.wantsLayer = YES;
-    button.target = self;
-    button.tag = type;
-    button.action = @selector(toggleEffect:);
     
-    NSTextField *textField = [[NSTextField alloc] initWithFrame:NSMakeRect(18, 0, cellView.frame.size.width - 18, 18)];
+    NSTextField *textField = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, cellView.frame.size.width, 18)];
     textField.wantsLayer = YES;
     textField.bordered = NO;
     textField.selectable = NO;
-    textField.stringValue = CUIEffectTypeToString(type);
     textField.drawsBackground = NO;
-    
-    [cellView addSubview:button];
     [cellView addSubview:textField];
     
+    if (self.effectWrapper.effects.count == 0)
+        textField.stringValue = @"No items to show";
+    else
+        textField.stringValue = CUIEffectTypeToString(type);
+    
     cellView.textField = textField;
+    cellView.identifier = [@(type) stringValue];
+    
     return cellView;
 }
 
-- (BOOL)tableView:(NSTableView *)tableView isGroupRow:(NSInteger)row {
-    return YES;
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
+    return self.effectWrapper.effects.count > 0;
 }
 
-- (void)toggleEffect:(NSButton *)sender {
-    
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+
 }
 
 @end
 /*
-@interface CHAlwaysActiveTableView : NSTableView;
-@end
-
-@implementation CHAlwaysActiveTableView
-
-- (BOOL)resignFirstResponder {
-    return YES;
-}
-
-@end
-*/
+ @interface CHAlwaysActiveTableView : NSTableView;
+ @end
+ 
+ @implementation CHAlwaysActiveTableView
+ 
+ - (BOOL)resignFirstResponder {
+ return YES;
+ }
+ 
+ @end
+ */

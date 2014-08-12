@@ -24,7 +24,7 @@
 			<key>LSTypeIsPackage</key>
 			<integer>0</integer>
 			<key>NSDocumentClass</key>
-			<string>CHDocument</string>
+			<string>TEDocument</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>

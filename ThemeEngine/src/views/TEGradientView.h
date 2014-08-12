@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CHGradientView : NSView
+@interface TEGradientView : NSView
 @property (strong) NSGradient *gradient;
 @property (assign) CGFloat angle;
 @property (assign, getter=isRadial) BOOL radial;

@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Alexander Zielenski. All rights reserved.
 //
 
-#import "CHAppDelegate.h"
+#import "TEAppDelegate.h"
 #import "NSAppearance.h"
 #import "CUICatalog.h"
 #import "CUIStructuredThemeStore.h"
 #import "CUICommonAssetStorage.h"
 
-@implementation CHAppDelegate
+@implementation TEAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
     NSColor *color = [NSColor colorWithCatalogName:@"System" colorName:@"_sourceListBackgroundColor"];

@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Alexander Zielenski. All rights reserved.
 //
 
-#import "CHGradientView.h"
+#import "TEGradientView.h"
 
-@interface CHGradientView ()
+@interface TEGradientView ()
 - (void)_initialize;
 @end
 
-@implementation CHGradientView
+@implementation TEGradientView
 
 - (id)init {
     if ((self = [super init])) {

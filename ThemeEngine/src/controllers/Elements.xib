@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.imagekit.ibplugin" version="6205"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="CHElementViewController">
+        <customObject id="-2" userLabel="File's Owner" customClass="TEElementViewController">
             <connections>
                 <outlet property="imageBrowserView" destination="iy7-Xp-SzN" id="qMN-EI-fKN"/>
                 <outlet property="search" destination="Xgc-Ku-r6u" id="e8e-0N-9qb"/>

@@ -10,7 +10,7 @@
 #import "CFTDefines.h"
 #import <Quartz/Quartz.h>
 
-@interface CHImageSliceView : IKImageView
+@interface TEImageSliceView : IKImageView
 @property (assign) CGFloat zoomFactor;
 @property (assign, getter=isSlicing) BOOL slicing;
 @property (assign) CoreThemeType themeType; // alows only onepart, threepartH, threepartV, ninepart, filmstrip, sixpart slice editing disabled for now

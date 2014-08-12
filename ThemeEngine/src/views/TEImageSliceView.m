@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Alexander Zielenski. All rights reserved.
 //
 
-#import "CHImageSliceView.h"
+#import "TEImageSliceView.h"
 
-@interface CHImageSliceView ()
+@interface TEImageSliceView ()
 @property (strong) CALayer *sliceLayer;
 @property (assign) NSEdgeInsets edgeInsets;
 
@@ -28,7 +28,7 @@
 - (void)_generateSlicesFromInsets;
 @end
 
-@implementation CHImageSliceView
+@implementation TEImageSliceView
 
 - (id)initWithCoder:(NSCoder *)coder {
     if ((self = [super initWithCoder:coder])) {

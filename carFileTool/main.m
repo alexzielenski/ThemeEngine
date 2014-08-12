@@ -8,12 +8,102 @@
 
 #import "CFTElementStore.h"
 
+/*
+ 
+ function methImpl_CUICommonAssetStorage_assetKeysMatchingBlock_ {
+ r14 = rdx;
+ var_96 = **__stack_chk_guard;
+ objc_sync_enter(rdi);
+ rdi = rdi;
+ rax = [rdi keyFormat];
+ rdi = *(int32_t *)(rax + 0x8);
+ if (rdi >= 0x10) {
+ rdi = rdi + 0x1;
+ rax = calloc(rdi, 0x4);
+ var_24 = rax;
+ rdi = *(int32_t *)(r15 + 0x8);
+ }
+ else {
+ var_24 = &var_32;
+ }
+ rax = _BOMTreeIteratorNew(r13._imagedb, 0x0, rdi + rdi, 0x0);
+ rbx = rax;
+ var_16 = r15;
+ var_8 = 0x0;
+ 
+ loc_a3017:
+ rax = _BOMTreeIteratorIsAtEnd(rbx);
+ if (rax != 0x0) goto loc_a3125;
+ goto loc_a3027;
+ 
+ loc_a3125:
+ _BOMTreeIteratorFree(rbx);
+ if (var_24 != &var_32) {
+ free(rdi);
+ }
+ rax = [var_8 autorelease];
+ rbx = rax;
+ objc_sync_exit(r13);
+ if (**__stack_chk_guard == var_96) {
+ rax = rbx;
+ return rax;
+ }
+ else {
+ rax = __stack_chk_fail();
+ rbx = rax;
+ objc_sync_exit(r13);
+ rax = _Unwind_Resume(rbx);
+ }
+ return rax;
+ 
+ loc_a3027:
+ rax = _BOMTreeIteratorKey(rbx);
+ r15 = rax;
+ rax = _BOMTreeIteratorKeySize(rbx);
+ r12 = rax;
+ rax = [r13 swapped];
+ if (rax != 0x0) {
+ [r13 _swapRenditionKeyArray:r15];
+ }
+ _CUIFillRenditionKeyForCARKeyArray(var_24, r15, var_16);
+ rax = (*(r14 + 0x10))(r14, var_24, var_16);
+ if (rax != 0x0) {
+ if (var_8 == 0x0) {
+ rax = [NSMutableSet alloc];
+ rax = [rax init];
+ var_8 = rax;
+ }
+ rax = [NSData dataWithBytes:r15 length:r12];
+ [var_8 addObject:rax];
+ }
+ rax = [r13 swapped];
+ if (rax != 0x0) {
+ [r13 _swapRenditionKeyArray:r15];
+ }
+ _BOMTreeIteratorNext(rbx);
+ goto loc_a3017;
+ }
+ */
+
+
+#import <objc/runtime.h>
+#import <Opee/Opee.h>
+#import "CUIPSDGradientEvaluator.h"
+#import "CUIPSDGradient.h"
+#import "CUIPSDGradientColorStop.h"
+#import "CFTEffectWrapper.h"
+
+void *ZKIvarPointer(id self, const char *name) {
+    Ivar ivar = class_getInstanceVariable(object_getClass(self), name);
+    return ivar == NULL ? NULL : (__bridge void *)self + ivar_getOffset(ivar);
+}
+
 void CGImageWriteToFile(CGImageRef image, NSString *path)
 {
     CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath:path];
     CGImageDestinationRef destination = CGImageDestinationCreateWithURL(url, kUTTypePNG, 1, NULL);
     CGImageDestinationAddImage(destination, image, nil);
-    
+ 
     if (!CGImageDestinationFinalize(destination)) {
         NSLog(@"Failed to write image to %@", path);
     }
@@ -21,136 +111,23 @@ void CGImageWriteToFile(CGImageRef image, NSString *path)
     CFRelease(destination);
 }
 
+#import "CUICommonAssetStorage.h"
+
+/*
+ Value at 0, 4, 8, 24, 32, 40, 56
+ 
+ */
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        NSString *path = @(argv[1]);
-        [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-        [[NSFileManager defaultManager] copyItemAtPath:@"/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/SystemAppearance.car copy" toPath:path error:nil];
+        CUIShapeEffectPreset *preset = [[CUIShapeEffectPreset alloc] init];
+        [preset addColorFillWithRed:255 green:0 blue:0 opacity:1.0 blendMode:kCGBlendModeColor];
+        [preset addDropShadowWithColorRed:0 green:0 blue:0 opacity:1 blur:1 spread:4 offset:2 angle:3];
         
-        CFTElementStore *store = [CFTElementStore storeWithPath:path];
+        CFTEffectWrapper *wrapper = [CFTEffectWrapper effectWrapperWithEffectPreset:preset];
         
-        /**
-         Example showing how to make each element use the exclusion blend mode and look like utter trash
-         */
-        for (CFTAsset *asset in store.allAssets) {
-            asset.blendMode = kCGBlendModeExclusion;
-        }
+        [wrapper.effectPreset.CUIEffectDataRepresentation writeToFile:@"/Users/Alex/Desktop/data" atomically:NO];
+        [preset.CUIEffectDataRepresentation writeToFile:@"/Users/Alex/Desktop/data 2" atomically:NO];
         
-        /**
-         Example showing how to change a gradient image within a store. This will change all window active gradients to a disgusting red-green
-         */
-        CFTElement *element = [store elementWithName:@"WindowFrame_Background_Active"];
-        for (CFTAsset *asset in [element assetsWithType:kCoreThemeTypeGradient]) {
-            CFTGradient *gradient = [CFTGradient gradientWithColors:@[ [NSColor redColor], [NSColor blueColor] ]
-                                                        atLocations:@[ @0, @1]
-                                                          midPoints:@[ ]
-                                                              angle:270
-                                                             radial:NO];
-            asset.gradient = gradient;
-        }
-        
-        /**
-         // This example shows how to manipulate an element represented by an image
-         // it gets all sizes, states of the title bar controls on windows and turns it into
-         // a nasty blue to match our titlebar
-         */
-        element = [store elementWithName:@"WindowFrame_WindowControlButtons"];
-        for (CFTAsset *asset in element.assets) {
-            NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                                            pixelsWide:CGImageGetWidth(asset.image)
-                                                                            pixelsHigh:CGImageGetHeight(asset.image)
-                                                                         bitsPerSample:8
-                                                                       samplesPerPixel:4
-                                                                              hasAlpha:YES
-                                                                              isPlanar:NO
-                                                                        colorSpaceName:NSDeviceRGBColorSpace
-                                                                           bytesPerRow:4 * CGImageGetWidth(asset.image)
-                                                                          bitsPerPixel:32];
-            NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
-            [NSGraphicsContext saveGraphicsState];
-            [NSGraphicsContext setCurrentContext:ctx];
-            [[NSColor blueColor] set];
-            NSRectFill(NSMakeRect(0, 0, rep.pixelsWide, rep.pixelsHigh));
-            [ctx setCompositingOperation:NSCompositeDestinationIn];
-            CGContextDrawImage(ctx.graphicsPort, NSMakeRect(0, 0, rep.pixelsWide, rep.pixelsHigh), asset.image);
-            
-            [NSGraphicsContext restoreGraphicsState];
-            
-            asset.image = rep.CGImage;
-        }
-        
-        /**
-         // To top off our disgusting theme the example below demonstrates how to create a shape effect
-         // By making menu bar images that use apple's templating turn yellow (currently I only see it on the apple logo with opaque menubar)
-         */
-        element = [store elementWithName:@"Menubar Image"];
-        for (CFTAsset *asset in element.assets) {
-            CUIShapeEffectPreset *preset = [[CUIShapeEffectPreset alloc] init];
-            [preset addColorFillWithRed:255
-                                  green:255
-                                   blue:0
-                                opacity:1.0
-                              blendMode:kCGBlendModeNormal];
-            asset.effectPreset = preset;
-        }
-        
-        /**
-         // Example to show to how to change a named text color. This makes the rim around a window black
-         // You can find names for colors by opening the car in a hex editor, scrolling down and looking for
-         // the strings
-         */
-        struct _rgbquad rgb;
-        rgb.r = 0;
-        rgb.g = 0;
-        rgb.b = 0;
-        rgb.a = 255;
-        [(CUIMutableCommonAssetStorage *)store.assetStorage setColor:rgb forName:"CUIWindowRimColor" excludeFromFilter:NO];
-        
-        
-        /**
-         Another example which removes all bottom bar gradients and instead makes the image a gradient image,
-         then makes the image scale instead of its default of tile
-         */
-        element = [store elementWithName:@"WindowFrame_WindowBottomBar_Active"];
-        for (CFTAsset *asset in element.assets) {
-            if (asset.type == kCoreThemeTypeGradient) {
-                asset.shouldRemove = YES;
-            } else {
-                NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                                                pixelsWide:CGImageGetWidth(asset.image)
-                                                                                pixelsHigh:CGImageGetHeight(asset.image)
-                                                                             bitsPerSample:8
-                                                                           samplesPerPixel:4
-                                                                                  hasAlpha:YES
-                                                                                  isPlanar:NO
-                                                                            colorSpaceName:NSDeviceRGBColorSpace
-                                                                               bytesPerRow:4 * CGImageGetWidth(asset.image)
-                                                                              bitsPerPixel:32];
-                NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
-                [NSGraphicsContext saveGraphicsState];
-                [NSGraphicsContext setCurrentContext:ctx];
-                CGFloat colors[] = { 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0 };
-                CGFloat locations[] = { 0.0, 1.0 };
-                CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
-                CGGradientRef gradient = CGGradientCreateWithColorComponents(space, colors, locations, 2);
-                CGContextDrawLinearGradient(ctx.graphicsPort, gradient,
-                                            CGPointMake(0, 0), CGPointMake(0, rep.pixelsWide), kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
-                
-                [NSGraphicsContext restoreGraphicsState];
-                asset.layout = kCoreThemeOnePartScale;
-                asset.image = rep.CGImage;
-                
-                CGGradientRelease(gradient);
-                CGColorSpaceRelease(space);
-            }
-        }
-        
-//        for (CFTAsset *asset in store.allAssets) {
-//            if (asset.image != NULL)
-//                CGImageWriteToFile(asset.image, [@"/Users/Alex/Desktop/dump2" stringByAppendingPathComponent:asset.name]);
-//        }
-        
-        [store save];
     }
     return 0;
 }

@@ -145,7 +145,8 @@ typedef NS_ENUM(unsigned int, CUIEffectType) {
     CUIEffectTypeInnerGlow      = 'iGlw',
     CUIEffectTypeOuterGlow      = 'oGlw',
     CUIEffectTypeExtraShadow    = 'Xtra',
-    CUIEffectTypeInnerShadow    = 'inSh'
+    CUIEffectTypeInnerShadow    = 'inSh',
+    CUIEffectTypeGradient       = 'Grad'
 };
 
 typedef NS_ENUM(unsigned int, CUIEffectParameter) {
@@ -160,6 +161,26 @@ typedef NS_ENUM(unsigned int, CUIEffectParameter) {
     CUIEffectParameterSoften     = 8, // int
     CUIEffectParameterSpread     = 9  // int
 };
+
+struct _rgbcolor {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+};
+
+typedef union {
+    double floatValue;
+    unsigned long long intValue;
+    struct _rgbcolor colorValue;
+    short angleValue;
+    unsigned int enumValue;
+} CUIEffectValue;
+
+typedef struct {
+    CUIEffectType effectType;
+    CUIEffectParameter effectParameter;
+    CUIEffectValue effectValue;
+} CUIEffectTuple;
 
 extern NSString *CoreThemeTypeToString(CoreThemeType value);
 extern NSString *CFTEXifOrientationToString(CFTEXIFOrientation value);

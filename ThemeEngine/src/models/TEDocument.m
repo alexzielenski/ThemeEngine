@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Alexander Zielenski. All rights reserved.
 //
 
-#import "CHDocument.h"
+#import "TEDocument.h"
 
-@interface CHDocument ()
+@interface TEDocument ()
 @property (readwrite, strong) CFTElementStore *elementStore;
 @property (readwrite, strong) NSArray *sortDescriptors;
 @end
 
-@implementation CHDocument
+@implementation TEDocument
 
 - (id)init  {
     if ((self = [super init])) {
@@ -24,7 +24,7 @@
 }
 
 - (NSString *)windowNibName {
-    return @"CHDocument";
+    return @"TEDocument";
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController {

@@ -11,7 +11,7 @@
 #import <Quartz/Quartz.h>
 
 IB_DESIGNABLE
-@interface CHElementViewController : NSViewController <NSDraggingDestination>
+@interface TEElementViewController : NSViewController <NSDraggingDestination>
 @property (weak) IBOutlet IKImageBrowserView *imageBrowserView;
 @property (weak) IBOutlet NSTextField *statusLabel;
 @property (strong) NSArray *elements;

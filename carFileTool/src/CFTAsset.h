@@ -12,6 +12,7 @@
 #import "CUIMutableCommonAssetStorage.h"
 #import "CSIGenerator.h"
 #import "CFTGradient.h"
+#import "CFTEffectWrapper.h"
 
 //!TODO: Implement undo manager
 @class CFTElement;
@@ -23,7 +24,7 @@
 @property (readonly, strong) CUIRenditionKey *key;
 @property (readwrite, assign) BOOL shouldRemove;
 
-@property (readwrite, strong) CUIShapeEffectPreset *effectPreset;
+@property (readwrite, strong) CFTEffectWrapper *effectPreset;
 @property (readwrite, strong) NSData *rawData;
 @property (readwrite, strong) NSData *pdfData;
 #if TARGET_OS_IPHONE

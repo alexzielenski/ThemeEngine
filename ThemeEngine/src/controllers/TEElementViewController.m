@@ -6,20 +6,20 @@
 //  Copyright (c) 2014 Alexander Zielenski. All rights reserved.
 //
 
-#import "CHElementViewController.h"
-#import "CHAssetDetailViewController.h"
+#import "TEElementViewController.h"
+#import "TEAssetDetailViewController.h"
 #import <Quartz/Quartz.h>
 
-@interface CHElementViewController ()
+@interface TEElementViewController ()
 @property (strong) NSArray *assets;
 @property (strong) NSArray *filteredAssets;
 @property (strong) NSString *lastQuery;
-@property (strong) CHAssetDetailViewController *detailPopoverViewController;
+@property (strong) TEAssetDetailViewController *detailPopoverViewController;
 - (void)_initialize;
 - (void)_filterPredicates;
 @end
 
-@implementation CHElementViewController
+@implementation TEElementViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
@@ -64,7 +64,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"elements"]) {
         
-        __weak CHElementViewController *weakSelf = self;
+        __weak TEElementViewController *weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
             if (weakSelf.detailPopoverViewController.presentingViewController)
                 [weakSelf dismissViewController:self.detailPopoverViewController];
@@ -149,7 +149,7 @@
 - (void)imageBrowser:(IKImageBrowserView *)browser cellWasDoubleClickedAtIndex:(NSUInteger)index {
     // open up popover where the user can edit shit like gradients, effects
     if (!self.detailPopoverViewController) {
-        self.detailPopoverViewController = [[CHAssetDetailViewController alloc] initWithNibName:@"CHAssetDetailViewController" bundle:nil];
+        self.detailPopoverViewController = [[TEAssetDetailViewController alloc] initWithNibName:@"Detail" bundle:nil];
      }
 
     IKImageBrowserCell *cell = [browser cellForItemAtIndex:index];
