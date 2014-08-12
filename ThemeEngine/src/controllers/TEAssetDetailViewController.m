@@ -9,6 +9,7 @@
 #import "TEAssetDetailViewController.h"
 
 @interface TEAssetDetailViewController () <ZKInspectorDelegate, NSTableViewDataSource, NSTableViewDelegate>
+@property (strong) CFTEffect *currentEffect;
 - (void)gradientChanged:(id)sender;
 @end
  
@@ -195,7 +196,10 @@
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
-
+    if (self.effectTableView.selectedRow != -1)
+        self.currentEffect = self.effectWrapper.effects[self.effectTableView.selectedRow];
+    else
+        self.currentEffect = nil;
 }
 
 @end

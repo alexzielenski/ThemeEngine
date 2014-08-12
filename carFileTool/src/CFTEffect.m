@@ -14,6 +14,7 @@
 @end
 
 @implementation CFTEffect
+@dynamic colorValue, color2Value, offsetValue, opacity2Value, opacityValue, blendModeValue, blurRadiusValue, angleValue, softenValue, spreadValue;
 
 + (instancetype)effectWithType:(CUIEffectType)type {
     return [[self alloc] initWithType:type];
@@ -157,24 +158,120 @@
 
 - (void)setColor:(NSColor *)color forParameter:(CUIEffectParameter)parameter {
     NSAssert([color isKindOfClass:[NSColor class]], @"Must pass NSColor object to %@", NSStringFromSelector(_cmd));
+    [self willChangeValueForKey:@"parameters"];
     self.parameters[@(parameter)] = color;
+    [self didChangeValueForKey:@"parameters"];
 }
 
 - (void)setNumber:(NSNumber *)number forParameter:(CUIEffectParameter)parameter {
     NSAssert([number isKindOfClass:[number class]], @"Must pass NSNumber object to %@", NSStringFromSelector(_cmd));
+    [self willChangeValueForKey:@"parameters"];
     self.parameters[@(parameter)] = number;
+    [self didChangeValueForKey:@"parameters"];
 }
 
 - (NSColor *)colorForParameter:(CUIEffectParameter)parameter {
-    return self.parameters[@(parameter)];
+    if ([self.parameters.allKeys containsObject:@(parameter)])
+        return self.parameters[@(parameter)];
+    return nil;
 }
 
 - (NSNumber *)numberForParameter:(CUIEffectParameter)parameter {
-    return self.parameters[@(parameter)];
+    if ([self.parameters.allKeys containsObject:@(parameter)])
+        return self.parameters[@(parameter)];
+    return nil;
 }
 
 - (void)removeParameter:(CUIEffectParameter)parameter {
+    [self willChangeValueForKey:@"parameters"];
     self.parameters[@(parameter)] = nil;
+    [self didChangeValueForKey:@"parameters"];
+}
+
+#pragma mark - Convenience Properties
+
+- (NSColor *)colorValue {
+    return [self colorForParameter:CUIEffectParameterColor];
+}
+
+- (NSColor *)color2Value {
+    return [self colorForParameter:CUIEffectParameterColor2];
+}
+
+- (CGFloat)opacityValue {
+    return [[self numberForParameter:CUIEffectParameterOpacity] doubleValue];
+}
+
+- (CGFloat)opacity2Value {
+    return [[self numberForParameter:CUIEffectParameterOpacity2] doubleValue];
+}
+
+- (NSUInteger)blurRadiusValue {
+    return [[self numberForParameter:CUIEffectParameterBlurRadius] unsignedIntegerValue];
+}
+
+- (NSUInteger)offsetValue {
+    return [[self numberForParameter:CUIEffectParameterOffset] unsignedIntegerValue];
+}
+
+- (NSUInteger)angleValue {
+    return [[self numberForParameter:CUIEffectParameterAngle] unsignedIntegerValue];
+}
+
+- (CGBlendMode)blendModeValue {
+    return (CGBlendMode)[[self numberForParameter:CUIEffectParameterBlendMode] unsignedIntegerValue];
+}
+
+- (NSUInteger)softenValue {
+    return [[self numberForParameter:CUIEffectParameterSoften] unsignedIntegerValue];
+}
+
+- (NSUInteger)spreadValue {
+    return [[self numberForParameter:CUIEffectParameterSpread] unsignedIntegerValue];
+}
+
+- (void)setColorValue:(NSColor *)colorValue {
+    [self setColor:colorValue forParameter:CUIEffectParameterColor];
+}
+
+- (void)setColor2Value:(NSColor *)color2Value {
+    [self setColor:color2Value forParameter:CUIEffectParameterColor2];
+}
+
+- (void)setOpacityValue:(CGFloat)opacityValue {
+    [self setNumber:@(opacityValue) forParameter:CUIEffectParameterOpacity];
+}
+
+- (void)setOpacity2Value:(CGFloat)opacity2Value {
+    [self setNumber:@(opacity2Value) forParameter:CUIEffectParameterOpacity2];
+}
+
+- (void)setOffsetValue:(NSUInteger)offsetValue {
+    [self setNumber:@(offsetValue) forParameter:CUIEffectParameterOffset];
+}
+
+- (void)setBlendModeValue:(CGBlendMode)blendModeValue {
+    [self setNumber:@(blendModeValue) forParameter:CUIEffectParameterBlendMode];
+}
+
+- (void)setAngleValue:(NSUInteger)angleValue {
+    [self setNumber:@(angleValue) forParameter:CUIEffectParameterAngle];
+}
+
+- (void)setSoftenValue:(NSUInteger)softenValue {
+    [self setNumber:@(softenValue) forParameter:CUIEffectParameterSoften];
+}
+
+- (void)setSpreadValue:(NSUInteger)spreadValue {
+    [self setNumber:@(spreadValue) forParameter:CUIEffectParameterSpread];
+}
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    if ([key hasSuffix:@"Value"]) {
+        return [NSSet setWithObject:@"parameters"];
+    }
+    
+    return [super keyPathsForValuesAffectingValueForKey:key];
 }
 
 @end

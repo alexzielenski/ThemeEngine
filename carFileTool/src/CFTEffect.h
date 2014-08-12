@@ -36,6 +36,16 @@
 
 - (void)removeParameter:(CUIEffectParameter)parameter;
 
+@property NSColor *colorValue;
+@property NSColor *color2Value;
+@property CGFloat opacityValue;
+@property CGFloat opacity2Value;
+@property NSUInteger blurRadiusValue;
+@property NSUInteger offsetValue;
+@property NSUInteger angleValue;
+@property CGBlendMode blendModeValue;
+@property NSUInteger softenValue;
+@property NSUInteger spreadValue;
 @end
 
 @interface CFTEffect (Properties)
