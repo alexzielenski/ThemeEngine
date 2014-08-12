@@ -9,6 +9,45 @@
 #import <Foundation/Foundation.h>
 #import "CUIThemeGradient.h"
 
+/***
+ CoreUI Gradient Format
+ **/
+
+// 80 bytes
+struct gradient_header {
+    unsigned int magic; // 'GRAD'
+    unsigned int is_dithered;
+    unsigned int info_length; // color + opacity stops, midpoints
+    unsigned int style; // 'Lnr' or 'Rdl'
+    unsigned int version; // hardcoded to always be 2. guessing its a version
+    unsigned int blendmode; // CGBlendMode
+    struct {
+        double r;
+        double b;
+        double g;
+        double a;
+    } fill_color;
+    float angle; // degrees
+    float smoothing_coefficient;
+    unsigned int num_color_stops;
+    unsigned int num_color_midpoint_locations;
+    unsigned int num_opacity_stops;
+    unsigned int num_opacity_midpoint_locations;
+};
+
+// List of color stops, color midpoint locations, opacity stops, opacity midpoint locations
+
+// 72 bytes
+struct gradient_stop {
+    unsigned int magic; // OPCT, MDPT, COLR, OPCD (lead out opacity)
+    float location;
+    double r;
+    double b;
+    double g;
+    double a; // for COLR, alpha is always 1.0
+    char reserved[32]; // could be used for leadout colors which I haven't been able to get data for
+};
+
 @interface CFTGradient : NSObject
 @property (readonly, strong) NSArray *colors;
 @property (readonly, strong) NSArray *locations;
