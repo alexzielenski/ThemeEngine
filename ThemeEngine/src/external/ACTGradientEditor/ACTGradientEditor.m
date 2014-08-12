@@ -37,7 +37,7 @@ static BOOL pointsWithinDistance(NSPoint p1, NSPoint p2, CGFloat d) {
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.gradient = [[NSGradient alloc] initWithColorsAndLocations: [NSColor lightGrayColor], 0.2, [NSColor grayColor], 0.8, nil];
+        self.gradient = [[[NSGradient alloc] initWithColorsAndLocations: [NSColor lightGrayColor], 0.2, [NSColor grayColor], 0.8, nil] autorelease];
         self.editable = TRUE;
 //        self.gradientHeight = kKnobDiameter + kKnobBorderWidth + 6;
         self.drawsChessboardBackground = YES;
@@ -52,6 +52,7 @@ static BOOL pointsWithinDistance(NSPoint p1, NSPoint p2, CGFloat d) {
 }
 
 - (void)dealloc {
+    self.gradient = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
@@ -155,6 +156,8 @@ static BOOL pointsWithinDistance(NSPoint p1, NSPoint p2, CGFloat d) {
     [color fill];
     [kKnobInsideBorderColor set];
     [color stroke];
+    
+    [bgKnobGr release];
 }
 
 - (void)_addColorAtLocation: (CGFloat)colorLocation
@@ -194,7 +197,7 @@ static BOOL pointsWithinDistance(NSPoint p1, NSPoint p2, CGFloat d) {
         [self setNeedsDisplay: YES];
     }
     
-    self.gradient = [[NSGradient alloc] initWithColors: newColors atLocations: locations colorSpace: [NSColorSpace genericRGBColorSpace]];
+    self.gradient = [[[NSGradient alloc] initWithColors: newColors atLocations: locations colorSpace: [NSColorSpace genericRGBColorSpace]] autorelease];
 }
 - (void)_setLocation: (CGFloat)newColorLocation forKnobAtIndex: (NSInteger)knobIndex
 {
@@ -270,7 +273,7 @@ static BOOL pointsWithinDistance(NSPoint p1, NSPoint p2, CGFloat d) {
     _editingKnobAtIndex += editingIndexOffset;
     _draggingKnobAtIndex += nColorsPassed;
     
-    self.gradient = [[NSGradient alloc] initWithColors: newColors atLocations: locations colorSpace: [NSColorSpace genericRGBColorSpace]];
+    self.gradient = [[[NSGradient alloc] initWithColors: newColors atLocations: locations colorSpace: [NSColorSpace genericRGBColorSpace]] autorelease];
 }
 - (void)_setColor: (NSColor*)newColor forKnobAtIndex: (NSInteger)knobIndex
 {
@@ -293,7 +296,7 @@ static BOOL pointsWithinDistance(NSPoint p1, NSPoint p2, CGFloat d) {
         locations[i] = location;
     }
     
-    self.gradient = [[NSGradient alloc] initWithColors: newColors atLocations: locations colorSpace: [NSColorSpace genericRGBColorSpace]];
+    self.gradient = [[[NSGradient alloc] initWithColors: newColors atLocations: locations colorSpace: [NSColorSpace genericRGBColorSpace]] autorelease];
 }
 - (void)_deleteColorAtIndex: (NSInteger)colorIndex
 {
@@ -320,7 +323,7 @@ static BOOL pointsWithinDistance(NSPoint p1, NSPoint p2, CGFloat d) {
     if (colorIndex < _draggingKnobAtIndex) { _draggingKnobAtIndex--; [self setNeedsDisplay: YES]; }
     else if (colorIndex == _draggingKnobAtIndex) { _draggingKnobAtIndex = -1; }
     
-    self.gradient = [[NSGradient alloc] initWithColors: newColors atLocations: locations colorSpace: [self.gradient colorSpace]];
+    self.gradient = [[[NSGradient alloc] initWithColors: newColors atLocations: locations colorSpace: [self.gradient colorSpace]] autorelease];
 }
 
 - (void)mouseDown: (NSEvent*)theEvent
