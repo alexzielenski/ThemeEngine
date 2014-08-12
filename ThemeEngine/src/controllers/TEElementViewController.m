@@ -223,9 +223,9 @@
         case kCoreThemeTypeAnimation:
         case kCoreThemeTypeGradient: {
             // bitmaps
-            CGImageRef image = [[NSBitmapImageRep imageRepsWithPasteboard:pb][0] CGImage];
+            NSBitmapImageRep *image = [NSBitmapImageRep imageRepsWithPasteboard:pb][0];
             //!TODO Remove this restriction by asking user to re-slice
-            if (CGImageGetWidth(asset.image) == CGImageGetWidth(image) && CGImageGetHeight(asset.image) == CGImageGetHeight(image)) {
+            if (asset.image.pixelsWide == image.pixelsWide && asset.image.pixelsHigh == image.pixelsHigh) {
                 asset.image = image;
             } else {
                 NSRunAlertPanel(@"Invalid Image", @"Sizes must be equal", @"Sorry, boss", nil, nil);
@@ -267,7 +267,7 @@
     else if (self.type == kCoreThemeTypeColor) {
         return [NSString stringWithFormat:@"%f, %f, %f, %f", self.color.redComponent, self.color.greenComponent, self.color.blueComponent, self.color.alphaComponent];
     }
-    return [(__bridge id)self.image description];
+    return [self.image description];
 }
 
 @end
@@ -298,7 +298,7 @@
     
     NSImage *previewImage = asset.previewImage;
     NSImageRep *rep = previewImage.representations[0];
-    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:asset.imageUID];
+    NSString *tempPath = [[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier] stringByAppendingPathComponent:asset.imageUID];
     NSFileManager *manager = [NSFileManager defaultManager];
     if ([rep isKindOfClass:[NSPDFImageRep class]]) {
         tempPath = [tempPath stringByAppendingPathExtension:@"pdf"];

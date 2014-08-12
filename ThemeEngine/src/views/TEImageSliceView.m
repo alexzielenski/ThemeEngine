@@ -122,7 +122,7 @@ static void *kInsetsContext;
     [self removeObserver:self forKeyPath:@"themeType"];
     [self removeObserver:self forKeyPath:@"sliceRects"];
     [self removeObserver:self forKeyPath:@"slicing"];
-        [self addTrackingArea:[[NSTrackingArea alloc] initWithRect:self.bounds options:NSTrackingActiveInActiveApp | NSTrackingMouseMoved owner:self userInfo:nil]];
+    [self removeObserver:self forKeyPath:@"edgeInsets"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

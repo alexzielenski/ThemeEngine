@@ -15,8 +15,11 @@
 #import "CFTEffectWrapper.h"
 
 //!TODO: Implement undo manager
+//!TODO Move NSPasteboardWriting into a category specific to ThemeEngine
 @class CFTElement;
 @interface CFTAsset : NSObject <NSPasteboardWriting>
+@property (strong) NSUndoManager *undoManager;
+
 @property (readonly, weak) CFTElement *element;
 @property (readwrite, strong) NSArray *slices;
 @property (readwrite, strong) NSArray *metrics;
@@ -32,7 +35,7 @@
 #else
 @property (strong) NSColor *color;
 #endif
-@property CGImageRef image;
+@property (strong) NSBitmapImageRep *image;
 @property (assign) CoreThemeLayout layout;
 @property (assign) CoreThemeType type;
 @property (assign) CGFloat scale;

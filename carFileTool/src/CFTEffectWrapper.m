@@ -52,6 +52,10 @@
     return wrapper;
 }
 
+- (BOOL)isEqual:(CFTEffectWrapper *)object {
+    return [self.effects isEqualToArray:object.effects];
+}
+
 - (void)addEffect:(CFTEffect *)effect {
     [self insertEffect:effect atIndex:self.effects.count];
 }

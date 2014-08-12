@@ -45,18 +45,42 @@
     [self.elementViewController bind:@"elements" toObject:self.elementArrayController withKeyPath:@"selectedObjects" options:nil];
 }
 
+/**
+ We can't change the path a BOM writes to so we save in place then copy over if the path is different
+ */
 - (BOOL)writeToURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError {
-    [self.elementStore save];
-    return YES;// [[NSFileManager defaultManager] copyItemAtPath:self.elementStore.path toPath:url.path error:outError];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if ([manager isWritableFileAtPath:url.path.stringByDeletingLastPathComponent]) {
+        [self.elementStore save];
+        if (![self.elementStore.path isEqualToString:url.path]) {
+            return [manager copyItemAtPath:self.elementStore.path toPath:url.path error:outError];
+        }
+    } else {
+        *outError = [NSError errorWithDomain:@"com.alexzielenski.themeengine.errordomain" code:0 userInfo:@{ NSLocalizedDescriptionKey: @"Insufficient privileges" }];
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError {
-//    NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:[NSBundle.mainBundle bundleIdentifier]] stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]] stringByAppendingPathExtension:@"car"];
-//    if (![[NSFileManager defaultManager] copyItemAtURL:url toURL:[NSURL fileURLWithPath:tempPath] error:outError]) {
-//        return NO;
-//    }
-    
-    self.elementStore = [CFTElementStore storeWithPath:url.path];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    if (![manager isWritableFileAtPath:url.path.stringByDeletingLastPathComponent]) {
+        NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:[NSBundle.mainBundle bundleIdentifier]] stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]] stringByAppendingPathExtension:@"car"];
+        
+        if (![manager createDirectoryAtPath:tempPath.stringByDeletingLastPathComponent withIntermediateDirectories:YES attributes:nil error:outError]) {
+            return NO;
+        }
+        
+        if (![[NSFileManager defaultManager] copyItemAtURL:url toURL:[NSURL fileURLWithPath:tempPath] error:outError]) {
+            return NO;
+        }
+        
+        self.elementStore = [CFTElementStore storeWithPath:tempPath];
+    } else {
+        self.elementStore = [CFTElementStore storeWithPath:url.path];
+    }
+    self.undoManager = self.elementStore.undoManager;
     return YES;
 }
 
@@ -66,7 +90,7 @@
 
 - (void)dealloc {
     // remove temporary storage
-//    [[NSFileManager defaultManager] removeItemAtPath:self.elementStore.path error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:self.elementStore.path error:nil];
 }
 
 @end

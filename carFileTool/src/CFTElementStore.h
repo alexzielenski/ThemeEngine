@@ -15,6 +15,7 @@
 @property (readonly, strong) CUIStructuredThemeStore *themeStore;
 @property (readonly, strong) CUICommonAssetStorage *assetStorage;
 @property (readonly, copy) NSString *path;
+@property (readonly, strong) NSUndoManager *undoManager;
 
 + (instancetype)storeWithPath:(NSString *)path;
 - (instancetype)initWithPath:(NSString *)path;

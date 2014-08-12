@@ -28,6 +28,7 @@ extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
 @property (readwrite, strong) CUIMutableCommonAssetStorage *assetStorage;
 @property (readwrite, copy) NSString *path;
 @property (readwrite, strong) NSMutableSet *elements;
+@property (readwrite, strong) NSUndoManager *undoManager;
 - (void)_enumerateAssets;
 - (void)_enumerateColors;
 - (void)_addAsset:(CFTAsset *)asset;
@@ -56,6 +57,7 @@ extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
 
 - (instancetype)init {
     if ((self = [super init])) {
+        self.undoManager = [[NSUndoManager alloc] init];
         self.elements = [NSMutableSet set];
     }
     
@@ -124,6 +126,7 @@ extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
     CFTElement *element = [self elementWithName:elementName];
     if (!element) {
         element = [CFTElement elementWithAssets:nil name:elementName];
+        element.undoManager = self.undoManager;
         [self _addElement:element];
     }
     

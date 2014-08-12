@@ -156,6 +156,10 @@
     return effect;
 }
 
+- (BOOL)isEqual:(CFTEffect *)object {
+    return self.type == object.type && [self.parameters isEqualToDictionary:object.parameters];
+}
+
 - (void)setColor:(NSColor *)color forParameter:(CUIEffectParameter)parameter {
     NSAssert([color isKindOfClass:[NSColor class]], @"Must pass NSColor object to %@", NSStringFromSelector(_cmd));
     [self willChangeValueForKey:@"parameters"];

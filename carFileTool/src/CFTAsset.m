@@ -23,16 +23,15 @@
 #define kRAWD 'RAWD'
 #define kPDF 'PDF '
 
-@interface CFTAsset () {
-    CGImageRef _image;
-}
+
+@interface CFTAsset ()
 @property (readwrite, weak) CFTElement *element;
 @property (readwrite, strong) CUIThemeRendition *rendition;
 @property (readwrite, copy) NSString *name;
 @property (readwrite, strong) CUIRenditionKey *key;
 @property (readwrite, strong) NSSet *keywords;
 @property (strong) NSPasteboard *currentPasteboard;
-
++ (NSArray *)undoProperties;
 - (void)_initializeSlicesFromCSIData:(NSData *)csiData;
 - (void)_initializeMetricsFromCSIData:(NSData *)csiData;
 - (void)_initializeRawDataFromCSIData:(NSData *)csiData;
@@ -42,7 +41,11 @@
 
 //!TODO: When slices/metrics change, have the rendition generate a new unsliced image
 @implementation CFTAsset
-@dynamic image, pdfData, previewImage;
+@dynamic pdfData, previewImage;
+
++ (NSArray *)undoProperties {
+    return @[@"slices", @"metrics", @"gradient", @"effectPreset", @"rawData", @"color", @"image", @"layout", @"type", @"scale", @"name", @"utiType", @"blendMode", @"opacity", @"exifOrientation", @"colorSpaceID", @"excludedFromContrastFilter", @"renditionFPO", @"vector", @"opaque"];
+}
 
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key {
     return [[self alloc] initWithRenditionCSIData:csiData forKey:key];
@@ -54,7 +57,8 @@
         self.rendition = [[objc_getClass("CUIThemeRendition") alloc] initWithCSIData:csiData forKey:key];
         self.gradient = [CFTGradient gradientWithThemeGradient:self.rendition.gradient angle:self.rendition.gradientDrawingAngle style:self.rendition.gradientStyle];
         self.effectPreset = [CFTEffectWrapper effectWrapperWithEffectPreset:self.rendition.effectPreset];
-        self.image = self.rendition.unslicedImage;
+        if (self.rendition.unslicedImage)
+            self.image = [[NSBitmapImageRep alloc] initWithCGImage:self.rendition.unslicedImage];
         self.type = self.rendition.type;
         self.name = self.rendition.name;
         self.utiType = self.rendition.utiType;
@@ -69,12 +73,8 @@
         
         NSString *name = [self.name stringByReplacingOccurrencesOfString:@"_" withString:@""];
         name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
-        name = [name stringByReplacingOccurrencesOfString:@"([a-z])([A-Z])"
-                                               withString:@"$1 $2"
-                                                  options:NSRegularExpressionSearch
-                                                    range:NSMakeRange(0, name.length)];
+        name = decamelize(name);
         self.keywords = [[NSSet setWithObjects:self.keyTypeString, self.keyStateString, self.keyLayerString, self.keyIdiomString, self.keySizeString, self.keyValueString, self.keyPresentationStateString, self.keyDirectionString, self.keyScaleString, nil] setByAddingObjectsFromArray:[name componentsSeparatedByString:@" "]];
-
     }
     
     return self;
@@ -102,13 +102,17 @@
         self.type = kCoreThemeTypeColor;
         NSString *name = [self.name stringByReplacingOccurrencesOfString:@"_" withString:@""];
         name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
-        name = [name stringByReplacingOccurrencesOfString:@"([a-z])([A-Z])"
-                                               withString:@"$1 $2"
-                                                  options:NSRegularExpressionSearch
-                                                    range:NSMakeRange(0, name.length)];
+        name = decamelize(name);
         self.keywords = [NSSet setWithArray:[name componentsSeparatedByString:@" "]];
     }
     
+    return self;
+}
+
+- (id)init {
+    if ((self = [super init])) {
+        REGISTER_UNDO_PROPERTIES(self.class.undoProperties);
+    }
     return self;
 }
 
@@ -215,6 +219,14 @@
     self.colorSpaceID = (short)header.colorspaceID;
 }
 
+- (void)dealloc {
+    UNREGISTER_UNDO_PROPERTIES(self.class.undoProperties);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    HANDLE_UNDO
+}
+
 // same as calling CUIStructuredThemeStore _newRenditionKeyDataFromKey:
 - (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format {
     /*
@@ -284,16 +296,16 @@
     } else {
         CGSize size = CGSizeZero;
         if (self.type != kCoreThemeTypeGradient) {
-            size = CGSizeMake(CGImageGetWidth(self.image), CGImageGetHeight(self.image));
+            size = CGSizeMake(self.image.pixelsWide, self.image.pixelsHigh);
         }
         gen = [[CSIGenerator alloc] initWithCanvasSize:size sliceCount:(unsigned int)self.slices.count layout:self.layout];
     }
     
     if (self.image) {
-        CGSize imageSize = CGSizeMake(CGImageGetWidth(self.image), CGImageGetHeight(self.image));
+        CGSize imageSize = CGSizeMake(self.image.pixelsWide, self.image.pixelsHigh);
         CSIBitmapWrapper *wrapper = [[CSIBitmapWrapper alloc] initWithPixelWidth:imageSize.width
                                                                      pixelHeight:imageSize.height];
-        CGContextDrawImage(wrapper.bitmapContext, CGRectMake(0, 0, imageSize.width, imageSize.height), self.image);
+        CGContextDrawImage(wrapper.bitmapContext, CGRectMake(0, 0, imageSize.width, imageSize.height), self.image.CGImage);
         [gen addBitmap:wrapper];
     }
     
@@ -330,6 +342,7 @@
 }
 
 - (BOOL)isDirty {
+    //!TODO Use NSUndoManager
     BOOL clean = YES;
 #define COMPARE(KEY) clean &= self.KEY == self.rendition.KEY
     COMPARE(scale);
@@ -341,9 +354,8 @@
     COMPARE(type);
     
     clean &= self.layout == self.rendition.subtype;
-    clean &= self.image == self.rendition.unslicedImage;
     clean &= [self.gradient isEqualToThemeGradient:self.rendition.gradient];
-
+    //!TODO Compare Images
     //!TODO: Make this better
     if (self.type == kCoreThemeTypeColor)
         return YES;
@@ -356,21 +368,6 @@
 }
 
 #pragma mark - Properties
-
-- (CGImageRef)image {
-    @synchronized(self) {
-        return _image;
-    }
-}
-
-- (void)setImage:(CGImageRef)image {
-    @synchronized(self) {
-        if (_image != NULL)
-            CGImageRelease(_image);
-        
-        _image = CGImageRetain(image);
-    }
-}
 
 - (NSData *)pdfData {
     return self.rawData;
@@ -394,8 +391,7 @@
 - (NSImage *)previewImage {
     NSImage *image = [[NSImage alloc] init];
     if (self.image) {
-        NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithCGImage:self.image];
-        [image addRepresentation:rep];
+        [image addRepresentation:self.image];
     } else if (self.type == kCoreThemeTypePDF) {
         NSPDFImageRep *rep = [[NSPDFImageRep alloc] initWithData:self.pdfData];
         [image addRepresentation:rep];
@@ -573,16 +569,14 @@
         return self.type == kCoreThemeTypePDF ? (__bridge NSString *)kUTTypePDF : (__bridge NSString *)kUTTypePNG;
     }
 
-    NSURL *finalURL = [NSURL URLWithString:[[[[NSUUID UUID] UUIDString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByAppendingPathExtension:self.type == kCoreThemeTypePDF ? @"pdf" : @"png"] relativeToURL:[NSURL fileURLWithPath:NSTemporaryDirectory()]];
+    NSURL *finalURL = [NSURL URLWithString:[[[[NSUUID UUID] UUIDString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByAppendingPathExtension:self.type == kCoreThemeTypePDF ? @"pdf" : @"png"] relativeToURL:[NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier]]];
     
     if (self.type == kCoreThemeTypePDF)
         [self.pdfData writeToURL:finalURL atomically:NO];
     else
         [[self.previewImage.representations[0] representationUsingType:NSPNGFileType properties:nil] writeToURL:finalURL atomically:NO];
     
-    
-    // Write your file to finalURL here
-    
+        
     return [finalURL absoluteString];
 }
 

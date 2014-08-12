@@ -65,17 +65,28 @@
 }
 
 - (void)dealloc {
+    [self.gradientPreview unbind:@"angle"];
+    [self.gradientPreview unbind:@"radial"];
+    [self.gradientPreview unbind:@"gradient"];
+    [self.pdfPreview unbind:@"document"];
     [self.imageSliceView unbind:@"themeType"];
     [self.imageSliceView unbind:@"sliceRects"];
+    
+    [self removeObserver:self forKeyPath:@"asset"];
+    [self removeObserver:self forKeyPath:@"asset.pdfData"];
+    [self removeObserver:self forKeyPath:@"asset.type"];
+    [self removeObserver:self forKeyPath:@"color"];
+    [self removeObserver:self forKeyPath:@"asset.gradient"];
+    [self removeObserver:self forKeyPath:@"currentEffect"];
     [self removeObserver:self forKeyPath:@"asset.image"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"asset.image"]) {
-        [self.imageSliceView setImage:self.asset.image imageProperties:nil];
+        [self.imageSliceView setImage:self.asset.image.CGImage imageProperties:nil];
         [self.imageSliceView setZoomFactor:1.0];
         
-        self.sizeField.stringValue = [NSString stringWithFormat:@"%zupx x %zupx", CGImageGetWidth(self.asset.image), CGImageGetHeight(self.asset.image)];
+        self.sizeField.stringValue = [NSString stringWithFormat:@"%zupx x %zupx", self.asset.image.pixelsWide, self.asset.image.pixelsHigh];
     } else if ([keyPath isEqualToString:@"asset.type"]) {
         if (self.asset.type <= 3) {
             self.typeSegment.hidden = NO;

@@ -16,16 +16,20 @@
     case NUM: { \
         NSString *num = [@(#NUM) substringFromIndex: prefixLength];\
         if (decamel) \
-            return [num stringByReplacingOccurrencesOfString:@"([a-z])([A-Z])" \
-                                                  withString:@"$1 $2" \
-                                                     options:NSRegularExpressionSearch \
-                                                       range:NSMakeRange(0, num.length)]; \
+            return decamelize(num); \
         return num.lowercaseString; \
     }
 #define ENDSTRINGIFY \
     default: \
         return @"Unknown"; \
     }
+
+NSString *decamelize(NSString *string) {
+    return [[string stringByReplacingOccurrencesOfString:@"([a-z])([A-Z])"
+                                              withString:@"$1 $2"
+                                                 options:NSRegularExpressionSearch
+                                                   range:NSMakeRange(0, string.length)] capitalizedString];
+}
 
 NSString *CoreThemeTypeToString(CoreThemeType value) {
     BEGINSTRINGIFY(kCoreThemeType, NO)

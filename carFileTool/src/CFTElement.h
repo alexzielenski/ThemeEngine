@@ -11,6 +11,8 @@
 
 @interface CFTElement : NSObject
 @property (readonly, copy) NSString *name;
+@property (strong) NSUndoManager *undoManager;
+
 + (instancetype)elementWithAssets:(NSSet *)assets name:(NSString *)name;
 - (instancetype)initWithAssets:(NSSet *)assets name:(NSString *)name;
 

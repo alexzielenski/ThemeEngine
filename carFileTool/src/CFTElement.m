@@ -42,6 +42,7 @@
 }
 
 - (void)addAsset:(CFTAsset *)asset {
+    asset.undoManager = self.undoManager;
     [asset setValue:self forKey:@"element"];
     [self.assets addObject:asset];
 }

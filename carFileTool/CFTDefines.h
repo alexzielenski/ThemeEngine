@@ -182,6 +182,33 @@ typedef struct {
     CUIEffectValue effectValue;
 } CUIEffectTuple;
 
+void *kCFTUndoContext;
+#define REGISTER_UNDO_PROPERTIES(PROPERTIES) \
+    for (NSString *key in PROPERTIES) { \
+        [self addObserver:self  \
+               forKeyPath:key \
+                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew\
+                  context:&kCFTUndoContext]; \
+    }
+#define HANDLE_UNDO \
+    if (context == &kCFTUndoContext && self.undoManager) { \
+        id oldValue = change[NSKeyValueChangeOldKey]; \
+        id newValue = change[NSKeyValueChangeNewKey]; \
+        if ([oldValue isKindOfClass: [NSNull class]]) { oldValue = nil; } \
+        if ([newValue isKindOfClass: [NSNull class]]) { newValue = nil; } \
+        if (![oldValue isEqual: newValue] && oldValue != newValue) { \
+            [[self.undoManager prepareWithInvocationTarget: object] setValue: oldValue forKeyPath: keyPath]; \
+            if (!self.undoManager.isUndoing) { [self.undoManager setActionName:[@"Change " stringByAppendingString: decamelize(keyPath)]]; } \
+                return; \
+        }\
+    }
+#define UNREGISTER_UNDO_PROPERTIES(PROPERTIES) \
+    for (NSString *key in PROPERTIES) { \
+        [self removeObserver:self forKeyPath:key]; \
+    }
+
+extern NSString *decamelize(NSString *string);
+
 extern NSString *CoreThemeTypeToString(CoreThemeType value);
 extern NSString *CFTEXifOrientationToString(CFTEXIFOrientation value);
 extern NSString *CoreThemeLayerToString(CoreThemeLayer value);
