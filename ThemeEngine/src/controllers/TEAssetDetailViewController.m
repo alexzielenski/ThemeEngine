@@ -38,11 +38,10 @@
     [self addObserver:self forKeyPath:@"asset.gradient" options:0 context:nil];
     [self addObserver:self forKeyPath:@"currentEffect" options:0 context:nil];
     
-    //!TODO: Get scrolling in the image view to work
-    //    self.imageSliceView.hasHorizontalScroller = YES;
-    //    self.imageSliceView.hasVerticalScroller = YES;
-    //    self.imageSliceView.autohidesScrollers = NO;
-    //    self.imageSliceView.autoresizes = NO;
+    self.imageSliceView.hasHorizontalScroller = YES;
+    self.imageSliceView.hasVerticalScroller = YES;
+    self.imageSliceView.autohidesScrollers = NO;
+    self.imageSliceView.autoresizes = YES;
     self.imageSliceView.backgroundColor = [NSColor whiteColor];
     
     self.inspector.inspectorDelegate = self;

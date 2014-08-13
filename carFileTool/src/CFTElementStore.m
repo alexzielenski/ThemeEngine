@@ -20,9 +20,8 @@ extern size_t BOMTreeIteratorValueSize(BOMTreeIteratorRef iterator);
 extern void *BOMTreeIteratorValue(BOMTreeIteratorRef iterator);
 extern void BOMTreeIteratorNext(BOMTreeIteratorRef iterator);
 
-
 typedef void *BOMStorageRef;
-typedef void *BomSys;
+typedef int BomSys;
 extern BOMStorageRef BOMStorageOpen(const char *path, BOOL forWriting);
 extern BOMStorageRef BOMStorageOpenWithSys(const char *path, BOOL unk, BomSys *sys);
 extern BOOL BOMBomNewWithStorage(BOMStorageRef storage);
@@ -41,8 +40,8 @@ extern int BOMTreeFree(BOMTreeRef tree);
 extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
 extern BOMStorageRef BOMTreeStorage(BOMTreeRef tree);
 extern BOOL BOMTreeCommit(BOMTreeRef tree);
-extern BOOL BOMTreeSetValue(BOMTreeRef tree, void *key, size_t keySize, void *value, size_t valueSize);
-extern int BOMTreeGetValue(BOMTreeRef tree, void *key, size_t keySize); // guess
+extern int BOMTreeSetValue(BOMTreeRef tree, void *key, size_t keySize, void *value, size_t valueSize); // return 1 if failed, 0 if success
+extern void *BOMTreeGetValue(BOMTreeRef tree, void *key, size_t keySize); // guess
 extern int BOMTreeGetValueSize(BOMTreeRef tree, void *key, size_t keySize, int unk); //guess  // return 1 if failed, 0 if success
 extern int BOMTreeCount(BOMTreeRef tree);
 // guessing it is key and not value

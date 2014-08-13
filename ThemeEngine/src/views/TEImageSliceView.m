@@ -26,6 +26,10 @@
 - (void)_generateSlicesFromInsets;
 @end
 
+@interface IKImageView (Private)
+- (CALayer *)imageLayer;
+@end
+
 @implementation TEImageSliceView
 
 - (id)initWithCoder:(NSCoder *)coder {
@@ -49,6 +53,22 @@
     return self;
 }
 
+- (void)setZoomFactor:(CGFloat)zoomFactor {
+    [super setZoomFactor:zoomFactor];
+    self.frameSize = NSMakeSize(self.imageSize.width * zoomFactor, self.imageSize.height * self.zoomFactor);
+    self.sliceLayer.frame = self.imageLayer.frame;
+    [self _repositionHandles];
+}
+
+- (void)setImage:(CGImageRef)image imageProperties:(NSDictionary *)metaData {
+    [super setImage:image imageProperties:metaData];
+    self.zoomFactor = self.zoomFactor;
+}
+
+- (void)setBounds:(NSRect)bounds {
+    [super setBounds:bounds];
+}
+
 static void *kTypeContext;
 static void *kSliceRectContext;
 static void *kSlicingContext;
@@ -58,7 +78,6 @@ static void *kInsetsContext;
 
 - (void)_initialize {
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
     self.sliceLayer = [CALayer layer];
     self.sliceLayer.frame = self.bounds;
     self.sliceLayer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable | kCALayerMinXMargin | kCALayerMaxXMargin | kCALayerMinYMargin | kCALayerMaxYMargin;
@@ -72,49 +91,50 @@ static void *kInsetsContext;
     [self addObserver:self forKeyPath:@"edgeInsets" options:0 context:&kInsetsContext];
     
     [self setOverlay:self.sliceLayer forType:IKOverlayTypeImage];
+    
     self.leftHandle = [CALayer layer];
     self.leftHandle.autoresizingMask = kCALayerHeightSizable | kCALayerMinYMargin | kCALayerMaxYMargin;
-    self.leftHandle.anchorPoint = CGPointMake(0.0, 0.0);
+    self.leftHandle.anchorPoint = CGPointMake(0.5, 0.0);
     self.leftHandle.name = @"lefthandle";
     self.leftHandle.borderWidth = 1.0;
-    self.leftHandle.borderColor = [[NSColor grayColor] CGColor];
+    self.leftHandle.borderColor = [[[NSColor blackColor] colorWithAlphaComponent:0.4] CGColor];
     self.leftHandle.backgroundColor = [[NSColor whiteColor] CGColor];
     [self.sliceLayer addSublayer:self.leftHandle];
     
     self.rightHandle = [CALayer layer];
     self.rightHandle.autoresizingMask = kCALayerHeightSizable | kCALayerMinYMargin | kCALayerMaxYMargin;
-    self.rightHandle.anchorPoint = CGPointMake(1.0, 0.0);
+    self.rightHandle.anchorPoint = CGPointMake(0.5, 0.0);
     self.rightHandle.name = @"righthandle";
     self.rightHandle.borderWidth = 1.0;
-    self.rightHandle.borderColor = [[NSColor grayColor] CGColor];
-    self.rightHandle.backgroundColor = [[NSColor whiteColor] CGColor];
+    self.rightHandle.borderColor = self.leftHandle.borderColor;
+    self.rightHandle.backgroundColor = self.leftHandle.backgroundColor;
     [self.sliceLayer addSublayer:self.rightHandle];
     
     self.topHandle = [CALayer layer];
     self.topHandle.autoresizingMask = kCALayerWidthSizable | kCALayerMinXMargin | kCALayerMaxXMargin;
-    self.topHandle.anchorPoint = CGPointMake(0.0, 1.0);
+    self.topHandle.anchorPoint = CGPointMake(0.0, 0.5);
     self.topHandle.name = @"tophandle";
     self.topHandle.borderWidth = 1.0;
-    self.topHandle.borderColor = [[NSColor grayColor] CGColor];
-    self.topHandle.backgroundColor = [[NSColor whiteColor] CGColor];
+    self.topHandle.borderColor = self.leftHandle.borderColor;
+    self.topHandle.backgroundColor = self.leftHandle.backgroundColor;
     [self.sliceLayer addSublayer:self.topHandle];
     
     self.bottomHandle = [CALayer layer];
     self.bottomHandle.autoresizingMask = kCALayerWidthSizable | kCALayerMinXMargin | kCALayerMaxXMargin;
-    self.bottomHandle.anchorPoint = CGPointMake(0.0, 0.0);
+    self.bottomHandle.anchorPoint = CGPointMake(0.0, 0.5);
     self.bottomHandle.name = @"bottomhandle";
     self.bottomHandle.borderWidth = 1.0;
-    self.bottomHandle.borderColor = [[NSColor grayColor] CGColor];
-    self.bottomHandle.backgroundColor = [[NSColor whiteColor] CGColor];
+    self.bottomHandle.borderColor = self.leftHandle.borderColor;
+    self.bottomHandle.backgroundColor = self.leftHandle.backgroundColor;
     [self.sliceLayer addSublayer:self.bottomHandle];
     
     [self _toggleDisplay];
     self.slicing = YES;
-    
 }
 
 - (void)viewDidMoveToSuperview {
-    [self addTrackingArea:[[NSTrackingArea alloc] initWithRect:self.bounds options:NSTrackingActiveInActiveApp | NSTrackingMouseMoved owner:self userInfo:nil]];    
+    [super viewDidMoveToSuperview];
+    [self addTrackingArea:[[NSTrackingArea alloc] initWithRect:self.bounds options:NSTrackingActiveInActiveApp | NSTrackingMouseMoved owner:self userInfo:nil]];
 }
 
 - (void)dealloc {
