@@ -48,11 +48,12 @@
 - (BOOL)writeToURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError {
     NSFileManager *manager = [NSFileManager defaultManager];
     if ([manager isWritableFileAtPath:url.path.stringByDeletingLastPathComponent]) {
-        [self.elementStore save];
-        
-        if (![self.elementStore.path isEqualToString:url.path]) {
+        BOOL success = [self.elementStore save];
+        if (![self.elementStore.path isEqualToString:url.path] && success) {
             return [manager copyItemAtPath:self.elementStore.path toPath:url.path error:outError];
         }
+        
+        return success;
     } else {
         *outError = [NSError errorWithDomain:@"com.alexzielenski.themeengine.errordomain" code:0 userInfo:@{ NSLocalizedDescriptionKey: @"Insufficient privileges" }];
         return NO;
