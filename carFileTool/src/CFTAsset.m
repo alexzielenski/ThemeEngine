@@ -329,7 +329,7 @@
     if (self.type <= 8) {
         gen.scaleFactor = self.scale;
     }
-    
+         
     //!TODO: For some reason whenever I compile PDFs i get a colorspaceID of 15 even when I set it to something else
     gen.exifOrientation = self.exifOrientation;
     gen.colorSpaceID = self.colorSpaceID;
@@ -340,7 +340,7 @@
     gen.utiType = self.utiType;
     gen.isRenditionFPO = self.isRenditionFPO;
     gen.name = self.rendition.name;
-//    gen.excludedFromContrastFilter = YES;
+    gen.excludedFromContrastFilter = self.isExcludedFromContrastFilter;
     NSData *csiData = [gen CSIRepresentationWithCompression:YES];
     [assetStorage setAsset:csiData forKey:renditionKey];
     
