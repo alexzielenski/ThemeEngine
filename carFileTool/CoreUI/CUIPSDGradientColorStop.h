@@ -4,16 +4,9 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
+#import "CUIPSDGradientStop.h"
 
-struct _psdGradientColor {
-    double red;
-    double green;
-    double blue;
-    double alpha;
-};
-
-
-@interface CUIPSDGradientColorStop : NSObject /*CUIPSDGradientStop*/ <NSCoding>
+@interface CUIPSDGradientColorStop : CUIPSDGradientStop <NSCoding>
 {
     struct _psdGradientColor gradientColor;
 }

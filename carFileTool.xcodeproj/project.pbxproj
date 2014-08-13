@@ -11,8 +11,6 @@
 		FA0A02F7199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */; };
 		FA0A02FA199AD8B8000F56A2 /* CFTGradient+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */; };
 		FA472ABC19985AB4003631BC /* ZKInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA472AAC19985AB4003631BC /* ZKInspector.m */; };
-		FA6BEDB21999B4BC006BF951 /* ACTGradientEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6BEDAF1999B4BC006BF951 /* ACTGradientEditor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		FA6BEDB31999B4BC006BF951 /* NSColor+ChessboardColor.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6BEDB11999B4BC006BF951 /* NSColor+ChessboardColor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA6BEDB61999B8D1006BF951 /* TEGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6BEDB51999B8D1006BF951 /* TEGradientView.m */; };
 		FA6BEDB91999D5C3006BF951 /* CFTEffectWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6BEDB81999D5C3006BF951 /* CFTEffectWrapper.m */; };
 		FA6BEDBC1999D5CE006BF951 /* CFTEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6BEDBB1999D5CE006BF951 /* CFTEffect.m */; };
@@ -23,6 +21,7 @@
 		FA98319F199BB9FD00739B89 /* NSColor+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA9831A2199BD02000739B89 /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A1199BD02000739B89 /* CFTGradient.m */; };
 		FA9831A3199BD23E00739B89 /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A1199BD02000739B89 /* CFTGradient.m */; };
+		FA9831A7199BE36300739B89 /* CFTGradientEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A6199BE36300739B89 /* CFTGradientEditor.m */; };
 		FAAD570F19994D4600229C3D /* Elements.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAAD570E19994D4600229C3D /* Elements.xib */; };
 		FACFC2CB199485E900ED936C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC2CA199485E900ED936C /* main.m */; };
 		FACFC2D21994861800ED936C /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACFC2D11994861800ED936C /* CoreUI.framework */; };
@@ -68,10 +67,6 @@
 		FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CFTGradient+Pasteboard.m"; path = "src/categories/CFTGradient+Pasteboard.m"; sourceTree = "<group>"; };
 		FA472AAB19985AB4003631BC /* ZKInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKInspector.h; path = ZKInspector/ZKInspector.h; sourceTree = "<group>"; };
 		FA472AAC19985AB4003631BC /* ZKInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKInspector.m; path = ZKInspector/ZKInspector.m; sourceTree = "<group>"; };
-		FA6BEDAE1999B4BC006BF951 /* ACTGradientEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACTGradientEditor.h; sourceTree = "<group>"; };
-		FA6BEDAF1999B4BC006BF951 /* ACTGradientEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACTGradientEditor.m; sourceTree = "<group>"; };
-		FA6BEDB01999B4BC006BF951 /* NSColor+ChessboardColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+ChessboardColor.h"; sourceTree = "<group>"; };
-		FA6BEDB11999B4BC006BF951 /* NSColor+ChessboardColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+ChessboardColor.m"; sourceTree = "<group>"; };
 		FA6BEDB41999B8D1006BF951 /* TEGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEGradientView.h; path = src/views/TEGradientView.h; sourceTree = "<group>"; };
 		FA6BEDB51999B8D1006BF951 /* TEGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEGradientView.m; path = src/views/TEGradientView.m; sourceTree = "<group>"; };
 		FA6BEDB71999D5C3006BF951 /* CFTEffectWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTEffectWrapper.h; path = src/CFTEffectWrapper.h; sourceTree = "<group>"; };
@@ -86,6 +81,13 @@
 		FA9831A0199BD02000739B89 /* CFTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTGradient.h; path = src/CFTGradient.h; sourceTree = "<group>"; };
 		FA9831A1199BD02000739B89 /* CFTGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFTGradient.m; path = src/CFTGradient.m; sourceTree = "<group>"; };
 		FA9831A4199BD3FF00739B89 /* CUIColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIColor.h; sourceTree = "<group>"; };
+		FA9831A5199BE36300739B89 /* CFTGradientEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTGradientEditor.h; path = src/views/CFTGradientEditor.h; sourceTree = "<group>"; };
+		FA9831A6199BE36300739B89 /* CFTGradientEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFTGradientEditor.m; path = src/views/CFTGradientEditor.m; sourceTree = "<group>"; };
+		FA9831A8199BE97F00739B89 /* CUIPSDGradientColorStop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradientColorStop.h; sourceTree = "<group>"; };
+		FA9831A9199BE97F00739B89 /* CUIPSDGradientDoubleColorStop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradientDoubleColorStop.h; sourceTree = "<group>"; };
+		FA9831AA199BE97F00739B89 /* CUIPSDGradientDoubleOpacityStop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradientDoubleOpacityStop.h; sourceTree = "<group>"; };
+		FA9831AB199BE97F00739B89 /* CUIPSDGradientOpacityStop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradientOpacityStop.h; sourceTree = "<group>"; };
+		FA9831AC199BE97F00739B89 /* CUIPSDGradientStop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradientStop.h; sourceTree = "<group>"; };
 		FAAD570E19994D4600229C3D /* Elements.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Elements.xib; path = src/controllers/Elements.xib; sourceTree = "<group>"; };
 		FACFC2C7199485E900ED936C /* carFileTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = carFileTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACFC2CA199485E900ED936C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -112,7 +114,6 @@
 		FACFC2EB1994B91000ED936C /* CFTElementStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTElementStore.h; path = src/CFTElementStore.h; sourceTree = "<group>"; };
 		FACFC2EC1994B91000ED936C /* CFTElementStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFTElementStore.m; path = src/CFTElementStore.m; sourceTree = "<group>"; };
 		FACFC2EE19955F6800ED936C /* CFTDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFTDefines.m; sourceTree = "<group>"; };
-		FACFC2F31995977F00ED936C /* CUIPSDGradientColorStop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIPSDGradientColorStop.h; sourceTree = "<group>"; };
 		FACFC31C1995A21700ED936C /* ThemeEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThemeEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACFC31F1995A21700ED936C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FACFC3201995A21700ED936C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -159,7 +160,6 @@
 		FA472A9D19985AB4003631BC /* external */ = {
 			isa = PBXGroup;
 			children = (
-				FA6BEDAD1999B4BC006BF951 /* ACTGradientEditor */,
 				FA472A9E19985AB4003631BC /* ZKInspector */,
 			);
 			name = external;
@@ -173,17 +173,6 @@
 				FA472AAC19985AB4003631BC /* ZKInspector.m */,
 			);
 			path = ZKInspector;
-			sourceTree = "<group>";
-		};
-		FA6BEDAD1999B4BC006BF951 /* ACTGradientEditor */ = {
-			isa = PBXGroup;
-			children = (
-				FA6BEDAE1999B4BC006BF951 /* ACTGradientEditor.h */,
-				FA6BEDAF1999B4BC006BF951 /* ACTGradientEditor.m */,
-				FA6BEDB01999B4BC006BF951 /* NSColor+ChessboardColor.h */,
-				FA6BEDB11999B4BC006BF951 /* NSColor+ChessboardColor.m */,
-			);
-			path = ACTGradientEditor;
 			sourceTree = "<group>";
 		};
 		FACFC2BE199485E900ED936C = {
@@ -233,13 +222,17 @@
 		FACFC2D31994927100ED936C /* CoreUI */ = {
 			isa = PBXGroup;
 			children = (
+				FA9831A8199BE97F00739B89 /* CUIPSDGradientColorStop.h */,
+				FA9831A9199BE97F00739B89 /* CUIPSDGradientDoubleColorStop.h */,
+				FA9831AA199BE97F00739B89 /* CUIPSDGradientDoubleOpacityStop.h */,
+				FA9831AB199BE97F00739B89 /* CUIPSDGradientOpacityStop.h */,
+				FA9831AC199BE97F00739B89 /* CUIPSDGradientStop.h */,
 				FACFC34F1995A5E700ED936C /* NSAppearance.h */,
 				FACFC34E1995A56100ED936C /* CUICatalog.h */,
 				FACFC2D41994927100ED936C /* CSIBitmapWrapper.h */,
 				FACFC2D51994927100ED936C /* CSIGenerator.h */,
 				FACFC2E419949B1B00ED936C /* CUIPSDGradient.h */,
 				FACFC2E519949BEC00ED936C /* CUIPSDGradientEvaluator.h */,
-				FACFC2F31995977F00ED936C /* CUIPSDGradientColorStop.h */,
 				FACFC2D61994927100ED936C /* CUIMutableCommonAssetStorage.h */,
 				FACFC2E1199494C100ED936C /* CUICommonAssetStorage.h */,
 				FACFC2DF199494AB00ED936C /* CUIMutableStructuredThemeStore.h */,
@@ -283,6 +276,8 @@
 				FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */,
 				FA98319D199BB9FD00739B89 /* NSColor+Pasteboard.h */,
 				FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */,
+				FA9831A5199BE36300739B89 /* CFTGradientEditor.h */,
+				FA9831A6199BE36300739B89 /* CFTGradientEditor.m */,
 				FACFC3281995A21700ED936C /* Images.xcassets */,
 				FACFC32A1995A21700ED936C /* MainMenu.xib */,
 				FACFC33F1995A22A00ED936C /* Supporting Files */,
@@ -412,7 +407,6 @@
 				FA6BEDB61999B8D1006BF951 /* TEGradientView.m in Sources */,
 				FACFC3481995A3B700ED936C /* TEAppDelegate.m in Sources */,
 				FACFC3411995A26A00ED936C /* CFTElement.m in Sources */,
-				FA6BEDB21999B4BC006BF951 /* ACTGradientEditor.m in Sources */,
 				FA7B5F78199600FF00D0B2AD /* TEAssetDetailViewController.m in Sources */,
 				FA0A02F1199AD112000F56A2 /* CFTAsset+Pasteboard.m in Sources */,
 				FA98319F199BB9FD00739B89 /* NSColor+Pasteboard.m in Sources */,
@@ -420,13 +414,13 @@
 				FA9831A3199BD23E00739B89 /* CFTGradient.m in Sources */,
 				FA6BEDBD1999F9F8006BF951 /* CFTEffectWrapper.m in Sources */,
 				FA0A02F7199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m in Sources */,
+				FA9831A7199BE36300739B89 /* CFTGradientEditor.m in Sources */,
 				FA472ABC19985AB4003631BC /* ZKInspector.m in Sources */,
 				FACFC3571995BA9400ED936C /* TEElementViewController.m in Sources */,
 				FACFC34C1995A3D300ED936C /* TEDocument.m in Sources */,
 				FA0A02FA199AD8B8000F56A2 /* CFTGradient+Pasteboard.m in Sources */,
 				FA6BEDBE1999F9FA006BF951 /* CFTEffect.m in Sources */,
 				FACFC3441995A26A00ED936C /* CFTDefines.m in Sources */,
-				FA6BEDB31999B4BC006BF951 /* NSColor+ChessboardColor.m in Sources */,
 				FACFC3211995A21700ED936C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

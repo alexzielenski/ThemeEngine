@@ -62,9 +62,9 @@ void *kCHDirtyContext;
     
     // Drawing code here.
     if (self.isRadial) {
-        [self.gradient drawInRect:self.bounds relativeCenterPosition:NSMakePoint(0, 0)];
+//        [self.gradient drawInRect:self.bounds relativeCenterPosition:NSMakePoint(0, 0)];
     } else {
-        [self.gradient drawInRect:self.bounds angle:self.angle];
+        [self.gradient drawInRect:self.bounds angle:self.angle withContext:[[NSGraphicsContext currentContext] graphicsPort]];
     }
 }
 

@@ -57,6 +57,7 @@
         self.key = [CUIRenditionKey renditionKeyWithKeyList:key];
         self.rendition = [[objc_getClass("CUIThemeRendition") alloc] initWithCSIData:csiData forKey:key];
         self.gradient = [CFTGradient gradientWithThemeGradient:self.rendition.gradient angle:self.rendition.gradientDrawingAngle style:self.rendition.gradientStyle];
+
         self.effectPreset = [CFTEffectWrapper effectWrapperWithEffectPreset:self.rendition.effectPreset];
         if (self.rendition.unslicedImage)
             self.image = [[NSBitmapImageRep alloc] initWithCGImage:self.rendition.unslicedImage];
@@ -402,7 +403,7 @@
                                                                        bytesPerRow:4 * 40
                                                                       bitsPerPixel:32];
         NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
-        CUIThemeGradient *grad = self.gradient.themeGradientRepresentation;
+        CUIThemeGradient *grad = self.gradient.themeGradient;
         if (self.gradient.isRadial) {
             [grad drawFromPoint:CGPointMake(rep.pixelsWide / 2, rep.pixelsHigh / 2) toPoint:CGPointZero
                         options:0

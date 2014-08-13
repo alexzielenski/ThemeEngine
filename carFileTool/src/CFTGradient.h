@@ -49,16 +49,16 @@ struct gradient_stop {
 };
 
 @interface CFTGradient : NSObject
-@property (readonly, strong) NSArray *colorStops;
-@property (readonly, strong) NSArray *opacityStops;
-@property (readonly, strong) NSArray *colorLocations;
-@property (readonly, strong) NSArray *opacityLocations;
-@property (readonly, strong) NSColor *fillColor;
-@property (readonly, strong) NSArray *colorMidpoints;
-@property (readonly, strong) NSArray *opacityMidpoints;
-@property (readonly, assign) CGFloat angle;
-@property (readonly, assign, getter=isRadial) BOOL radial;
-@property (readonly, assign, getter=isDithered) BOOL dithered;
+@property (strong) NSArray *colorStops;
+@property (strong) NSArray *opacityStops;
+@property (strong) NSArray *colorLocations;
+@property (strong) NSArray *opacityLocations;
+@property (strong) NSColor *fillColor;
+@property (strong) NSArray *colorMidpoints;
+@property (strong) NSArray *opacityMidpoints;
+@property (assign) CGFloat angle;
+@property (assign, getter=isRadial) BOOL radial;
+@property (assign, getter=isDithered) BOOL dithered;
 
 + (instancetype)gradientWithColors:(NSArray *)colors colorlocations:(NSArray *)colorLocations colorMidpoints:(NSArray *)colorMidpoints opacities:(NSArray *)opacities opacityLocations:(NSArray *)opacityLocations opacityMidpoints:(NSArray *)opacityMidpints smoothingCoefficient:(CGFloat)smoothing fillColor:(NSColor *)fillColor angle:(CGFloat)angle radial:(BOOL)radial dither:(BOOL)dither;
 
@@ -67,8 +67,7 @@ struct gradient_stop {
 + (instancetype)gradientWithThemeGradient:(CUIThemeGradient *)gradient angle:(CGFloat)angle style:(NSUInteger)style;
 - (instancetype)initWithThemeGradient:(CUIThemeGradient *)gradient angle:(CGFloat)angle style:(NSUInteger)style;
 
-- (BOOL)isEqualToThemeGradient:(CUIThemeGradient *)themeGradient;
-- (CUIThemeGradient *)themeGradientRepresentation;
 - (NSGradient *)gradientRepresentation;
+@property (readwrite, strong) CUIThemeGradient *themeGradient;
 
 @end

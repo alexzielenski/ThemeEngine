@@ -10,7 +10,6 @@
 
 @interface TEAssetDetailViewController () <ZKInspectorDelegate, NSTableViewDataSource, NSTableViewDelegate>
 @property (strong) CFTEffect *currentEffect;
-- (void)gradientChanged:(id)sender;
 @end
  
 
@@ -29,7 +28,8 @@
     [self.gradientPreview bind:@"angle" toObject:self withKeyPath:@"gradientAngle" options:nil];
     [self.gradientPreview bind:@"radial" toObject:self withKeyPath:@"gradientRadial" options:nil];
     [self.gradientPreview bind:@"gradient" toObject:self withKeyPath:@"gradient" options:nil];
-    
+    [self.gradientEditor bind:@"gradient" toObject:self withKeyPath:@"gradient" options:nil];
+
     [self addObserver:self forKeyPath:@"asset" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.image" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.type" options:0 context:nil];
@@ -46,10 +46,7 @@
     
     self.inspector.inspectorDelegate = self;
     [self.inspector addView:self.infoPanel withTitle:@"Info" expanded:NO];
-    
-    self.gradientEditor.target = self;
-    self.gradientEditor.action = @selector(gradientChanged:);
-    
+
     NSTableColumn *column = [[NSTableColumn alloc] initWithIdentifier:@"EffectsColumn"];
     column.resizingMask = NSTableColumnAutoresizingMask;
     column.width = self.inspector.frame.size.width;
@@ -150,8 +147,7 @@
     } else if ([keyPath isEqualToString:@"asset.gradient"]) {
         self.gradientAngle = self.asset.gradient.angle;
         self.gradientRadial = self.asset.gradient.isRadial;
-        self.gradient = self.asset.gradient.gradientRepresentation;
-        self.gradientEditor.gradient = self.gradient;
+        self.gradient = self.asset.gradient.themeGradient;
     } else if ([keyPath isEqualToString:@"currentEffect"]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             switch (self.currentEffect.type) {
@@ -275,10 +271,7 @@
     self.asset.opacity = self.opacity;
     self.asset.effectPreset = self.effectWrapper;
     self.asset.color = self.color;
-}
-
-- (void)gradientChanged:(id)sender {
-    self.gradient = self.gradientEditor.gradient;
+    self.asset.gradient.themeGradient = self.gradient;
 }
 
 #pragma mark - Properties

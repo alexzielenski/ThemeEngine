@@ -27,7 +27,7 @@
                 <outlet property="effectSpreadView" destination="b9w-DE-OiZ" id="kNE-zR-SXT"/>
                 <outlet property="effectTableView" destination="HPS-kx-vgd" id="hdL-1T-LHQ"/>
                 <outlet property="effectView" destination="Ada-OV-vWA" id="qpL-e6-Rzm"/>
-                <outlet property="gradientEditor" destination="KV8-Ho-4rg" id="yNH-hr-ra2"/>
+                <outlet property="gradientEditor" destination="KV8-Ho-4rg" id="y4M-xs-Yn3"/>
                 <outlet property="gradientPanel" destination="FuC-gm-cz0" id="gLV-f4-UNa"/>
                 <outlet property="gradientPreview" destination="6F0-vq-Cor" id="tM9-D8-fB0"/>
                 <outlet property="gradientView" destination="7mb-HR-uTN" id="ZdI-Ym-TIB"/>
@@ -213,7 +213,7 @@ Gw
                         <rect key="frame" x="1" y="1" width="166" height="79"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view translatesAutoresizingMaskIntoConstraints="NO" id="Odf-36-59F" customClass="TEImageSliceView">
+                            <view misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Odf-36-59F" customClass="TEImageSliceView">
                                 <rect key="frame" x="0.0" y="0.0" width="280" height="280"/>
                             </view>
                         </subviews>
@@ -256,7 +256,7 @@ Gw
             </constraints>
             <point key="canvasLocation" x="493" y="310.5"/>
         </customView>
-        <customView id="Ada-OV-vWA" userLabel="Effect">
+        <customView wantsLayer="YES" id="Ada-OV-vWA" userLabel="Effect">
             <rect key="frame" x="0.0" y="0.0" width="300" height="262"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
@@ -496,11 +496,11 @@ Gw
             <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KV8-Ho-4rg" customClass="ACTGradientEditor">
-                    <rect key="frame" x="20" y="286" width="280" height="45"/>
-                </customView>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6F0-vq-Cor" customClass="TEGradientView">
-                    <rect key="frame" x="20" y="20" width="280" height="258"/>
+                    <rect key="frame" x="20" y="20" width="260" height="238"/>
+                </customView>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KV8-Ho-4rg" customClass="CFTGradientEditor">
+                    <rect key="frame" x="12" y="258" width="276" height="61"/>
                 </customView>
             </subviews>
             <point key="canvasLocation" x="910" y="221.5"/>
@@ -1157,12 +1157,12 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
+                        <binding destination="-2" name="value" keyPath="bottomInset" id="mya-r5-Ozw"/>
                         <binding destination="-2" name="enabled" keyPath="imageSliceView.themeType" id="nQx-dX-hIo">
                             <dictionary key="options">
                                 <string key="NSValueTransformerName">TEVerticalInsetValueTransformer</string>
                             </dictionary>
                         </binding>
-                        <binding destination="-2" name="value" keyPath="bottomInset" id="mya-r5-Ozw"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wv0-IL-9Wi">
