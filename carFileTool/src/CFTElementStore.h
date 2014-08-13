@@ -47,7 +47,7 @@
 - (NSSet *)elementsWithAssetsWithType:(CoreThemeType)type;
 - (NSSet *)elementsWithAssetsWithLayout:(CoreThemeLayout)layout;
 
-- (void)save;
+- (BOOL)save;
 
 @end
 

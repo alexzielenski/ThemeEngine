@@ -11,7 +11,7 @@
 
 typedef void *BOMTreeIteratorRef;
 typedef void *BOMTreeRef;
-extern BOMTreeIteratorRef BOMTreeIteratorNew(BOMTreeRef tree, int unk, int numberOfKeys, int unk3);
+extern BOMTreeIteratorRef BOMTreeIteratorNew(BOMTreeRef tree, int unk, int unk2, int unk3);
 extern BOOL BOMTreeIteratorIsAtEnd(BOMTreeIteratorRef iterator);
 extern void BOMTreeIteratorFree(BOMTreeIteratorRef iterator);
 extern size_t BOMTreeIteratorKeySize(BOMTreeIteratorRef iterator);
@@ -20,17 +20,42 @@ extern size_t BOMTreeIteratorValueSize(BOMTreeIteratorRef iterator);
 extern void *BOMTreeIteratorValue(BOMTreeIteratorRef iterator);
 extern void BOMTreeIteratorNext(BOMTreeIteratorRef iterator);
 
-extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
 
+typedef void *BOMStorageRef;
+typedef void *BomSys;
+extern BOMStorageRef BOMStorageOpen(const char *path, BOOL forWriting);
+extern BOMStorageRef BOMStorageOpenWithSys(const char *path, BOOL unk, BomSys *sys);
+extern BOOL BOMBomNewWithStorage(BOMStorageRef storage);
+extern const char *BOMStorageFileName(BOMStorageRef storage);
+extern BOOL BOMStorageCommit(BOMStorageRef storage);
+extern BOOL BOMStorageCompact(BOMStorageRef storage);
+extern int BOMStorageGetNamedBlock(BOMStorageRef storage, const char *name);
+extern size_t BOMStorageSizeOfBlock(BOMStorageRef storage, const char *name);
+extern int BOMStorageCount(BOMStorageRef storage);
+
+// dont know what a Sys is, guessing it is a FILE
+extern FILE *BOMStorageGetSys(BOMStorageRef storage);
+extern BOMTreeRef BOMTreeOpenWithName(BOMStorageRef storage, const char *name); // more args
+extern BOMTreeRef BOMTreeNewWithName(BOMStorageRef storage, const char *name);
+extern int BOMTreeFree(BOMTreeRef tree);
+extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
+extern BOMStorageRef BOMTreeStorage(BOMTreeRef tree);
+extern BOOL BOMTreeCommit(BOMTreeRef tree);
+extern BOOL BOMTreeSetValue(BOMTreeRef tree, void *key, size_t keySize, void *value, size_t valueSize);
+extern int BOMTreeGetValue(BOMTreeRef tree, void *key, size_t keySize); // guess
+extern int BOMTreeGetValueSize(BOMTreeRef tree, void *key, size_t keySize, int unk); //guess  // return 1 if failed, 0 if success
+extern int BOMTreeCount(BOMTreeRef tree);
+// guessing it is key and not value
+extern int BOMTreeRemoveValue(BOMTreeRef tree, void *key, size_t keySize);
 
 @interface CFTElementStore ()
-@property (readwrite, strong) CUIMutableStructuredThemeStore *themeStore;
 @property (readwrite, strong) CUIMutableCommonAssetStorage *assetStorage;
 @property (readwrite, copy) NSString *path;
 @property (readwrite, strong) NSMutableSet *elements;
 @property (readwrite, strong) NSUndoManager *undoManager;
 - (void)_enumerateAssets;
 - (void)_enumerateColors;
+- (void)_enumerateFonts;
 - (void)_addAsset:(CFTAsset *)asset;
 - (void)_addElement:(CFTElement *)element;
 + (NSString *)elementNameForAsset:(CFTAsset *)asset;
@@ -43,25 +68,30 @@ extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
 }
 
 - (instancetype)initWithPath:(NSString *)path {
-    if ((self = [self init])) {
+    if ((self = [super init])) {
+        self.undoManager = [[NSUndoManager alloc] init];
+        self.elements = [NSMutableSet set];
         self.path = path;
-        self.themeStore = [[objc_getClass("CUIMutableStructuredThemeStore") alloc] initWithPath:path];
-        self.assetStorage = [[objc_getClass("CUIMutableCommonAssetStorage") alloc] initWithPath:path forWriting:YES];
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+            self.assetStorage = [[objc_getClass("CUIMutableCommonAssetStorage") alloc] initWithPath:path forWriting:YES];
+
+        } else {
+            // creates a new file
+            self.assetStorage = [[objc_getClass("CUIMutableCommonAssetStorage") alloc] initWithPath:path];
+        }
         
         [self _enumerateAssets];
         [self _enumerateColors];
+        [self _enumerateFonts];
     }
     
     return self;
 }
 
 - (instancetype)init {
-    if ((self = [super init])) {
-        self.undoManager = [[NSUndoManager alloc] init];
-        self.elements = [NSMutableSet set];
-    }
-    
-    return self;
+    NSAssert(NO, @"CFTThemeStore must be given a path to init from in -initWithPath");
+    return nil;
 }
 
 + (NSString *)elementNameForAsset:(CFTAsset *)asset {
@@ -102,6 +132,8 @@ extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
     if (ivar ==  NULL)
         return;
     BOMTreeRef treeRef = *(BOMTreeRef *)((__bridge void *)self.assetStorage + ivar_getOffset(ivar));
+    int count = BOMTreeCount(treeRef);
+    NSLog(@"Found %d colors", count);
     BOMTreeIteratorRef iterator = BOMTreeIteratorNew(treeRef, 0x0, 0x0, 0x0);
     do {
         size_t size = BOMTreeIteratorKeySize(iterator);
@@ -119,6 +151,19 @@ extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
         
     } while (!BOMTreeIteratorIsAtEnd(iterator));
     BOMTreeIteratorFree(iterator);
+}
+
+- (void)_enumerateFonts {
+    Ivar ivar = class_getInstanceVariable(object_getClass(self.assetStorage), "_fontdb");
+    if (ivar ==  NULL)
+        return;
+    
+    BOMTreeRef treeRef = *(BOMTreeRef *)((__bridge void *)self.assetStorage + ivar_getOffset(ivar));
+    
+    int count = BOMTreeCount(treeRef);
+    if (count > 0) {
+        NSLog(@"Found %d fonts!", count);
+    }
 }
 
 - (void)_addAsset:(CFTAsset *)asset {
@@ -146,12 +191,10 @@ extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
     return filtered.anyObject;
 }
 
-- (void)save {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSSet *assets = self.allAssets;
-        [assets makeObjectsPerformSelector:@selector(commitToStorage:) withObject:self.assetStorage];
-        [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
-    });
+- (BOOL)save {
+    NSSet *assets = self.allAssets;
+    [assets makeObjectsPerformSelector:@selector(commitToStorage:) withObject:self.assetStorage];
+    return [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
 }
 
 - (NSSet *)allAssets {
