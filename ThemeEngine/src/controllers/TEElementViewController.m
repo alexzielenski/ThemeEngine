@@ -19,6 +19,8 @@
 - (void)_initialize;
 - (void)_filterPredicates;
 - (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndex:(NSUInteger)index;
+- (void)_startObservingAsset:(CFTAsset *)asset;
+- (void)_stopObservingAsset:(CFTAsset *)asset;
 @end
 
 @implementation TEElementViewController
@@ -49,10 +51,12 @@
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"elements"];
+    [self removeObserver:self forKeyPath:@"assets"];
 }
 
 - (void)_initialize {
     [self addObserver:self forKeyPath:@"elements" options:0 context:nil];
+    [self addObserver:self forKeyPath:@"assets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
 
 - (void)awakeFromNib {
@@ -75,8 +79,32 @@
         self.assets = [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] allObjects];
         self.filteredAssets = self.assets;
         [self _filterPredicates];
+    } else if ([keyPath isEqualToString:@"previewImage"]) {
+        [self.imageBrowserView reloadData];
+    } else if ([keyPath isEqualToString:@"assets"]) {
+        NSArray *newObjects = change[NSKeyValueChangeNewKey];
+        NSArray *oldObjects = change[NSKeyValueChangeOldKey];
+        
+        if ([newObjects isKindOfClass:[NSNull class]])
+            newObjects = nil;
+        if ([oldObjects isKindOfClass:[NSNull class]])
+            oldObjects = nil;
+        
+        for (id obj in newObjects)
+            [self _startObservingAsset:obj];
+        for (id obj in oldObjects)
+            [self _stopObservingAsset:obj];
+        
         [self.imageBrowserView reloadData];
     }
+}
+
+- (void)_startObservingAsset:(CFTAsset *)asset {
+    [asset addObserver:self forKeyPath:@"previewImage" options:0 context:nil];
+}
+
+- (void)_stopObservingAsset:(CFTAsset *)asset {
+    [asset removeObserver:self forKeyPath:@"previewImage"];
 }
 
 - (IBAction)searchChanged:(NSSearchField *)sender {
@@ -214,6 +242,7 @@
 
 - (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndex:(NSUInteger)index {
     CFTAsset *asset = self.filteredAssets[index];
+    BOOL bad = NO;
     
     switch (asset.type) {
         case kCoreThemeTypeOnePart:
@@ -222,6 +251,10 @@
         case kCoreThemeTypeNinePart:
         case kCoreThemeTypeSixPart:
         case kCoreThemeTypeAnimation: {
+            if (![pb canReadObjectForClasses:@[ [NSImage class] ] options:nil]) {
+                bad = YES;
+                break;
+            }
             // bitmaps
             NSBitmapImageRep *image = [NSBitmapImageRep imageRepsWithPasteboard:pb][0];
             //!TODO Remove this restriction by asking user to re-slice
@@ -233,19 +266,40 @@
             break;
         }
         case kCoreThemeTypePDF:
+            if (![pb canReadItemWithDataConformingToTypes:@[ (__bridge NSString *)kUTTypePDF ] ]) {
+                bad = YES;
+                break;
+            }
             asset.pdfData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[pb stringForType:(__bridge NSString *)kUTTypeFileURL]]];
             break;
         case kCoreThemeTypeColor:
+            if (![pb canReadObjectForClasses:@[ [NSColor class] ] options:nil]) {
+                bad = YES;
+                break;
+            }
             asset.color = [NSColor colorFromPasteboard:pb];
             break;
         case kCoreThemeTypeEffect:
+            if (![pb canReadObjectForClasses:@[ [CFTEffectWrapper class] ] options:nil]) {
+                bad = YES;
+                break;
+            }
             asset.effectPreset = [CFTEffectWrapper effectWrapperFromPasteboard:pb];
             break;
         case kCoreThemeTypeGradient:
+            if (![pb canReadObjectForClasses:@[ [CFTGradient class] ] options:nil]) {
+                bad = YES;
+                break;
+            }
             asset.gradient = [CFTGradient gradientFromPasteboard:pb];
             break;
         default:
             break;
+    }
+    
+    if (bad) {
+        NSRunAlertPanel(@"Invalid type", @"The destination doesn't support this value type. (e.g. you copied a gradient to an image)", @"Sorry", nil, nil);
+        return NO;
     }
     
     return YES;

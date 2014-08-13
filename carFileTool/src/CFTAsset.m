@@ -475,7 +475,7 @@
 #endif
 
 + (NSSet *)keyPathsForValuesAffectingPreviewImage {
-    return [NSSet setWithObjects:@"image", @"pdfData", @"gradient", @"effectPreset", nil];
+    return [NSSet setWithObjects:@"image", @"pdfData", @"gradient", @"effectPreset", @"color", nil];
 }
 
 - (NSString *)debugDescription {
