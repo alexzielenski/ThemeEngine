@@ -50,6 +50,8 @@
 }
 
 - (void)dealloc {
+    self.assets = nil;
+    self.filteredAssets = nil;
     [self removeObserver:self forKeyPath:@"elements"];
     [self removeObserver:self forKeyPath:@"assets"];
 }
