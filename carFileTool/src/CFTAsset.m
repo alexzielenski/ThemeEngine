@@ -364,11 +364,14 @@
 #pragma mark - Properties
 
 - (NSData *)pdfData {
-    return self.rawData;
+    if (self.type == kCoreThemeTypePDF)
+        return self.rawData;
+    return nil;
 }
 
 - (void)setPdfData:(NSData *)pdfData {
-    [self setRawData:pdfData];
+    if (self.type == kCoreThemeTypePDF)
+        [self setRawData:pdfData];
 }
 
 + (NSSet *)keyPathsForValuesAffectingPdfData {

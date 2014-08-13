@@ -10,6 +10,7 @@
 #import "TEAssetDetailViewController.h"
 #import <Quartz/Quartz.h>
 #import "CFTAsset+Pasteboard.h"
+#import "NSColor+Pasteboard.h"
 
 @interface TEElementViewController ()
 @property (strong) NSArray *assets;
@@ -18,7 +19,7 @@
 @property (strong) TEAssetDetailViewController *detailPopoverViewController;
 - (void)_initialize;
 - (void)_filterPredicates;
-- (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndex:(NSUInteger)index;
+- (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndices:(NSIndexSet *)indices;
 - (void)_startObservingAsset:(CFTAsset *)asset;
 - (void)_stopObservingAsset:(CFTAsset *)asset;
 @end
@@ -160,7 +161,7 @@
 }
 
 - (IBAction)paste:(id)sender {
-    [self _pasteFromPasteboard:[NSPasteboard generalPasteboard] atIndex:self.imageBrowserView.selectionIndexes.firstIndex];
+    [self _pasteFromPasteboard:[NSPasteboard generalPasteboard] atIndices:self.imageBrowserView.selectionIndexes];
 }
 
 
@@ -219,8 +220,9 @@
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {
     NSUInteger idx = [self.imageBrowserView indexAtLocationOfDroppedItem];
     CoreThemeType type = [(CFTAsset *)self.filteredAssets[idx] type];
+    //!TODO Check for individual items on the pasteboard per type of the hovered asset
     if ([NSImage canInitWithPasteboard:sender.draggingPasteboard] && self.imageBrowserView.dropOperation == IKImageBrowserDropOn &&
-        (type <= kCoreThemeTypeSixPart || type == kCoreThemeTypeAnimation || type == kCoreThemeTypePDF) && sender.numberOfValidItemsForDrop == 1)
+        (type <= kCoreThemeTypeSixPart || type == kCoreThemeTypeAnimation || type == kCoreThemeTypePDF || type == kCoreThemeTypeColor) && sender.numberOfValidItemsForDrop == 1)
         return NSDragOperationCopy;
     return NSDragOperationNone;
 }
@@ -235,74 +237,76 @@
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
     NSUInteger idx = [self.imageBrowserView indexAtLocationOfDroppedItem];
-    return [self _pasteFromPasteboard:sender.draggingPasteboard atIndex:idx];
+    return [self _pasteFromPasteboard:sender.draggingPasteboard atIndices:[NSIndexSet indexSetWithIndex:idx]];
 }
 
 - (void)concludeDragOperation:(id < NSDraggingInfo >)sender {
     [self.imageBrowserView reloadData];
 }
 
-- (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndex:(NSUInteger)index {
-    CFTAsset *asset = self.filteredAssets[index];
-    BOOL bad = NO;
+//!TODO: Fix NSColor not writing alpha to pasteboard
+- (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndices:(NSIndexSet *)indices {
+    NSUInteger *indexes = malloc(sizeof(NSUInteger) * indices.count);
+    [indices getIndexes:indexes maxCount:indices.count inIndexRange:NULL];
     
-    switch (asset.type) {
-        case kCoreThemeTypeOnePart:
-        case kCoreThemeTypeThreePartHorizontal:
-        case kCoreThemeTypeThreePartVertical:
-        case kCoreThemeTypeNinePart:
-        case kCoreThemeTypeSixPart:
-        case kCoreThemeTypeAnimation: {
-            if (![pb canReadObjectForClasses:@[ [NSImage class] ] options:nil]) {
-                bad = YES;
-                break;
-            }
-            // bitmaps
-            NSBitmapImageRep *image = [NSBitmapImageRep imageRepsWithPasteboard:pb][0];
-            //!TODO Remove this restriction by asking user to re-slice
-            if (asset.image.pixelsWide == image.pixelsWide && asset.image.pixelsHigh == image.pixelsHigh) {
-                asset.image = image;
-            } else {
-                NSRunAlertPanel(@"Invalid Image", @"Sizes must be equal", @"Sorry, boss", nil, nil);
-            }
+    for (NSUInteger x = 0; x < MAX(pb.pasteboardItems.count, indices.count); x++) {
+        NSPasteboardItem *item = nil;
+        CFTAsset *asset = nil;
+        
+        if (x >= indices.count)
             break;
+        else if (x >= pb.pasteboardItems.count) {
+            item = pb.pasteboardItems.lastObject;
+        } else {
+            item = pb.pasteboardItems[x];
         }
-        case kCoreThemeTypePDF:
-            if (![pb canReadItemWithDataConformingToTypes:@[ (__bridge NSString *)kUTTypePDF ] ]) {
+        
+        asset = self.filteredAssets[indexes[x]];
+        
+        BOOL bad = NO;
+        
+        if ([item availableTypeFromArray:@[NSPasteboardTypePNG]]) {
+            if (asset.type <= kCoreThemeTypeSixPart || asset.type == kCoreThemeTypeAnimation) {
+                asset.image = [[NSBitmapImageRep alloc] initWithData:[item dataForType:NSPasteboardTypePNG]];;
+            } else
                 bad = YES;
-                break;
-            }
-            asset.pdfData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[pb stringForType:(__bridge NSString *)kUTTypeFileURL]]];
-            break;
-        case kCoreThemeTypeColor:
-            if (![pb canReadObjectForClasses:@[ [NSColor class] ] options:nil]) {
+        }
+        
+        if ([item availableTypeFromArray:@[NSPasteboardTypePDF]]) {
+            if (asset.type == kCoreThemeTypePDF)
+                asset.pdfData = [item dataForType:NSPasteboardTypePDF];
+            else
                 bad = YES;
-                break;
-            }
-            asset.color = [NSColor colorFromPasteboard:pb];
-            break;
-        case kCoreThemeTypeEffect:
-            if (![pb canReadObjectForClasses:@[ [CFTEffectWrapper class] ] options:nil]) {
+        }
+        
+        if ([item availableTypeFromArray:@[kCFTColorPboardType]]) {
+            if (asset.type == kCoreThemeTypeColor)
+                asset.color = [[NSColor alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTColorPboardType] ofType:kCFTColorPboardType];
+            else
                 bad = YES;
-                break;
-            }
-            asset.effectPreset = [CFTEffectWrapper effectWrapperFromPasteboard:pb];
-            break;
-        case kCoreThemeTypeGradient:
-            if (![pb canReadObjectForClasses:@[ [CFTGradient class] ] options:nil]) {
+        }
+        
+        if ([item availableTypeFromArray:@[kCFTEffectWrapperPboardType]]) {
+            if (asset.type == kCoreThemeTypeEffect)
+                asset.effectPreset = [[CFTEffectWrapper alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTEffectWrapperPboardType] ofType:kCFTEffectWrapperPboardType];
+            else
                 bad = YES;
-                break;
-            }
-            asset.gradient = [CFTGradient gradientFromPasteboard:pb];
-            break;
-        default:
-            break;
+        }
+        
+        if ([item availableTypeFromArray:@[kCFTGradientPboardType]]) {
+            if (asset.type == kCoreThemeTypeGradient)
+                asset.gradient = [[CFTGradient alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTGradientPboardType] ofType:kCFTGradientPboardType];
+            else
+                bad = YES;
+        }
+     
+        if (bad) {
+            NSRunAlertPanel(@"Invalid type", @"The destination doesn't support this value type. (e.g. you copied a gradient to an image)", @"Sorry", nil, nil);
+            return NO;
+        }
     }
     
-    if (bad) {
-        NSRunAlertPanel(@"Invalid type", @"The destination doesn't support this value type. (e.g. you copied a gradient to an image)", @"Sorry", nil, nil);
-        return NO;
-    }
+    free(indexes);
     
     return YES;
 }

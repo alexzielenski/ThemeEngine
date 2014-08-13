@@ -13,10 +13,27 @@
 #pragma mark - NSPasteboardWriting
 
 - (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
-    if (self.type > kCoreThemeTypePDF)
+    if (self.type > kCoreThemeTypePDF && self.type != kCoreThemeTypeColor)
         return @[];
 
-    return @[ self.type == kCoreThemeTypePDF ? NSPasteboardTypePDF : NSPasteboardTypePNG, (__bridge NSString *)kPasteboardTypeFilePromiseContent, (__bridge NSString *)kUTTypeFileURL, kCFTEffectWrapperPboardType, NSPasteboardTypeColor, kCFTGradientPboardType ];
+    NSMutableArray *types = [NSMutableArray array];
+
+    if (self.color) {
+        [types addObject:NSPasteboardTypeColor];
+        [types addObject:kCFTColorPboardType];
+    }
+    if (self.effectPreset)
+        [types addObject:kCFTEffectWrapperPboardType];
+    if (self.gradient)
+        [types addObject:kCFTGradientPboardType];
+    if (self.pdfData)
+        [types addObject:NSPasteboardTypePDF];
+    if (self.image)
+        [types addObject:NSPasteboardTypePNG];
+    [types addObject:(__bridge NSString *)kPasteboardTypeFilePromiseContent];
+    [types addObject:(__bridge NSString *)kUTTypeFileURL];
+    
+    return types;
 }
 
 - (NSPasteboardWritingOptions)writingOptionsForType:(NSString *)type pasteboard:(NSPasteboard *)pasteboard {
@@ -36,6 +53,8 @@
         return [self.color pasteboardPropertyListForType:type];
     } else if ([type isEqualToString:kCFTGradientPboardType]) {
         return [self.gradient pasteboardPropertyListForType:type];
+    } else if ([type isEqualToString:kCFTColorPboardType] ) {
+        return [self.color pasteboardPropertyListForType:kCFTColorPboardType];
     }
     
     NSURL *finalURL = [NSURL URLWithString:[[[[NSUUID UUID] UUIDString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByAppendingPathExtension:self.type == kCoreThemeTypePDF ? @"pdf" : @"png"] relativeToURL:[NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier]]];

@@ -7,7 +7,7 @@
 //
 
 #import "CFTGradient.h"
-
+#import "NSColor+Pasteboard.h"
 #define kCFTGradientPboardType @"private.cftgradient"
 
 @interface CFTGradient (Pasteboard) <NSPasteboardReading, NSPasteboardWriting>

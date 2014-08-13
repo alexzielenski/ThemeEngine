@@ -24,6 +24,9 @@
 }
 
 - (instancetype)initWithEffectPreset:(CUIShapeEffectPreset *)preset {
+    if (!preset) {
+        return nil;
+    }
     if ((self = [self init])) {
         unsigned long long count = preset.effectCount;
         for (unsigned long long x = 0; x < count; x++) {

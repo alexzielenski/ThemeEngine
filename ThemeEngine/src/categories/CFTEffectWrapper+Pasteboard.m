@@ -7,6 +7,7 @@
 //
 
 #import "CFTEffectWrapper+Pasteboard.h"
+#import "NSColor+Pasteboard.h"
 
 #define kTypeKey @"Type"
 #define kParametersKey @"Parameters"
@@ -16,8 +17,10 @@
 #pragma mark - NSPasteboardReading
 
 + (instancetype)effectWrapperFromPasteboard:(NSPasteboard *)pasteboard {
-    return [[self alloc] initWithPasteboardPropertyList:[pasteboard propertyListForType:kCFTEffectWrapperPboardType]
-                                                 ofType:kCFTEffectWrapperPboardType];
+    if ([pasteboard canReadItemWithDataConformingToTypes:@[kCFTEffectWrapperPboardType]])
+        return [[self alloc] initWithPasteboardPropertyList:[pasteboard propertyListForType:kCFTEffectWrapperPboardType]
+                                                     ofType:kCFTEffectWrapperPboardType];
+    return nil;
 }
 
 - (id)initWithPasteboardPropertyList:(NSArray *)propertyList
@@ -25,6 +28,9 @@
     if (![type isEqualToString:kCFTEffectWrapperPboardType]) {
         return nil;
     }
+    if (!propertyList)
+        return nil;
+    
     if ((self = [self init])) {
         for (NSUInteger x = 0; x < propertyList.count; x++) {
             NSDictionary *effects = propertyList[x];
@@ -32,7 +38,7 @@
             for (NSString *key in effects[kParametersKey]) {
                 id value = effects[kParametersKey][key];
                 if ([value isKindOfClass:[NSData class]]) {
-                    [effect setColor:[[NSColor alloc] initWithPasteboardPropertyList:value ofType:NSPasteboardTypeColor] forParameter:(CUIEffectParameter)[key integerValue]];
+                    [effect setColor:[[NSColor alloc] initWithPasteboardPropertyList:value ofType:kCFTColorPboardType] forParameter:(CUIEffectParameter)[key integerValue]];
                 } else {
                     [effect setNumber:value forParameter:(CUIEffectParameter)[key integerValue]];
                 }
@@ -75,7 +81,7 @@
         for (NSNumber *parameter in effect.parameters) {
             NSColor *value = effect.parameters[parameter];
             if ([value isKindOfClass:[NSColor class]]) {
-                parameters[[parameter stringValue]] = [value pasteboardPropertyListForType:NSPasteboardTypeColor];
+                parameters[[parameter stringValue]] = [value pasteboardPropertyListForType:kCFTColorPboardType];
             } else
                 parameters[[parameter stringValue]] = value;
         }

@@ -8,37 +8,41 @@
 
 #import "CFTGradient+Pasteboard.h"
 
-@interface CFTGradient ()
-@property (readwrite, strong) NSArray *colors;
-@property (readwrite, strong) NSArray *locations;
-@property (readwrite, strong) NSArray *midPoints;
-@property (readwrite, assign) CGFloat angle;
-@property (readwrite, assign, getter=isRadial) BOOL radial;
-- (void)_initializeWithColors:(NSArray *)colors atLocations:(NSArray *)locations midPoints:(NSArray *)midPoints angle:(CGFloat)angle radial:(BOOL)radial;
-@end
-
-
 @implementation CFTGradient (Pasteboard)
 
 #pragma mark - NSPasteboardReading
 
 + (instancetype)gradientFromPasteboard:(NSPasteboard *)pb {
-    return [[self alloc] initWithPasteboardPropertyList:[pb propertyListForType:kCFTGradientPboardType] ofType:kCFTGradientPboardType];
+    if ([pb canReadItemWithDataConformingToTypes:@[kCFTGradientPboardType]])
+        return [[self alloc] initWithPasteboardPropertyList:[pb propertyListForType:kCFTGradientPboardType] ofType:kCFTGradientPboardType];
+    return nil;
 }
 
 - (id)initWithPasteboardPropertyList:(NSDictionary *)propertyList ofType:(NSString *)type {
-    if ((self = [self init])) {
-        NSArray *colors = propertyList[@"colors"];
-        NSMutableArray *newColors = [NSMutableArray array];
-        for (NSUInteger x = 0; x < colors.count; x++) {
-            newColors[x] = [[NSColor alloc] initWithPasteboardPropertyList:colors[x] ofType:NSPasteboardTypeColor];
-        }
+    if (!propertyList)
+        return nil;
+    if (![type isEqualToString:kCFTGradientPboardType])
+        return nil;
+    
+    NSArray *colors = propertyList[@"colors"];
+    NSMutableArray *newColors = [NSMutableArray array];
+    for (NSUInteger x = 0; x < colors.count; x++) {
+        NSColor *color = [[NSColor alloc] initWithPasteboardPropertyList:colors[x] ofType:kCFTColorPboardType];
+        newColors[x] = color;
+    }
         
-        [self _initializeWithColors:newColors
-                        atLocations:propertyList[@"locations"]
-                          midPoints:propertyList[@"midPoints"]
-                              angle:[propertyList[@"angle"] doubleValue]
-                             radial:[propertyList[@"radial"] boolValue]];
+    if ((self = [self initWithColors:newColors
+                      colorlocations:propertyList[@"colorLocations"]
+                      colorMidpoints:propertyList[@"colorMidpoints"]
+                           opacities:propertyList[@"opacityStops"]
+                    opacityLocations:propertyList[@"opacityLocations"]
+                    opacityMidpoints:propertyList[@"opacityMidPoints"]
+                smoothingCoefficient:1.0
+                           fillColor:[[NSColor alloc] initWithPasteboardPropertyList:propertyList[@"fillColor"] ofType:kCFTColorPboardType]
+                               angle:[propertyList[@"angle"] doubleValue]
+                              radial:[propertyList[@"radial"] boolValue]
+                              dither:[propertyList[@"dithered"] boolValue]])) {
+        
     }
     
     return self;
@@ -65,13 +69,19 @@
 - (id)pasteboardPropertyListForType:(NSString *)type {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     NSMutableArray *colors = [NSMutableArray array];
-    for (NSUInteger x = 0; x < self.colors.count; x++) {
-        colors[x] = [self.colors[x] pasteboardPropertyListForType:NSPasteboardTypeColor];
+    NSArray *myColors = self.colorStops ?: @[];
+    for (NSUInteger x = 0; x < myColors.count; x++) {
+        colors[x] = [myColors[x] pasteboardPropertyListForType:kCFTColorPboardType];
     }
     dictionary[@"colors"] = colors;
-    dictionary[@"locations"] = self.locations;
-    dictionary[@"midPoints"] = self.midPoints;
+    dictionary[@"colorLocations"] = self.colorLocations ?: @[];
+    dictionary[@"colorMidpoints"] = self.colorMidpoints ?: @[];
+    dictionary[@"opacityStops"] = self.opacityStops ?: @[];
+    dictionary[@"opacityMidpoints"] = self.opacityMidpoints ?: @[];
+    dictionary[@"opacityLocations"] = self.opacityLocations ?: @[];
+    dictionary[@"fillColor"] = [self.fillColor pasteboardPropertyListForType:kCFTColorPboardType];
     dictionary[@"angle"] = @(self.angle);
+    dictionary[@"dithered"] = @(self.isDithered);
     dictionary[@"radial"] = @(self.isRadial);
     return dictionary;
 }
