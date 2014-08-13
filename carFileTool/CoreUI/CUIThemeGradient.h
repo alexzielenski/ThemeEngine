@@ -6,38 +6,40 @@
 
 
 //#import "CUIThemeGradientDrawing.h"
+#import "CUIPSDGradientEvaluator.h"
+#import "CUIColor.h"
 
 @interface CUIThemeGradient : NSObject// <CUIThemeGradientDrawing>
 {
-    id gradientEvaluator;
-    struct CGFunction *colorShader;
-    struct CGColorSpace *colorSpace;
+    CUIPSDGradientEvaluator *gradientEvaluator;
+    CGFunctionRef colorShader;
+    CGColorSpaceRef colorSpace;
 }
 
-- (id)interpolatedColorAtLocation:(double)arg1;
-- (void)drawFromPoint:(struct CGPoint)arg1 toPoint:(struct CGPoint)arg2 options:(unsigned long long)arg3 withContext:(struct CGContext *)arg4;
-- (void)drawInRect:(struct CGRect)arg1 relativeCenterPosition:(struct CGPoint)arg2 withContext:(struct CGContext *)arg3;
-- (void)drawFromPoint:(struct CGPoint)arg1 toPoint:(struct CGPoint)arg2 options:(unsigned long long)arg3;
-- (void)drawInRect:(struct CGRect)arg1 angle:(double)arg2;
-- (void)drawInRect:(struct CGRect)arg1 angle:(double)arg2 withContext:(struct CGContext *)arg3;
-- (struct CGFunction *)colorShader;
-- (struct CGFunction *)_newColorShaderForDistance:(double)arg1;
+- (id)interpolatedColorAtLocation:(CGFloat)arg1;
+- (void)drawFromPoint:(CGPoint)arg1 toPoint:(CGPoint)arg2 options:(NSUInteger)arg3 withContext:(CGContextRef)arg4;
+- (void)drawInRect:(CGRect)arg1 relativeCenterPosition:(CGPoint)arg2 withContext:(CGContextRef)arg3;
+- (void)drawFromPoint:(CGPoint)arg1 toPoint:(CGPoint)arg2 options:(NSUInteger)arg3;
+- (void)drawInRect:(CGRect)arg1 angle:(CGFloat)arg2;
+- (void)drawInRect:(CGRect)arg1 angle:(CGFloat)arg2 withContext:(CGContextRef)arg3;
+- (CGFunctionRef)colorShader;
+- (CGFunctionRef)_newColorShaderForDistance:(CGFloat)arg1;
 - (void)dealloc;
-- (int)blendMode;
-- (id)fillColor;
+- (CGBlendMode)blendMode;
+- (CUIColor *)fillColor;
 - (BOOL)isDithered;
-- (double)smoothingCoefficient;
-- (id)opacityLocations;
-- (id)opacityStops;
-- (id)colorLocations;
-- (id)colorStops;
+- (CGFloat)smoothingCoefficient;
+- (NSArray *)opacityLocations;
+- (NSArray *)opacityStops;
+- (NSArray *)colorLocations;
+- (NSArray *)colorStops;
 //- (id)_colorFromPSDGradientColor:(struct _psdGradientColor)arg1;
-- (id)initWithColors:(id)arg1 colorlocations:(id)arg2 colorMidpoints:(id)arg3 opacities:(id)arg4 opacityLocations:(id)arg5 opacityMidpoints:(id)arg6 smoothingCoefficient:(double)arg7 fillColor:(id)arg8 colorSpace:(struct CGColorSpace *)arg9 dither:(BOOL)arg10;
-- (id)initWithColors:(id)arg1 colorlocations:(id)arg2 colorMidpoints:(id)arg3 opacities:(id)arg4 opacityLocations:(id)arg5 opacityMidpoints:(id)arg6 smoothingCoefficient:(double)arg7 fillColor:(id)arg8 colorSpace:(struct CGColorSpace *)arg9;
-- (id)_initWithGradientEvaluator:(id)arg1 colorSpace:(struct CGColorSpace *)arg2;
-- (id)_psdGradientColorStopsWithColors:(id)arg1 locations:(id)arg2 colorSpace:(struct CGColorSpace *)arg3;
-- (struct _psdGradientColor)_psdGradientColorWithColor:(id)arg1 colorSpace:(struct CGColorSpace *)arg2;
-- (id)_psdGradientOpacityStopsWithOpacities:(id)arg1 locations:(id)arg2;
+- (id)initWithColors:(NSArray *)arg1 colorlocations:(NSArray *)arg2 colorMidpoints:(NSArray *)arg3 opacities:(NSArray *)arg4 opacityLocations:(NSArray *)arg5 opacityMidpoints:(NSArray *)arg6 smoothingCoefficient:(CGFloat)arg7 fillColor:(CUIColor *)arg8 colorSpace:(CGColorSpaceRef)arg9 dither:(BOOL)arg10;
+- (id)initWithColors:(NSArray *)arg1 colorlocations:(NSArray *)arg2 colorMidpoints:(id)arg3 opacities:(NSArray *)arg4 opacityLocations:(NSArray *)arg5 opacityMidpoints:(NSArray *)arg6 smoothingCoefficient:(CGFloat)arg7 fillColor:(CUIColor *)arg8 colorSpace:(CGColorSpaceRef)arg9;
+- (id)_initWithGradientEvaluator:(CUIPSDGradientEvaluator *)arg1 colorSpace:(CGColorSpaceRef)arg2;
+- (id)_psdGradientColorStopsWithColors:(NSArray *)arg1 locations:(NSArray *)arg2 colorSpace:(CGColorSpaceRef)arg3;
+- (struct _psdGradientColor)_psdGradientColorWithColor:(CGColorRef)arg1 colorSpace:(CGColorSpaceRef)arg2;
+- (id)_psdGradientOpacityStopsWithOpacities:(NSArray *)arg1 locations:(NSArray *)arg2;
 
 @end
 
