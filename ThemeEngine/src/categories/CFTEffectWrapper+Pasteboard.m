@@ -37,7 +37,7 @@
             CFTEffect *effect = [CFTEffect effectWithType:(CUIEffectType)[effects[kTypeKey] integerValue]];
             for (NSString *key in effects[kParametersKey]) {
                 id value = effects[kParametersKey][key];
-                if ([value isKindOfClass:[NSData class]]) {
+                if (![value isKindOfClass:[NSNumber class]]) {
                     [effect setColor:[[NSColor alloc] initWithPasteboardPropertyList:value ofType:kCFTColorPboardType] forParameter:(CUIEffectParameter)[key integerValue]];
                 } else {
                     [effect setNumber:value forParameter:(CUIEffectParameter)[key integerValue]];
