@@ -48,7 +48,7 @@ struct gradient_stop {
     char reserved[32]; // could be used for leadout colors which I haven't been able to get data for
 };
 
-@interface CFTGradient : NSObject
+@interface CFTGradient : NSObject <NSCopying>
 @property (strong) NSArray *colorStops;
 @property (strong) NSArray *opacityStops;
 @property (strong) NSArray *colorLocations;
@@ -57,6 +57,7 @@ struct gradient_stop {
 @property (strong) NSArray *colorMidpoints;
 @property (strong) NSArray *opacityMidpoints;
 @property (assign) CGFloat angle;
+@property (assign) CGFloat smoothingCoefficient;
 @property (assign, getter=isRadial) BOOL radial;
 @property (assign, getter=isDithered) BOOL dithered;
 

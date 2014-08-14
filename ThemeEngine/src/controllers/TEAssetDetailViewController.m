@@ -137,10 +137,8 @@
     } else if ([keyPath isEqualToString:@"asset.pdfData"]) {
         self.pdf = [[PDFDocument alloc] initWithData:self.asset.pdfData];
     } else if ([keyPath isEqualToString:@"asset.gradient"]) {
-        self.gradientViewController.angle = self.asset.gradient.angle;
-        self.gradientViewController.radial = self.asset.gradient.isRadial;
-        self.gradient = self.asset.gradient.themeGradient;
-        self.gradientViewController.gradientEditor.gradient = self.gradient;
+        self.gradient = self.asset.gradient;
+        self.gradientViewController.gradientEditor.gradientWrapper = self.gradient;
     } else if ([keyPath isEqualToString:@"currentEffect"]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             switch (self.currentEffect.type) {
@@ -264,7 +262,7 @@
     self.asset.opacity = self.opacity;
     self.asset.effectPreset = self.effectWrapper;
     self.asset.color = self.color;
-    self.asset.gradient.themeGradient = self.gradient;
+    self.asset.gradient = self.gradient;
 }
 
 #pragma mark - Properties

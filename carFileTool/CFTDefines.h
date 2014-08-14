@@ -11,6 +11,10 @@
 #ifndef carFileTool_CFTDefines_h
 #define carFileTool_CFTDefines_h
 
+// http://stackoverflow.com/questions/7792622/manual-retain-with-arc
+#define AntiARCRetain(...) { void *retainedThing = (__bridge_retained void *)__VA_ARGS__; retainedThing = retainedThing; }
+#define AntiARCRelease(...) { void *retainedThing = (__bridge void *) __VA_ARGS__; id unretainedThing = (__bridge_transfer id)retainedThing; unretainedThing = nil; }
+
 typedef NS_ENUM(NSUInteger, CoreThemeLayer) {
     kCoreThemeLayerBase             = 0,
     kCoreThemeLayerHighlight        = 1,
@@ -160,6 +164,11 @@ typedef NS_ENUM(unsigned int, CUIEffectParameter) {
     CUIEffectParameterBlendMode  = 7, // enum (CGBlendMode)
     CUIEffectParameterSoften     = 8, // int
     CUIEffectParameterSpread     = 9  // int
+};
+
+typedef NS_ENUM(unsigned int, CUIGradientStyle) {
+    CUIGradientStyleLinear = 'Lnr ',
+    CUIGradientStyleRadial = 'Rdl '
 };
 
 struct _rgbcolor {

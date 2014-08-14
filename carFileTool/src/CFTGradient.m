@@ -12,25 +12,10 @@
 #import "CUIPSDGradientDoubleColorStop.h"
 #import "CUIPSDGradientDoubleOpacityStop.h"
 #import "CUIColor.h"
-#import <objc/runtime.h>
-
-static CUIPSDGradient *psdGradientFromThemeGradient(CUIThemeGradient *themeGradient, double angle, unsigned int style) {
-    if (!themeGradient)
-        return nil;
-    
-    CUIPSDGradientEvaluator *evaluator = [themeGradient valueForKey:@"gradientEvaluator"];
-    return [[CUIPSDGradient alloc] initWithEvaluator:evaluator drawingAngle:angle gradientStyle:style];
-}
-
-static BOOL gradientsEqual(CUIThemeGradient *themeGradient, CUIPSDGradient *psd) {
-    CUIPSDGradientEvaluator *evaluator = [themeGradient valueForKey:@"gradientEvaluator"];
-    return psd.evaluator == evaluator;
-}
+#import "ZKSwizzle.h"
 
 static CUIPSDGradientEvaluator *evaluatorFromGradient(CUIThemeGradient *gradient) {
-    Ivar var = class_getInstanceVariable([CUIThemeGradient class], "gradientEvaluator");
-    CUIPSDGradientEvaluator *evaluator = *(CUIPSDGradientEvaluator *__unsafe_unretained*)((__bridge void *)gradient + ivar_getOffset(var));
-    return evaluator;
+    return ZKHookIvar(gradient, CUIPSDGradientEvaluator *, "gradientEvaluator");
 }
 
 @interface CFTGradient ()
@@ -39,7 +24,7 @@ static CUIPSDGradientEvaluator *evaluatorFromGradient(CUIThemeGradient *gradient
 @end
 
 @implementation CFTGradient
-@dynamic psdGradient, colorStops, opacityStops, colorLocations, opacityLocations, fillColor, dithered, evaluator;
+@dynamic psdGradient, colorStops, opacityStops, colorLocations, opacityLocations, fillColor, dithered, evaluator, smoothingCoefficient;
 
 + (instancetype)gradientWithColors:(NSArray *)colors colorlocations:(NSArray *)colorLocations colorMidpoints:(NSArray *)colorMidpoints opacities:(NSArray *)opacities opacityLocations:(NSArray *)opacityLocations opacityMidpoints:(NSArray *)opacityMidpints smoothingCoefficient:(CGFloat)smoothing fillColor:(NSColor *)fillColor angle:(CGFloat)angle radial:(BOOL)radial dither:(BOOL)dither {
     return [[self alloc] initWithColors:colors
@@ -93,13 +78,25 @@ static CUIPSDGradientEvaluator *evaluatorFromGradient(CUIThemeGradient *gradient
     
     if ((self = [self init])) {
         self.angle = angle;
-
-        //!TODO make an enum
-        self.radial = style == 'Rdl ';
+        self.radial = style == CUIGradientStyleRadial;
         self.themeGradient = gradient;
     }
     
     return self;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    return [[self.class alloc] initWithColors:self.colorStops
+                               colorlocations:self.colorLocations
+                               colorMidpoints:self.colorMidpoints
+                                    opacities:self.opacityStops
+                             opacityLocations:self.opacityLocations
+                             opacityMidpoints:self.opacityMidpoints
+                         smoothingCoefficient:self.smoothingCoefficient
+                                    fillColor:self.fillColor
+                                        angle:self.angle
+                                       radial:self.isRadial
+                                       dither:self.isDithered];
 }
 
 - (CUIPSDGradientEvaluator *)evaluator {
@@ -107,8 +104,9 @@ static CUIPSDGradientEvaluator *evaluatorFromGradient(CUIThemeGradient *gradient
 }
 
 - (CUIPSDGradient *)psdGradient {
-    //!TODO make enum
-    return [[CUIPSDGradient alloc] initWithEvaluator:self.evaluator drawingAngle:self.angle gradientStyle:self.radial ? 'Rdl ' : 'Lnr '];
+    return [[CUIPSDGradient alloc] initWithEvaluator:self.evaluator
+                                        drawingAngle:self.angle
+                                       gradientStyle:self.radial ? CUIGradientStyleRadial : CUIGradientStyleLinear];
 }
 
 - (NSGradient *)gradientRepresentation {
@@ -162,8 +160,48 @@ static CUIPSDGradientEvaluator *evaluatorFromGradient(CUIThemeGradient *gradient
     return [NSColor colorWithCGColor:self.themeGradient.fillColor.CGColor];
 }
 
+- (CGFloat)smoothingCoefficient {
+    return self.evaluator.smoothingCoefficient;
+}
+
 - (BOOL)isDithered {
     return self.themeGradient.isDithered;
 }
+
+//!TODO Implement these
+
+//!TODO The below method is incorrect, set the gradientColor property on each object
+/*
+- (void)setColorStops:(NSArray *)colors {
+    NSMutableArray *cgColors = [NSMutableArray array];
+    for (NSUInteger idx = 0; idx < colors.count; idx++) {
+        NSColor *color = colors[idx];
+        [cgColors addObject:[CUIColor colorWithCGColor:[color CGColor]]];
+    }
+
+    NSArray *__unsafe_unretained*colorStops = &ZKHookIvar(self.evaluator, NSArray *, "colorStops");
+    AntiARCRelease(*colorStops);
+    
+    AntiARCRetain(cgColors);
+    *colorStops = cgColors;
+}*/
+
+- (void)setColorMidpoints:(NSArray *)colorMidpoints {
+    NSArray *__unsafe_unretained*midpoints = &ZKHookIvar(self.evaluator, NSArray *, "colorMidpointLocations");
+    AntiARCRelease(*midpoints);
+    AntiARCRetain(colorMidpoints);
+    *midpoints = colorMidpoints;
+}
+
+- (void)setColorLocations:(NSArray *)colorLocations {
+    if (colorLocations.count != self.evaluator.colorStops.count)
+        return;
+    
+    for (NSUInteger x = 0; x < colorLocations.count; x++ ) {
+        CUIPSDGradientStop *stop = self.evaluator.colorStops[x];
+        stop.location = [colorLocations[x] doubleValue];
+    }
+}
+
 
 @end

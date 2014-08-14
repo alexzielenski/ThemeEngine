@@ -44,6 +44,9 @@
 		FAEC5265199C4FEA00045AFA /* TEGradientStopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC5264199C4FEA00045AFA /* TEGradientStopViewController.m */; };
 		FAEC5268199C526900045AFA /* CUIPSDGradientStop+KVO.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC5267199C526900045AFA /* CUIPSDGradientStop+KVO.m */; };
 		FAEC5279199C570000045AFA /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC526F199C570000045AFA /* ZKSwizzle.m */; };
+		FAEC5282199C7A9400045AFA /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC526F199C570000045AFA /* ZKSwizzle.m */; };
+		FAEC528E199C828900045AFA /* CUIThemeGradient+Radial.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC528D199C828900045AFA /* CUIThemeGradient+Radial.m */; };
+		FAEC528F199C874100045AFA /* CUIThemeGradient+Radial.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC528D199C828900045AFA /* CUIThemeGradient+Radial.m */; };
 		FAF726C91996E72E00CC2366 /* Bom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF726C81996E72E00CC2366 /* Bom.framework */; };
 		FAF726CC1997056100CC2366 /* Bom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF726C81996E72E00CC2366 /* Bom.framework */; };
 		FAF726CF199719D500CC2366 /* TEImageSliceView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF726CE199719D500CC2366 /* TEImageSliceView.m */; };
@@ -137,6 +140,8 @@
 		FAEC5267199C526900045AFA /* CUIPSDGradientStop+KVO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CUIPSDGradientStop+KVO.m"; path = "src/categories/CUIPSDGradientStop+KVO.m"; sourceTree = "<group>"; };
 		FAEC526E199C570000045AFA /* ZKSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKSwizzle.h; path = ZKSwizzle/ZKSwizzle.h; sourceTree = "<group>"; };
 		FAEC526F199C570000045AFA /* ZKSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKSwizzle.m; path = ZKSwizzle/ZKSwizzle.m; sourceTree = "<group>"; };
+		FAEC528C199C828900045AFA /* CUIThemeGradient+Radial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CUIThemeGradient+Radial.h"; path = "src/categories/CUIThemeGradient+Radial.h"; sourceTree = "<group>"; };
+		FAEC528D199C828900045AFA /* CUIThemeGradient+Radial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CUIThemeGradient+Radial.m"; path = "src/categories/CUIThemeGradient+Radial.m"; sourceTree = "<group>"; };
 		FAF726C41996131400CC2366 /* CUIShapeEffectStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIShapeEffectStack.h; sourceTree = "<group>"; };
 		FAF726C51996131400CC2366 /* CUITextEffectStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUITextEffectStack.h; sourceTree = "<group>"; };
 		FAF726C81996E72E00CC2366 /* Bom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bom.framework; path = ../../../../../../../../System/Library/PrivateFrameworks/Bom.framework; sourceTree = "<group>"; };
@@ -292,6 +297,8 @@
 				FA9831A6199BE36300739B89 /* CFTGradientEditor.m */,
 				FAEC5266199C526900045AFA /* CUIPSDGradientStop+KVO.h */,
 				FAEC5267199C526900045AFA /* CUIPSDGradientStop+KVO.m */,
+				FAEC528C199C828900045AFA /* CUIThemeGradient+Radial.h */,
+				FAEC528D199C828900045AFA /* CUIThemeGradient+Radial.m */,
 				FACFC3281995A21700ED936C /* Images.xcassets */,
 				FACFC32A1995A21700ED936C /* MainMenu.xib */,
 				FACFC33F1995A22A00ED936C /* Supporting Files */,
@@ -410,6 +417,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAEC528F199C874100045AFA /* CUIThemeGradient+Radial.m in Sources */,
+				FAEC5282199C7A9400045AFA /* ZKSwizzle.m in Sources */,
 				FACFC2EF19955F6800ED936C /* CFTDefines.m in Sources */,
 				FACFC2CB199485E900ED936C /* main.m in Sources */,
 				FA6BEDB91999D5C3006BF951 /* CFTEffectWrapper.m in Sources */,
@@ -439,6 +448,7 @@
 				FA6BEDBD1999F9F8006BF951 /* CFTEffectWrapper.m in Sources */,
 				FAEC5265199C4FEA00045AFA /* TEGradientStopViewController.m in Sources */,
 				FA0A02F7199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m in Sources */,
+				FAEC528E199C828900045AFA /* CUIThemeGradient+Radial.m in Sources */,
 				FA9831A7199BE36300739B89 /* CFTGradientEditor.m in Sources */,
 				FAEC5268199C526900045AFA /* CUIPSDGradientStop+KVO.m in Sources */,
 				FA472ABC19985AB4003631BC /* ZKInspector.m in Sources */,

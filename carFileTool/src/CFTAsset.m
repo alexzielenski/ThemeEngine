@@ -404,12 +404,13 @@
                                                                       bitsPerPixel:32];
         NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
         CUIThemeGradient *grad = self.gradient.themeGradient;
+        CGRect rect = CGRectMake(0, 0, rep.pixelsWide, rep.pixelsHigh);
         if (self.gradient.isRadial) {
-            [grad drawFromPoint:CGPointMake(rep.pixelsWide / 2, rep.pixelsHigh / 2) toPoint:CGPointZero
-                        options:0
-                    withContext:ctx.graphicsPort];
+            [grad drawInRect:rect
+      relativeCenterPosition:CGPointMake(rep.pixelsWide / 2, rep.pixelsHigh / 2)
+                 withContext:ctx.graphicsPort];
         } else {
-            [grad drawInRect:CGRectMake(0, 0, rep.pixelsWide, rep.pixelsHigh) angle:self.gradient.angle withContext:ctx.graphicsPort];
+            [grad drawInRect:rect angle:self.gradient.angle withContext:ctx.graphicsPort];
         }
         
         [image addRepresentation:rep];

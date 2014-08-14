@@ -16,8 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.gradientPreview bind:@"angle" toObject:self withKeyPath:@"angle" options:nil];
-    [self.gradientPreview bind:@"radial" toObject:self withKeyPath:@"radial" options:nil];
     
     // Do view setup here.
     self.gradientEditor.target = self;
@@ -30,17 +28,15 @@
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"gradientEditor.gradient"];
     [self removeObserver:self forKeyPath:@"gradientEditor.selectedStop"];
-    [self.gradientPreview unbind:@"angle"];
-    [self.gradientPreview unbind:@"radial"];
 }
 
 - (void)gradientChanged:(CFTGradientEditor *)editor {
-    self.gradientPreview.gradient = editor.gradient;
+    self.gradientPreview.gradient = editor.gradientWrapper;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"gradientEditor.gradient"]) {
-        self.gradientPreview.gradient = self.gradientEditor.gradient;
+        self.gradientPreview.gradient = self.gradientEditor.gradientWrapper;
     } else if ([keyPath isEqualToString:@"gradientEditor.selectedStop"]) {
         self.doubleSidedCheckbox.state = self.gradientEditor.selectedStop.isDoubleStop ? NSOnState : NSOffState;
     }

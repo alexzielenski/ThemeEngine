@@ -23,9 +23,6 @@
 @property (weak) IBOutlet CFTGradientEditor *gradientEditor;
 @property (weak) IBOutlet TEGradientView *gradientPreview;
 
-@property CGFloat angle;
-@property (getter=isRadial) BOOL radial;
-
 - (void)changeDoubleSided:(NSButton *)checkBox;
 
 @end

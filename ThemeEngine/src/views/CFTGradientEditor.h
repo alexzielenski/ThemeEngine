@@ -9,12 +9,13 @@
 #import <Cocoa/Cocoa.h>
 #import "CUIPSDGradientDoubleColorStop.h"
 #import "CUIPSDGradientDoubleOpacityStop.h"
-#import "CUIThemeGradient.h"
+#import "CFTGradient.h"
 #import "CUIPSDGradientStop+KVO.h"
 
 @interface CFTGradientEditor : NSView
 @property (readonly, strong) CUIPSDGradientStop *selectedStop;
-@property (strong) CUIThemeGradient *gradient;
+@property (strong) CFTGradient *gradientWrapper;
+@property (readonly) CUIThemeGradient *gradient;
 @property (strong) NSArray *colorStops;
 @property (strong) NSArray *opacityStops;
 @property (strong) NSArray *colorMidpointStops;

@@ -520,7 +520,7 @@ Gw
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gWX-Tm-3WQ">
                     <rect key="frame" x="80" y="230" width="60" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Ce1-87-hKX">
-                        <numberFormatter key="formatter" formatterBehavior="custom10_4" negativeFormat="#" generatesDecimalNumbers="YES" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="%" negativeSuffix="%" id="YF0-mQ-Drd">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" negativeFormat="#" generatesDecimalNumbers="YES" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="%" id="YF0-mQ-Drd">
                             <integer key="multiplier" value="100"/>
                             <real key="minimum" value="0.0"/>
                             <real key="maximum" value="100"/>
@@ -1171,9 +1171,6 @@ Gw
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
-                    <connections>
-                        <binding destination="41D-z0-JOq" name="value" keyPath="radial" id="Cqo-tq-8FP"/>
-                    </connections>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PCc-b3-i7D">
                     <rect key="frame" x="69" y="18" width="18" height="18"/>
@@ -1181,6 +1178,9 @@ Gw
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.gradientWrapper.radial" id="5aL-3N-vru"/>
+                    </connections>
                 </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zk9-M7-M1g">
                     <rect key="frame" x="71" y="40" width="39" height="19"/>
@@ -1194,7 +1194,7 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="41D-z0-JOq" name="value" keyPath="angle" id="uuF-a9-IOf"/>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.gradientWrapper.angle" id="0UC-hJ-KuP"/>
                     </connections>
                 </textField>
             </subviews>

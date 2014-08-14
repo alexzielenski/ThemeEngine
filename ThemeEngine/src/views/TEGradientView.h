@@ -7,9 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "CUIThemeGradient.h"
+#import "CFTGradient.h"
+
 @interface TEGradientView : NSView
-@property (strong) CUIThemeGradient *gradient;
-@property (assign) CGFloat angle;
-@property (assign, getter=isRadial) BOOL radial;
+@property (strong) CFTGradient *gradient;
 @end

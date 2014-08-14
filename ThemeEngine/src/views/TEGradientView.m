@@ -38,16 +38,16 @@
 }
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"angle"];
+    [self removeObserver:self forKeyPath:@"gradient.angle"];
     [self removeObserver:self forKeyPath:@"gradient"];
-    [self removeObserver:self forKeyPath:@"radial"];
+    [self removeObserver:self forKeyPath:@"gradient.radial"];
 }
 
 void *kCHDirtyContext;
 - (void)_initialize {
-    [self addObserver:self forKeyPath:@"angle" options:0 context:&kCHDirtyContext];
+    [self addObserver:self forKeyPath:@"gradient.angle" options:0 context:&kCHDirtyContext];
     [self addObserver:self forKeyPath:@"gradient" options:0 context:&kCHDirtyContext];
-    [self addObserver:self forKeyPath:@"radial" options:0 context:&kCHDirtyContext];
+    [self addObserver:self forKeyPath:@"gradient.radial" options:0 context:&kCHDirtyContext];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -62,10 +62,13 @@ void *kCHDirtyContext;
     [[NSColor whiteColor] set];
     NSRectFill(self.bounds);
     // Drawing code here.
-    if (self.isRadial) {
-//        [self.gradient drawInRect:self.bounds relativeCenterPosition:NSMakePoint(0, 0)];
+    if (self.gradient.isRadial) {
+        [self.gradient.themeGradient drawInRect:self.bounds relativeCenterPosition:NSMakePoint(NSMidX(self.bounds), NSMidY(self.bounds)) withContext:[[NSGraphicsContext currentContext] graphicsPort]];
     } else {
-        [self.gradient drawInRect:self.bounds angle:self.angle withContext:[[NSGraphicsContext currentContext] graphicsPort]];
+        [self.gradient.themeGradient
+         drawInRect:self.bounds
+         angle:self.gradient.angle
+         withContext:[[NSGraphicsContext currentContext] graphicsPort]];
     }
 }
 

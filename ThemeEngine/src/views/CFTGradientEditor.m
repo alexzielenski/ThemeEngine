@@ -169,7 +169,9 @@ static void *kCFTStopContext;
 @end
 
 @implementation CFTGradientEditor
-@dynamic evaluator, colorStops, colorMidpointStops, opacityStops, opacityMidpointStops, colorMidpointLocations, opacityMidpointLocations;
+@dynamic evaluator, colorStops, colorMidpointStops, opacityStops, opacityMidpointStops, colorMidpointLocations, opacityMidpointLocations, gradient;
+
+#pragma mark - Initialization
 
 - (instancetype)initWithFrame:(NSRect)frameRect {
     if ((self = [super initWithFrame:frameRect])) {
@@ -249,16 +251,16 @@ static void *kCFTStopContext;
     CUIPSDGradientOpacityStop *originalOpacity1 = [CUIPSDGradientOpacityStop opacityStopWithLocation:0.0 opacity:1.0];
     CUIPSDGradientOpacityStop *originalOpacity2 = [CUIPSDGradientOpacityStop opacityStopWithLocation:0.0 opacity:0.5];
     
-    self.gradient = [[CUIThemeGradient alloc] _initWithGradientEvaluator:[[CUIPSDGradientEvaluator alloc] initWithColorStops:@[ originalStop1, originalStop2]
-                                                                                                              colorMidpoints:@[ @0.5 ]
-                                                                                                                opacityStops:@[ originalOpacity1, originalOpacity2 ]
-                                                                                                            opacityMidpoints:@[ @0.5 ]
-                                                                                                        smoothingCoefficient:1.0
-                                                                                                             fillCoefficient:1.0] colorSpace:[[NSColorSpace sRGBColorSpace] CGColorSpace]];
+    self.gradientWrapper = [CFTGradient gradientWithThemeGradient:[[CUIThemeGradient alloc] _initWithGradientEvaluator:[[CUIPSDGradientEvaluator alloc] initWithColorStops:@[ originalStop1, originalStop2]
+                                                                                                                                                            colorMidpoints:@[ @0.5 ]
+                                                                                                                                                              opacityStops:@[ originalOpacity1, originalOpacity2 ]
+                                                                                                                                                          opacityMidpoints:@[ @0.5 ]
+                                                                                                                                                      smoothingCoefficient:1.0
+                                                                                                                                                           fillCoefficient:1.0] colorSpace:[[NSColorSpace sRGBColorSpace] CGColorSpace]]
+                                                            angle:90
+                                                            style:CUIGradientStyleLinear];
 }
-// http://stackoverflow.com/questions/7792622/manual-retain-with-arc
-#define AntiARCRetain(...) { void *retainedThing = (__bridge_retained void *)__VA_ARGS__; retainedThing = retainedThing; }
-#define AntiARCRelease(...) { void *retainedThing = (__bridge void *) __VA_ARGS__; id unretainedThing = (__bridge_transfer id)retainedThing; unretainedThing = nil; }
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"gradient"]) {
         [self _repositionStops];
@@ -269,20 +271,13 @@ static void *kCFTStopContext;
         [self layerForStop:oldStop].selected = NO;
         [self layerForStop:self.selectedStop].selected = YES;
     } else if (context == &kCFTStopContext) {
-//        if ([keyPath isEqualToString:@"location"]) {
-//            NSArray *__unsafe_unretained*colorMidpoints = &ZKHookIvar(self.evaluator, NSArray *, "colorMidpointLocations");
-//            *colorMidpoints = self.colorMidpointLocations;
-//            AntiARCRetain(*colorMidpoints)
-//            
-//            NSArray *__unsafe_unretained*opacityMidpoints = &ZKHookIvar(self.evaluator, NSArray *, "opacityMidpointLocations");
-//            *opacityMidpoints = self.opacityMidpointLocations;
-//            AntiARCRetain(*opacityMidpoints)
-//        }
         [self _synchronizeEvaluatorWithStops];
         [self.gradientLayer setNeedsLayout];
     }
          
 }
+
+#pragma mark - Display
 
 - (void)_repositionStops {
     [self setColorStops:self.evaluator.colorStops];
@@ -338,6 +333,91 @@ static void *kCFTStopContext;
     
     [self.gradientLayer setNeedsLayout];
     [self.gradientLayer setNeedsDisplay];
+}
+
+- (CUIThemeGradient *)gradient {
+    return self.gradientWrapper.themeGradient;
+}
+
++ (NSSet *)keyPathsForValuesAffectingGradient {
+    return [NSSet setWithObject:@"gradientWrapper"];
+}
+
+- (void)layoutSublayersOfLayer:(CALayer *)superLayer {
+    // Reposition stops
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    NSArray *sort = @[ [NSSortDescriptor sortDescriptorWithKey:@"stop.location" ascending:YES] ];
+    [self.colorStopLayers sortUsingDescriptors:sort];
+    [self.opacityStopLayers sortUsingDescriptors:sort];
+    
+    for (CFTGradientStopLayer *layer in self.colorStopLayers) {
+        layer.position = CGPointMake(superLayer.bounds.size.width * layer.stop.location, 0);
+    }
+    
+    for (CFTGradientStopLayer *layer in self.opacityStopLayers) {
+        layer.position = CGPointMake(superLayer.bounds.size.width * layer.stop.location, superLayer.bounds.size.height);
+    }
+    
+    for (NSUInteger x = 0; x < self.colorMidpointStopLayers.count; x++) {
+        CFTGradientStopLayer *layer = self.colorMidpointStopLayers[x];
+        CFTGradientStopLayer *before = self.colorStopLayers[x];
+        CFTGradientStopLayer *after = self.colorStopLayers[x+1];
+        
+        layer.position = CGPointMake(before.position.x + (after.position.x - before.position.x) * layer.stop.location, 0);
+    }
+    
+    for (NSUInteger x = 0; x < self.opacityMidpointStopLayers.count; x++) {
+        CFTGradientStopLayer *layer = self.opacityMidpointStopLayers[x];
+        CFTGradientStopLayer *before = self.opacityStopLayers[x];
+        CFTGradientStopLayer *after = self.opacityStopLayers[x+1];
+        
+        layer.position = CGPointMake(before.position.x + (after.position.x - before.position.x) * layer.stop.location, superLayer.bounds.size.height);
+    }
+    [CATransaction commit];
+}
+
+- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
+    [self.gradient drawInRect:layer.bounds angle:0 withContext:ctx];
+}
+
+- (void)_synchronizeEvaluatorWithStops {
+    CUIPSDGradientEvaluator *evaluator = self.evaluator;
+    [evaluator setColorStops:self.colorStops midpoints:self.colorMidpointLocations];
+    [evaluator setOpacityStops:self.opacityStops midpoints:self.opacityMidpointLocations];
+    [self _invalidateGradient];
+}
+
+- (void)_invalidateGradient {
+    // Remove CUIThemeGradient's cached shader so it generates a new drawing method
+    CGFunctionRef *shader = &ZKHookIvar(self.gradient, CGFunctionRef, "colorShader");
+    if (shader != NULL  && *shader != NULL) {
+        CGFunctionRelease(*shader);
+        *shader = NULL;
+    }
+    
+    [self.gradientLayer setNeedsDisplay];
+    
+    if ([self.target respondsToSelector:self.action]) {
+        ((void (*)(id, SEL, CFTGradientEditor *))[self.target methodForSelector:self.action])(self.target, self.action, self);
+    }
+}
+
+#pragma mark - Color Stops
+
+- (CFTGradientStopLayer *)layerForStop:(CUIPSDGradientStop *)stop {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stop == %@", stop];
+    if (stop.isColorStop) {
+        return [[self.colorStopLayers filteredArrayUsingPredicate:predicate] firstObject];
+    } else if (stop.isOpacityStop) {
+        return [[self.opacityStopLayers filteredArrayUsingPredicate:predicate] firstObject];
+    }
+    
+    CFTGradientStopLayer *layer = [[self.colorMidpointStopLayers filteredArrayUsingPredicate:predicate] firstObject];;
+    if (!layer) {
+        layer = [[self.opacityMidpointStopLayers filteredArrayUsingPredicate:predicate] firstObject];;
+    }
+    return layer;
 }
 
 - (void)setColorStops:(NSArray *)colorStops {
@@ -553,47 +633,11 @@ static void *kCFTStopContext;
     return [self.opacityMidpointStopLayers valueForKey:@"stop"];
 }
 
-- (void)layoutSublayersOfLayer:(CALayer *)superLayer {
-    // Reposition stops
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    NSArray *sort = @[ [NSSortDescriptor sortDescriptorWithKey:@"stop.location" ascending:YES] ];
-    [self.colorStopLayers sortUsingDescriptors:sort];
-    [self.opacityStopLayers sortUsingDescriptors:sort];
-    
-    for (CFTGradientStopLayer *layer in self.colorStopLayers) {
-        layer.position = CGPointMake(superLayer.bounds.size.width * layer.stop.location, 0);
-    }
-    
-    for (CFTGradientStopLayer *layer in self.opacityStopLayers) {
-        layer.position = CGPointMake(superLayer.bounds.size.width * layer.stop.location, superLayer.bounds.size.height);
-    }
-
-    for (NSUInteger x = 0; x < self.colorMidpointStopLayers.count; x++) {
-        CFTGradientStopLayer *layer = self.colorMidpointStopLayers[x];
-        CFTGradientStopLayer *before = self.colorStopLayers[x];
-        CFTGradientStopLayer *after = self.colorStopLayers[x+1];
-        
-        layer.position = CGPointMake(before.position.x + (after.position.x - before.position.x) * layer.stop.location, 0);
-    }
-    
-    for (NSUInteger x = 0; x < self.opacityMidpointStopLayers.count; x++) {
-        CFTGradientStopLayer *layer = self.opacityMidpointStopLayers[x];
-        CFTGradientStopLayer *before = self.opacityStopLayers[x];
-        CFTGradientStopLayer *after = self.opacityStopLayers[x+1];
-        
-        layer.position = CGPointMake(before.position.x + (after.position.x - before.position.x) * layer.stop.location, superLayer.bounds.size.height);
-    }
-    [CATransaction commit];
-}
-
 - (CUIPSDGradientEvaluator *)evaluator {
     return [self.gradient valueForKey:@"gradientEvaluator"];
 }
 
-- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
-    [self.gradient drawInRect:layer.bounds angle:0 withContext:ctx];
-}
+#pragma mark - Mouse Actions
 
 - (void)mouseDown:(NSEvent *)event {
     NSPoint windowPoint = event.locationInWindow;
@@ -668,28 +712,6 @@ static void *kCFTStopContext;
     }
 }
 
-- (void)_synchronizeEvaluatorWithStops {
-    CUIPSDGradientEvaluator *evaluator = self.evaluator;
-    [evaluator setColorStops:self.colorStops midpoints:self.colorMidpointLocations];
-    [evaluator setOpacityStops:self.opacityStops midpoints:self.opacityMidpointLocations];
-    [self _invalidateGradient];
-}
-
-- (void)_invalidateGradient {
-    // Remove CUIThemeGradient's cached shader so it generates a new drawing method
-    CGFunctionRef *shader = &ZKHookIvar(self.gradient, CGFunctionRef, "colorShader");
-    if (shader != NULL  && *shader != NULL) {
-        CGFunctionRelease(*shader);
-        *shader = NULL;
-    }
-    
-    [self.gradientLayer setNeedsDisplay];
-    
-    if ([self.target respondsToSelector:self.action]) {
-        ((void (*)(id, SEL, CFTGradientEditor *))[self.target methodForSelector:self.action])(self.target, self.action, self);
-    }
-}
-
 - (void)mouseUp:(NSEvent *)event {
     if ([[NSCursor currentCursor] isEqual:[NSCursor disappearingItemCursor]]) {
         [self _removeStopLayer:self.draggedLayer];
@@ -714,21 +736,6 @@ static void *kCFTStopContext;
     if ([self.selectedStop isKindOfClass:[CUIPSDGradientColorStop class]]) {
         self.selectedStop.gradientColorValue = colorPanel.color;
     }
-}
-
-- (CFTGradientStopLayer *)layerForStop:(CUIPSDGradientStop *)stop {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"stop == %@", stop];
-    if (stop.isColorStop) {
-        return [[self.colorStopLayers filteredArrayUsingPredicate:predicate] firstObject];
-    } else if (stop.isOpacityStop) {
-        return [[self.opacityStopLayers filteredArrayUsingPredicate:predicate] firstObject];
-    }
-    
-    CFTGradientStopLayer *layer = [[self.colorMidpointStopLayers filteredArrayUsingPredicate:predicate] firstObject];;
-    if (!layer) {
-        layer = [[self.opacityMidpointStopLayers filteredArrayUsingPredicate:predicate] firstObject];;
-    }
-    return layer;
 }
 
 @end

@@ -59,7 +59,7 @@
 
 // Gradients
 @property (weak) IBOutlet TEGradientStopViewController *gradientViewController;
-@property (strong) CUIThemeGradient *gradient;
+@property (copy) CFTGradient *gradient;
 
 // Effects
 @property (weak) IBOutlet NSTableView *effectTableView;
