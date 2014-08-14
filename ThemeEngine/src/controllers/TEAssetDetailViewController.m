@@ -89,14 +89,17 @@
         switch (self.asset.type) {
             case kCoreThemeTypeEffect:
                 content = self.effectView;
+                NSColorPanel.sharedColorPanel.showsAlpha = NO;
                 [self.inspector insertView:self.effectPanel withTitle:@"Layer Effects" atIndex:0 expanded:YES];
                 break;
             case kCoreThemeTypeColor:
                 content = self.colorView;
+                NSColorPanel.sharedColorPanel.showsAlpha = YES;
                 [self.inspector insertView:self.colorPanel withTitle:@"Color" atIndex:0 expanded:YES];
                 break;
             case kCoreThemeTypeGradient:
                 content = self.gradientView;
+                NSColorPanel.sharedColorPanel.showsAlpha = YES;
                 [self.inspector insertView:self.gradientPanel withTitle:@"Gradient" atIndex:0 expanded:YES];
                 break;
             case kCoreThemeTypePDF:

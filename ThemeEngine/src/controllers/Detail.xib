@@ -1153,11 +1153,11 @@ Gw
             <point key="canvasLocation" x="1232.5" y="160"/>
         </customView>
         <customView wantsLayer="YES" id="FuC-gm-cz0" userLabel="Gradient Panel">
-            <rect key="frame" x="0.0" y="0.0" width="233" height="79"/>
+            <rect key="frame" x="0.0" y="0.0" width="233" height="133"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cQW-Lh-KUX">
-                    <rect key="frame" x="22" y="42" width="43" height="17"/>
+                    <rect key="frame" x="64" y="94" width="43" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Angle:" id="qEb-1L-1uX">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1165,27 +1165,17 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ae8-02-4QX">
-                    <rect key="frame" x="18" y="20" width="47" height="17"/>
+                    <rect key="frame" x="60" y="47" width="47" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Radial:" id="iyt-IK-bN6">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PCc-b3-i7D">
-                    <rect key="frame" x="69" y="18" width="18" height="18"/>
-                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" state="on" inset="2" id="ZOO-HO-ubl">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.gradientWrapper.radial" id="5aL-3N-vru"/>
-                    </connections>
-                </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zk9-M7-M1g">
-                    <rect key="frame" x="71" y="40" width="39" height="19"/>
+                    <rect key="frame" x="113" y="94" width="39" height="19"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="90°" drawsBackground="YES" id="lU3-4Y-OhC">
-                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#°" negativeFormat="#°" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" id="kN7-qD-WjU">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" negativeFormat="#" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="°" negativeSuffix="°" id="kN7-qD-WjU">
                             <real key="minimum" value="0.0"/>
                             <real key="maximum" value="360"/>
                         </numberFormatter>
@@ -1197,8 +1187,60 @@ Gw
                         <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.gradientWrapper.angle" id="0UC-hJ-KuP"/>
                     </connections>
                 </textField>
+                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y8U-Us-rSS">
+                    <rect key="frame" x="47" y="22" width="60" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Dithered:" id="ss1-Ys-68T">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qU6-Zw-gsM">
+                    <rect key="frame" x="111" y="18" width="18" height="18"/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" state="on" inset="2" id="VFF-AE-kaV">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.gradientWrapper.dithered" id="AdX-Bh-mb2"/>
+                    </connections>
+                </button>
+                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tad-gc-yiI">
+                    <rect key="frame" x="22" y="72" width="85" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Smoothness:" id="gSX-Zi-2fJ">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YlH-Gy-Oty">
+                    <rect key="frame" x="113" y="70" width="39" height="19"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="100%" drawsBackground="YES" id="Aqj-X7-B4M">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" negativeFormat="#" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="%" negativeSuffix="%" id="QA7-ET-NjU">
+                            <integer key="multiplier" value="100"/>
+                            <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="360"/>
+                        </numberFormatter>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.gradientWrapper.smoothingCoefficient" id="z5W-md-zZc"/>
+                    </connections>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PCc-b3-i7D">
+                    <rect key="frame" x="111" y="45" width="18" height="18"/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" state="on" inset="2" id="ZOO-HO-ubl">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.gradientWrapper.radial" id="5aL-3N-vru"/>
+                    </connections>
+                </button>
             </subviews>
-            <point key="canvasLocation" x="1232.5" y="169.5"/>
+            <point key="canvasLocation" x="1232.5" y="196.5"/>
         </customView>
         <customView wantsLayer="YES" id="HPS-kx-vgd" userLabel="Effect Panel" customClass="NSTableView">
             <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>

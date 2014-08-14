@@ -62,7 +62,8 @@ static CUIPSDGradientEvaluator *evaluatorFromGradient(CUIThemeGradient *gradient
                                                      opacityMidpoints:opacityMidpints
                                                  smoothingCoefficient:smoothing
                                                             fillColor:[CUIColor colorWithCGColor:[fillColor CGColor]]
-                                                           colorSpace:[[NSColorSpace sRGBColorSpace] CGColorSpace]];
+                                                           colorSpace:[[NSColorSpace sRGBColorSpace] CGColorSpace]
+                                                               dither:dither];
     }
     
     return self;
@@ -165,42 +166,63 @@ static CUIPSDGradientEvaluator *evaluatorFromGradient(CUIThemeGradient *gradient
 }
 
 - (BOOL)isDithered {
-    return self.themeGradient.isDithered;
+    _gradientFlags pgeFlags = ZKHookIvar(self.evaluator, _gradientFlags, "pgeFlags");
+    return pgeFlags.isDithered;
 }
 
-//!TODO Implement these
-
-//!TODO The below method is incorrect, set the gradientColor property on each object
-/*
+//!TODO Implement the rest
 - (void)setColorStops:(NSArray *)colors {
     NSMutableArray *cgColors = [NSMutableArray array];
     for (NSUInteger idx = 0; idx < colors.count; idx++) {
-        NSColor *color = colors[idx];
-        [cgColors addObject:[CUIColor colorWithCGColor:[color CGColor]]];
+        NSColor *color = [colors[idx] colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
+        CGFloat location = 0.0;
+        if (idx < self.evaluator.colorStops.count)
+            location = [self.evaluator.colorStops[idx] location];
+        struct _psdGradientColor psd;
+        psd.red = color.redComponent;
+        psd.green = color.greenComponent;
+        psd.blue = color.blueComponent;
+        psd.alpha = color.alphaComponent;
+        CUIPSDGradientColorStop *stop = [CUIPSDGradientColorStop colorStopWithLocation:location
+                                                                         gradientColor:psd];
+        [cgColors addObject:stop];
     }
 
     NSArray *__unsafe_unretained*colorStops = &ZKHookIvar(self.evaluator, NSArray *, "colorStops");
-    AntiARCRelease(*colorStops);
-    
+    if (*colorStops)
+        AntiARCRelease(*colorStops);
     AntiARCRetain(cgColors);
     *colorStops = cgColors;
-}*/
+}
 
 - (void)setColorMidpoints:(NSArray *)colorMidpoints {
     NSArray *__unsafe_unretained*midpoints = &ZKHookIvar(self.evaluator, NSArray *, "colorMidpointLocations");
-    AntiARCRelease(*midpoints);
+    if (*midpoints)
+        AntiARCRelease(*midpoints);
     AntiARCRetain(colorMidpoints);
     *midpoints = colorMidpoints;
 }
 
 - (void)setColorLocations:(NSArray *)colorLocations {
-    if (colorLocations.count != self.evaluator.colorStops.count)
+    if (colorLocations.count != self.evaluator.colorStops.count) {
+        NSLog(@"Invalid number of color locations. Must be equal to color stops");
         return;
+    }
     
     for (NSUInteger x = 0; x < colorLocations.count; x++ ) {
         CUIPSDGradientStop *stop = self.evaluator.colorStops[x];
         stop.location = [colorLocations[x] doubleValue];
     }
+}
+
+- (void)setDithered:(BOOL)dithered {
+    _gradientFlags *pgeFlags = &ZKHookIvar(self.evaluator, _gradientFlags, "pgeFlags");
+    pgeFlags->isDithered = dithered;
+}
+
+- (void)setSmoothingCoefficient:(CGFloat)smoothingCoefficient {
+    double *original = &ZKHookIvar(self.evaluator, double, "smoothingCoefficient");
+    *original = smoothingCoefficient;
 }
 
 

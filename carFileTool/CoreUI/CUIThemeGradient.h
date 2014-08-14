@@ -35,7 +35,7 @@
 - (NSArray *)colorStops;
 //- (id)_colorFromPSDGradientColor:(struct _psdGradientColor)arg1;
 - (id)initWithColors:(NSArray *)arg1 colorlocations:(NSArray *)arg2 colorMidpoints:(NSArray *)arg3 opacities:(NSArray *)arg4 opacityLocations:(NSArray *)arg5 opacityMidpoints:(NSArray *)arg6 smoothingCoefficient:(CGFloat)arg7 fillColor:(CUIColor *)arg8 colorSpace:(CGColorSpaceRef)arg9 dither:(BOOL)arg10;
-- (id)initWithColors:(NSArray *)arg1 colorlocations:(NSArray *)arg2 colorMidpoints:(id)arg3 opacities:(NSArray *)arg4 opacityLocations:(NSArray *)arg5 opacityMidpoints:(NSArray *)arg6 smoothingCoefficient:(CGFloat)arg7 fillColor:(CUIColor *)arg8 colorSpace:(CGColorSpaceRef)arg9;
+- (id)initWithColors:(NSArray *)arg1 colorlocations:(NSArray *)arg2 colorMidpoints:(NSArray *)arg3 opacities:(NSArray *)arg4 opacityLocations:(NSArray *)arg5 opacityMidpoints:(NSArray *)arg6 smoothingCoefficient:(CGFloat)arg7 fillColor:(CUIColor *)arg8 colorSpace:(CGColorSpaceRef)arg9;
 - (id)_initWithGradientEvaluator:(CUIPSDGradientEvaluator *)arg1 colorSpace:(CGColorSpaceRef)arg2;
 - (id)_psdGradientColorStopsWithColors:(NSArray *)arg1 locations:(NSArray *)arg2 colorSpace:(CGColorSpaceRef)arg3;
 - (struct _psdGradientColor)_psdGradientColorWithColor:(CGColorRef)arg1 colorSpace:(CGColorSpaceRef)arg2;

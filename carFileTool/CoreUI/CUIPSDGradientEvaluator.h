@@ -4,7 +4,12 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-
+typedef struct {
+    unsigned int colorEdgePixel:2;
+    unsigned int opacityEdgePixel:2;
+    unsigned int isDithered:1;
+    unsigned int reserved:3;
+} _gradientFlags;
 
 @interface CUIPSDGradientEvaluator : NSObject <NSCoding, NSCopying>
 {
@@ -15,12 +20,7 @@
     double smoothingCoefficient;
     id /*struct _psdGradientColor*/ fillColor;
     int blendMode;
-    struct {
-        unsigned int colorEdgePixel:2;
-        unsigned int opacityEdgePixel:2;
-        unsigned int isDithered:1;
-        unsigned int reserved:3;
-    } pgeFlags;
+    _gradientFlags pgeFlags;
 }
 
 + (void)initialize;
