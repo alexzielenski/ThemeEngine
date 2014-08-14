@@ -11,6 +11,20 @@
 #import <Quartz/Quartz.h>
 #import "CFTAsset+Pasteboard.h"
 #import "NSColor+Pasteboard.h"
+#import <CommonCrypto/CommonDigest.h>
+
+// Stolen from facebook
+static NSString *md5(NSString *input) {
+    const char* str = [input UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(str, (CC_LONG)strlen(str), result);
+    
+    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH*2];
+    for(int i = 0; i<CC_MD5_DIGEST_LENGTH; i++) {
+        [ret appendFormat:@"%02x",result[i]];
+    }
+    return ret;
+}
 
 @interface TEElementViewController ()
 @property (strong) NSArray *assets;
@@ -368,9 +382,10 @@
     
     NSImage *previewImage = asset.previewImage;
     NSImageRep *rep = previewImage.representations[0];
-    NSString *tempPath = [[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier] stringByAppendingPathComponent:asset.imageUID];
+    NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier] stringByAppendingPathComponent:md5(asset.imageUID)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSFileManager *manager = [NSFileManager defaultManager];
     if ([rep isKindOfClass:[NSPDFImageRep class]]) {
+        
         tempPath = [tempPath stringByAppendingPathExtension:@"pdf"];
         if (![manager fileExistsAtPath:tempPath])
             [[(NSPDFImageRep *)rep PDFRepresentation] writeToFile:tempPath atomically:NO];
