@@ -238,4 +238,5 @@ extern NSString *CoreThemePresentationStateToString(CoreThemePresentationState v
 extern NSString *CoreThemeLayoutToString(CoreThemeLayout value);
 extern NSString *CFTScaleToString(double scale);
 extern NSString *CUIEffectTypeToString(CUIEffectType value);
+extern BOOL CoreThemeTypeIsBitmap(CoreThemeType type);
 #endif

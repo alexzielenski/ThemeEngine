@@ -12,6 +12,7 @@
 #import "CFTAsset+Pasteboard.h"
 #import "NSColor+Pasteboard.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "TEPhotoshopController.h"
 
 // Stolen from facebook
 static NSString *md5(NSString *input) {
@@ -174,19 +175,49 @@ static NSString *md5(NSString *input) {
     [self.imageBrowserView reloadData];
 }
 
+#pragma mark - Actions
+
 - (IBAction)paste:(id)sender {
     [self _pasteFromPasteboard:[NSPasteboard generalPasteboard] atIndices:self.imageBrowserView.selectionIndexes];
 }
 
+- (IBAction)sendToPhotoshop:(id)sender {
+    NSIndexSet *indices = [self.imageBrowserView.selectionIndexes indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
+        return [self.filteredAssets[idx] image] != nil;
+    }];
+    
+    [[TEPhotoshopController sharedPhotoshopController] sendImagesToPhotoshop:[self.filteredAssets valueForKeyPath:@"image"]
+                                                                  withLayout:indices
+                                                                  dimensions:NSMakeSize(self.imageBrowserView.numberOfColumns, self.imageBrowserView.numberOfRows)];
+}
+
+- (IBAction)receiveFromPhotoshop:(id)sender {
+    NSArray *received = [TEPhotoshopController.sharedPhotoshopController receiveImagesFromPhotoshop];
+    
+    __block NSUInteger currentRepIndex = 0;
+    [self.imageBrowserView.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        NSBitmapImageRep *rep = nil;
+        if (currentRepIndex < received.count)
+            rep = received[currentRepIndex];
+        else
+            rep = received[currentRepIndex % received.count];
+        
+        CFTAsset *asset = self.filteredAssets[idx];
+        if (CoreThemeTypeIsBitmap(asset.type)) {
+            asset.image = rep;
+            
+            currentRepIndex++;
+        }
+    }];
+}
+
+#pragma mark - IKImageBrowserView
 
 - (NSUInteger)imageBrowser:(IKImageBrowserView *) aBrowser writeItemsAtIndexes:(NSIndexSet *) itemIndexes toPasteboard:(NSPasteboard *)pasteboard {
     [pasteboard clearContents];
     [pasteboard writeObjects:[self.filteredAssets objectsAtIndexes:itemIndexes]];
     return itemIndexes.count;
 }
-
-
-#pragma mark - IKImageBrowserView
 
 - (void)imageBrowser:(IKImageBrowserView *)browser cellWasDoubleClickedAtIndex:(NSUInteger)index {
     // open up popover where the user can edit shit like gradients, effects

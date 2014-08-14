@@ -18,6 +18,7 @@
 		FA6BEDBE1999F9FA006BF951 /* CFTEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6BEDBB1999D5CE006BF951 /* CFTEffect.m */; };
 		FA7B5F78199600FF00D0B2AD /* TEAssetDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7B5F76199600FF00D0B2AD /* TEAssetDetailViewController.m */; };
 		FA7B5F79199600FF00D0B2AD /* Detail.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7B5F77199600FF00D0B2AD /* Detail.xib */; };
+		FA7C1EE5199D422000AE156A /* TEPhotoshopController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EE4199D422000AE156A /* TEPhotoshopController.m */; };
 		FA98319F199BB9FD00739B89 /* NSColor+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA9831A2199BD02000739B89 /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A1199BD02000739B89 /* CFTGradient.m */; };
 		FA9831A3199BD23E00739B89 /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A1199BD02000739B89 /* CFTGradient.m */; };
@@ -82,6 +83,9 @@
 		FA7B5F75199600FF00D0B2AD /* TEAssetDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEAssetDetailViewController.h; path = src/controllers/TEAssetDetailViewController.h; sourceTree = "<group>"; };
 		FA7B5F76199600FF00D0B2AD /* TEAssetDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEAssetDetailViewController.m; path = src/controllers/TEAssetDetailViewController.m; sourceTree = "<group>"; };
 		FA7B5F77199600FF00D0B2AD /* Detail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Detail.xib; path = src/controllers/Detail.xib; sourceTree = "<group>"; };
+		FA7C1EE3199D422000AE156A /* TEPhotoshopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEPhotoshopController.h; path = src/controllers/TEPhotoshopController.h; sourceTree = "<group>"; };
+		FA7C1EE4199D422000AE156A /* TEPhotoshopController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEPhotoshopController.m; path = src/controllers/TEPhotoshopController.m; sourceTree = "<group>"; };
+		FA7C1EE7199D460500AE156A /* Photoshop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photoshop.h; sourceTree = "<group>"; };
 		FA98319D199BB9FD00739B89 /* NSColor+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+Pasteboard.h"; path = "src/categories/NSColor+Pasteboard.h"; sourceTree = "<group>"; };
 		FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+Pasteboard.m"; path = "src/categories/NSColor+Pasteboard.m"; sourceTree = "<group>"; };
 		FA9831A0199BD02000739B89 /* CFTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTGradient.h; path = src/CFTGradient.h; sourceTree = "<group>"; };
@@ -190,6 +194,15 @@
 			path = ZKInspector;
 			sourceTree = "<group>";
 		};
+		FA7C1EE6199D460500AE156A /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				FA7C1EE7199D460500AE156A /* Photoshop.h */,
+			);
+			name = headers;
+			path = src/headers;
+			sourceTree = "<group>";
+		};
 		FACFC2BE199485E900ED936C = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +280,7 @@
 		FACFC31D1995A21700ED936C /* ThemeEngine */ = {
 			isa = PBXGroup;
 			children = (
+				FA7C1EE6199D460500AE156A /* headers */,
 				FA472A9D19985AB4003631BC /* external */,
 				FACFC3461995A3B700ED936C /* TEAppDelegate.h */,
 				FACFC3471995A3B700ED936C /* TEAppDelegate.m */,
@@ -281,24 +295,10 @@
 				FA7B5F77199600FF00D0B2AD /* Detail.xib */,
 				FAEC5263199C4FEA00045AFA /* TEGradientStopViewController.h */,
 				FAEC5264199C4FEA00045AFA /* TEGradientStopViewController.m */,
-				FAF726CD199719D500CC2366 /* TEImageSliceView.h */,
-				FAF726CE199719D500CC2366 /* TEImageSliceView.m */,
-				FA6BEDB41999B8D1006BF951 /* TEGradientView.h */,
-				FA6BEDB51999B8D1006BF951 /* TEGradientView.m */,
-				FA0A02EF199AD112000F56A2 /* CFTAsset+Pasteboard.h */,
-				FA0A02F0199AD112000F56A2 /* CFTAsset+Pasteboard.m */,
-				FA0A02F5199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.h */,
-				FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */,
-				FA0A02F8199AD8B8000F56A2 /* CFTGradient+Pasteboard.h */,
-				FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */,
-				FA98319D199BB9FD00739B89 /* NSColor+Pasteboard.h */,
-				FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */,
-				FA9831A5199BE36300739B89 /* CFTGradientEditor.h */,
-				FA9831A6199BE36300739B89 /* CFTGradientEditor.m */,
-				FAEC5266199C526900045AFA /* CUIPSDGradientStop+KVO.h */,
-				FAEC5267199C526900045AFA /* CUIPSDGradientStop+KVO.m */,
-				FAEC528C199C828900045AFA /* CUIThemeGradient+Radial.h */,
-				FAEC528D199C828900045AFA /* CUIThemeGradient+Radial.m */,
+				FA7C1EE3199D422000AE156A /* TEPhotoshopController.h */,
+				FA7C1EE4199D422000AE156A /* TEPhotoshopController.m */,
+				FAEC5293199D401800045AFA /* Views */,
+				FAEC5292199D401200045AFA /* Categories */,
 				FACFC3281995A21700ED936C /* Images.xcassets */,
 				FACFC32A1995A21700ED936C /* MainMenu.xib */,
 				FACFC33F1995A22A00ED936C /* Supporting Files */,
@@ -322,6 +322,38 @@
 				FAEC526F199C570000045AFA /* ZKSwizzle.m */,
 			);
 			path = ZKSwizzle;
+			sourceTree = "<group>";
+		};
+		FAEC5292199D401200045AFA /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				FA0A02EF199AD112000F56A2 /* CFTAsset+Pasteboard.h */,
+				FA0A02F0199AD112000F56A2 /* CFTAsset+Pasteboard.m */,
+				FA0A02F5199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.h */,
+				FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */,
+				FA0A02F8199AD8B8000F56A2 /* CFTGradient+Pasteboard.h */,
+				FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */,
+				FA98319D199BB9FD00739B89 /* NSColor+Pasteboard.h */,
+				FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */,
+				FAEC5266199C526900045AFA /* CUIPSDGradientStop+KVO.h */,
+				FAEC5267199C526900045AFA /* CUIPSDGradientStop+KVO.m */,
+				FAEC528C199C828900045AFA /* CUIThemeGradient+Radial.h */,
+				FAEC528D199C828900045AFA /* CUIThemeGradient+Radial.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		FAEC5293199D401800045AFA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FAF726CD199719D500CC2366 /* TEImageSliceView.h */,
+				FAF726CE199719D500CC2366 /* TEImageSliceView.m */,
+				FA6BEDB41999B8D1006BF951 /* TEGradientView.h */,
+				FA6BEDB51999B8D1006BF951 /* TEGradientView.m */,
+				FA9831A5199BE36300739B89 /* CFTGradientEditor.h */,
+				FA9831A6199BE36300739B89 /* CFTGradientEditor.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,6 +472,7 @@
 				FAEC5279199C570000045AFA /* ZKSwizzle.m in Sources */,
 				FACFC3481995A3B700ED936C /* TEAppDelegate.m in Sources */,
 				FACFC3411995A26A00ED936C /* CFTElement.m in Sources */,
+				FA7C1EE5199D422000AE156A /* TEPhotoshopController.m in Sources */,
 				FA7B5F78199600FF00D0B2AD /* TEAssetDetailViewController.m in Sources */,
 				FA0A02F1199AD112000F56A2 /* CFTAsset+Pasteboard.m in Sources */,
 				FA98319F199BB9FD00739B89 /* NSColor+Pasteboard.m in Sources */,

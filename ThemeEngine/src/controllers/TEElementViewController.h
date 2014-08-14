@@ -19,4 +19,6 @@ IB_DESIGNABLE
 - (IBAction)searchChanged:(NSSearchField *)sender;
 
 - (IBAction)paste:(id)sender;
+- (IBAction)sendToPhotoshop:(id)sender;
+- (IBAction)receiveFromPhotoshop:(id)sender;
 @end

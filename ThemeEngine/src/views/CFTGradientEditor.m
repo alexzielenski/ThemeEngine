@@ -570,6 +570,10 @@ static void *kCFTStopContext;
 }
 
 - (void)_stopObservingStop:(CUIPSDGradientStop *)stop {
+    if (stop == self.selectedStop)
+        self.selectedStop = nil;
+    
+    
     [stop removeObserver:self forKeyPath:@"gradientColor" context:&kCFTStopContext];
     [stop removeObserver:self forKeyPath:@"opacity" context:&kCFTStopContext];
     [stop removeObserver:self forKeyPath:@"leadOutOpacity" context:&kCFTStopContext];
@@ -601,9 +605,6 @@ static void *kCFTStopContext;
 }
 
 - (void)_removeStopLayer:(CFTGradientStopLayer *)layer {
-    if (layer.stop == self.selectedStop)
-        self.selectedStop = nil;
-    
     [self _stopObservingStop:layer.stop];
     
     [layer removeFromSuperlayer];
@@ -648,6 +649,7 @@ static void *kCFTStopContext;
         
         if (event.clickCount > 1 && [self.selectedStop isKindOfClass:[CUIPSDGradientColorStop class]]) {
             NSColorPanel *colorPanel = [NSColorPanel sharedColorPanel];
+            colorPanel.showsAlpha = YES;
             colorPanel.continuous = YES;
             colorPanel.color = self.selectedStop.gradientColorValue;
             [colorPanel setTarget:self];

@@ -168,6 +168,21 @@ NSString *CUIEffectTypeToString(CUIEffectType value) {
     ENDSTRINGIFY
 }
 
+BOOL CoreThemeTypeIsBitmap(CoreThemeType type) {
+    switch (type) {
+        case kCoreThemeTypeAnimation:
+        case kCoreThemeTypeNinePart:
+        case kCoreThemeTypeOnePart:
+        case kCoreThemeTypeSixPart:
+        case kCoreThemeTypeThreePartHorizontal:
+        case kCoreThemeTypeThreePartVertical:
+            return YES;
+            break;
+        default:
+            return NO;
+            break;
+    }
+}
 
 NSString *CFTScaleToString(double scale) {
     if (scale == 1.0)
