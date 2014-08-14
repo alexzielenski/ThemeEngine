@@ -44,27 +44,33 @@
     
     return self;
 }
-
+static void *kCFTStopDirtyContext;
 - (void)_initialize {
     self.autoresizingMask = kCALayerNotSizable;
     self.shadowColor = [[NSColor blackColor] CGColor];
     self.shadowOpacity = 0.2;
     self.shadowOffset = CGSizeMake(0, -2.0);
-    [self addObserver:self forKeyPath:@"stop" options:0 context:nil];
-    [self addObserver:self forKeyPath:@"stop.gradientColor" options:0 context:nil];
-    [self addObserver:self forKeyPath:@"stop.location" options:0 context:nil];
-    [self addObserver:self forKeyPath:@"selected" options:0 context:nil];
+    [self addObserver:self forKeyPath:@"stop" options:0 context:&kCFTStopDirtyContext];
+    [self addObserver:self forKeyPath:@"stop.gradientColor" options:0 context:&kCFTStopDirtyContext];
+    [self addObserver:self forKeyPath:@"stop.leadOutColor" options:0 context:&kCFTStopDirtyContext];
+    [self addObserver:self forKeyPath:@"stop.opacity" options:0 context:&kCFTStopDirtyContext];
+    [self addObserver:self forKeyPath:@"stop.leadOutOpacity" options:0 context:&kCFTStopDirtyContext];
+    [self addObserver:self forKeyPath:@"stop.location" options:0 context:&kCFTStopDirtyContext];
+    [self addObserver:self forKeyPath:@"selected" options:0 context:&kCFTStopDirtyContext];
 }
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"stop"];
     [self removeObserver:self forKeyPath:@"stop.gradientColor"];
     [self removeObserver:self forKeyPath:@"stop.location"];
+    [self removeObserver:self forKeyPath:@"stop.opacity"];
+    [self removeObserver:self forKeyPath:@"stop.leadOutOpacity"];
+    [self removeObserver:self forKeyPath:@"stop.leadOutColor"];
     [self removeObserver:self forKeyPath:@"selected"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"stop"] || [keyPath isEqualToString:@"stop.gradientColor"] || [keyPath isEqualToString:@"stop.location"] || [keyPath isEqualToString:@"selected"]) {
+    if (context == &kCFTStopDirtyContext) {
         [self setNeedsDisplay];
     }
 }
@@ -122,11 +128,8 @@
         [path fill];
         
         if (leadOutColor) {
-            
-            NSBezierPath *mask = [NSBezierPath bezierPathWithRect:NSMakeRect(self.bounds.size.width / 2, 0, self.bounds.size.width / 2, self.bounds.size.height)];
-            [mask addClip];
             [leadOutColor set];
-            [path fill];
+            NSRectFill(NSMakeRect(NSMidX(self.bounds), 0, NSWidth(self.bounds) / 2, NSHeight(self.bounds)));
         }
     }
     
@@ -135,6 +138,8 @@
 
 @end
 
+
+static void *kCFTStopContext;
 
 @interface CFTGradientEditor ()
 @property (strong) CALayer *gradientLayer;
@@ -146,7 +151,7 @@
 @property (weak) CFTGradientStopLayer *draggedLayer;
 @property (weak) CFTGradientStopLayer *beforeLayer;
 @property (weak) CFTGradientStopLayer *afterLayer;
-@property (readwrite, weak) CUIPSDGradientStop *selectedStop;
+@property (readwrite, strong) CUIPSDGradientStop *selectedStop;
 
 - (void)_initialize;
 - (void)_repositionStops;
@@ -154,6 +159,9 @@
 - (void)_invalidateGradient;
 
 - (void)colorChanged:(NSColorPanel *)colorPanel;
+
+- (void)_startObservingStop:(CUIPSDGradientStop *)stop;
+- (void)_stopObservingStop:(CUIPSDGradientStop *)stop;
 
 - (CFTGradientStopLayer *)_addStop:(CUIPSDGradientStop *)stop colorStop:(BOOL)isColorStop;
 - (void)_removeStopLayer:(CFTGradientStopLayer *)layer;
@@ -248,7 +256,9 @@
                                                                                                         smoothingCoefficient:1.0
                                                                                                              fillCoefficient:1.0] colorSpace:[[NSColorSpace sRGBColorSpace] CGColorSpace]];
 }
-
+// http://stackoverflow.com/questions/7792622/manual-retain-with-arc
+#define AntiARCRetain(...) { void *retainedThing = (__bridge_retained void *)__VA_ARGS__; retainedThing = retainedThing; }
+#define AntiARCRelease(...) { void *retainedThing = (__bridge void *) __VA_ARGS__; id unretainedThing = (__bridge_transfer id)retainedThing; unretainedThing = nil; }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"gradient"]) {
         [self _repositionStops];
@@ -258,6 +268,18 @@
             oldStop = nil;
         [self layerForStop:oldStop].selected = NO;
         [self layerForStop:self.selectedStop].selected = YES;
+    } else if (context == &kCFTStopContext) {
+//        if ([keyPath isEqualToString:@"location"]) {
+//            NSArray *__unsafe_unretained*colorMidpoints = &ZKHookIvar(self.evaluator, NSArray *, "colorMidpointLocations");
+//            *colorMidpoints = self.colorMidpointLocations;
+//            AntiARCRetain(*colorMidpoints)
+//            
+//            NSArray *__unsafe_unretained*opacityMidpoints = &ZKHookIvar(self.evaluator, NSArray *, "opacityMidpointLocations");
+//            *opacityMidpoints = self.opacityMidpointLocations;
+//            AntiARCRetain(*opacityMidpoints)
+//        }
+        [self _synchronizeEvaluatorWithStops];
+        [self.gradientLayer setNeedsLayout];
     }
          
 }
@@ -291,6 +313,7 @@
     } else {
         midpoints = [NSMutableArray array];
     }
+    
     [self setOpacityMidpointLocations:midpoints];
     
     [self.gradientLayer setNeedsLayout];
@@ -327,8 +350,11 @@
         CFTGradientStopLayer *layer = nil;
         if (x >= self.colorStopLayers.count) {
             layer = [self _addStop:stop colorStop:YES];
-        } else
+        } else {
             layer = self.colorStopLayers[x];
+            [self _stopObservingStop:layer.stop];
+            [self _startObservingStop:stop];
+        }
         
         layer.stop = stop;
         [layer setNeedsDisplay];
@@ -345,8 +371,11 @@
         CFTGradientStopLayer *layer = nil;
         if (x >= self.opacityStopLayers.count) {
             layer = [self _addStop:stop colorStop:NO];
-        } else
+        } else {
             layer = self.opacityStopLayers[x];
+            [self _stopObservingStop:layer.stop];
+            [self _startObservingStop:stop];
+        }
         
         layer.stop = stop;
         [layer setNeedsDisplay];
@@ -373,6 +402,8 @@
             layer = [self _addStop:stop colorStop:YES];
         } else {
             layer = self.colorMidpointStopLayers[x];
+            [self _stopObservingStop:layer.stop];
+            [self _startObservingStop:stop];
         }
         
         layer.stop = stop;
@@ -392,6 +423,8 @@
             layer = [self _addStop:stop colorStop:NO];
         } else {
             layer = self.opacityMidpointStopLayers[x];
+            [self _stopObservingStop:layer.stop];
+            [self _startObservingStop:stop];
         }
         
         layer.stop = stop;
@@ -399,10 +432,75 @@
     }
 }
 
+- (void)setStop:(CUIPSDGradientStop *)stop doubleSided:(BOOL)doubleSided {
+    if (!stop)
+        return;
+    
+    if (stop.isMidpointStop)
+        return;
+    if (stop.isDoubleStop && doubleSided)
+        return;
+    if (!stop.isDoubleStop && !doubleSided)
+        return;
+    
+    CFTGradientStopLayer *layer = [self layerForStop:stop];
+    CUIPSDGradientStop *newStop = nil;
+    if (doubleSided) {
+        if (stop.isOpacityStop) {
+            CUIPSDGradientDoubleOpacityStop *opacity = [[ZKClass(CUIPSDGradientDoubleOpacityStop) alloc] initWithLocation:stop.location
+                                                                                                            leadInOpacity:((CUIPSDGradientOpacityStop *)stop).opacity
+                                                                                                           leadOutOpacity:((CUIPSDGradientOpacityStop *)stop).opacity];
+            
+            newStop = opacity;
+        } else if (stop.isColorStop) {
+            CUIPSDGradientDoubleColorStop *color = [[ZKClass(CUIPSDGradientDoubleColorStop) alloc] initWithLocation:stop.location
+                                                                                                       leadInColor:((CUIPSDGradientColorStop *)stop).gradientColor
+                                                                                                       leadOutColor:((CUIPSDGradientColorStop *)stop).gradientColor];
+            newStop = color;
+        }
+    } else {
+        if (stop.isOpacityStop) {
+            CUIPSDGradientOpacityStop *opacity = [[CUIPSDGradientOpacityStop alloc] initWithLocation:stop.location
+                                                                                             opacity:((CUIPSDGradientDoubleOpacityStop *)stop).opacity];
+            newStop = opacity;
+        } else {
+            CUIPSDGradientColorStop *color = [[CUIPSDGradientColorStop alloc] initWithLocation:stop.location
+                                                                                 gradientColor:((CUIPSDGradientDoubleColorStop *)stop).gradientColor];
+            newStop = color;
+        }
+    }
+    
+    if (self.selectedStop == stop) {
+        self.selectedStop = newStop;
+    }
+    
+    [self _stopObservingStop:stop];
+    layer.stop = newStop;
+    [self _startObservingStop:newStop];
+    
+    [self _synchronizeEvaluatorWithStops];
+}
+
+- (void)_startObservingStop:(CUIPSDGradientStop *)stop {
+    [stop addObserver:self forKeyPath:@"gradientColor" options:0 context:&kCFTStopContext];
+    [stop addObserver:self forKeyPath:@"opacity" options:0 context:&kCFTStopContext];
+    [stop addObserver:self forKeyPath:@"leadOutOpacity" options:0 context:&kCFTStopContext];
+    [stop addObserver:self forKeyPath:@"leadOutColor" options:0 context:&kCFTStopContext];
+    [stop addObserver:self forKeyPath:@"location" options:0 context:&kCFTStopContext];
+}
+
+- (void)_stopObservingStop:(CUIPSDGradientStop *)stop {
+    [stop removeObserver:self forKeyPath:@"gradientColor" context:&kCFTStopContext];
+    [stop removeObserver:self forKeyPath:@"opacity" context:&kCFTStopContext];
+    [stop removeObserver:self forKeyPath:@"leadOutOpacity" context:&kCFTStopContext];
+    [stop removeObserver:self forKeyPath:@"leadOutColor" context:&kCFTStopContext];
+    [stop removeObserver:self forKeyPath:@"location" context:&kCFTStopContext];
+}
+
 - (CFTGradientStopLayer *)_addStop:(CUIPSDGradientStop *)stop colorStop:(BOOL)isColorStop {
     CFTGradientStopLayer *layer = [CFTGradientStopLayer layer];
     layer.stop = stop;
-    layer.stop = stop;
+    [self _startObservingStop:stop];
     layer.frame = CGRectMake(0, 0, kCFTStopSize, kCFTStopSize);
     
     if (isColorStop) {
@@ -423,6 +521,11 @@
 }
 
 - (void)_removeStopLayer:(CFTGradientStopLayer *)layer {
+    if (layer.stop == self.selectedStop)
+        self.selectedStop = nil;
+    
+    [self _stopObservingStop:layer.stop];
+    
     [layer removeFromSuperlayer];
     if ([self.colorStopLayers containsObject:layer])
         [self.colorStopLayers removeObject:layer];
@@ -524,16 +627,21 @@
     } else if (!hitLayer) {
         CGFloat location = (viewPoint.x - self.gradientLayer.bounds.origin.x) / (self.bounds.size.width - self.gradientLayer.bounds.origin.x * 2);
         struct _psdGradientColor color = [self.evaluator _smoothedGradientColorAtLocation:location];
+        CUIPSDGradientColorStop *stop = nil;
+        CFTGradientStopLayer *layer = nil;
         if (viewPoint.y > NSMaxY(self.gradientLayer.frame)) {
-            CUIPSDGradientOpacityStop *stop = [CUIPSDGradientOpacityStop opacityStopWithLocation:location opacity:color.alpha];
-            [self _addStop:stop colorStop:NO];
+            stop = [CUIPSDGradientOpacityStop opacityStopWithLocation:location opacity:color.alpha];
+            layer = [self _addStop:stop colorStop:NO];
         } else if (viewPoint.y < NSMinY(self.gradientLayer.frame)) {
-            CUIPSDGradientColorStop *stop = [CUIPSDGradientColorStop colorStopWithLocation:location gradientColor:color];
-            [self _addStop:stop colorStop:YES];
+            stop = [CUIPSDGradientColorStop colorStopWithLocation:location gradientColor:color];
+            layer = [self _addStop:stop colorStop:YES];
         }
 
         [self _synchronizeEvaluatorWithStops];
         [self _repositionStops];
+        
+        self.selectedStop = stop;
+        self.draggedLayer = [self layerForStop:stop];
     } else  {
         [super mouseDown:event];
     }
@@ -558,9 +666,6 @@
             self.draggedLayer.stop.location = MAX(MIN(viewPoint.x / self.bounds.size.width, 1), 0);
         }
     }
-
-    [self.gradientLayer setNeedsLayout];
-    [self _synchronizeEvaluatorWithStops];
 }
 
 - (void)_synchronizeEvaluatorWithStops {
@@ -608,7 +713,6 @@
 - (void)colorChanged:(NSColorPanel *)colorPanel {
     if ([self.selectedStop isKindOfClass:[CUIPSDGradientColorStop class]]) {
         self.selectedStop.gradientColorValue = colorPanel.color;
-        [self _invalidateGradient];
     }
 }
 

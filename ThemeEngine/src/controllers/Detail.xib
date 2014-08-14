@@ -520,6 +520,11 @@ Gw
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gWX-Tm-3WQ">
                     <rect key="frame" x="80" y="230" width="60" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Ce1-87-hKX">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" negativeFormat="#" generatesDecimalNumbers="YES" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="%" negativeSuffix="%" id="YF0-mQ-Drd">
+                            <integer key="multiplier" value="100"/>
+                            <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="100"/>
+                        </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -540,6 +545,11 @@ Gw
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2J4-I1-Rk8">
                     <rect key="frame" x="80" y="176" width="60" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="4DP-GP-QO4">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" negativeFormat="#" generatesDecimalNumbers="YES" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="%" negativeSuffix="%" id="j1k-fy-cyg">
+                            <integer key="multiplier" value="100"/>
+                            <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="100"/>
+                        </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -591,6 +601,11 @@ Gw
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tjT-OW-YFq">
                     <rect key="frame" x="220" y="230" width="60" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Y94-HT-eNU">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" negativeFormat="#" generatesDecimalNumbers="YES" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="%" negativeSuffix="%" id="Bir-C0-2xg">
+                            <integer key="multiplier" value="100"/>
+                            <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="100"/>
+                        </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

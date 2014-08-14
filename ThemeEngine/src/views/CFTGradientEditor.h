@@ -13,7 +13,7 @@
 #import "CUIPSDGradientStop+KVO.h"
 
 @interface CFTGradientEditor : NSView
-@property (readonly, weak) CUIPSDGradientStop *selectedStop;
+@property (readonly, strong) CUIPSDGradientStop *selectedStop;
 @property (strong) CUIThemeGradient *gradient;
 @property (strong) NSArray *colorStops;
 @property (strong) NSArray *opacityStops;
@@ -25,5 +25,7 @@
 
 @property (weak) id target;
 @property (assign) SEL action;
+
+- (void)setStop:(CUIPSDGradientStop *)stop doubleSided:(BOOL)doubleSided;
 
 @end
