@@ -25,11 +25,6 @@
     [self.imageSliceView bind:@"sliceRects" toObject:self withKeyPath:@"asset.slices" options:nil];
     [self.pdfPreview bind:@"document" toObject:self withKeyPath:@"pdf" options:nil];
     
-    [self.gradientPreview bind:@"angle" toObject:self withKeyPath:@"gradientAngle" options:nil];
-    [self.gradientPreview bind:@"radial" toObject:self withKeyPath:@"gradientRadial" options:nil];
-    [self.gradientPreview bind:@"gradient" toObject:self withKeyPath:@"gradient" options:nil];
-    [self.gradientEditor bind:@"gradient" toObject:self withKeyPath:@"gradient" options:nil];
-
     [self addObserver:self forKeyPath:@"asset" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.image" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.type" options:0 context:nil];
@@ -60,9 +55,6 @@
 }
 
 - (void)dealloc {
-    [self.gradientPreview unbind:@"angle"];
-    [self.gradientPreview unbind:@"radial"];
-    [self.gradientPreview unbind:@"gradient"];
     [self.pdfPreview unbind:@"document"];
     [self.imageSliceView unbind:@"themeType"];
     [self.imageSliceView unbind:@"sliceRects"];
@@ -145,9 +137,10 @@
     } else if ([keyPath isEqualToString:@"asset.pdfData"]) {
         self.pdf = [[PDFDocument alloc] initWithData:self.asset.pdfData];
     } else if ([keyPath isEqualToString:@"asset.gradient"]) {
-        self.gradientAngle = self.asset.gradient.angle;
-        self.gradientRadial = self.asset.gradient.isRadial;
+        self.gradientViewController.angle = self.asset.gradient.angle;
+        self.gradientViewController.radial = self.asset.gradient.isRadial;
         self.gradient = self.asset.gradient.themeGradient;
+        self.gradientViewController.gradientEditor.gradient = self.gradient;
     } else if ([keyPath isEqualToString:@"currentEffect"]) {
         dispatch_async(dispatch_get_main_queue(), ^{
             switch (self.currentEffect.type) {

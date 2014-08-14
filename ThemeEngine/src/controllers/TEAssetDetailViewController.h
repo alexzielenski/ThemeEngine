@@ -11,8 +11,8 @@
 #import "CFTAsset.h"
 #import "ZKInspector.h"
 
-#import "CFTGradientEditor.h"
 #import "TEGradientView.h"
+#import "TEGradientStopViewController.h"
 
 @interface TEAssetDetailViewController : NSViewController
 @property (strong) CFTAsset *asset;
@@ -58,11 +58,8 @@
 @property (weak) IBOutlet PDFView *pdfPreview;
 
 // Gradients
-@property (assign, getter=isGradientRadial) BOOL gradientRadial;
-@property (assign) CGFloat gradientAngle;
+@property (weak) IBOutlet TEGradientStopViewController *gradientViewController;
 @property (strong) CUIThemeGradient *gradient;
-@property (weak) IBOutlet CFTGradientEditor *gradientEditor;
-@property (weak) IBOutlet TEGradientView *gradientPreview;
 
 // Effects
 @property (weak) IBOutlet NSTableView *effectTableView;

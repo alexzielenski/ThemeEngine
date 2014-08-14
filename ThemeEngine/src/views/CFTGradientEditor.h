@@ -10,9 +10,10 @@
 #import "CUIPSDGradientDoubleColorStop.h"
 #import "CUIPSDGradientDoubleOpacityStop.h"
 #import "CUIThemeGradient.h"
+#import "CUIPSDGradientStop+KVO.h"
 
 @interface CFTGradientEditor : NSView
-@property (weak) CUIPSDGradientStop *selectedStop;
+@property (readonly, weak) CUIPSDGradientStop *selectedStop;
 @property (strong) CUIThemeGradient *gradient;
 @property (strong) NSArray *colorStops;
 @property (strong) NSArray *opacityStops;
@@ -21,5 +22,8 @@
 
 @property (strong) NSArray *colorMidpointLocations;
 @property (strong) NSArray *opacityMidpointLocations;
+
+@property (weak) id target;
+@property (assign) SEL action;
 
 @end

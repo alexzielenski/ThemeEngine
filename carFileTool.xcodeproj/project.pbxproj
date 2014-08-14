@@ -41,6 +41,9 @@
 		FACFC34C1995A3D300ED936C /* TEDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC34A1995A3D300ED936C /* TEDocument.m */; };
 		FACFC34D1995A3D300ED936C /* TEDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = FACFC34B1995A3D300ED936C /* TEDocument.xib */; };
 		FACFC3571995BA9400ED936C /* TEElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FACFC3551995BA9400ED936C /* TEElementViewController.m */; };
+		FAEC5265199C4FEA00045AFA /* TEGradientStopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC5264199C4FEA00045AFA /* TEGradientStopViewController.m */; };
+		FAEC5268199C526900045AFA /* CUIPSDGradientStop+KVO.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC5267199C526900045AFA /* CUIPSDGradientStop+KVO.m */; };
+		FAEC5279199C570000045AFA /* ZKSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEC526F199C570000045AFA /* ZKSwizzle.m */; };
 		FAF726C91996E72E00CC2366 /* Bom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF726C81996E72E00CC2366 /* Bom.framework */; };
 		FAF726CC1997056100CC2366 /* Bom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF726C81996E72E00CC2366 /* Bom.framework */; };
 		FAF726CF199719D500CC2366 /* TEImageSliceView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF726CE199719D500CC2366 /* TEImageSliceView.m */; };
@@ -128,6 +131,12 @@
 		FACFC34F1995A5E700ED936C /* NSAppearance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSAppearance.h; sourceTree = "<group>"; };
 		FACFC3541995BA9400ED936C /* TEElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEElementViewController.h; path = src/controllers/TEElementViewController.h; sourceTree = "<group>"; };
 		FACFC3551995BA9400ED936C /* TEElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEElementViewController.m; path = src/controllers/TEElementViewController.m; sourceTree = "<group>"; };
+		FAEC5263199C4FEA00045AFA /* TEGradientStopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEGradientStopViewController.h; path = src/controllers/TEGradientStopViewController.h; sourceTree = "<group>"; };
+		FAEC5264199C4FEA00045AFA /* TEGradientStopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEGradientStopViewController.m; path = src/controllers/TEGradientStopViewController.m; sourceTree = "<group>"; };
+		FAEC5266199C526900045AFA /* CUIPSDGradientStop+KVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CUIPSDGradientStop+KVO.h"; path = "src/categories/CUIPSDGradientStop+KVO.h"; sourceTree = "<group>"; };
+		FAEC5267199C526900045AFA /* CUIPSDGradientStop+KVO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CUIPSDGradientStop+KVO.m"; path = "src/categories/CUIPSDGradientStop+KVO.m"; sourceTree = "<group>"; };
+		FAEC526E199C570000045AFA /* ZKSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKSwizzle.h; path = ZKSwizzle/ZKSwizzle.h; sourceTree = "<group>"; };
+		FAEC526F199C570000045AFA /* ZKSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKSwizzle.m; path = ZKSwizzle/ZKSwizzle.m; sourceTree = "<group>"; };
 		FAF726C41996131400CC2366 /* CUIShapeEffectStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIShapeEffectStack.h; sourceTree = "<group>"; };
 		FAF726C51996131400CC2366 /* CUITextEffectStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUITextEffectStack.h; sourceTree = "<group>"; };
 		FAF726C81996E72E00CC2366 /* Bom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bom.framework; path = ../../../../../../../../System/Library/PrivateFrameworks/Bom.framework; sourceTree = "<group>"; };
@@ -160,6 +169,7 @@
 		FA472A9D19985AB4003631BC /* external */ = {
 			isa = PBXGroup;
 			children = (
+				FAEC5269199C570000045AFA /* ZKSwizzle */,
 				FA472A9E19985AB4003631BC /* ZKInspector */,
 			);
 			name = external;
@@ -264,6 +274,8 @@
 				FA7B5F75199600FF00D0B2AD /* TEAssetDetailViewController.h */,
 				FA7B5F76199600FF00D0B2AD /* TEAssetDetailViewController.m */,
 				FA7B5F77199600FF00D0B2AD /* Detail.xib */,
+				FAEC5263199C4FEA00045AFA /* TEGradientStopViewController.h */,
+				FAEC5264199C4FEA00045AFA /* TEGradientStopViewController.m */,
 				FAF726CD199719D500CC2366 /* TEImageSliceView.h */,
 				FAF726CE199719D500CC2366 /* TEImageSliceView.m */,
 				FA6BEDB41999B8D1006BF951 /* TEGradientView.h */,
@@ -278,6 +290,8 @@
 				FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */,
 				FA9831A5199BE36300739B89 /* CFTGradientEditor.h */,
 				FA9831A6199BE36300739B89 /* CFTGradientEditor.m */,
+				FAEC5266199C526900045AFA /* CUIPSDGradientStop+KVO.h */,
+				FAEC5267199C526900045AFA /* CUIPSDGradientStop+KVO.m */,
 				FACFC3281995A21700ED936C /* Images.xcassets */,
 				FACFC32A1995A21700ED936C /* MainMenu.xib */,
 				FACFC33F1995A22A00ED936C /* Supporting Files */,
@@ -292,6 +306,15 @@
 				FACFC31F1995A21700ED936C /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FAEC5269199C570000045AFA /* ZKSwizzle */ = {
+			isa = PBXGroup;
+			children = (
+				FAEC526E199C570000045AFA /* ZKSwizzle.h */,
+				FAEC526F199C570000045AFA /* ZKSwizzle.m */,
+			);
+			path = ZKSwizzle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -405,6 +428,7 @@
 				FAF726CF199719D500CC2366 /* TEImageSliceView.m in Sources */,
 				FACFC3401995A26A00ED936C /* CFTAsset.m in Sources */,
 				FA6BEDB61999B8D1006BF951 /* TEGradientView.m in Sources */,
+				FAEC5279199C570000045AFA /* ZKSwizzle.m in Sources */,
 				FACFC3481995A3B700ED936C /* TEAppDelegate.m in Sources */,
 				FACFC3411995A26A00ED936C /* CFTElement.m in Sources */,
 				FA7B5F78199600FF00D0B2AD /* TEAssetDetailViewController.m in Sources */,
@@ -413,8 +437,10 @@
 				FACFC3421995A26A00ED936C /* CFTElementStore.m in Sources */,
 				FA9831A3199BD23E00739B89 /* CFTGradient.m in Sources */,
 				FA6BEDBD1999F9F8006BF951 /* CFTEffectWrapper.m in Sources */,
+				FAEC5265199C4FEA00045AFA /* TEGradientStopViewController.m in Sources */,
 				FA0A02F7199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m in Sources */,
 				FA9831A7199BE36300739B89 /* CFTGradientEditor.m in Sources */,
+				FAEC5268199C526900045AFA /* CUIPSDGradientStop+KVO.m in Sources */,
 				FA472ABC19985AB4003631BC /* ZKInspector.m in Sources */,
 				FACFC3571995BA9400ED936C /* TEElementViewController.m in Sources */,
 				FACFC34C1995A3D300ED936C /* TEDocument.m in Sources */,

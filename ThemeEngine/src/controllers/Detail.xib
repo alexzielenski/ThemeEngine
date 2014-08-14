@@ -27,10 +27,9 @@
                 <outlet property="effectSpreadView" destination="b9w-DE-OiZ" id="kNE-zR-SXT"/>
                 <outlet property="effectTableView" destination="HPS-kx-vgd" id="hdL-1T-LHQ"/>
                 <outlet property="effectView" destination="Ada-OV-vWA" id="qpL-e6-Rzm"/>
-                <outlet property="gradientEditor" destination="KV8-Ho-4rg" id="y4M-xs-Yn3"/>
                 <outlet property="gradientPanel" destination="FuC-gm-cz0" id="gLV-f4-UNa"/>
-                <outlet property="gradientPreview" destination="6F0-vq-Cor" id="tM9-D8-fB0"/>
                 <outlet property="gradientView" destination="7mb-HR-uTN" id="ZdI-Ym-TIB"/>
+                <outlet property="gradientViewController" destination="41D-z0-JOq" id="KIy-Yi-Oxh"/>
                 <outlet property="imageSliceView" destination="Odf-36-59F" id="qmK-4g-vTI"/>
                 <outlet property="infoPanel" destination="IRS-Fw-P0b" id="Mdz-w5-uKb"/>
                 <outlet property="inspector" destination="2P6-dX-BDD" id="ACF-9z-mhB"/>
@@ -492,16 +491,130 @@ Gw
             </subviews>
             <point key="canvasLocation" x="906" y="675"/>
         </customView>
-        <customView id="7mb-HR-uTN" userLabel="Gradient">
+        <customView wantsLayer="YES" id="7mb-HR-uTN" userLabel="Gradient">
             <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6F0-vq-Cor" customClass="TEGradientView">
-                    <rect key="frame" x="20" y="20" width="260" height="238"/>
+                    <rect key="frame" x="240" y="50" width="40" height="40"/>
                 </customView>
                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KV8-Ho-4rg" customClass="CFTGradientEditor">
                     <rect key="frame" x="12" y="258" width="276" height="61"/>
                 </customView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kE8-zb-mAO">
+                    <rect key="frame" x="18" y="233" width="56" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Opacity:" id="rLx-vf-ZKH">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xAA-ma-361">
+                    <rect key="frame" x="161" y="205" width="53" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Color 2:" id="AXG-T5-9om">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gWX-Tm-3WQ">
+                    <rect key="frame" x="80" y="230" width="60" height="22"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Ce1-87-hKX">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="41D-z0-JOq" name="enabled" keyPath="gradientEditor.selectedStop.isOpacityStop" id="IHS-IJ-CSA"/>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.selectedStop.opacityValue" id="Vk5-CP-bon"/>
+                    </connections>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="baD-YO-sfG">
+                    <rect key="frame" x="12" y="180" width="62" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Location:" id="R0y-LZ-rRx">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2J4-I1-Rk8">
+                    <rect key="frame" x="80" y="176" width="60" height="22"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="4DP-GP-QO4">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.selectedStop.location" id="Y2i-kt-Ykd"/>
+                    </connections>
+                </textField>
+                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Umi-e8-puc">
+                    <rect key="frame" x="220" y="202" width="60" height="23"/>
+                    <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="41D-z0-JOq" name="enabled" keyPath="gradientEditor.selectedStop.isDoubleColorStop" id="KZE-Vq-qDl"/>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.selectedStop.leadOutColorValue" id="Abs-XG-QQa"/>
+                    </connections>
+                </colorWell>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="41m-wA-4Zh">
+                    <rect key="frame" x="177" y="62" width="57" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Preview:" id="1eI-eI-79C">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pVd-ec-2A6">
+                    <rect key="frame" x="32" y="205" width="42" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Color:" id="5IC-Qa-SzJ">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Xb-27-kF8">
+                    <rect key="frame" x="80" y="202" width="60" height="23"/>
+                    <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="41D-z0-JOq" name="enabled" keyPath="gradientEditor.selectedStop.isColorStop" id="6k5-5F-vSP"/>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.selectedStop.gradientColorValue" id="ojk-ey-fp5"/>
+                    </connections>
+                </colorWell>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Cr-0f-rHg">
+                    <rect key="frame" x="146" y="233" width="68" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Opacity 2:" id="u8x-rz-iSd">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tjT-OW-YFq">
+                    <rect key="frame" x="220" y="230" width="60" height="22"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Y94-HT-eNU">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="41D-z0-JOq" name="enabled" keyPath="gradientEditor.selectedStop.isDoubleOpacityStop" id="EjA-GZ-eo1"/>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.selectedStop.leadOutOpacityValue" id="6if-oa-11E"/>
+                    </connections>
+                </textField>
+                <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C5p-B8-wVN">
+                    <rect key="frame" x="175" y="179" width="107" height="17"/>
+                    <buttonCell key="cell" type="check" title="Double-Sided" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="UG8-Yn-fyA">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changeDoubleSided:" target="41D-z0-JOq" id="ZT2-PQ-Xeh"/>
+                        <binding destination="41D-z0-JOq" name="enabled" keyPath="gradientEditor.selectedStop.isMidpointStop" id="qYe-kw-8np">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="910" y="221.5"/>
         </customView>
@@ -694,6 +807,18 @@ Gw
             </constraints>
             <point key="canvasLocation" x="829" y="311"/>
         </customView>
+        <viewController title="Gradient Stop" id="41D-z0-JOq" customClass="TEGradientStopViewController">
+            <connections>
+                <outlet property="doubleSidedCheckbox" destination="C5p-B8-wVN" id="Gjq-FZ-k6j"/>
+                <outlet property="gradientColorWell" destination="0Xb-27-kF8" id="q5L-jA-lMz"/>
+                <outlet property="gradientEditor" destination="KV8-Ho-4rg" id="9RB-SX-sCv"/>
+                <outlet property="gradientPreview" destination="6F0-vq-Cor" id="h7V-Dy-P7j"/>
+                <outlet property="leadOutColorWell" destination="Umi-e8-puc" id="Fg1-4c-DZs"/>
+                <outlet property="locationField" destination="2J4-I1-Rk8" id="xn5-l1-nRb"/>
+                <outlet property="opacityField" destination="gWX-Tm-3WQ" id="4Pq-F7-zXp"/>
+                <outlet property="view" destination="7mb-HR-uTN" id="QJz-0d-umz"/>
+            </connections>
+        </viewController>
         <menuItem title="Screen" id="8ss-E9-TRa"/>
         <menuItem title="Hard Light" id="7xl-Ew-yMO"/>
         <customView wantsLayer="YES" canDrawConcurrently="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IRS-Fw-P0b" userLabel="Info Panel">
@@ -1031,6 +1156,9 @@ Gw
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="radial" id="Cqo-tq-8FP"/>
+                    </connections>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PCc-b3-i7D">
                     <rect key="frame" x="69" y="18" width="18" height="18"/>
@@ -1038,9 +1166,6 @@ Gw
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <binding destination="-2" name="value" keyPath="gradientRadial" id="cfF-7S-7eO"/>
-                    </connections>
                 </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zk9-M7-M1g">
                     <rect key="frame" x="71" y="40" width="39" height="19"/>
@@ -1054,7 +1179,7 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="gradientAngle" id="03R-8t-b0C"/>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="angle" id="uuF-a9-IOf"/>
                     </connections>
                 </textField>
             </subviews>

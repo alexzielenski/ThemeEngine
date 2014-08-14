@@ -59,7 +59,8 @@ void *kCHDirtyContext;
 
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
-    
+    [[NSColor whiteColor] set];
+    NSRectFill(self.bounds);
     // Drawing code here.
     if (self.isRadial) {
 //        [self.gradient drawInRect:self.bounds relativeCenterPosition:NSMakePoint(0, 0)];
