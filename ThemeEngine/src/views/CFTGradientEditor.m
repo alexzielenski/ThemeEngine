@@ -244,7 +244,6 @@ static struct _psdGradientColor psdColorFromColor(NSColor *color) {
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"gradient"]) {
-        
         [self _repositionStops];
     }
          
@@ -253,8 +252,33 @@ static struct _psdGradientColor psdColorFromColor(NSColor *color) {
 - (void)_repositionStops {
     [self setColorStops:self.evaluator.colorStops];
     [self setOpacityStops:self.evaluator.opacityStops];
-    [self setColorMidpointLocations:self.evaluator.colorMidpointLocations];
-    [self setOpacityMidpointLocations:self.evaluator.opacityMidpointLocations];
+    
+    // Add implicit midpoints
+    NSMutableArray *midpoints = self.evaluator.colorMidpointLocations.mutableCopy ?: [NSMutableArray array];
+    if (self.evaluator.colorStops.count > 0) {
+        while (midpoints.count != self.evaluator.colorStops.count - 1) {
+            if (midpoints.count < self.evaluator.colorStops.count - 1)
+                [midpoints addObject:@0.5];
+            else
+                [midpoints removeLastObject];
+        }
+    } else {
+        midpoints = [NSMutableArray array];
+    }
+
+    [self setColorMidpointLocations:midpoints];
+    
+    midpoints = self.evaluator.opacityMidpointLocations.mutableCopy ?: [NSMutableArray array];
+    if (self.evaluator.opacityStops.count > 0)
+    while (midpoints.count != self.evaluator.opacityStops.count - 1) {
+        if (midpoints.count < self.evaluator.opacityStops.count)
+            [midpoints addObject:@0.5];
+        else
+            [midpoints removeLastObject];
+    } else {
+        midpoints = [NSMutableArray array];
+    }
+    [self setOpacityMidpointLocations:midpoints];
     
     [self.gradientLayer setNeedsLayout];
     [self.gradientLayer setNeedsDisplay];
@@ -290,12 +314,9 @@ static struct _psdGradientColor psdColorFromColor(NSColor *color) {
 }
 
 - (void)setColorStops:(NSArray *)colorStops {
-    NSInteger diff = self.colorStopLayers.count - colorStops.count;
-    if (diff > 0) {
-        for (NSInteger x = 0; x <= diff; x++) {
-            [self.colorStopLayers[0] removeFromSuperlayer];
-            [self.colorStopLayers removeObjectAtIndex:0];
-        }
+    while (self.colorStopLayers.count > colorStops.count) {
+        [self.colorStopLayers[0] removeFromSuperlayer];
+        [self.colorStopLayers removeObjectAtIndex:0];
     }
     
     for (NSUInteger x = 0; x < colorStops.count; x++) {
@@ -312,12 +333,9 @@ static struct _psdGradientColor psdColorFromColor(NSColor *color) {
 }
 
 - (void)setOpacityStops:(NSArray *)opacityStops {
-    NSInteger diff = self.opacityStopLayers.count - opacityStops.count;
-    if (diff > 0) {
-        for (NSInteger x = 0; x <= diff; x++) {
-            [self.opacityStopLayers[0] removeFromSuperlayer];
-            [self.opacityStopLayers removeObjectAtIndex:0];
-        }
+    while (self.opacityStopLayers.count > opacityStops.count) {
+        [self.opacityStopLayers[0] removeFromSuperlayer];
+        [self.opacityStopLayers removeObjectAtIndex:0];
     }
     
     for (NSUInteger x = 0; x < opacityStops.count; x++) {
@@ -342,12 +360,9 @@ static struct _psdGradientColor psdColorFromColor(NSColor *color) {
 }
 
 - (void)setColorMidpointLocations:(NSArray *)locations {
-    NSInteger diff = self.colorMidpointStopLayers.count - locations.count;
-    if (diff > 0) {
-        for (NSInteger x = 0; x <= diff; x++) {
-            [self.colorMidpointStopLayers[0] removeFromSuperlayer];
-            [self.colorMidpointStopLayers removeObjectAtIndex:0];
-        }
+    while (self.colorMidpointStopLayers.count > locations.count) {
+        [self.colorMidpointStopLayers[0] removeFromSuperlayer];
+        [self.colorMidpointStopLayers removeObjectAtIndex:0];
     }
     
     for (NSUInteger x = 0; x < locations.count; x++) {
@@ -365,12 +380,9 @@ static struct _psdGradientColor psdColorFromColor(NSColor *color) {
 }
 
 - (void)setOpacityMidpointLocations:(NSArray *)locations {
-    NSInteger diff = self.opacityMidpointStopLayers.count - locations.count;
-    if (diff > 0) {
-        for (NSInteger x = 0; x <= diff; x++) {
-            [self.opacityMidpointStopLayers[0] removeFromSuperlayer];
-            [self.opacityMidpointStopLayers removeObjectAtIndex:0];
-        }
+    while (self.opacityMidpointStopLayers.count > locations.count) {
+        [self.opacityMidpointStopLayers[0] removeFromSuperlayer];
+        [self.opacityMidpointStopLayers removeObjectAtIndex:0];
     }
     
     for (NSUInteger x = 0; x < locations.count; x++) {
@@ -517,7 +529,6 @@ static struct _psdGradientColor psdColorFromColor(NSColor *color) {
     } else if (!hitLayer) {
         CGFloat location = (viewPoint.x - self.gradientLayer.bounds.origin.x) / (self.bounds.size.width - self.gradientLayer.bounds.origin.x * 2);
         struct _psdGradientColor color = [self.evaluator _smoothedGradientColorAtLocation:location];
-        
         if (viewPoint.y > NSMaxY(self.gradientLayer.frame)) {
             CUIPSDGradientOpacityStop *stop = [CUIPSDGradientOpacityStop opacityStopWithLocation:location opacity:color.alpha];
             [self _addOpacityStop:stop];
@@ -526,7 +537,7 @@ static struct _psdGradientColor psdColorFromColor(NSColor *color) {
             CUIPSDGradientColorStop *stop = [CUIPSDGradientColorStop colorStopWithLocation:location gradientColor:color];
             [self _addColorStop:stop];
         }
-        
+
         [self _synchronizeEvaluatorWithStops];
         [self _repositionStops];
     } else  {
