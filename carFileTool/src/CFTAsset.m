@@ -76,7 +76,7 @@
         NSString *name = [self.name stringByReplacingOccurrencesOfString:@"_" withString:@""];
         name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
         name = decamelize(name);
-        self.keywords = [[NSSet setWithObjects:self.keyTypeString, self.keyStateString, self.keyLayerString, self.keyIdiomString, self.keySizeString, self.keyValueString, self.keyPresentationStateString, self.keyDirectionString, self.keyScaleString, nil] setByAddingObjectsFromArray:[name componentsSeparatedByString:@" "]];
+        self.keywords = [[NSSet setWithObjects:self.name, self.keyTypeString, self.keyStateString, self.keyLayerString, self.keyIdiomString, self.keySizeString, self.keyValueString, self.keyPresentationStateString, self.keyDirectionString, self.keyScaleString, nil] setByAddingObjectsFromArray:[name componentsSeparatedByString:@" "]];
     }
     
     return self;
