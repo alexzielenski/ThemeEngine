@@ -523,7 +523,7 @@ Gw
                         <numberFormatter key="formatter" formatterBehavior="custom10_4" negativeFormat="#" generatesDecimalNumbers="YES" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="%" id="YF0-mQ-Drd">
                             <integer key="multiplier" value="100"/>
                             <real key="minimum" value="0.0"/>
-                            <real key="maximum" value="100"/>
+                            <real key="maximum" value="1"/>
                         </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -548,7 +548,7 @@ Gw
                         <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" negativeFormat="#" generatesDecimalNumbers="YES" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="%" negativeSuffix="%" id="j1k-fy-cyg">
                             <integer key="multiplier" value="100"/>
                             <real key="minimum" value="0.0"/>
-                            <real key="maximum" value="100"/>
+                            <real key="maximum" value="1"/>
                         </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -586,8 +586,8 @@ Gw
                     <rect key="frame" x="80" y="202" width="60" height="23"/>
                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
-                        <binding destination="41D-z0-JOq" name="enabled" keyPath="gradientEditor.selectedStop.isColorStop" id="6k5-5F-vSP"/>
                         <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.selectedStop.gradientColorValue" id="ojk-ey-fp5"/>
+                        <binding destination="41D-z0-JOq" name="enabled" keyPath="gradientEditor.selectedStop.isColorStop" id="6k5-5F-vSP"/>
                     </connections>
                 </colorWell>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Cr-0f-rHg">
@@ -604,7 +604,7 @@ Gw
                         <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" negativeFormat="#" generatesDecimalNumbers="YES" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="%" negativeSuffix="%" id="Bir-C0-2xg">
                             <integer key="multiplier" value="100"/>
                             <real key="minimum" value="0.0"/>
-                            <real key="maximum" value="100"/>
+                            <real key="maximum" value="1"/>
                         </numberFormatter>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1213,22 +1213,6 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YlH-Gy-Oty">
-                    <rect key="frame" x="113" y="70" width="39" height="19"/>
-                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="100%" drawsBackground="YES" id="Aqj-X7-B4M">
-                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" negativeFormat="#" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="%" negativeSuffix="%" id="QA7-ET-NjU">
-                            <integer key="multiplier" value="100"/>
-                            <real key="minimum" value="0.0"/>
-                            <real key="maximum" value="360"/>
-                        </numberFormatter>
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.gradientWrapper.smoothingCoefficient" id="z5W-md-zZc"/>
-                    </connections>
-                </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PCc-b3-i7D">
                     <rect key="frame" x="111" y="45" width="18" height="18"/>
                     <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" state="on" inset="2" id="ZOO-HO-ubl">
@@ -1239,6 +1223,22 @@ Gw
                         <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.gradientWrapper.radial" id="5aL-3N-vru"/>
                     </connections>
                 </button>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YlH-Gy-Oty">
+                    <rect key="frame" x="113" y="70" width="39" height="19"/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="100%" drawsBackground="YES" id="Aqj-X7-B4M">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" negativeFormat="#" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="%" negativeSuffix="%" id="QA7-ET-NjU">
+                            <integer key="multiplier" value="100"/>
+                            <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="1"/>
+                        </numberFormatter>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="41D-z0-JOq" name="value" keyPath="gradientEditor.gradientWrapper.smoothingCoefficient" id="z5W-md-zZc"/>
+                    </connections>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="1232.5" y="196.5"/>
         </customView>
