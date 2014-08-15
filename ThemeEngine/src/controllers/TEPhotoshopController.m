@@ -96,13 +96,15 @@
     CGFloat currentY = 0;
     for (NSArray *bitmaps in rows.reverseObjectEnumerator.allObjects) {
         CGFloat currentX = 0;
+        NSMutableArray *rowSlices = [NSMutableArray array];
+        
         for (NSBitmapImageRep *rep in bitmaps) {
             [NSGraphicsContext saveGraphicsState];
             NSRect bounds = NSMakeRect(currentX + kStrokeSize, currentY + kStrokeSize, itemWidth - kStrokeSize * 2, itemHeight - kStrokeSize * 2);
             bounds = NSMakeRect(NSMidX(bounds) - rep.pixelsWide / 2, NSMidY(bounds) - rep.pixelsHigh / 2, rep.pixelsWide, rep.pixelsHigh);
-            [slices addObject:[NSValue valueWithRect:bounds]];
+            [rowSlices addObject:[NSValue valueWithRect:bounds]];
             
-            NSBezierPath *path = [NSBezierPath bezierPathWithRect:NSInsetRect(bounds, -kStrokeSize * 2, -kStrokeSize * 2)];
+            NSBezierPath *path = [NSBezierPath bezierPathWithRect:NSInsetRect(bounds, -kStrokeSize * 1, -kStrokeSize * 1)];
             
             [rep drawInRect:bounds
                    fromRect:NSZeroRect
@@ -119,29 +121,66 @@
             [NSGraphicsContext restoreGraphicsState];
         }
         currentY += itemHeight + kImagePadding;
+        [slices addObject:rowSlices];
     }
     [NSGraphicsContext restoreGraphicsState];
-    
+    //!TODO: Do something will all of these applescript errors waiting to happen
     NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier] stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]] stringByAppendingPathExtension:@"png"];
+    
+    //! the path returned by photoshop has /private/var while we give it /var so workaround it
+    if (![tempPath hasPrefix:@"/private"]) {
+        tempPath = [@"/private" stringByAppendingPathComponent:tempPath];
+    }
     
     [self.currentDocuments setObject:slices forKey:tempPath];
     [[rowImage representationUsingType:NSPNGFileType properties:nil] writeToFile:tempPath atomically:NO];
+    
+    NSString *ps = [[[[NSAppleScript alloc] initWithSource:@"tell application \"Finder\" to set appPath to name of application file id \"com.adobe.Photoshop\" "] executeAndReturnError:nil] stringValue];
+    if (!ps) {
+        NSLog(@"failed to get photoshop instance");
+        return;
+    }
+    
+    NSString *script = [NSString stringWithFormat:@"tell application \"%@\"\n\tset filePath to (POSIX file \"%@\") as string\n\topen file filePath\nend tell", ps, tempPath];
+    [[[NSAppleScript alloc] initWithSource:script] executeAndReturnError:nil];
 }
 
 - (NSArray *)receiveImagesFromPhotoshop {
-    //!TODO: Actually get the current document path from photoshop
-    NSString *path = self.currentDocuments.allKeys[0];
-    NSArray *slices = self.currentDocuments[path];
-    NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithData:[NSData dataWithContentsOfFile:path]];
-    CGImageRef image = imageRep.CGImage;
-    
-    NSMutableArray *images = [NSMutableArray array];
-    
-    for (NSValue *slice in slices) {
-        [images addObject:[[NSBitmapImageRep alloc] initWithCGImage:CGImageCreateWithImageInRect(image, slice.rectValue)]];
+    NSString *ps = [[[[NSAppleScript alloc] initWithSource:@"tell application \"Finder\" to set appPath to name of application file id \"com.adobe.Photoshop\" "] executeAndReturnError:nil] stringValue];
+    if (!ps) {
+        NSLog(@"failed to get photoshop instance");
+        return nil;
     }
     
-    return images;
+    NSString *script = [NSString stringWithFormat:@"tell application \"%@\" to return the POSIX path of (file path of current document as alias)", ps];
+    
+    
+    NSString *path = [[[[NSAppleScript alloc] initWithSource:script] executeAndReturnError:nil] stringValue];
+    
+    if ([self.currentDocuments.allKeys containsObject:path]) {
+        NSArray *slices = self.currentDocuments[path];
+        NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+        CGImageRef image = imageRep.CGImage;
+    
+        NSMutableArray *images = [NSMutableArray array];
+        
+        for (NSArray *row in slices.reverseObjectEnumerator.allObjects) {
+            for (NSValue *slice in row) {
+                NSRect orig = slice.rectValue;
+                NSRect flipped = NSMakeRect(NSMinX(orig), imageRep.pixelsHigh  - NSMaxY(orig), NSWidth(orig), NSHeight(orig));
+                [images addObject:[[NSBitmapImageRep alloc] initWithCGImage:CGImageCreateWithImageInRect(image, flipped)]];
+            }
+        }
+    
+        [self.currentDocuments removeObjectForKey:path];
+        
+        return images;
+    }
+        NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier] stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]] stringByAppendingPathExtension:@"png"];
+    script = [NSString stringWithFormat:@"tell application \"%@\"\n\tset aDoc to current document\n\texport aDoc in file (\"%@\" as string) as save for web with options {class:save for web export options, web format:PNG}\nend tell", ps, tempPath];
+    [[[NSAppleScript alloc] initWithSource:script] executeAndReturnError:nil];
+    
+    return @[[[NSBitmapImageRep alloc] initWithData:[NSData dataWithContentsOfFile:tempPath]]];
 }
 
 @end
