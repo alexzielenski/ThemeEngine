@@ -196,11 +196,7 @@ static NSString *md5(NSString *input) {
     
     __block NSUInteger currentRepIndex = 0;
     [self.imageBrowserView.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        NSBitmapImageRep *rep = nil;
-        if (currentRepIndex < received.count)
-            rep = received[currentRepIndex];
-        else
-            rep = received[currentRepIndex % received.count];
+        NSBitmapImageRep *rep = rep = received[currentRepIndex % received.count];
         
         CFTAsset *asset = self.filteredAssets[idx];
         if (CoreThemeTypeIsBitmap(asset.type)) {
@@ -299,10 +295,8 @@ static NSString *md5(NSString *input) {
         
         if (x >= indices.count)
             break;
-        else if (x >= pb.pasteboardItems.count) {
+        else {
             item = pb.pasteboardItems[x % pb.pasteboardItems.count];
-        } else {
-            item = pb.pasteboardItems[x];
         }
         
         asset = self.filteredAssets[indexes[x]];
