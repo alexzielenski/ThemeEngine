@@ -587,6 +587,11 @@ static void *kCFTStopContext;
     [self _startObservingStop:stop];
     layer.frame = CGRectMake(0, 0, kCFTStopSize, kCFTStopSize);
     
+    if (stop.isMidpointStop)
+        layer.zPosition = 1;
+    else
+        layer.zPosition = 1000;
+    
     if (isColorStop) {
         if (stop.isMidpointStop)
             [self.colorMidpointStopLayers addObject:layer];
