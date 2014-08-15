@@ -19,6 +19,7 @@
 		FA7B5F78199600FF00D0B2AD /* TEAssetDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7B5F76199600FF00D0B2AD /* TEAssetDetailViewController.m */; };
 		FA7B5F79199600FF00D0B2AD /* Detail.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7B5F77199600FF00D0B2AD /* Detail.xib */; };
 		FA7C1EE5199D422000AE156A /* TEPhotoshopController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EE4199D422000AE156A /* TEPhotoshopController.m */; };
+		FA7C1EEC199DD3F900AE156A /* TEAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EEB199DD3F900AE156A /* TEAnimationView.m */; };
 		FA98319F199BB9FD00739B89 /* NSColor+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA9831A2199BD02000739B89 /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A1199BD02000739B89 /* CFTGradient.m */; };
 		FA9831A3199BD23E00739B89 /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A1199BD02000739B89 /* CFTGradient.m */; };
@@ -86,6 +87,8 @@
 		FA7C1EE3199D422000AE156A /* TEPhotoshopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEPhotoshopController.h; path = src/controllers/TEPhotoshopController.h; sourceTree = "<group>"; };
 		FA7C1EE4199D422000AE156A /* TEPhotoshopController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEPhotoshopController.m; path = src/controllers/TEPhotoshopController.m; sourceTree = "<group>"; };
 		FA7C1EE7199D460500AE156A /* Photoshop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photoshop.h; sourceTree = "<group>"; };
+		FA7C1EEA199DD3F900AE156A /* TEAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEAnimationView.h; path = src/views/TEAnimationView.h; sourceTree = "<group>"; };
+		FA7C1EEB199DD3F900AE156A /* TEAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEAnimationView.m; path = src/views/TEAnimationView.m; sourceTree = "<group>"; };
 		FA98319D199BB9FD00739B89 /* NSColor+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+Pasteboard.h"; path = "src/categories/NSColor+Pasteboard.h"; sourceTree = "<group>"; };
 		FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+Pasteboard.m"; path = "src/categories/NSColor+Pasteboard.m"; sourceTree = "<group>"; };
 		FA9831A0199BD02000739B89 /* CFTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTGradient.h; path = src/CFTGradient.h; sourceTree = "<group>"; };
@@ -352,6 +355,8 @@
 				FA6BEDB51999B8D1006BF951 /* TEGradientView.m */,
 				FA9831A5199BE36300739B89 /* CFTGradientEditor.h */,
 				FA9831A6199BE36300739B89 /* CFTGradientEditor.m */,
+				FA7C1EEA199DD3F900AE156A /* TEAnimationView.h */,
+				FA7C1EEB199DD3F900AE156A /* TEAnimationView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -383,6 +388,8 @@
 				FACFC3181995A21700ED936C /* Sources */,
 				FACFC3191995A21700ED936C /* Frameworks */,
 				FACFC31A1995A21700ED936C /* Resources */,
+				FA7C1EE8199DCEED00AE156A /* Build Number */,
+				FA7C1EE9199DCEFB00AE156A /* Version Number */,
 			);
 			buildRules = (
 			);
@@ -444,6 +451,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		FA7C1EE8199DCEED00AE156A /* Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+		FA7C1EE9199DCEFB00AE156A /* Version Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Version Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "VERSIONNUM=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nNEWSUBVERSION=`echo $VERSIONNUM | awk -F \".\" '{print $3}'`\nNEWSUBVERSION=$(($NEWSUBVERSION + 1))\nNEWVERSIONSTRING=`echo $VERSIONNUM | awk -F \".\" '{print $1 \".\" $2 \".'$NEWSUBVERSION'\" }'`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $NEWVERSIONSTRING\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FACFC2C3199485E900ED936C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -478,6 +516,7 @@
 				FA98319F199BB9FD00739B89 /* NSColor+Pasteboard.m in Sources */,
 				FACFC3421995A26A00ED936C /* CFTElementStore.m in Sources */,
 				FA9831A3199BD23E00739B89 /* CFTGradient.m in Sources */,
+				FA7C1EEC199DD3F900AE156A /* TEAnimationView.m in Sources */,
 				FA6BEDBD1999F9F8006BF951 /* CFTEffectWrapper.m in Sources */,
 				FAEC5265199C4FEA00045AFA /* TEGradientStopViewController.m in Sources */,
 				FA0A02F7199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m in Sources */,

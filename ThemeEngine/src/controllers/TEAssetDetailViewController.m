@@ -25,6 +25,8 @@
     [self.imageSliceView bind:@"sliceRects" toObject:self withKeyPath:@"asset.slices" options:nil];
     [self.pdfPreview bind:@"document" toObject:self withKeyPath:@"pdf" options:nil];
     
+    [self.animationImageView bind:@"image" toObject:self withKeyPath:@"asset.image" options:nil];
+    
     [self addObserver:self forKeyPath:@"asset" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.image" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.type" options:0 context:nil];
@@ -106,7 +108,13 @@
                 content = self.pdfView;
                 [self.inspector expandViewAtIndex:0];
                 break;
-            case kCoreThemeTypeAnimation:
+            case kCoreThemeTypeAnimation: {
+                content = self.animationView;
+                //!TODO make this better
+                self.animationImageView.frameWidth = [self.asset.slices[0] rectValue].size.width;
+                [self.inspector insertView:self.animationPanel withTitle:@"Animation" atIndex:0 expanded:YES];
+                break;
+            }
             case kCoreThemeTypeNinePart:
             case kCoreThemeTypeOnePart:
             case kCoreThemeTypeSixPart:
@@ -258,7 +266,16 @@
 
 - (IBAction)save:(id)sender {
     [self cancel:sender];
-    self.asset.slices = self.imageSliceView.sliceRects;
+    if (self.asset.type != kCoreThemeTypeAnimation) {
+        self.asset.slices = self.imageSliceView.sliceRects;
+    } else {
+        NSArray *slices = @[ [NSValue valueWithRect:NSMakeRect(0, 0,
+                                                               self.animationImageView.frameWidth, self.animationImageView.image.pixelsHigh)],
+                             [NSValue valueWithRect:NSMakeRect(self.animationImageView.frameWidth, 0,
+                                                               self.animationImageView.image.pixelsWide - self.animationImageView.frameWidth,
+                                                               self.animationImageView.image.pixelsHigh)]];
+        self.asset.slices = slices;
+    }
     self.asset.exifOrientation = self.exifOrientation;
     self.asset.utiType = self.utiType;
     self.asset.blendMode = self.blendMode;

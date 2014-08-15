@@ -8,6 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TEAssetDetailViewController">
             <connections>
+                <outlet property="animationImageView" destination="R57-UF-kCh" id="1G6-rh-zjK"/>
+                <outlet property="animationPanel" destination="sPb-sZ-vh5" id="d9T-Hh-ph3"/>
+                <outlet property="animationView" destination="WMd-9a-VKD" id="rBr-mZ-JcL"/>
                 <outlet property="attributesPanel" destination="Xje-k6-UOa" id="g7n-2H-ffJ"/>
                 <outlet property="bitmapView" destination="uuf-CX-lqd" id="PYy-aJ-LqP"/>
                 <outlet property="colorPanel" destination="rtp-NP-8dK" id="WU8-uT-NyE"/>
@@ -642,6 +645,16 @@ Gw
                 </customView>
             </subviews>
             <point key="canvasLocation" x="871" y="310.5"/>
+        </customView>
+        <customView id="WMd-9a-VKD" userLabel="Animation">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R57-UF-kCh" customClass="TEAnimationView">
+                    <rect key="frame" x="46" y="43" width="254" height="288"/>
+                </customView>
+            </subviews>
+            <point key="canvasLocation" x="186" y="296.5"/>
         </customView>
         <customView id="Unv-da-J3u" userLabel="PDF">
             <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>
@@ -1395,6 +1408,32 @@ Gw
                 <constraint firstAttribute="bottom" secondItem="oIU-GO-sDh" secondAttribute="bottom" constant="20" symbolic="YES" id="xQE-q5-e7J"/>
             </constraints>
             <point key="canvasLocation" x="816.5" y="519.5"/>
+        </customView>
+        <customView wantsLayer="YES" id="sPb-sZ-vh5" userLabel="Animation Panel">
+            <rect key="frame" x="0.0" y="0.0" width="243" height="58"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Se2-pS-bzS">
+                    <rect key="frame" x="18" y="21" width="87" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Frame Width:" id="fPT-OO-fqX">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XSa-vm-iSR">
+                    <rect key="frame" x="111" y="18" width="112" height="22"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="EUY-K3-POD">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="animationImageView.frameWidth" id="8c5-T6-Ray"/>
+                    </connections>
+                </textField>
+            </subviews>
+            <point key="canvasLocation" x="816.5" y="481"/>
         </customView>
     </objects>
 </document>

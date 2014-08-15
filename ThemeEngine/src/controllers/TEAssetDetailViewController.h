@@ -13,6 +13,7 @@
 
 #import "TEGradientView.h"
 #import "TEGradientStopViewController.h"
+#import "TEAnimationView.h"
 
 @interface TEAssetDetailViewController : NSViewController
 @property (strong) CFTAsset *asset;
@@ -24,6 +25,7 @@
 @property (weak) IBOutlet NSView *effectView;
 @property (weak) IBOutlet NSView *pdfView;
 @property (weak) IBOutlet NSView *colorView;
+@property (weak) IBOutlet NSView *animationView;
 
 // Inspector Panels
 @property (weak) IBOutlet NSView *attributesPanel;
@@ -32,6 +34,7 @@
 @property (weak) IBOutlet NSView *gradientPanel;
 @property (weak) IBOutlet NSView *effectPanel;
 @property (weak) IBOutlet NSView *slicePanel;
+@property (weak) IBOutlet NSView *animationPanel;
 
 // Attributes
 @property (assign) CGFloat opacity;
@@ -74,6 +77,9 @@
 @property (weak) IBOutlet NSControl *effectBlendModeView;
 @property (weak) IBOutlet NSControl *effectSoftenView;
 @property (weak) IBOutlet NSControl *effectSpreadView;
+
+// Animations
+@property (weak) IBOutlet TEAnimationView *animationImageView;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)save:(id)sender;
