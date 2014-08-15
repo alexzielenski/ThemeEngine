@@ -289,7 +289,6 @@ static NSString *md5(NSString *input) {
     [self.imageBrowserView reloadData];
 }
 
-//!TODO: Fix NSColor not writing alpha to pasteboard
 - (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndices:(NSIndexSet *)indices {
     NSUInteger *indexes = malloc(sizeof(NSUInteger) * indices.count);
     [indices getIndexes:indexes maxCount:indices.count inIndexRange:NULL];
@@ -301,7 +300,7 @@ static NSString *md5(NSString *input) {
         if (x >= indices.count)
             break;
         else if (x >= pb.pasteboardItems.count) {
-            item = pb.pasteboardItems.lastObject;
+            item = pb.pasteboardItems[x % pb.pasteboardItems.count];
         } else {
             item = pb.pasteboardItems[x];
         }
