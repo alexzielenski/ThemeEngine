@@ -97,6 +97,11 @@
     [self addObserver:self forKeyPath:@"frameWidth" options:0 context:nil];
 }
 
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"image"];
+    [self removeObserver:self forKeyPath:@"frameWidth"];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"image"] || [keyPath isEqualToString:@"frameWidth"]) {
         self.spriteLayer.contents = (__bridge id)self.image.CGImage;

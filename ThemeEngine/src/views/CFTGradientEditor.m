@@ -199,6 +199,20 @@ static void *kCFTStopContext;
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"gradient"];
     [self removeObserver:self forKeyPath:@"selectedStop"];
+    
+    for (NSInteger x = self.colorStopLayers.count - 1; x >= 0; x--) {
+        [self _removeStopLayer:self.colorStopLayers[x]];
+    }
+    for (NSInteger x = self.opacityStopLayers.count - 1; x >= 0; x--) {
+        [self _removeStopLayer:self.opacityStopLayers[x]];
+    }
+    for (NSInteger x = self.colorMidpointStopLayers.count - 1; x >= 0; x--) {
+        [self _removeStopLayer:self.colorMidpointStopLayers[x]];
+    }
+    for (NSInteger x = self.opacityMidpointStopLayers.count - 1; x >= 0; x--) {
+        [self _removeStopLayer:self.opacityMidpointStopLayers[x]];
+    }
+
 }
 
 - (void)_initialize {
