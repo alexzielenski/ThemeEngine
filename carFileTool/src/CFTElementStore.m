@@ -174,6 +174,10 @@ extern int BOMTreeRemoveValue(BOMTreeRef tree, void *key, size_t keySize);
     [element addAsset:asset];
 }
 
+//!TODO: Add removeFromStorage method to CFTAsset
+// remove the shouldRemove property
+// remove stuff immediately
+// implement removeAsset on CFTElement and forward this call
 - (void)removeAsset:(CFTAsset *)asset {
     NSAssert(asset.type == kCoreThemeTypeColor, @"CFTElementStore only supports removing color assets right now.");
     

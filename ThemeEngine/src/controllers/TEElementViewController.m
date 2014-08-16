@@ -87,6 +87,7 @@ static NSString *md5(NSString *input) {
     self.imageBrowserView.allowsDroppingOnItems = YES;
 }
 
+//!TODO: Observe each element for asset changes
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"elements"]) {
         

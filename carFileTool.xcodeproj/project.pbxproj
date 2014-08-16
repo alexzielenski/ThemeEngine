@@ -21,6 +21,9 @@
 		FA7C1EE5199D422000AE156A /* TEPhotoshopController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EE4199D422000AE156A /* TEPhotoshopController.m */; };
 		FA7C1EEC199DD3F900AE156A /* TEAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EEB199DD3F900AE156A /* TEAnimationView.m */; };
 		FA7C1EEF199ED87500AE156A /* TELayerEffectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EEE199ED87500AE156A /* TELayerEffectsViewController.m */; };
+		FA7C1EF1199FFE4400AE156A /* CFTEffectWrapper+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */; };
+		FA7C1EF2199FFE4400AE156A /* CFTGradient+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */; };
+		FA7C1EF3199FFE4400AE156A /* NSColor+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */; };
 		FA98319F199BB9FD00739B89 /* NSColor+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA9831A2199BD02000739B89 /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A1199BD02000739B89 /* CFTGradient.m */; };
 		FA9831A3199BD23E00739B89 /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A1199BD02000739B89 /* CFTGradient.m */; };
@@ -70,10 +73,10 @@
 /* Begin PBXFileReference section */
 		FA0A02EF199AD112000F56A2 /* CFTAsset+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CFTAsset+Pasteboard.h"; path = "src/categories/CFTAsset+Pasteboard.h"; sourceTree = "<group>"; };
 		FA0A02F0199AD112000F56A2 /* CFTAsset+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CFTAsset+Pasteboard.m"; path = "src/categories/CFTAsset+Pasteboard.m"; sourceTree = "<group>"; };
-		FA0A02F5199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CFTEffectWrapper+Pasteboard.h"; path = "src/categories/CFTEffectWrapper+Pasteboard.h"; sourceTree = "<group>"; };
-		FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CFTEffectWrapper+Pasteboard.m"; path = "src/categories/CFTEffectWrapper+Pasteboard.m"; sourceTree = "<group>"; };
-		FA0A02F8199AD8B8000F56A2 /* CFTGradient+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CFTGradient+Pasteboard.h"; path = "src/categories/CFTGradient+Pasteboard.h"; sourceTree = "<group>"; };
-		FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CFTGradient+Pasteboard.m"; path = "src/categories/CFTGradient+Pasteboard.m"; sourceTree = "<group>"; };
+		FA0A02F5199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CFTEffectWrapper+Pasteboard.h"; path = "../ThemeEngine/src/categories/CFTEffectWrapper+Pasteboard.h"; sourceTree = "<group>"; };
+		FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CFTEffectWrapper+Pasteboard.m"; path = "../ThemeEngine/src/categories/CFTEffectWrapper+Pasteboard.m"; sourceTree = "<group>"; };
+		FA0A02F8199AD8B8000F56A2 /* CFTGradient+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CFTGradient+Pasteboard.h"; path = "../ThemeEngine/src/categories/CFTGradient+Pasteboard.h"; sourceTree = "<group>"; };
+		FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CFTGradient+Pasteboard.m"; path = "../ThemeEngine/src/categories/CFTGradient+Pasteboard.m"; sourceTree = "<group>"; };
 		FA472AAB19985AB4003631BC /* ZKInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKInspector.h; path = ZKInspector/ZKInspector.h; sourceTree = "<group>"; };
 		FA472AAC19985AB4003631BC /* ZKInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKInspector.m; path = ZKInspector/ZKInspector.m; sourceTree = "<group>"; };
 		FA6BEDB41999B8D1006BF951 /* TEGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEGradientView.h; path = src/views/TEGradientView.h; sourceTree = "<group>"; };
@@ -92,8 +95,8 @@
 		FA7C1EEB199DD3F900AE156A /* TEAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEAnimationView.m; path = src/views/TEAnimationView.m; sourceTree = "<group>"; };
 		FA7C1EED199ED87500AE156A /* TELayerEffectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TELayerEffectsViewController.h; path = src/controllers/TELayerEffectsViewController.h; sourceTree = "<group>"; };
 		FA7C1EEE199ED87500AE156A /* TELayerEffectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TELayerEffectsViewController.m; path = src/controllers/TELayerEffectsViewController.m; sourceTree = "<group>"; };
-		FA98319D199BB9FD00739B89 /* NSColor+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+Pasteboard.h"; path = "src/categories/NSColor+Pasteboard.h"; sourceTree = "<group>"; };
-		FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+Pasteboard.m"; path = "src/categories/NSColor+Pasteboard.m"; sourceTree = "<group>"; };
+		FA98319D199BB9FD00739B89 /* NSColor+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+Pasteboard.h"; path = "../ThemeEngine/src/categories/NSColor+Pasteboard.h"; sourceTree = "<group>"; };
+		FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+Pasteboard.m"; path = "../ThemeEngine/src/categories/NSColor+Pasteboard.m"; sourceTree = "<group>"; };
 		FA9831A0199BD02000739B89 /* CFTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTGradient.h; path = src/CFTGradient.h; sourceTree = "<group>"; };
 		FA9831A1199BD02000739B89 /* CFTGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CFTGradient.m; path = src/CFTGradient.m; sourceTree = "<group>"; };
 		FA9831A4199BD3FF00739B89 /* CUIColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CUIColor.h; sourceTree = "<group>"; };
@@ -209,6 +212,19 @@
 			path = src/headers;
 			sourceTree = "<group>";
 		};
+		FA7C1EF0199FFE3B00AE156A /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				FA0A02F5199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.h */,
+				FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */,
+				FA0A02F8199AD8B8000F56A2 /* CFTGradient+Pasteboard.h */,
+				FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */,
+				FA98319D199BB9FD00739B89 /* NSColor+Pasteboard.h */,
+				FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		FACFC2BE199485E900ED936C = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +265,7 @@
 				FA6BEDBA1999D5CE006BF951 /* CFTEffect.h */,
 				FA6BEDBB1999D5CE006BF951 /* CFTEffect.m */,
 				FACFC2E3199499C000ED936C /* prefix.pch */,
+				FA7C1EF0199FFE3B00AE156A /* Categories */,
 			);
 			path = carFileTool;
 			sourceTree = "<group>";
@@ -337,12 +354,6 @@
 			children = (
 				FA0A02EF199AD112000F56A2 /* CFTAsset+Pasteboard.h */,
 				FA0A02F0199AD112000F56A2 /* CFTAsset+Pasteboard.m */,
-				FA0A02F5199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.h */,
-				FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */,
-				FA0A02F8199AD8B8000F56A2 /* CFTGradient+Pasteboard.h */,
-				FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */,
-				FA98319D199BB9FD00739B89 /* NSColor+Pasteboard.h */,
-				FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */,
 				FAEC5266199C526900045AFA /* CUIPSDGradientStop+KVO.h */,
 				FAEC5267199C526900045AFA /* CUIPSDGradientStop+KVO.m */,
 				FAEC528C199C828900045AFA /* CUIThemeGradient+Radial.h */,
@@ -493,7 +504,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAEC528F199C874100045AFA /* CUIThemeGradient+Radial.m in Sources */,
+				FA7C1EF1199FFE4400AE156A /* CFTEffectWrapper+Pasteboard.m in Sources */,
+				FA7C1EF2199FFE4400AE156A /* CFTGradient+Pasteboard.m in Sources */,
 				FAEC5282199C7A9400045AFA /* ZKSwizzle.m in Sources */,
+				FA7C1EF3199FFE4400AE156A /* NSColor+Pasteboard.m in Sources */,
 				FACFC2EF19955F6800ED936C /* CFTDefines.m in Sources */,
 				FACFC2CB199485E900ED936C /* main.m in Sources */,
 				FA6BEDB91999D5C3006BF951 /* CFTEffectWrapper.m in Sources */,
