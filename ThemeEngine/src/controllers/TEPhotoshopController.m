@@ -7,8 +7,6 @@
 //
 
 #import "TEPhotoshopController.h"
-#import "Photoshop.h"
-@import ScriptingBridge;
 
 // Current documents is an array of dictionaries
 // Dictionaries are in the following format:

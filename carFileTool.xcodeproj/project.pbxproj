@@ -25,6 +25,7 @@
 		FA7C1EF2199FFE4400AE156A /* CFTGradient+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */; };
 		FA7C1EF3199FFE4400AE156A /* NSColor+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */; };
 		FA7C1EF619A005D700AE156A /* CFTAsset+Coding.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EF519A005D700AE156A /* CFTAsset+Coding.m */; };
+		FA7C1EFC19A0093800AE156A /* CFTAsset+IKImageBrowserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EFB19A0093800AE156A /* CFTAsset+IKImageBrowserItem.m */; };
 		FA98319F199BB9FD00739B89 /* NSColor+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA9831A2199BD02000739B89 /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A1199BD02000739B89 /* CFTGradient.m */; };
 		FA9831A3199BD23E00739B89 /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A1199BD02000739B89 /* CFTGradient.m */; };
@@ -91,13 +92,14 @@
 		FA7B5F77199600FF00D0B2AD /* Detail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Detail.xib; path = src/controllers/Detail.xib; sourceTree = "<group>"; };
 		FA7C1EE3199D422000AE156A /* TEPhotoshopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEPhotoshopController.h; path = src/controllers/TEPhotoshopController.h; sourceTree = "<group>"; };
 		FA7C1EE4199D422000AE156A /* TEPhotoshopController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEPhotoshopController.m; path = src/controllers/TEPhotoshopController.m; sourceTree = "<group>"; };
-		FA7C1EE7199D460500AE156A /* Photoshop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photoshop.h; sourceTree = "<group>"; };
 		FA7C1EEA199DD3F900AE156A /* TEAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEAnimationView.h; path = src/views/TEAnimationView.h; sourceTree = "<group>"; };
 		FA7C1EEB199DD3F900AE156A /* TEAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEAnimationView.m; path = src/views/TEAnimationView.m; sourceTree = "<group>"; };
 		FA7C1EED199ED87500AE156A /* TELayerEffectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TELayerEffectsViewController.h; path = src/controllers/TELayerEffectsViewController.h; sourceTree = "<group>"; };
 		FA7C1EEE199ED87500AE156A /* TELayerEffectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TELayerEffectsViewController.m; path = src/controllers/TELayerEffectsViewController.m; sourceTree = "<group>"; };
 		FA7C1EF419A005D700AE156A /* CFTAsset+Coding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CFTAsset+Coding.h"; path = "src/categories/CFTAsset+Coding.h"; sourceTree = "<group>"; };
 		FA7C1EF519A005D700AE156A /* CFTAsset+Coding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CFTAsset+Coding.m"; path = "src/categories/CFTAsset+Coding.m"; sourceTree = "<group>"; };
+		FA7C1EFA19A0093800AE156A /* CFTAsset+IKImageBrowserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CFTAsset+IKImageBrowserItem.h"; path = "src/categories/CFTAsset+IKImageBrowserItem.h"; sourceTree = "<group>"; };
+		FA7C1EFB19A0093800AE156A /* CFTAsset+IKImageBrowserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CFTAsset+IKImageBrowserItem.m"; path = "src/categories/CFTAsset+IKImageBrowserItem.m"; sourceTree = "<group>"; };
 		FA98319D199BB9FD00739B89 /* NSColor+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+Pasteboard.h"; path = "src/categories/NSColor+Pasteboard.h"; sourceTree = "<group>"; };
 		FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+Pasteboard.m"; path = "src/categories/NSColor+Pasteboard.m"; sourceTree = "<group>"; };
 		FA9831A0199BD02000739B89 /* CFTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTGradient.h; path = src/CFTGradient.h; sourceTree = "<group>"; };
@@ -206,15 +208,6 @@
 			path = ZKInspector;
 			sourceTree = "<group>";
 		};
-		FA7C1EE6199D460500AE156A /* headers */ = {
-			isa = PBXGroup;
-			children = (
-				FA7C1EE7199D460500AE156A /* Photoshop.h */,
-			);
-			name = headers;
-			path = src/headers;
-			sourceTree = "<group>";
-		};
 		FACFC2BE199485E900ED936C = {
 			isa = PBXGroup;
 			children = (
@@ -292,7 +285,6 @@
 		FACFC31D1995A21700ED936C /* ThemeEngine */ = {
 			isa = PBXGroup;
 			children = (
-				FA7C1EE6199D460500AE156A /* headers */,
 				FA472A9D19985AB4003631BC /* external */,
 				FACFC3461995A3B700ED936C /* TEAppDelegate.h */,
 				FACFC3471995A3B700ED936C /* TEAppDelegate.m */,
@@ -341,6 +333,8 @@
 		FAEC5292199D401200045AFA /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				FA7C1EFA19A0093800AE156A /* CFTAsset+IKImageBrowserItem.h */,
+				FA7C1EFB19A0093800AE156A /* CFTAsset+IKImageBrowserItem.m */,
 				FA7C1EF419A005D700AE156A /* CFTAsset+Coding.h */,
 				FA7C1EF519A005D700AE156A /* CFTAsset+Coding.m */,
 				FA0A02EF199AD112000F56A2 /* CFTAsset+Pasteboard.h */,
@@ -536,6 +530,7 @@
 				FA7C1EEC199DD3F900AE156A /* TEAnimationView.m in Sources */,
 				FA6BEDBD1999F9F8006BF951 /* CFTEffectWrapper.m in Sources */,
 				FA7C1EEF199ED87500AE156A /* TELayerEffectsViewController.m in Sources */,
+				FA7C1EFC19A0093800AE156A /* CFTAsset+IKImageBrowserItem.m in Sources */,
 				FAEC5265199C4FEA00045AFA /* TEGradientStopViewController.m in Sources */,
 				FA0A02F7199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m in Sources */,
 				FAEC528E199C828900045AFA /* CUIThemeGradient+Radial.m in Sources */,

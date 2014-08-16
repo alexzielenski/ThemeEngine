@@ -16,6 +16,8 @@ IB_DESIGNABLE
 @property (weak) IBOutlet NSTextField *statusLabel;
 @property (strong) NSArray *elements;
 @property (weak) IBOutlet NSSearchField *search;
+@property (weak) IBOutlet NSArrayController *assetsArrayController;
+@property (weak) IBOutlet NSArrayController *elementsArrayController;
 - (IBAction)searchChanged:(NSSearchField *)sender;
 
 - (IBAction)paste:(id)sender;

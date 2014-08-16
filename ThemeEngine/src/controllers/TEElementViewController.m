@@ -29,15 +29,11 @@ static NSString *md5(NSString *input) {
 }
 
 @interface TEElementViewController ()
-@property (strong) NSArray *assets;
-@property (strong) NSArray *filteredAssets;
-@property (strong) NSString *lastQuery;
+@property (strong) NSPredicate *filterPredicate;
 @property (strong) TEAssetDetailViewController *detailPopoverViewController;
 - (void)_initialize;
 - (void)_filterPredicates;
 - (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndices:(NSIndexSet *)indices;
-- (void)_startObservingAsset:(CFTAsset *)asset;
-- (void)_stopObservingAsset:(CFTAsset *)asset;
 - (NSArray *)newSliceRectsFromOldSliceRects:(NSArray *)slices oldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image;
 @end
 
@@ -68,23 +64,29 @@ static NSString *md5(NSString *input) {
 }
 
 - (void)dealloc {
-    self.assets = nil;
-    self.filteredAssets = nil;
     [self removeObserver:self forKeyPath:@"elements"];
-    [self removeObserver:self forKeyPath:@"assets"];
+    [self.assetsArrayController removeObserver:self forKeyPath:@"arrangedObjects.previewImage"];
+    [self.imageBrowserView unbind:NSContentBinding];
 }
 
 - (void)_initialize {
     [self addObserver:self forKeyPath:@"elements" options:0 context:nil];
-    [self addObserver:self forKeyPath:@"assets" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
 
+static void *kTEDirtyContext;
+
 - (void)awakeFromNib {
-//    self.imageBrowserView.cellSize = NSMakeSize(96, 96);
     self.imageBrowserView.constrainsToOriginalSize = YES;
     self.imageBrowserView.contentResizingMask = NSViewHeightSizable;
     self.imageBrowserView.canControlQuickLookPanel = YES;
     self.imageBrowserView.allowsDroppingOnItems = YES;
+    
+    //!TODO: Sort by states, etc.
+    self.assetsArrayController.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:NO selector:@selector(caseInsensitiveCompare:)] ];
+    [self.assetsArrayController addObserver:self forKeyPath:@"arrangedObjects.previewImage" options:0 context:&kTEDirtyContext];
+    [self.imageBrowserView bind:NSContentBinding toObject:self.assetsArrayController withKeyPath:@"arrangedObjects" options:nil];
+    self.imageBrowserView.draggingDestinationDelegate = self;
+    self.imageBrowserView.delegate = self;
 }
 
 //!TODO: Observe each element for asset changes
@@ -97,46 +99,25 @@ static NSString *md5(NSString *input) {
                 [weakSelf dismissViewController:self.detailPopoverViewController];
         });
         
-        self.assets = [[self.elements valueForKeyPath:@"@distinctUnionOfSets.assets"] allObjects];
-        self.filteredAssets = self.assets;
         [self _filterPredicates];
     } else if ([keyPath isEqualToString:@"previewImage"]) {
         [self.imageBrowserView reloadData];
-    } else if ([keyPath isEqualToString:@"assets"]) {
-        NSArray *newObjects = change[NSKeyValueChangeNewKey];
-        NSArray *oldObjects = change[NSKeyValueChangeOldKey];
-        
-        if ([newObjects isKindOfClass:[NSNull class]])
-            newObjects = nil;
-        if ([oldObjects isKindOfClass:[NSNull class]])
-            oldObjects = nil;
-        
-        for (id obj in newObjects)
-            [self _startObservingAsset:obj];
-        for (id obj in oldObjects)
-            [self _stopObservingAsset:obj];
-        
-        [self.imageBrowserView reloadData];
     } else if ([keyPath isEqualToString:@"image"]) {
+        //!TODO: Move this logic into CFTAsset
         NSBitmapImageRep *oldImage = change[NSKeyValueChangeOldKey];
         NSBitmapImageRep *newImage = change[NSKeyValueChangeNewKey];
+
         if (![oldImage isKindOfClass:[NSNull class]] && ![newImage isKindOfClass:[NSNull class]]) {
             //!TODO: Metrics too
             ((CFTAsset *)object).slices = [self newSliceRectsFromOldSliceRects:((CFTAsset *)object).slices
                                                                       oldImage:oldImage
                                                                    forNewImage:newImage];
         }
+    } else if (context == &kTEDirtyContext) {
+        
+        [self.imageBrowserView reloadData];
     }
-}
-
-- (void)_startObservingAsset:(CFTAsset *)asset {
-    [asset addObserver:self forKeyPath:@"previewImage" options:0 context:nil];
-    [asset addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
-}
-
-- (void)_stopObservingAsset:(CFTAsset *)asset {
-    [asset removeObserver:self forKeyPath:@"previewImage"];
-    [asset removeObserver:self forKeyPath:@"image"];
+    
 }
 
 - (IBAction)searchChanged:(NSSearchField *)sender {
@@ -178,15 +159,10 @@ static NSString *md5(NSString *input) {
             [terms addObject:[NSPredicate predicateWithFormat:format, field]];
         }
         
-        // Only search the filtered assets if the user is writing to the end of the query
-        // otherwise they could be editing something that changes the entire thing
-        self.filteredAssets = [[self.search.stringValue hasPrefix:self.lastQuery] ? self.filteredAssets : self.assets filteredArrayUsingPredicate:[NSCompoundPredicate andPredicateWithSubpredicates:terms]];
+        self.filterPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:terms];
     } else {
-        self.filteredAssets = self.assets;
+        self.filterPredicate = nil;
     }
-    
-    self.lastQuery = self.search.stringValue;
-    [self.imageBrowserView reloadData];
 }
 
 // Scales slices for an asset when images change
@@ -207,25 +183,25 @@ static NSString *md5(NSString *input) {
 #pragma mark - Actions
 
 - (IBAction)paste:(id)sender {
-    [self _pasteFromPasteboard:[NSPasteboard generalPasteboard] atIndices:self.imageBrowserView.selectionIndexes];
+    [self _pasteFromPasteboard:[NSPasteboard generalPasteboard] atIndices:self.assetsArrayController.selectionIndexes];
 }
 
 - (IBAction)sendToPhotoshop:(id)sender {
-    NSIndexSet *indices = [self.imageBrowserView.selectionIndexes indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
-        return [self.filteredAssets[idx] image] != nil;
+    NSIndexSet *indices = [self.assetsArrayController.selectionIndexes indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
+        return [self.assetsArrayController.arrangedObjects[idx] image] != nil;
     }];
     
-    [[TEPhotoshopController sharedPhotoshopController] sendImagesToPhotoshop:[self.filteredAssets valueForKeyPath:@"image"]
+    [[TEPhotoshopController sharedPhotoshopController] sendImagesToPhotoshop:[self.assetsArrayController.arrangedObjects valueForKeyPath:@"image"]
                                                                   withLayout:indices
                                                                   dimensions:NSMakeSize(self.imageBrowserView.numberOfColumns, self.imageBrowserView.numberOfRows)];
 }
 
 - (IBAction)removeColor:(id)sender {
-    NSIndexSet *indices = [self.imageBrowserView.selectionIndexes indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
-        return [(CFTAsset *)self.filteredAssets[idx] type] == kCoreThemeTypeColor;
+    NSIndexSet *indices = [self.assetsArrayController.selectionIndexes indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
+        return [(CFTAsset *)self.assetsArrayController.arrangedObjects[idx] type] == kCoreThemeTypeColor;
     }];
     
-    for (CFTAsset *color in [self.filteredAssets objectsAtIndexes:indices]) {
+    for (CFTAsset *color in [self.assetsArrayController.arrangedObjects objectsAtIndexes:indices]) {
         [color.element.store removeAsset: color];
     }
 }
@@ -234,10 +210,10 @@ static NSString *md5(NSString *input) {
     NSArray *received = [TEPhotoshopController.sharedPhotoshopController receiveImagesFromPhotoshop];
     
     __block NSUInteger currentRepIndex = 0;
-    [self.imageBrowserView.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+    [self.assetsArrayController.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         NSBitmapImageRep *rep = rep = received[currentRepIndex % received.count];
         
-        CFTAsset *asset = self.filteredAssets[idx];
+        CFTAsset *asset = self.assetsArrayController.arrangedObjects[idx];
         if (CoreThemeTypeIsBitmap(asset.type)) {
             asset.image = rep;
             
@@ -250,7 +226,7 @@ static NSString *md5(NSString *input) {
 
 - (NSUInteger)imageBrowser:(IKImageBrowserView *) aBrowser writeItemsAtIndexes:(NSIndexSet *) itemIndexes toPasteboard:(NSPasteboard *)pasteboard {
     [pasteboard clearContents];
-    [pasteboard writeObjects:[self.filteredAssets objectsAtIndexes:itemIndexes]];
+    [pasteboard writeObjects:[self.assetsArrayController.arrangedObjects objectsAtIndexes:itemIndexes]];
     return itemIndexes.count;
 }
 
@@ -270,39 +246,17 @@ static NSString *md5(NSString *input) {
                   preferredEdge:CGRectMaxXEdge
                        behavior:NSPopoverBehaviorApplicationDefined];
     
-    self.detailPopoverViewController.asset = self.filteredAssets[index];
-}
-
-
-- (void)imageBrowserSelectionDidChange:(IKImageBrowserView *) browser {
-    if (browser.selectionIndexes.count == 1) {
-        self.statusLabel.stringValue = [self.filteredAssets[browser.selectionIndexes.firstIndex] debugDescription];
-        self.statusLabel.toolTip = [self.statusLabel.stringValue stringByReplacingOccurrencesOfString:@", " withString:@"\n"];
-    } else if (browser.selectionIndexes.count > 1) {
-        self.statusLabel.stringValue = @"Multible Selection";
-        self.statusLabel.toolTip = @"";
-    } else {
-        self.statusLabel.stringValue = @"No Selection";
-        self.statusLabel.toolTip = @"";
-    }
-}
-
-- (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *) browser {
-    return self.filteredAssets.count;
-}
-
-- (id)imageBrowser:(IKImageBrowserView *) aBrowser itemAtIndex:(NSUInteger)index {
-    return [self.filteredAssets objectAtIndex:index];
+    self.detailPopoverViewController.asset = self.assetsArrayController.arrangedObjects[index];
 }
 
 #pragma mark - NSDraggingDestination
 
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {
     NSUInteger idx = [self.imageBrowserView indexAtLocationOfDroppedItem];
-    if (idx >= self.filteredAssets.count)
+    if (idx >= [self.assetsArrayController.arrangedObjects count])
         return NSDragOperationNone;
     
-    CoreThemeType type = [(CFTAsset *)self.filteredAssets[idx] type];
+    CoreThemeType type = [(CFTAsset *)self.assetsArrayController.arrangedObjects[idx] type];
     //!TODO Check for individual items on the pasteboard per type of the hovered asset
     if ([NSImage canInitWithPasteboard:sender.draggingPasteboard] && self.imageBrowserView.dropOperation == IKImageBrowserDropOn &&
         (type <= kCoreThemeTypeSixPart || type == kCoreThemeTypeAnimation || type == kCoreThemeTypePDF || type == kCoreThemeTypeColor) && sender.numberOfValidItemsForDrop == 1)
@@ -341,7 +295,7 @@ static NSString *md5(NSString *input) {
             item = pb.pasteboardItems[x % pb.pasteboardItems.count];
         }
         
-        asset = self.filteredAssets[indexes[x]];
+        asset = self.assetsArrayController.arrangedObjects[indexes[x]];
         
         BOOL bad = NO;
         
@@ -389,35 +343,6 @@ static NSString *md5(NSString *input) {
     free(indexes);
     
     return YES;
-}
-
-@end
-
-@interface CFTAsset (ImageKit)
-@end
-
-@implementation CFTAsset (ImageKit)
-
-
-- (id)imageRepresentation {
-    return self.previewImage;
-}
-
-- (NSString *)imageRepresentationType {
-    return IKImageBrowserNSImageRepresentationType;
-}
-
-- (NSString *)imageUID {
-    if (self.type == kCoreThemeTypePDF || self.type == kCoreThemeTypeRawData || self.type == kCoreThemeTypeRawPixel)
-        return self.rawData.description;
-    else if (self.type == kCoreThemeTypeGradient)
-        return self.gradient.description;
-    else if (self.type == kCoreThemeTypeEffect)
-        return self.effectPreset.description;
-    else if (self.type == kCoreThemeTypeColor) {
-        return [NSString stringWithFormat:@"%f, %f, %f, %f", self.color.redComponent, self.color.greenComponent, self.color.blueComponent, self.color.alphaComponent];
-    }
-    return [self.image description];
 }
 
 @end

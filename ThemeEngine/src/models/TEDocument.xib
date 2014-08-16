@@ -130,6 +130,16 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </textFieldCell>
+                        <connections>
+                            <binding destination="Ke5-zr-LWI" name="value" keyPath="selection.debugDescription" id="viA-AB-BEL">
+                                <dictionary key="options">
+                                    <string key="NSMultipleValuesPlaceholder">Multiple Selection</string>
+                                    <string key="NSNoSelectionPlaceholder">No Selection</string>
+                                    <string key="NSNotApplicablePlaceholder">No Selection</string>
+                                    <string key="NSNullPlaceholder">No Selection</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
                     </textField>
                 </subviews>
                 <constraints>
@@ -156,8 +166,16 @@
                 <binding destination="-2" name="sortDescriptors" keyPath="sortDescriptors" id="fNT-rS-SWP"/>
             </connections>
         </arrayController>
+        <arrayController objectClassName="CFTAsset" editable="NO" avoidsEmptySelection="NO" id="Ke5-zr-LWI">
+            <connections>
+                <binding destination="5vm-Is-DQ2" name="contentArray" keyPath="selection.@distinctUnionOfSets.assets" id="gtj-qK-nuf"/>
+                <binding destination="kDe-jO-4eI" name="filterPredicate" keyPath="filterPredicate" id="d3K-jk-kPd"/>
+            </connections>
+        </arrayController>
         <viewController title="Elements View Controller" nibName="Elements" id="kDe-jO-4eI" userLabel="Elements View Controller" customClass="TEElementViewController">
             <connections>
+                <outlet property="assetsArrayController" destination="Ke5-zr-LWI" id="vTB-Pt-Nfm"/>
+                <outlet property="elementsArrayController" destination="5vm-Is-DQ2" id="34x-s1-JbA"/>
                 <outlet property="statusLabel" destination="23A-MO-APY" id="2mW-nH-rKk"/>
             </connections>
         </viewController>
