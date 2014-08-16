@@ -10,6 +10,10 @@
 #import "CFTEffectWrapper+Pasteboard.h"
 #import "CFTGradient+Pasteboard.h"
 
-@interface CFTAsset (Pasteboard) <NSPasteboardWriting>
+#define kCFTAssetPboardType @"private.cftasset"
+
+@interface CFTAsset (Pasteboard) <NSPasteboardWriting, NSPasteboardReading>
+
++ (instancetype)assetWithPasteboard:(NSPasteboard *)pasteboard;
 
 @end

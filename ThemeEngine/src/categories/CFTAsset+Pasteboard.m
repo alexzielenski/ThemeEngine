@@ -10,6 +10,25 @@
 
 @implementation CFTAsset (Pasteboard)
 
+#pragma mark - NSPasteboardReading
+
++ (instancetype)assetWithPasteboard:(NSPasteboard *)pasteboard {
+    return [[self alloc] initWithPasteboardPropertyList:[pasteboard dataForType:kCFTAssetPboardType] ofType:kCFTAssetPboardType];
+}
+
+- (instancetype)initWithPasteboardPropertyList:(id)propertyList ofType:(NSString *)type {
+    if (![type isEqualToString:kCFTAssetPboardType])
+        return nil;
+    if (!propertyList)
+        return nil;
+    
+    return [NSKeyedUnarchiver unarchiveObjectWithData:propertyList];
+}
+
++ (NSArray *)readableTypesForPasteboard:(NSPasteboard *)pasteboard {
+    return @[ kCFTAssetPboardType ];
+}
+
 #pragma mark - NSPasteboardWriting
 
 - (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
@@ -34,7 +53,7 @@
     [types addObject:(__bridge NSString *)kPasteboardTypeFilePromiseContent];
     [types addObject:(__bridge NSString *)kPasteboardTypeFileURLPromise];
     [types addObject:(__bridge NSString *)kUTTypeFileURL];
-    
+    [types addObject:kCFTAssetPboardType];
     return types;
 }
 
@@ -63,6 +82,8 @@
         return [self.gradient pasteboardPropertyListForType:type];
     } else if ([type isEqualToString:kCFTColorPboardType] ) {
         return [self.color pasteboardPropertyListForType:kCFTColorPboardType];
+    } else if ([type isEqualToString:kCFTAssetPboardType]) {
+        return [NSKeyedArchiver archivedDataWithRootObject:self];
     }
     
     NSURL *finalURL = [NSURL URLWithString:[[[[NSUUID UUID] UUIDString] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByAppendingPathExtension:self.type == kCoreThemeTypePDF ? @"pdf" : @"png"] relativeToURL:[NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier]]];
