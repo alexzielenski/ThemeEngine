@@ -20,6 +20,7 @@
 		FA7B5F79199600FF00D0B2AD /* Detail.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7B5F77199600FF00D0B2AD /* Detail.xib */; };
 		FA7C1EE5199D422000AE156A /* TEPhotoshopController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EE4199D422000AE156A /* TEPhotoshopController.m */; };
 		FA7C1EEC199DD3F900AE156A /* TEAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EEB199DD3F900AE156A /* TEAnimationView.m */; };
+		FA7C1EEF199ED87500AE156A /* TELayerEffectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EEE199ED87500AE156A /* TELayerEffectsViewController.m */; };
 		FA98319F199BB9FD00739B89 /* NSColor+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA9831A2199BD02000739B89 /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A1199BD02000739B89 /* CFTGradient.m */; };
 		FA9831A3199BD23E00739B89 /* CFTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9831A1199BD02000739B89 /* CFTGradient.m */; };
@@ -89,6 +90,8 @@
 		FA7C1EE7199D460500AE156A /* Photoshop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photoshop.h; sourceTree = "<group>"; };
 		FA7C1EEA199DD3F900AE156A /* TEAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEAnimationView.h; path = src/views/TEAnimationView.h; sourceTree = "<group>"; };
 		FA7C1EEB199DD3F900AE156A /* TEAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEAnimationView.m; path = src/views/TEAnimationView.m; sourceTree = "<group>"; };
+		FA7C1EED199ED87500AE156A /* TELayerEffectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TELayerEffectsViewController.h; path = src/controllers/TELayerEffectsViewController.h; sourceTree = "<group>"; };
+		FA7C1EEE199ED87500AE156A /* TELayerEffectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TELayerEffectsViewController.m; path = src/controllers/TELayerEffectsViewController.m; sourceTree = "<group>"; };
 		FA98319D199BB9FD00739B89 /* NSColor+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+Pasteboard.h"; path = "src/categories/NSColor+Pasteboard.h"; sourceTree = "<group>"; };
 		FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+Pasteboard.m"; path = "src/categories/NSColor+Pasteboard.m"; sourceTree = "<group>"; };
 		FA9831A0199BD02000739B89 /* CFTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTGradient.h; path = src/CFTGradient.h; sourceTree = "<group>"; };
@@ -298,6 +301,8 @@
 				FA7B5F77199600FF00D0B2AD /* Detail.xib */,
 				FAEC5263199C4FEA00045AFA /* TEGradientStopViewController.h */,
 				FAEC5264199C4FEA00045AFA /* TEGradientStopViewController.m */,
+				FA7C1EED199ED87500AE156A /* TELayerEffectsViewController.h */,
+				FA7C1EEE199ED87500AE156A /* TELayerEffectsViewController.m */,
 				FA7C1EE3199D422000AE156A /* TEPhotoshopController.h */,
 				FA7C1EE4199D422000AE156A /* TEPhotoshopController.m */,
 				FAEC5293199D401800045AFA /* Views */,
@@ -518,6 +523,7 @@
 				FA9831A3199BD23E00739B89 /* CFTGradient.m in Sources */,
 				FA7C1EEC199DD3F900AE156A /* TEAnimationView.m in Sources */,
 				FA6BEDBD1999F9F8006BF951 /* CFTEffectWrapper.m in Sources */,
+				FA7C1EEF199ED87500AE156A /* TELayerEffectsViewController.m in Sources */,
 				FAEC5265199C4FEA00045AFA /* TEGradientStopViewController.m in Sources */,
 				FA0A02F7199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m in Sources */,
 				FAEC528E199C828900045AFA /* CUIThemeGradient+Radial.m in Sources */,

@@ -17,21 +17,9 @@
                 <outlet property="colorPreview" destination="LWm-BC-Hpl" id="ZM5-wO-WTl"/>
                 <outlet property="colorView" destination="fhm-XX-yGX" id="PLg-Ag-Shq"/>
                 <outlet property="contentView" destination="dR4-Zs-TVg" id="A1O-5b-RnM"/>
-                <outlet property="effectAngleView" destination="afR-7h-CUr" id="BsC-eR-kzQ"/>
-                <outlet property="effectBlendModeView" destination="JYm-7b-1xU" id="Kqk-DO-yc7"/>
-                <outlet property="effectBlurRadiusView" destination="M7p-cn-EjQ" id="fOr-90-6eA"/>
-                <outlet property="effectColor2View" destination="9Ta-dT-1fx" id="jIT-4K-r5R"/>
-                <outlet property="effectColorView" destination="WQP-sx-C2Y" id="pLF-74-49e"/>
-                <outlet property="effectOffsetView" destination="e16-sV-BmC" id="Urj-gl-aku"/>
-                <outlet property="effectOpacity2View" destination="B38-JB-FEm" id="5vP-1C-EFj"/>
-                <outlet property="effectOpacityView" destination="lwX-h6-Q0e" id="EPW-XO-5Pg"/>
                 <outlet property="effectPanel" destination="HPS-kx-vgd" id="snA-25-ADg"/>
-                <outlet property="effectSoftenView" destination="J5f-Rw-MBK" id="3An-V0-tpo"/>
-                <outlet property="effectSpreadView" destination="b9w-DE-OiZ" id="kNE-zR-SXT"/>
-                <outlet property="effectTableView" destination="HPS-kx-vgd" id="hdL-1T-LHQ"/>
-                <outlet property="effectView" destination="Ada-OV-vWA" id="qpL-e6-Rzm"/>
+                <outlet property="effectsViewController" destination="dOc-1O-TwA" id="GnG-8T-N0x"/>
                 <outlet property="gradientPanel" destination="FuC-gm-cz0" id="gLV-f4-UNa"/>
-                <outlet property="gradientView" destination="7mb-HR-uTN" id="ZdI-Ym-TIB"/>
                 <outlet property="gradientViewController" destination="41D-z0-JOq" id="KIy-Yi-Oxh"/>
                 <outlet property="imageSliceView" destination="Odf-36-59F" id="qmK-4g-vTI"/>
                 <outlet property="infoPanel" destination="IRS-Fw-P0b" id="Mdz-w5-uKb"/>
@@ -181,7 +169,7 @@ Gw
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AyG-5I-gaj" secondAttribute="trailing" constant="20" symbolic="YES" id="suA-6v-NYV"/>
                 <constraint firstItem="gpC-GX-SQs" firstAttribute="leading" secondItem="0Jr-kB-Q1v" secondAttribute="trailing" constant="12" id="yRp-xH-hzc"/>
             </constraints>
-            <point key="canvasLocation" x="661" y="704"/>
+            <point key="canvasLocation" x="705" y="611"/>
         </customView>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView wantsLayer="YES" id="uuf-CX-lqd" userLabel="Bitmap">
@@ -346,14 +334,16 @@ Gw
                     <rect key="frame" x="107" y="243" width="193" height="19"/>
                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="currentEffect.colorValue" id="AYu-34-DVY"/>
+                        <binding destination="dOc-1O-TwA" name="enabled" keyPath="canEditColor1" id="5xM-nI-IXe"/>
+                        <binding destination="dOc-1O-TwA" name="value" keyPath="currentEffect.colorValue" id="Fzx-DI-YmK"/>
                     </connections>
                 </colorWell>
                 <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ta-dT-1fx">
                     <rect key="frame" x="107" y="218" width="193" height="19"/>
                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="currentEffect.color2Value" id="nX7-5U-olO"/>
+                        <binding destination="dOc-1O-TwA" name="enabled" keyPath="canEditColor2" id="osS-GG-Ndp"/>
+                        <binding destination="dOc-1O-TwA" name="value" keyPath="currentEffect.color2Value" id="89h-Oz-vjf"/>
                     </connections>
                 </colorWell>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lwX-h6-Q0e">
@@ -368,7 +358,8 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="currentEffect.opacityValue" id="tNH-ZC-U1E"/>
+                        <binding destination="dOc-1O-TwA" name="enabled" keyPath="canEditOpacity1" id="hmb-W3-xar"/>
+                        <binding destination="dOc-1O-TwA" name="value" keyPath="currentEffect.opacityValue" id="n1l-62-Tv4"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B38-JB-FEm">
@@ -383,7 +374,8 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="currentEffect.opacity2Value" id="L54-eb-dRd"/>
+                        <binding destination="dOc-1O-TwA" name="enabled" keyPath="canEditOpacity2" id="3HA-kv-R1O"/>
+                        <binding destination="dOc-1O-TwA" name="value" keyPath="currentEffect.opacity2Value" id="Fqj-vi-46W"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M7p-cn-EjQ">
@@ -400,7 +392,8 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="currentEffect.blurRadiusValue" id="035-Vt-QJZ"/>
+                        <binding destination="dOc-1O-TwA" name="enabled" keyPath="canEditBlurRadius" id="au9-Kf-oUG"/>
+                        <binding destination="dOc-1O-TwA" name="value" keyPath="currentEffect.blurRadiusValue" id="ca4-zm-sBW"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e16-sV-BmC">
@@ -414,7 +407,8 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="currentEffect.offsetValue" id="T2r-BM-Gpt"/>
+                        <binding destination="dOc-1O-TwA" name="enabled" keyPath="canEditOffset" id="CyA-7v-ilW"/>
+                        <binding destination="dOc-1O-TwA" name="value" keyPath="currentEffect.offsetValue" id="8Qo-Yb-zEF"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="afR-7h-CUr">
@@ -428,7 +422,8 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="currentEffect.angleValue" id="AnU-Ij-NQP"/>
+                        <binding destination="dOc-1O-TwA" name="enabled" keyPath="canEditAngle" id="rbN-vh-kxy"/>
+                        <binding destination="dOc-1O-TwA" name="value" keyPath="currentEffect.angleValue" id="0Ef-3F-d7e"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J5f-Rw-MBK">
@@ -442,7 +437,8 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="currentEffect.softenValue" id="CHu-nW-ha8"/>
+                        <binding destination="dOc-1O-TwA" name="enabled" keyPath="canEditSoften" id="4Pe-RS-h7y"/>
+                        <binding destination="dOc-1O-TwA" name="value" keyPath="currentEffect.softenValue" id="x6x-fd-DS1"/>
                     </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b9w-DE-OiZ">
@@ -456,7 +452,8 @@ Gw
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="currentEffect.spreadValue" id="nsU-S5-qoz"/>
+                        <binding destination="dOc-1O-TwA" name="enabled" keyPath="canEditSpread" id="lGO-jZ-xjj"/>
+                        <binding destination="dOc-1O-TwA" name="value" keyPath="currentEffect.spreadValue" id="cuW-eq-sgv"/>
                     </connections>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JYm-7b-1xU">
@@ -488,11 +485,12 @@ Gw
                         </menu>
                     </popUpButtonCell>
                     <connections>
-                        <binding destination="-2" name="selectedIndex" keyPath="currentEffect.blendModeValue" id="upx-rO-q8A"/>
+                        <binding destination="dOc-1O-TwA" name="enabled" keyPath="canEditBlendMode" id="obe-dI-p1c"/>
+                        <binding destination="dOc-1O-TwA" name="selectedIndex" keyPath="currentEffect.blendModeValue" id="2hQ-YC-ZXa"/>
                     </connections>
                 </popUpButton>
             </subviews>
-            <point key="canvasLocation" x="906" y="675"/>
+            <point key="canvasLocation" x="590" y="230"/>
         </customView>
         <customView wantsLayer="YES" id="7mb-HR-uTN" userLabel="Gradient">
             <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>
@@ -845,6 +843,13 @@ Gw
                 <outlet property="locationField" destination="2J4-I1-Rk8" id="xn5-l1-nRb"/>
                 <outlet property="opacityField" destination="gWX-Tm-3WQ" id="4Pq-F7-zXp"/>
                 <outlet property="view" destination="7mb-HR-uTN" id="QJz-0d-umz"/>
+            </connections>
+        </viewController>
+        <viewController id="dOc-1O-TwA" customClass="TELayerEffectsViewController">
+            <connections>
+                <outlet property="addMenu" destination="GrP-uq-Ett" id="K0n-IW-gTR"/>
+                <outlet property="tableView" destination="HPS-kx-vgd" id="xIX-ek-ipg"/>
+                <outlet property="view" destination="Ada-OV-vWA" id="JFR-Kk-N8H"/>
             </connections>
         </viewController>
         <menuItem title="Screen" id="8ss-E9-TRa"/>
@@ -1259,10 +1264,10 @@ Gw
             <rect key="frame" x="0.0" y="0.0" width="300" height="331"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <connections>
-                <outlet property="dataSource" destination="-2" id="qY3-eX-LT8"/>
-                <outlet property="delegate" destination="-2" id="9Ni-SL-VE4"/>
+                <outlet property="dataSource" destination="dOc-1O-TwA" id="bIH-Xs-XsQ"/>
+                <outlet property="delegate" destination="dOc-1O-TwA" id="i4L-Nm-7HU"/>
             </connections>
-            <point key="canvasLocation" x="788" y="742.5"/>
+            <point key="canvasLocation" x="508" y="600.5"/>
         </customView>
         <customView wantsLayer="YES" id="6dK-DR-Hel" userLabel="Slice Panel">
             <rect key="frame" x="0.0" y="0.0" width="243" height="135"/>
@@ -1435,5 +1440,80 @@ Gw
             </subviews>
             <point key="canvasLocation" x="816.5" y="481"/>
         </customView>
+        <menu id="GrP-uq-Ett">
+            <items>
+                <menuItem title="Color Fill" tag="1131375730" id="ca7-KA-jY2">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelection:" target="dOc-1O-TwA" id="Slc-07-6rE"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Gradient" tag="1198678372" id="i9G-2S-SLo">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelection:" target="dOc-1O-TwA" id="ewF-z6-O4i"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Bevel and Emboss" tag="1164796531" id="3ax-7h-fif">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelection:" target="dOc-1O-TwA" id="PZL-rw-3wN"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="Hmg-92-AZz">
+                    <connections>
+                        <action selector="addSelection:" target="dOc-1O-TwA" id="w8A-or-vDg"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Drop Shadow" tag="1148350320" id="FiQ-Zf-5Bc">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelection:" target="dOc-1O-TwA" id="BNp-mI-cVk"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Extra Shadow" tag="1484026465" id="VUC-bd-adP">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelection:" target="dOc-1O-TwA" id="06b-L0-Pe5"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Inner Shadow" tag="1768837992" id="maB-xa-8w8">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelection:" target="dOc-1O-TwA" id="QPE-ea-I51"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Outer Glow" tag="1866951799" id="fpm-WL-gJ4">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelection:" target="dOc-1O-TwA" id="vXT-tR-FMm"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Inner Glow" tag="1766288503" id="lyj-Ce-8eu">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelection:" target="dOc-1O-TwA" id="nwF-ux-Kay"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="sk9-mw-6Cd">
+                    <connections>
+                        <action selector="addSelection:" target="dOc-1O-TwA" id="dkg-Yf-lxX"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Shape Opacity" tag="1397715043" id="IOk-pO-WIS">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelection:" target="dOc-1O-TwA" id="V65-Ud-RIa"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Output Opacity" tag="1180787813" id="ONG-6R-dcH">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelection:" target="dOc-1O-TwA" id="Hqg-KD-PSm"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="573" y="454.5"/>
+        </menu>
     </objects>
 </document>

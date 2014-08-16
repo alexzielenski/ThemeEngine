@@ -21,7 +21,7 @@
 }
 
 @property(nonatomic) unsigned int pixelFormat; // @synthesize pixelFormat=_pixelFormat;
-- (id)compressedData:(BOOL)arg1 usedEncoding:(int *)arg2 andRowChunkSize:(unsigned int *)arg3;
+- (NSArray *)compressedData:(BOOL)arg1 usedEncoding:(int *)arg2 andRowChunkSize:(unsigned int *)arg3;
 @property BOOL allowsMultiPassEncoding; // @synthesize allowsMultiPassEncoding=_allowsMultiPassEncoding;
 - (id)pixelData;
 - (void)setPixelData:(id)arg1;

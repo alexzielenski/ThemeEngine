@@ -124,7 +124,7 @@
         [slices addObject:rowSlices];
     }
     [NSGraphicsContext restoreGraphicsState];
-    //!TODO: Do something will all of these applescript errors waiting to happen
+    //!TODO: Do something with all of these applescript errors waiting to happen
     NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier] stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]] stringByAppendingPathExtension:@"png"];
     
     //! the path returned by photoshop has /private/var while we give it /var so workaround it

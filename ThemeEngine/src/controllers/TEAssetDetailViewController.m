@@ -9,7 +9,6 @@
 #import "TEAssetDetailViewController.h"
 
 @interface TEAssetDetailViewController () <ZKInspectorDelegate, NSTableViewDataSource, NSTableViewDelegate>
-@property (strong) CFTEffect *currentEffect;
 @end
  
 
@@ -33,7 +32,6 @@
     [self addObserver:self forKeyPath:@"asset.pdfData" options:0 context:nil];
     [self addObserver:self forKeyPath:@"color" options:0 context:nil];
     [self addObserver:self forKeyPath:@"asset.gradient" options:0 context:nil];
-    [self addObserver:self forKeyPath:@"currentEffect" options:0 context:nil];
     
     self.imageSliceView.hasHorizontalScroller = YES;
     self.imageSliceView.hasVerticalScroller = YES;
@@ -44,16 +42,6 @@
     self.inspector.inspectorDelegate = self;
     [self.inspector addView:self.infoPanel withTitle:@"Info" expanded:NO];
 
-    NSTableColumn *column = [[NSTableColumn alloc] initWithIdentifier:@"EffectsColumn"];
-    column.resizingMask = NSTableColumnAutoresizingMask;
-    column.width = self.inspector.frame.size.width;
-    column.minWidth = column.width;
-    self.effectTableView.selectionHighlightStyle = NSTableViewSelectionHighlightStyleSourceList;
-    self.effectTableView.backgroundColor = [NSColor clearColor];
-    self.effectTableView.floatsGroupRows = NO;
-    self.effectTableView.focusRingType = NSFocusRingTypeNone;
-//    self.effectTableView.draggingDestinationFeedbackStyle = NSTableViewDraggingDestinationFeedbackStyleGap;
-    [self.effectTableView addTableColumn:column];
 }
 
 - (void)dealloc {
@@ -66,7 +54,6 @@
     [self removeObserver:self forKeyPath:@"asset.type"];
     [self removeObserver:self forKeyPath:@"color"];
     [self removeObserver:self forKeyPath:@"asset.gradient"];
-    [self removeObserver:self forKeyPath:@"currentEffect"];
     [self removeObserver:self forKeyPath:@"asset.image"];
 }
 
@@ -84,13 +71,13 @@
             self.typeSegment.hidden = YES;
         for (int x = (int)self.inspector.numberOfViews - 2; x >= 0; x--)
             [self.inspector removeViewAtIndex:x];
-        
+        [self.inspector reloadData];
         [self.contentView setSubviews:@[]];
         self.sizeField.hidden = YES;
         NSView *content = nil;
         switch (self.asset.type) {
             case kCoreThemeTypeEffect:
-                content = self.effectView;
+                content = self.effectsViewController.view;
                 NSColorPanel.sharedColorPanel.showsAlpha = NO;
                 [self.inspector insertView:self.effectPanel withTitle:@"Layer Effects" atIndex:0 expanded:YES];
                 break;
@@ -100,7 +87,7 @@
                 [self.inspector insertView:self.colorPanel withTitle:@"Color" atIndex:0 expanded:YES];
                 break;
             case kCoreThemeTypeGradient:
-                content = self.gradientView;
+                content = self.gradientViewController.view;
                 NSColorPanel.sharedColorPanel.showsAlpha = YES;
                 [self.inspector insertView:self.gradientPanel withTitle:@"Gradient" atIndex:0 expanded:YES];
                 break;
@@ -133,16 +120,12 @@
         [self.contentView addSubview:content];
         
     } else if ([keyPath isEqualToString:@"asset"]) {
-        self.currentEffect = nil;
-        
         self.exifOrientation = self.asset.exifOrientation;
         self.utiType = self.asset.utiType;
         self.opacity = self.asset.opacity;
         self.blendMode = self.asset.blendMode;
         self.color = self.asset.color;
-        self.effectWrapper = self.asset.effectPreset;
-        
-        [self.effectTableView reloadData];
+        self.effectsViewController.effectWrapper = self.asset.effectPreset;
     } else if ([keyPath isEqualToString:@"color"]) {
         self.colorPreview.layer.backgroundColor = self.color.CGColor;
     } else if ([keyPath isEqualToString:@"asset.pdfData"]) {
@@ -150,110 +133,6 @@
     } else if ([keyPath isEqualToString:@"asset.gradient"]) {
         self.gradient = self.asset.gradient;
         self.gradientViewController.gradientEditor.gradientWrapper = self.gradient;
-    } else if ([keyPath isEqualToString:@"currentEffect"]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            switch (self.currentEffect.type) {
-                case CUIEffectTypeBevelAndEmboss:
-                    self.effectColorView.enabled = YES;
-                    self.effectColor2View.enabled = YES;
-                    self.effectBlurRadiusView.enabled = YES;
-                    self.effectSoftenView.enabled = YES;
-                    self.effectOpacityView.enabled = YES;
-                    self.effectOpacity2View.enabled = YES;
-                    self.effectBlendModeView.enabled = NO;
-                    self.effectOffsetView.enabled = NO;
-                    self.effectAngleView.enabled = NO;
-                    self.effectSpreadView.enabled = NO;
-                    break;
-                case CUIEffectTypeColorFill:
-                    self.effectColorView.enabled = YES;
-                    self.effectColor2View.enabled = NO;
-                    self.effectBlurRadiusView.enabled = NO;
-                    self.effectSoftenView.enabled = NO;
-                    self.effectOpacityView.enabled = YES;
-                    self.effectOpacity2View.enabled = NO;
-                    self.effectBlendModeView.enabled = YES;
-                    self.effectOffsetView.enabled = NO;
-                    self.effectAngleView.enabled = NO;
-                    self.effectSpreadView.enabled = NO;
-                    break;
-                case CUIEffectTypeDropShadow:
-                case CUIEffectTypeExtraShadow:
-                    self.effectColorView.enabled = YES;
-                    self.effectColor2View.enabled = NO;
-                    self.effectBlurRadiusView.enabled = YES;
-                    self.effectSoftenView.enabled = NO;
-                    self.effectOpacityView.enabled = YES;
-                    self.effectOpacity2View.enabled = NO;
-                    self.effectBlendModeView.enabled = NO;
-                    self.effectOffsetView.enabled = YES;
-                    self.effectAngleView.enabled = YES;
-                    self.effectSpreadView.enabled = NO;
-                    break;
-                case CUIEffectTypeGradient:
-                    self.effectColorView.enabled = YES;
-                    self.effectColor2View.enabled = YES;
-                    self.effectBlurRadiusView.enabled = NO;
-                    self.effectSoftenView.enabled = NO;
-                    self.effectOpacityView.enabled = YES;
-                    self.effectOpacity2View.enabled = NO;
-                    self.effectBlendModeView.enabled = NO;
-                    self.effectOffsetView.enabled = NO;
-                    self.effectAngleView.enabled = NO;
-                    self.effectSpreadView.enabled = NO;
-                    break;
-                case CUIEffectTypeInnerGlow:
-                    self.effectColorView.enabled = YES;
-                    self.effectColor2View.enabled = NO;
-                    self.effectBlurRadiusView.enabled = YES;
-                    self.effectSoftenView.enabled = NO;
-                    self.effectOpacityView.enabled = YES;
-                    self.effectOpacity2View.enabled = NO;
-                    self.effectBlendModeView.enabled = YES;
-                    self.effectOffsetView.enabled = NO;
-                    self.effectAngleView.enabled = NO;
-                    self.effectSpreadView.enabled = NO;
-                    break;
-                case CUIEffectTypeInnerShadow:
-                    self.effectColorView.enabled = YES;
-                    self.effectColor2View.enabled = NO;
-                    self.effectBlurRadiusView.enabled = YES;
-                    self.effectSoftenView.enabled = YES;
-                    self.effectOpacityView.enabled = YES;
-                    self.effectOpacity2View.enabled = NO;
-                    self.effectBlendModeView.enabled = YES;
-                    self.effectOffsetView.enabled = YES;
-                    self.effectAngleView.enabled = YES;
-                    self.effectSpreadView.enabled = NO;
-                    break;
-                case CUIEffectTypeOuterGlow:
-                    self.effectColorView.enabled = YES;
-                    self.effectColor2View.enabled = NO;
-                    self.effectBlurRadiusView.enabled = YES;
-                    self.effectSoftenView.enabled = NO;
-                    self.effectOpacityView.enabled = YES;
-                    self.effectOpacity2View.enabled = NO;
-                    self.effectBlendModeView.enabled = NO;
-                    self.effectOffsetView.enabled = NO;
-                    self.effectAngleView.enabled = NO;
-                    self.effectSpreadView.enabled = YES;
-                    break;
-                case CUIEffectTypeOutputOpacity:
-                case CUIEffectTypeShapeOpacity:
-                    self.effectColorView.enabled = NO;
-                    self.effectColor2View.enabled = NO;
-                    self.effectBlurRadiusView.enabled = NO;
-                    self.effectSoftenView.enabled = NO;
-                    self.effectOpacityView.enabled = YES;
-                    self.effectOpacity2View.enabled = NO;
-                    self.effectBlendModeView.enabled = NO;
-                    self.effectOffsetView.enabled = NO;
-                    self.effectAngleView.enabled = NO;
-                    self.effectSpreadView.enabled = NO;
-                default:
-                    break;
-            }
-        });
     }
 }
 
@@ -280,7 +159,7 @@
     self.asset.utiType = self.utiType;
     self.asset.blendMode = self.blendMode;
     self.asset.opacity = self.opacity;
-    self.asset.effectPreset = self.effectWrapper;
+    self.asset.effectPreset = self.effectsViewController.effectWrapper;
     self.asset.color = self.color;
     self.asset.gradient = self.gradient;
 }
@@ -332,71 +211,6 @@
         return [NSSet setWithObject:@"imageSliceView.edgeInsets"];
     }
     return [super keyPathsForValuesAffectingValueForKey:key];
-}
-
-#pragma mark - NSTableViewDataSource
-
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return self.effectWrapper.effects.count ?: 1;
-}
-
-- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    NSTableCellView *cellView = [[NSTableCellView alloc] initWithFrame:NSMakeRect(4, 0, tableView.frame.size.width, 18)];
-    CUIEffectType type = -1;
-    if (self.effectWrapper.effects.count > 0)
-        type = [(CFTEffect *)self.effectWrapper.effects[row] type];
-    cellView.wantsLayer = YES;
-    
-    NSTextField *textField = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, cellView.frame.size.width, 18)];
-    textField.wantsLayer = YES;
-    textField.bordered = NO;
-    textField.selectable = NO;
-    textField.drawsBackground = NO;
-    [cellView addSubview:textField];
-    
-    if (self.effectWrapper.effects.count == 0)
-        textField.stringValue = @"No items to show";
-    else
-        textField.stringValue = CUIEffectTypeToString(type);
-    
-    cellView.textField = textField;
-    cellView.identifier = [@(type) stringValue];
-    
-    return cellView;
-}
-
-- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
-    return self.effectWrapper.effects.count > 0;
-}
-
-- (void)tableViewSelectionDidChange:(NSNotification *)notification {
-    if (self.effectTableView.selectedRow != -1)
-        self.currentEffect = self.effectWrapper.effects[self.effectTableView.selectedRow];
-    else
-        self.currentEffect = nil;
-}
-
-#define kTEDetailType @"asdasdasd"
-
-- (BOOL)tableView:(NSTableView *)aTableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
-    [pboard setPropertyList:@[ @(rowIndexes.firstIndex) ] forType:kTEDetailType];
-    [aTableView registerForDraggedTypes:@[kTEDetailType]];
-    return YES;
-}
-
-- (NSDragOperation)tableView:(NSTableView *)aTableView validateDrop:(id < NSDraggingInfo >)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)operation {
-    if (info.draggingSource == self.effectTableView && operation == NSTableViewDropAbove)
-        return NSDragOperationMove;
-    return NSDragOperationNone;
-}
-
-- (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id < NSDraggingInfo >)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation {
-    if (info.draggingSource != self.effectTableView)
-        return NO;
-    NSUInteger originalRow = [[[info.draggingPasteboard propertyListForType:kTEDetailType] firstObject] unsignedIntegerValue];
-    [self.effectWrapper moveEffectAtIndex:originalRow toIndex:row];
-    [aTableView moveRowAtIndex:originalRow toIndex:row];
-    return YES;
 }
 
 @end

@@ -14,6 +14,7 @@
 #import "TEGradientView.h"
 #import "TEGradientStopViewController.h"
 #import "TEAnimationView.h"
+#import "TELayerEffectsViewController.h"
 
 @interface TEAssetDetailViewController : NSViewController
 @property (strong) CFTAsset *asset;
@@ -21,8 +22,6 @@
 
 // Content Views
 @property (weak) IBOutlet NSView *bitmapView;
-@property (weak) IBOutlet NSView *gradientView;
-@property (weak) IBOutlet NSView *effectView;
 @property (weak) IBOutlet NSView *pdfView;
 @property (weak) IBOutlet NSView *colorView;
 @property (weak) IBOutlet NSView *animationView;
@@ -65,18 +64,7 @@
 @property (copy) CFTGradient *gradient;
 
 // Effects
-@property (weak) IBOutlet NSTableView *effectTableView;
-@property (copy) CFTEffectWrapper *effectWrapper;
-@property (weak) IBOutlet NSColorWell *effectColorView;
-@property (weak) IBOutlet NSColorWell *effectColor2View;
-@property (weak) IBOutlet NSControl *effectOpacityView;
-@property (weak) IBOutlet NSControl *effectOpacity2View;
-@property (weak) IBOutlet NSControl *effectBlurRadiusView;
-@property (weak) IBOutlet NSControl *effectOffsetView;
-@property (weak) IBOutlet NSControl *effectAngleView;
-@property (weak) IBOutlet NSControl *effectBlendModeView;
-@property (weak) IBOutlet NSControl *effectSoftenView;
-@property (weak) IBOutlet NSControl *effectSpreadView;
+@property (weak) IBOutlet TELayerEffectsViewController *effectsViewController;
 
 // Animations
 @property (weak) IBOutlet TEAnimationView *animationImageView;
