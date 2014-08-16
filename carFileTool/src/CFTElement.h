@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "CFTAsset.h"
 
+@class CFTElementStore;
 @interface CFTElement : NSObject
 @property (readonly, copy) NSString *name;
+@property (readwrite, weak) CFTElementStore *store;
 @property (strong) NSUndoManager *undoManager;
 
 + (instancetype)elementWithAssets:(NSSet *)assets name:(NSString *)name;

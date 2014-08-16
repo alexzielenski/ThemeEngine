@@ -13,6 +13,7 @@
 #import "NSColor+Pasteboard.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "TEPhotoshopController.h"
+#import "CFTElementStore.h"
 
 // Stolen from facebook
 static NSString *md5(NSString *input) {
@@ -37,6 +38,7 @@ static NSString *md5(NSString *input) {
 - (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndices:(NSIndexSet *)indices;
 - (void)_startObservingAsset:(CFTAsset *)asset;
 - (void)_stopObservingAsset:(CFTAsset *)asset;
+- (NSArray *)newSliceRectsFromOldSliceRects:(NSArray *)slices oldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image;
 @end
 
 @implementation TEElementViewController
@@ -114,15 +116,26 @@ static NSString *md5(NSString *input) {
             [self _stopObservingAsset:obj];
         
         [self.imageBrowserView reloadData];
+    } else if ([keyPath isEqualToString:@"image"]) {
+        NSBitmapImageRep *oldImage = change[NSKeyValueChangeOldKey];
+        NSBitmapImageRep *newImage = change[NSKeyValueChangeNewKey];
+        if (![oldImage isKindOfClass:[NSNull class]] && ![newImage isKindOfClass:[NSNull class]]) {
+            //!TODO: Metrics too
+            ((CFTAsset *)object).slices = [self newSliceRectsFromOldSliceRects:((CFTAsset *)object).slices
+                                                                      oldImage:oldImage
+                                                                   forNewImage:newImage];
+        }
     }
 }
 
 - (void)_startObservingAsset:(CFTAsset *)asset {
     [asset addObserver:self forKeyPath:@"previewImage" options:0 context:nil];
+    [asset addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)_stopObservingAsset:(CFTAsset *)asset {
     [asset removeObserver:self forKeyPath:@"previewImage"];
+    [asset removeObserver:self forKeyPath:@"image"];
 }
 
 - (IBAction)searchChanged:(NSSearchField *)sender {
@@ -175,6 +188,21 @@ static NSString *md5(NSString *input) {
     [self.imageBrowserView reloadData];
 }
 
+// Scales slices for an asset when images change
+- (NSArray *)newSliceRectsFromOldSliceRects:(NSArray *)slices oldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image {
+    CGFloat widthFactor  = image.pixelsWide / oldImage.pixelsWide;
+    CGFloat heightFactor = image.pixelsHigh / oldImage.pixelsHigh;
+    
+    NSMutableArray *newSlices = [NSMutableArray array];
+    for (NSValue *value in slices) {
+        NSRect rect = value.rectValue;
+        rect = NSMakeRect(rect.origin.x * widthFactor, rect.origin.y * heightFactor, rect.size.width * widthFactor, rect.size.height * heightFactor);
+        [newSlices addObject:[NSValue valueWithRect:rect]];
+    }
+    
+    return newSlices;
+}
+
 #pragma mark - Actions
 
 - (IBAction)paste:(id)sender {
@@ -189,6 +217,16 @@ static NSString *md5(NSString *input) {
     [[TEPhotoshopController sharedPhotoshopController] sendImagesToPhotoshop:[self.filteredAssets valueForKeyPath:@"image"]
                                                                   withLayout:indices
                                                                   dimensions:NSMakeSize(self.imageBrowserView.numberOfColumns, self.imageBrowserView.numberOfRows)];
+}
+
+- (IBAction)removeColor:(id)sender {
+    NSIndexSet *indices = [self.imageBrowserView.selectionIndexes indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
+        return [(CFTAsset *)self.filteredAssets[idx] type] == kCoreThemeTypeColor;
+    }];
+    
+    for (CFTAsset *color in [self.filteredAssets objectsAtIndexes:indices]) {
+        [color.element.store removeAsset: color];
+    }
 }
 
 - (IBAction)receiveFromPhotoshop:(id)sender {
@@ -260,6 +298,9 @@ static NSString *md5(NSString *input) {
 
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {
     NSUInteger idx = [self.imageBrowserView indexAtLocationOfDroppedItem];
+    if (idx >= self.filteredAssets.count)
+        return NSDragOperationNone;
+    
     CoreThemeType type = [(CFTAsset *)self.filteredAssets[idx] type];
     //!TODO Check for individual items on the pasteboard per type of the hovered asset
     if ([NSImage canInitWithPasteboard:sender.draggingPasteboard] && self.imageBrowserView.dropOperation == IKImageBrowserDropOn &&
@@ -303,20 +344,6 @@ static NSString *md5(NSString *input) {
         
         BOOL bad = NO;
         
-        if ([item availableTypeFromArray:@[NSPasteboardTypePNG]]) {
-            if (asset.type <= kCoreThemeTypeSixPart || asset.type == kCoreThemeTypeAnimation) {
-                asset.image = [[NSBitmapImageRep alloc] initWithData:[item dataForType:NSPasteboardTypePNG]];;
-            } else
-                bad = YES;
-        }
-        
-        if ([item availableTypeFromArray:@[NSPasteboardTypePDF]]) {
-            if (asset.type == kCoreThemeTypePDF)
-                asset.pdfData = [item dataForType:NSPasteboardTypePDF];
-            else
-                bad = YES;
-        }
-        
         if ([item availableTypeFromArray:@[kCFTColorPboardType]]) {
             if (asset.type == kCoreThemeTypeColor)
                 asset.color = [[NSColor alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTColorPboardType] ofType:kCFTColorPboardType];
@@ -336,6 +363,20 @@ static NSString *md5(NSString *input) {
                 asset.gradient = [[CFTGradient alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTGradientPboardType] ofType:kCFTGradientPboardType];
             else
                 bad = YES;
+        }
+        
+        if ([item availableTypeFromArray:@[NSPasteboardTypePNG]]) {
+            if (asset.type <= kCoreThemeTypeSixPart || asset.type == kCoreThemeTypeAnimation) {
+                asset.image = [[NSBitmapImageRep alloc] initWithData:[item dataForType:NSPasteboardTypePNG]];;
+            }// else
+//                bad = YES;
+        }
+        
+        if ([item availableTypeFromArray:@[NSPasteboardTypePDF]]) {
+            if (asset.type == kCoreThemeTypePDF)
+                asset.pdfData = [item dataForType:NSPasteboardTypePDF];
+//            else
+//                bad = YES;
         }
      
         if (bad) {

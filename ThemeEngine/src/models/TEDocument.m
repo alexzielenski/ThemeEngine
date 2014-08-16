@@ -89,4 +89,25 @@
         [[NSFileManager defaultManager] removeItemAtPath:self.elementStore.path error:nil];
 }
 
+#pragma mark - actions
+
+- (IBAction)addColor:(id)sender {
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = @"Enter a color name:";
+    [alert addButtonWithTitle:@"Done"];
+    [alert addButtonWithTitle:@"Cancel"];
+    
+    NSTextField *field = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 250, 22)];
+    alert.accessoryView = field;
+    
+    [alert beginSheetModalForWindow:[self.windowControllers[0] window] completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == 1000) {
+            NSString *name = [(NSTextField *)alert.accessoryView stringValue];
+            CFTAsset *asset = [CFTAsset assetWithColor:[NSColor whiteColor] name:name];
+            [self.elementStore addAsset:asset];
+        }
+    }];
+    
+}
+
 @end

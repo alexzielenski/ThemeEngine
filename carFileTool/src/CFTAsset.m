@@ -87,21 +87,38 @@
 }
 
 - (id)initWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key {
-    if ((self = [self init])) {
-        
+    id color = nil;
 #if TARGET_OS_IPHONE
-        self.color = [UIColor colorWithRed:(double)colordef.color.r / 255.0
-                                     green:(double)colordef.color.g / 255.0
-                                      blue:(double)colordef.color.b / 255.0
-                                     alpha:(double)colordef.color.a / 255.0];
+    color = [UIColor colorWithRed:(double)colordef.color.r / 255.0
+                                 green:(double)colordef.color.g / 255.0
+                                  blue:(double)colordef.color.b / 255.0
+                                 alpha:(double)colordef.color.a / 255.0];
 #else
-        self.color = [NSColor colorWithRed:(double)colordef.color.r / 255.0
-                                     green:(double)colordef.color.g / 255.0
-                                      blue:(double)colordef.color.b / 255.0
-                                     alpha:(double)colordef.color.a / 255.0];
+    color = [NSColor colorWithRed:(double)colordef.color.r / 255.0
+                                 green:(double)colordef.color.g / 255.0
+                                  blue:(double)colordef.color.b / 255.0
+                                 alpha:(double)colordef.color.a / 255.0];
 #endif
-        self.name = [NSString stringWithCString:key.name encoding:NSUTF8StringEncoding];
+    
+    if ((self = [self initWithColor:color name:[NSString stringWithCString:key.name encoding:NSUTF8StringEncoding]])) {
+
+    }
+    
+    return self;
+}
+
++ (instancetype)assetWithColor:(NSColor *)color name:(NSString *)name {
+    return [[self alloc] initWithColor:color name:name];
+}
+
+- (instancetype)initWithColor:(NSColor *)color name:(NSString *)name {
+    if ((self = [self init])) {
+        self.color = [color colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
+        self.name = name;
+        
+        self.name = name;
         self.type = kCoreThemeTypeColor;
+        
         NSString *name = [self.name stringByReplacingOccurrencesOfString:@"_" withString:@""];
         name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
         name = decamelize(name);
@@ -311,6 +328,7 @@
         CSIBitmapWrapper *wrapper = [[CSIBitmapWrapper alloc] initWithPixelWidth:imageSize.width
                                                                      pixelHeight:imageSize.height];
         CGContextDrawImage(wrapper.bitmapContext, CGRectMake(0, 0, imageSize.width, imageSize.height), self.image.CGImage);
+        
         [gen addBitmap:wrapper];
     }
     

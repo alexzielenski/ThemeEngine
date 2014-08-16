@@ -59,7 +59,9 @@
 + (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
 + (instancetype)assetWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key;
-- (id)initWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key;
+- (instancetype)initWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key;
++ (instancetype)assetWithColor:(NSColor *)color name:(NSString *)name;
+- (instancetype)initWithColor:(NSColor *)color name:(NSString *)name;
 - (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage;
 - (BOOL)isDirty;
 

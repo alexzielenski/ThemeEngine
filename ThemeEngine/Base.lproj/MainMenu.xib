@@ -347,6 +347,18 @@
                     <menu key="submenu" title="Actions" id="PhQ-it-4xa">
                         <items>
                             <menuItem title="Inspect" keyEquivalent="i" id="Ype-he-L7J"/>
+                            <menuItem title="Add Color" id="tr2-jQ-8AG">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="addColor:" target="-1" id="cfa-Fz-5AI"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Remove Color" id="e8d-sF-k29">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="removeColor:" target="-1" id="h7E-aj-0m2"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Send to Photoshop" keyEquivalent="" id="qho-Ej-gk3">
                                 <connections>
                                     <action selector="sendToPhotoshop:" target="-1" id="ltd-UF-lzS"/>

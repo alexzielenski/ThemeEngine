@@ -7,7 +7,7 @@
 //
 
 #import "CFTElementStore.h"
-#import <objc/runtime.h>
+#import "ZKSwizzle.h"
 
 typedef void *BOMTreeIteratorRef;
 typedef void *BOMTreeRef;
@@ -55,7 +55,6 @@ extern int BOMTreeRemoveValue(BOMTreeRef tree, void *key, size_t keySize);
 - (void)_enumerateAssets;
 - (void)_enumerateColors;
 - (void)_enumerateFonts;
-- (void)_addAsset:(CFTAsset *)asset;
 - (void)_addElement:(CFTElement *)element;
 + (NSString *)elementNameForAsset:(CFTAsset *)asset;
 @end
@@ -122,15 +121,15 @@ extern int BOMTreeRemoveValue(BOMTreeRef tree, void *key, size_t keySize);
     __weak CFTElementStore *weakSelf = self;
     [self.assetStorage enumerateKeysAndObjectsUsingBlock:^(struct _renditionkeytoken *key, NSData *csiData) {
         CFTAsset *asset = [CFTAsset assetWithRenditionCSIData:csiData forKey:key];
-        [weakSelf _addAsset:asset];
+        [weakSelf addAsset:asset];
     }];
 }
 
 - (void)_enumerateColors {
-    Ivar ivar = class_getInstanceVariable(object_getClass(self.assetStorage), "_colordb");
-    if (ivar ==  NULL)
+    BOMTreeRef treeRef = ZKHookIvar(self.assetStorage, BOMTreeRef, "_colordb");
+    if (treeRef == NULL)
         return;
-    BOMTreeRef treeRef = *(BOMTreeRef *)((__bridge void *)self.assetStorage + ivar_getOffset(ivar));
+    
     int count = BOMTreeCount(treeRef);
     NSLog(@"Found %d colors", count);
     BOMTreeIteratorRef iterator = BOMTreeIteratorNew(treeRef, 0x0, 0x0, 0x0);
@@ -143,7 +142,7 @@ extern int BOMTreeRemoveValue(BOMTreeRef tree, void *key, size_t keySize);
         
         if (size > 0 && valueSize > 0) {
             CFTAsset *asset = [CFTAsset assetWithColorDef:*(struct _colordef *)valueBytes forKey:*(struct _colorkey *)bytes];
-            [self _addAsset: asset];
+            [self addAsset: asset];
         }
         
         BOMTreeIteratorNext(iterator);
@@ -153,11 +152,9 @@ extern int BOMTreeRemoveValue(BOMTreeRef tree, void *key, size_t keySize);
 }
 
 - (void)_enumerateFonts {
-    Ivar ivar = class_getInstanceVariable(object_getClass(self.assetStorage), "_fontdb");
-    if (ivar ==  NULL)
+    BOMTreeRef treeRef = ZKHookIvar(self.assetStorage, BOMTreeRef, "_fontdb");
+    if (treeRef == NULL)
         return;
-    
-    BOMTreeRef treeRef = *(BOMTreeRef *)((__bridge void *)self.assetStorage + ivar_getOffset(ivar));
     
     int count = BOMTreeCount(treeRef);
     if (count > 0) {
@@ -165,7 +162,7 @@ extern int BOMTreeRemoveValue(BOMTreeRef tree, void *key, size_t keySize);
     }
 }
 
-- (void)_addAsset:(CFTAsset *)asset {
+- (void)addAsset:(CFTAsset *)asset {
     NSString *elementName = [self.class elementNameForAsset:asset];
     CFTElement *element = [self elementWithName:elementName];
     if (!element) {
@@ -177,7 +174,27 @@ extern int BOMTreeRemoveValue(BOMTreeRef tree, void *key, size_t keySize);
     [element addAsset:asset];
 }
 
+- (void)removeAsset:(CFTAsset *)asset {
+    NSAssert(asset.type == kCoreThemeTypeColor, @"CFTElementStore only supports removing color assets right now.");
+    
+    if ([self.assetStorage hasColorForName:asset.name.UTF8String]) {
+        //!TODO: Dont do this here
+        struct _colorkey key;
+        key.reserved = 0;
+        strncpy(key.name, asset.name.UTF8String, 128);
+        BOMTreeRef treeRef = ZKHookIvar(self.assetStorage, BOMTreeRef, "_colordb");
+        if (treeRef != NULL) {
+            BOMTreeRemoveValue(treeRef, &key, sizeof(key));
+        }
+    }
+    CFTElement *element = asset.element;
+    [(NSMutableSet *)element.assets removeObject:asset];
+    if (element.assets.count == 0)
+        [self.elements removeObject:element];
+}
+
 - (void)_addElement:(CFTElement *)element {
+    element.store = self;
     [self.elements addObject:element];
 }
 
