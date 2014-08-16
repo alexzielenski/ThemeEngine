@@ -101,10 +101,10 @@
         for (NSBitmapImageRep *rep in bitmaps) {
             [NSGraphicsContext saveGraphicsState];
             NSRect bounds = NSMakeRect(currentX + kStrokeSize, currentY + kStrokeSize, itemWidth - kStrokeSize * 2, itemHeight - kStrokeSize * 2);
-            bounds = NSMakeRect(NSMidX(bounds) - rep.pixelsWide / 2, NSMidY(bounds) - rep.pixelsHigh / 2, rep.pixelsWide, rep.pixelsHigh);
+            bounds = NSMakeRect(round(NSMidX(bounds) - rep.pixelsWide / 2), round(NSMidY(bounds) - rep.pixelsHigh / 2), rep.pixelsWide, rep.pixelsHigh);
             [rowSlices addObject:[NSValue valueWithRect:bounds]];
             
-            NSBezierPath *path = [NSBezierPath bezierPathWithRect:NSInsetRect(bounds, -kStrokeSize * 1, -kStrokeSize * 1)];
+            NSBezierPath *path = [NSBezierPath bezierPathWithRect:NSInsetRect(bounds, -kStrokeSize * 2, -kStrokeSize * 2)];
             
             [rep drawInRect:bounds
                    fromRect:NSZeroRect
@@ -171,8 +171,6 @@
                 [images addObject:[[NSBitmapImageRep alloc] initWithCGImage:CGImageCreateWithImageInRect(image, flipped)]];
             }
         }
-    
-        [self.currentDocuments removeObjectForKey:path];
         
         return images;
     }
