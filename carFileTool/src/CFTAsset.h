@@ -15,7 +15,7 @@
 #import "CFTEffectWrapper.h"
 
 @class CFTElement;
-@interface CFTAsset : NSObject <NSCoding>
+@interface CFTAsset : NSObject
 @property (strong) NSUndoManager *undoManager;
 
 @property (readonly, weak) CFTElement *element;
