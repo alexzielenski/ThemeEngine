@@ -28,9 +28,11 @@
         [types addObject:kCFTGradientPboardType];
     if (self.pdfData)
         [types addObject:NSPasteboardTypePDF];
-    if (self.image)
-        [types addObject:NSPasteboardTypePNG];
+    
+    [types addObject:NSPasteboardTypePNG];
+    [types addObject:NSPasteboardTypeTIFF];
     [types addObject:(__bridge NSString *)kPasteboardTypeFilePromiseContent];
+    [types addObject:(__bridge NSString *)kPasteboardTypeFileURLPromise];
     [types addObject:(__bridge NSString *)kUTTypeFileURL];
     
     return types;
@@ -43,9 +45,15 @@
 - (id)pasteboardPropertyListForType:(NSString *)type {
     if ([type isEqualToString:NSPasteboardTypePDF])
         return self.pdfData;
-    else if ([type isEqualToString:NSPasteboardTypePNG])
-        return [self.previewImage.representations[0] representationUsingType:NSPNGFileType properties:nil];
-    else if ([type isEqualToString:(__bridge NSString *)kPasteboardTypeFilePromiseContent]) {
+    else if ([type isEqualToString:NSPasteboardTypeTIFF]) {
+        if (!CoreThemeTypeIsBitmap(self.type))
+            return [self.previewImage.representations[0] representationUsingType:NSTIFFFileType properties:nil];
+        return [self.image representationUsingType:NSTIFFFileType properties:nil];
+    } else if ([type isEqualToString:NSPasteboardTypePNG]) {
+        if (!CoreThemeTypeIsBitmap(self.type))
+            return [self.previewImage.representations[0] representationUsingType:NSPNGFileType properties:nil];
+        return [self.image representationUsingType:NSPNGFileType properties:nil];
+    } else if ([type isEqualToString:(__bridge NSString *)kPasteboardTypeFilePromiseContent]) {
         return self.type == kCoreThemeTypePDF ? (__bridge NSString *)kUTTypePDF : (__bridge NSString *)kUTTypePNG;
     } else if ([type isEqualToString:kCFTEffectWrapperPboardType]) {
         return [self.effectPreset pasteboardPropertyListForType:type];
@@ -61,11 +69,13 @@
     
     if (self.type == kCoreThemeTypePDF)
         [self.pdfData writeToURL:finalURL atomically:NO];
-    else
+    else if (CoreThemeTypeIsBitmap(self.type)) {
+        [[self.image representationUsingType:NSPNGFileType properties:nil] writeToURL:finalURL atomically:NO];
+    } else
         [[self.previewImage.representations[0] representationUsingType:NSPNGFileType properties:nil] writeToURL:finalURL atomically:NO];
     
     
-    return [finalURL absoluteString];
+    return finalURL.absoluteString;
 }
 
 @end
