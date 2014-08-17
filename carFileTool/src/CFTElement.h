@@ -20,6 +20,7 @@
 
 - (void)addAssets:(NSSet *)assets;
 - (void)addAsset:(CFTAsset *)asset;
+- (void)removeAssets:(NSSet *)assets;
 - (void)removeAsset:(CFTAsset *)asset;
 
 - (NSSet *)assetsWithIdiom:(CoreThemeIdiom)idiom;

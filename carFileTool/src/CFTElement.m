@@ -37,13 +37,14 @@
     return self;
 }
 
+//!TODO implement undo
 - (void)addAssets:(NSSet *)assets {
     [self willChangeValueForKey:@"assets"
                 withSetMutation:NSKeyValueUnionSetMutation
                    usingObjects:assets];
     [assets makeObjectsPerformSelector:@selector(setUndoManager:) withObject:self.undoManager];
     [assets makeObjectsPerformSelector:NSSelectorFromString(@"setElement:") withObject:self];
-    [self.assets addObjectsFromArray:assets.allObjects];
+    [self.assets unionSet:assets];
     [self didChangeValueForKey:@"assets"
                withSetMutation:NSKeyValueUnionSetMutation
                   usingObjects:assets];
@@ -53,20 +54,25 @@
     [self addAssets:[NSSet setWithObject:asset]];
 }
 
+- (void)removeAssets:(NSSet *)assets {
+    assets = [assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"element == %@", self]];
+    [assets makeObjectsPerformSelector:NSSelectorFromString(@"setElement:") withObject:nil];
+
+    [self willChangeValueForKey:@"assets"
+                withSetMutation:NSKeyValueMinusSetMutation
+                   usingObjects:assets];
+    [assets makeObjectsPerformSelector:@selector(removeFromStorage:) withObject:self.store.assetStorage];
+    [self.assets minusSet:assets];
+    [self didChangeValueForKey:@"assets"
+               withSetMutation:NSKeyValueMinusSetMutation
+                  usingObjects:assets];
+}
+
 - (void)removeAsset:(CFTAsset *)asset {
     if (asset.element != self)
         return;
     
-    [asset setValue:[NSNull null] forKey:@"element"];
-    NSSet *mutation = [NSSet setWithObject:asset];
-    [self willChangeValueForKey:@"assets"
-                withSetMutation:NSKeyValueMinusSetMutation
-                   usingObjects:mutation];
-    [asset removeFromStorage:self.store.assetStorage];
-    [self.assets removeObject:asset];
-    [self didChangeValueForKey:@"assets"
-               withSetMutation:NSKeyValueMinusSetMutation
-                  usingObjects:mutation];
+    [self removeAssets:[NSSet setWithObject:asset]];
 }
 
 - (NSSet *)assetsWithIdiom:(CoreThemeIdiom)idiom {

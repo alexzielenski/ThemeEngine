@@ -123,24 +123,35 @@
         NSLog(@"Found %d fonts!", count);
     }
 }
+- (void)addAssets:(NSSet *)assets {
+    for (CFTAsset *asset in assets) {
+        NSString *elementName = [self.class elementNameForAsset:asset];
+        CFTElement *element = [self elementWithName:elementName];
+        if (!element) {
+            element = [CFTElement elementWithAssets:nil name:elementName];
+            element.undoManager = self.undoManager;
+            [self _addElement:element];
+        }
+        
+        [element addAsset:asset];
+    }
+}
 
 - (void)addAsset:(CFTAsset *)asset {
-    NSString *elementName = [self.class elementNameForAsset:asset];
-    CFTElement *element = [self elementWithName:elementName];
-    if (!element) {
-        element = [CFTElement elementWithAssets:nil name:elementName];
-        element.undoManager = self.undoManager;
-        [self _addElement:element];
+    [self addAssets:[NSSet setWithObject:asset]];
+}
+
+- (void)removeAssets:(NSSet *)assets {
+    for (CFTAsset *asset in assets) {
+        CFTElement *element = asset.element;
+        [element removeAsset:asset];
+        if (element.assets.count == 0)
+            [self.elements removeObject:element];
     }
-    
-    [element addAsset:asset];
 }
 
 - (void)removeAsset:(CFTAsset *)asset {
-    CFTElement *element = asset.element;
-    [element removeAsset:asset];
-    if (element.assets.count == 0)
-        [self.elements removeObject:element];
+    [self removeAssets:[NSSet setWithObject:asset]];
 }
 
 - (void)_addElement:(CFTElement *)element {

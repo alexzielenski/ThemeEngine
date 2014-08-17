@@ -20,7 +20,9 @@
 - (instancetype)initWithPath:(NSString *)path;
 
 - (void)addAsset:(CFTAsset *)asset;
+- (void)addAssets:(NSSet *)assets;
 - (void)removeAsset:(CFTAsset *)asset;
+- (void)removeAssets:(NSSet *)assets;
 
 - (NSArray *)allElementNames;
 - (CFTElement *)elementWithName:(NSString *)name;
