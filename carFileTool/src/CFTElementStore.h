@@ -12,8 +12,7 @@
 #import "CUIMutableStructuredThemeStore.h"
 
 @interface CFTElementStore : NSObject
-@property (readonly, strong) CUIStructuredThemeStore *themeStore;
-@property (readonly, strong) CUICommonAssetStorage *assetStorage;
+@property (readonly, strong) CUIMutableCommonAssetStorage *assetStorage;
 @property (readonly, copy) NSString *path;
 @property (readonly, strong) NSUndoManager *undoManager;
 

@@ -9,44 +9,6 @@
 #import "CFTElementStore.h"
 #import "ZKSwizzle.h"
 
-typedef void *BOMTreeIteratorRef;
-typedef void *BOMTreeRef;
-extern BOMTreeIteratorRef BOMTreeIteratorNew(BOMTreeRef tree, int unk, int unk2, int unk3);
-extern BOOL BOMTreeIteratorIsAtEnd(BOMTreeIteratorRef iterator);
-extern void BOMTreeIteratorFree(BOMTreeIteratorRef iterator);
-extern size_t BOMTreeIteratorKeySize(BOMTreeIteratorRef iterator);
-extern void *BOMTreeIteratorKey(BOMTreeIteratorRef iterator);
-extern size_t BOMTreeIteratorValueSize(BOMTreeIteratorRef iterator);
-extern void *BOMTreeIteratorValue(BOMTreeIteratorRef iterator);
-extern void BOMTreeIteratorNext(BOMTreeIteratorRef iterator);
-
-typedef void *BOMStorageRef;
-typedef int BomSys;
-extern BOMStorageRef BOMStorageOpen(const char *path, BOOL forWriting);
-extern BOMStorageRef BOMStorageOpenWithSys(const char *path, BOOL unk, BomSys *sys);
-extern BOOL BOMBomNewWithStorage(BOMStorageRef storage);
-extern const char *BOMStorageFileName(BOMStorageRef storage);
-extern BOOL BOMStorageCommit(BOMStorageRef storage);
-extern BOOL BOMStorageCompact(BOMStorageRef storage);
-extern int BOMStorageGetNamedBlock(BOMStorageRef storage, const char *name);
-extern size_t BOMStorageSizeOfBlock(BOMStorageRef storage, const char *name);
-extern int BOMStorageCount(BOMStorageRef storage);
-
-// dont know what a Sys is, guessing it is a FILE
-extern FILE *BOMStorageGetSys(BOMStorageRef storage);
-extern BOMTreeRef BOMTreeOpenWithName(BOMStorageRef storage, const char *name); // more args
-extern BOMTreeRef BOMTreeNewWithName(BOMStorageRef storage, const char *name);
-extern int BOMTreeFree(BOMTreeRef tree);
-extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
-extern BOMStorageRef BOMTreeStorage(BOMTreeRef tree);
-extern BOOL BOMTreeCommit(BOMTreeRef tree);
-extern int BOMTreeSetValue(BOMTreeRef tree, void *key, size_t keySize, void *value, size_t valueSize); // return 1 if failed, 0 if success
-extern void *BOMTreeGetValue(BOMTreeRef tree, void *key, size_t keySize); // guess
-extern int BOMTreeGetValueSize(BOMTreeRef tree, void *key, size_t keySize, int unk); //guess  // return 1 if failed, 0 if success
-extern int BOMTreeCount(BOMTreeRef tree);
-// guessing it is key and not value
-extern int BOMTreeRemoveValue(BOMTreeRef tree, void *key, size_t keySize);
-
 @interface CFTElementStore ()
 @property (readwrite, strong) CUIMutableCommonAssetStorage *assetStorage;
 @property (readwrite, copy) NSString *path;
@@ -174,25 +136,9 @@ extern int BOMTreeRemoveValue(BOMTreeRef tree, void *key, size_t keySize);
     [element addAsset:asset];
 }
 
-//!TODO: Add removeFromStorage method to CFTAsset
-// remove the shouldRemove property
-// remove stuff immediately
-// implement removeAsset on CFTElement and forward this call
 - (void)removeAsset:(CFTAsset *)asset {
-    NSAssert(asset.type == kCoreThemeTypeColor, @"CFTElementStore only supports removing color assets right now.");
-    
-    if ([self.assetStorage hasColorForName:asset.name.UTF8String]) {
-        //!TODO: Dont do this here
-        struct _colorkey key;
-        key.reserved = 0;
-        strncpy(key.name, asset.name.UTF8String, 128);
-        BOMTreeRef treeRef = ZKHookIvar(self.assetStorage, BOMTreeRef, "_colordb");
-        if (treeRef != NULL) {
-            BOMTreeRemoveValue(treeRef, &key, sizeof(key));
-        }
-    }
     CFTElement *element = asset.element;
-    [(NSMutableSet *)element.assets removeObject:asset];
+    [element removeAsset:asset];
     if (element.assets.count == 0)
         [self.elements removeObject:element];
 }

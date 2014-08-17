@@ -7,6 +7,7 @@
 //
 
 #import "CFTElement.h"
+#import "CFTElementStore.h"
 
 @interface CFTElement ()
 @property (readwrite, copy) NSString *name;
@@ -37,14 +38,35 @@
 }
 
 - (void)addAssets:(NSSet *)assets {
-    for (CFTAsset *asset in assets)
-        [self addAsset:asset];
+    [self willChangeValueForKey:@"assets"
+                withSetMutation:NSKeyValueUnionSetMutation
+                   usingObjects:assets];
+    [assets makeObjectsPerformSelector:@selector(setUndoManager:) withObject:self.undoManager];
+    [assets makeObjectsPerformSelector:NSSelectorFromString(@"setElement:") withObject:self];
+    [self.assets addObjectsFromArray:assets.allObjects];
+    [self didChangeValueForKey:@"assets"
+               withSetMutation:NSKeyValueUnionSetMutation
+                  usingObjects:assets];
 }
 
 - (void)addAsset:(CFTAsset *)asset {
-    asset.undoManager = self.undoManager;
-    [asset setValue:self forKey:@"element"];
-    [self.assets addObject:asset];
+    [self addAssets:[NSSet setWithObject:asset]];
+}
+
+- (void)removeAsset:(CFTAsset *)asset {
+    if (asset.element != self)
+        return;
+    
+    [asset setValue:[NSNull null] forKey:@"element"];
+    NSSet *mutation = [NSSet setWithObject:asset];
+    [self willChangeValueForKey:@"assets"
+                withSetMutation:NSKeyValueMinusSetMutation
+                   usingObjects:mutation];
+    [asset removeFromStorage:self.store.assetStorage];
+    [self.assets removeObject:asset];
+    [self didChangeValueForKey:@"assets"
+               withSetMutation:NSKeyValueMinusSetMutation
+                  usingObjects:mutation];
 }
 
 - (NSSet *)assetsWithIdiom:(CoreThemeIdiom)idiom {

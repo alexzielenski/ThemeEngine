@@ -15,6 +15,7 @@
 #import <stddef.h>
 #import <CoreText/CoreText.h>
 #import "CUITextEffectStack.h"
+#import "ZKSwizzle.h"
 
 #import "CFTGradient+Pasteboard.h"
 #import "CFTEffectWrapper+Pasteboard.h"
@@ -251,6 +252,7 @@ static void *kCFTAssetEvaluateDimensionsContext;
 }
 
 - (void)dealloc {
+    [self removeObserver:self forKeyPath:@"image" context:&kCFTAssetEvaluateDimensionsContext];
     UNREGISTER_UNDO_PROPERTIES(self.class.undoProperties);
 }
 
@@ -328,12 +330,6 @@ static void *kCFTAssetEvaluateDimensionsContext;
     }
     NSData *renditionKey = [self _keyDataWithFormat:(struct _renditionkeyfmt *)assetStorage.keyFormat];
 
-    if (self.shouldRemove) {
-        [assetStorage removeAssetForKey:renditionKey];
-        [self updateChangeCount:NSChangeCleared];
-        return;
-    }
-    
     if (!self.isDirty)
         return;
     
@@ -396,6 +392,25 @@ static void *kCFTAssetEvaluateDimensionsContext;
     NSData *csiData = [gen CSIRepresentationWithCompression:YES];
     [assetStorage setAsset:csiData forKey:renditionKey];
     
+    [self updateChangeCount:NSChangeCleared];
+}
+
+- (void)removeFromStorage:(CUIMutableCommonAssetStorage *)assetStorage {
+    if (self.type != kCoreThemeTypeColor) {
+        NSData *renditionKey = [self _keyDataWithFormat:(struct _renditionkeyfmt *)assetStorage.keyFormat];
+        [assetStorage removeAssetForKey:renditionKey];
+    } else {
+        if ([assetStorage hasColorForName:self.name.UTF8String]) {
+            struct _colorkey key;
+            key.reserved = 0;
+            strncpy(key.name, self.name.UTF8String, 128);
+            
+            BOMTreeRef treeRef = ZKHookIvar(assetStorage, BOMTreeRef, "_colordb");
+            if (treeRef != NULL) {
+                BOMTreeRemoveValue(treeRef, &key, sizeof(key));
+            }
+        }
+    }
     [self updateChangeCount:NSChangeCleared];
 }
 

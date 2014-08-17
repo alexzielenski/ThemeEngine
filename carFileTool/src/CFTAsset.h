@@ -23,7 +23,6 @@
 @property (readwrite, strong) NSArray *metrics;
 @property (readwrite, strong) CFTGradient *gradient;
 @property (readonly, strong) CUIRenditionKey *key;
-@property (readwrite, assign) BOOL shouldRemove;
 
 @property (readwrite, strong) CFTEffectWrapper *effectPreset;
 @property (readwrite, strong) NSData *rawData;
@@ -62,7 +61,10 @@
 - (instancetype)initWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key;
 + (instancetype)assetWithColor:(NSColor *)color name:(NSString *)name;
 - (instancetype)initWithColor:(NSColor *)color name:(NSString *)name;
+
 - (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage;
+- (void)removeFromStorage:(CUIMutableCommonAssetStorage *)assetStorage;
+
 - (BOOL)isDirty;
 
 - (NSString *)debugDescription;

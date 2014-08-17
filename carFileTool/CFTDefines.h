@@ -11,6 +11,46 @@
 #ifndef carFileTool_CFTDefines_h
 #define carFileTool_CFTDefines_h
 
+// reversed BOM.framework methods
+// some prototypes are incomplete and have mismatched return values and arguments
+typedef void *BOMTreeIteratorRef;
+typedef void *BOMTreeRef;
+extern BOMTreeIteratorRef BOMTreeIteratorNew(BOMTreeRef tree, int unk, int unk2, int unk3);
+extern BOOL BOMTreeIteratorIsAtEnd(BOMTreeIteratorRef iterator);
+extern void BOMTreeIteratorFree(BOMTreeIteratorRef iterator);
+extern size_t BOMTreeIteratorKeySize(BOMTreeIteratorRef iterator);
+extern void *BOMTreeIteratorKey(BOMTreeIteratorRef iterator);
+extern size_t BOMTreeIteratorValueSize(BOMTreeIteratorRef iterator);
+extern void *BOMTreeIteratorValue(BOMTreeIteratorRef iterator);
+extern void BOMTreeIteratorNext(BOMTreeIteratorRef iterator);
+
+typedef void *BOMStorageRef;
+typedef int BomSys;
+extern BOMStorageRef BOMStorageOpen(const char *path, BOOL forWriting);
+extern BOMStorageRef BOMStorageOpenWithSys(const char *path, BOOL unk, BomSys *sys);
+extern BOOL BOMBomNewWithStorage(BOMStorageRef storage);
+extern const char *BOMStorageFileName(BOMStorageRef storage);
+extern BOOL BOMStorageCommit(BOMStorageRef storage);
+extern BOOL BOMStorageCompact(BOMStorageRef storage);
+extern int BOMStorageGetNamedBlock(BOMStorageRef storage, const char *name);
+extern size_t BOMStorageSizeOfBlock(BOMStorageRef storage, const char *name);
+extern int BOMStorageCount(BOMStorageRef storage);
+
+// dont know what a Sys is, guessing it is a FILE
+extern FILE *BOMStorageGetSys(BOMStorageRef storage);
+extern BOMTreeRef BOMTreeOpenWithName(BOMStorageRef storage, const char *name); // more args
+extern BOMTreeRef BOMTreeNewWithName(BOMStorageRef storage, const char *name);
+extern int BOMTreeFree(BOMTreeRef tree);
+extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);
+extern BOMStorageRef BOMTreeStorage(BOMTreeRef tree);
+extern BOOL BOMTreeCommit(BOMTreeRef tree);
+extern int BOMTreeSetValue(BOMTreeRef tree, void *key, size_t keySize, void *value, size_t valueSize); // return 1 if failed, 0 if success
+extern void *BOMTreeGetValue(BOMTreeRef tree, void *key, size_t keySize); // guess
+extern int BOMTreeGetValueSize(BOMTreeRef tree, void *key, size_t keySize, int unk); //guess  // return 1 if failed, 0 if success
+extern int BOMTreeCount(BOMTreeRef tree);
+// guessing it is key and not value
+extern int BOMTreeRemoveValue(BOMTreeRef tree, void *key, size_t keySize);
+
 // http://stackoverflow.com/questions/7792622/manual-retain-with-arc
 #define AntiARCRetain(...) { void *retainedThing = (__bridge_retained void *)__VA_ARGS__; retainedThing = retainedThing; }
 #define AntiARCRelease(...) { void *retainedThing = (__bridge void *) __VA_ARGS__; id unretainedThing = (__bridge_transfer id)retainedThing; unretainedThing = nil; }
@@ -221,7 +261,7 @@ void *kCFTUndoContext;
     }
 #define UNREGISTER_UNDO_PROPERTIES(PROPERTIES) \
     for (NSString *key in PROPERTIES) { \
-        [self removeObserver:self forKeyPath:key]; \
+        [self removeObserver:self forKeyPath:key context:&kCFTUndoContext]; \
     }
 
 extern NSString *decamelize(NSString *string);
