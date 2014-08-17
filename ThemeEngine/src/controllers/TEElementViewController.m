@@ -84,7 +84,8 @@ static void *kTEDirtyContext;
                                                     [NSSortDescriptor sortDescriptorWithKey:@"key.themePart" ascending:NO],
                                                     [NSSortDescriptor sortDescriptorWithKey:@"key.themeState" ascending:NO],
                                                     [NSSortDescriptor sortDescriptorWithKey:@"key.themePresentationState" ascending:NO],
-                                                    [NSSortDescriptor sortDescriptorWithKey:@"key.themeSize" ascending:NO]];
+                                                    [NSSortDescriptor sortDescriptorWithKey:@"key.themeSize" ascending:NO],
+                                                    [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:NO selector:@selector(caseInsensitiveCompare:)] ];
     [self.assetsArrayController addObserver:self forKeyPath:@"arrangedObjects.previewImage" options:0 context:&kTEDirtyContext];
     [self.imageBrowserView bind:NSContentBinding toObject:self.assetsArrayController withKeyPath:@"arrangedObjects" options:nil];
     self.imageBrowserView.draggingDestinationDelegate = self;
