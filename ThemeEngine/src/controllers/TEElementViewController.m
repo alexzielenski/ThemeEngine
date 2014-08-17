@@ -74,14 +74,17 @@ static NSString *md5(NSString *input) {
 
 static void *kTEDirtyContext;
 
-- (void)awakeFromNib {
+- (void)viewDidLoad {
     self.imageBrowserView.constrainsToOriginalSize = YES;
     self.imageBrowserView.contentResizingMask = NSViewHeightSizable;
     self.imageBrowserView.canControlQuickLookPanel = YES;
     self.imageBrowserView.allowsDroppingOnItems = YES;
     
-    //!TODO: Sort by states, etc.
-    self.assetsArrayController.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:NO selector:@selector(caseInsensitiveCompare:)] ];
+    self.assetsArrayController.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"key.themeElement" ascending:NO],
+                                                    [NSSortDescriptor sortDescriptorWithKey:@"key.themePart" ascending:NO],
+                                                    [NSSortDescriptor sortDescriptorWithKey:@"key.themeState" ascending:NO],
+                                                    [NSSortDescriptor sortDescriptorWithKey:@"key.themePresentationState" ascending:NO],
+                                                    [NSSortDescriptor sortDescriptorWithKey:@"key.themeSize" ascending:NO]];
     [self.assetsArrayController addObserver:self forKeyPath:@"arrangedObjects.previewImage" options:0 context:&kTEDirtyContext];
     [self.imageBrowserView bind:NSContentBinding toObject:self.assetsArrayController withKeyPath:@"arrangedObjects" options:nil];
     self.imageBrowserView.draggingDestinationDelegate = self;
