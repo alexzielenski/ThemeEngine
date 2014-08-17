@@ -170,7 +170,6 @@ static CUIPSDGradientEvaluator *evaluatorFromGradient(CUIThemeGradient *gradient
     return pgeFlags.isDithered;
 }
 
-//!TODO Implement the rest
 - (void)setColorStops:(NSArray *)colors {
     NSMutableArray *cgColors = [NSMutableArray array];
     for (NSUInteger idx = 0; idx < colors.count; idx++) {
@@ -225,5 +224,42 @@ static CUIPSDGradientEvaluator *evaluatorFromGradient(CUIThemeGradient *gradient
     *original = smoothingCoefficient;
 }
 
+- (void)setOpacityStops:(NSArray *)opacityStops {
+    NSMutableArray *stops = [NSMutableArray array];
+    for (NSUInteger idx = 0; idx < opacityStops.count; idx++) {
+        NSNumber *opacity  = opacityStops[idx];
+        CGFloat location = 0.0;
+        if (idx < self.evaluator.opacityStops.count)
+            location = [self.evaluator.opacityStops[idx] location];
+        CUIPSDGradientOpacityStop *stop = [CUIPSDGradientOpacityStop opacityStopWithLocation:location opacity:opacity.doubleValue];
+        [stops addObject:stop];
+    }
+    
+    NSArray *__unsafe_unretained*origStops = &ZKHookIvar(self.evaluator, NSArray *, "opacityStops");
+    if (*origStops)
+        AntiARCRelease(*origStops);
+    AntiARCRetain(opacityStops);
+    *origStops = opacityStops;
+}
+
+- (void)setOpacityLocations:(NSArray *)opacityLocations {
+    if (opacityLocations.count != self.evaluator.opacityStops.count) {
+        NSLog(@"Invalid number of opacity locations. Must be equal to opacity stops");
+        return;
+    }
+    
+    for (NSUInteger x = 0; x < opacityLocations.count; x++) {
+        CUIPSDGradientStop *stop = self.evaluator.opacityStops[x];
+        stop.location = [opacityLocations[x] doubleValue];
+    }
+}
+
+- (void)setOpacityMidpoints:(NSArray *)opacityMidpoints {
+    NSArray *__unsafe_unretained*midpoints = &ZKHookIvar(self.evaluator, NSArray *, "opacityMidpointLocations");
+    if (*midpoints)
+        AntiARCRelease(*midpoints);
+    AntiARCRetain(opacityMidpoints);
+    *midpoints = opacityMidpoints;
+}
 
 @end
