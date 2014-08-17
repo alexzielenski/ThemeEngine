@@ -337,12 +337,17 @@ static void *kTEDirtyContext;
 
 @implementation IKImageBrowserView (QL)
 
+- (NSInteger)numberOfItemsInPreviewPanel:(QLPreviewPanel *)panel {
+    return self.selectionIndexes.count;
+}
+
 - (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel previewItemAtIndex:(NSInteger)index {
-    NSUInteger idx = [self.selectionIndexes firstIndex];
-    if (idx > [self.dataSource numberOfItemsInImageBrowser:self])
+    NSUInteger indices[self.selectionIndexes.count];
+    [self.selectionIndexes getIndexes:indices maxCount:self.selectionIndexes.count inIndexRange:NULL];
+    if (indices[index] >= self.numberOfRows * self.numberOfColumns)
         return nil;
     
-    CFTAsset *asset = [self.dataSource imageBrowser:self itemAtIndex:idx];
+    CFTAsset *asset = [[self cellForItemAtIndex:indices[index]] representedItem];
     CHPreviewItem *item = [[CHPreviewItem alloc] init];
     item.previewItemDisplayState = panel.displayState;
     item.previewItemTitle = asset.name;
