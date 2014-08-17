@@ -44,7 +44,11 @@
 - (void)_initializeMetadataFromCSIData:(NSData *)csiData;
 - (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format;
 - (void)updateChangeCount:(NSDocumentChangeType)change;
+- (NSArray *)_newSlicesFromOldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image;
+- (NSArray *)_newMetricsFromOldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image;
 @end
+
+static void *kCFTAssetEvaluateDimensionsContext;
 
 @implementation CFTAsset
 @dynamic pdfData, previewImage;
@@ -138,6 +142,7 @@
         self.changeCount = 0;
         self.lastChangeCount = 0;
         REGISTER_UNDO_PROPERTIES(self.class.undoProperties);
+        [self addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:&kCFTAssetEvaluateDimensionsContext];
     }
     return self;
 }
@@ -251,6 +256,29 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     HANDLE_UNDO
+    
+    if (context == &kCFTAssetEvaluateDimensionsContext) {
+        NSBitmapImageRep *oldImage = change[NSKeyValueChangeOldKey];
+        NSBitmapImageRep *newImage = change[NSKeyValueChangeNewKey];
+        
+        if ([oldImage isKindOfClass:[NSNull class]]) {
+            oldImage = nil;
+        }
+        if ([newImage isKindOfClass:[NSNull class]]) {
+            newImage = nil;
+        }
+        
+        if (!oldImage)
+            return;
+        
+        if (newImage) {
+            self.slices = [self _newSlicesFromOldImage:oldImage forNewImage:newImage];
+            self.metrics = [self _newMetricsFromOldImage:oldImage forNewImage:newImage];
+        } else {
+            self.slices = @[];
+            self.metrics = @[];
+        }
+    }
 }
 
 // same as calling CUIStructuredThemeStore _newRenditionKeyDataFromKey:
@@ -383,6 +411,39 @@
 
 - (BOOL)isDirty {
     return (self.changeCount != self.lastChangeCount);
+}
+
+- (NSArray *)_newSlicesFromOldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image {
+    CGFloat widthFactor  = image.pixelsWide / oldImage.pixelsWide;
+    CGFloat heightFactor = image.pixelsHigh / oldImage.pixelsHigh;
+    
+    NSMutableArray *newSlices = [NSMutableArray array];
+    for (NSValue *value in self.slices) {
+        NSRect rect = value.rectValue;
+        rect = NSMakeRect(rect.origin.x * widthFactor, rect.origin.y * heightFactor, rect.size.width * widthFactor, rect.size.height * heightFactor);
+        [newSlices addObject:[NSValue valueWithRect:rect]];
+    }
+    
+    return newSlices;
+}
+
+- (NSArray *)_newMetricsFromOldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image {
+    CGFloat widthFactor  = image.pixelsWide / oldImage.pixelsWide;
+    CGFloat heightFactor = image.pixelsHigh / oldImage.pixelsHigh;
+    
+    NSMutableArray *newMetrics = [NSMutableArray array];
+    for (NSValue *value in self.metrics) {
+        CUIMetrics metric;
+        [value getValue:&metric];
+        
+        metric.edgeBL = CGSizeMake(metric.edgeBL.width * widthFactor, metric.edgeBL.height * heightFactor);
+        metric.edgeTR = CGSizeMake(metric.edgeTR.width * widthFactor, metric.edgeTR.height * heightFactor);
+        metric.imageSize = CGSizeMake(metric.imageSize.width * widthFactor, metric.imageSize.height * heightFactor);
+        
+        [newMetrics addObject:[NSValue valueWithBytes:&metric objCType:@encode(CUIMetrics)]];
+    }
+    
+    return newMetrics;
 }
 
 #pragma mark - Properties

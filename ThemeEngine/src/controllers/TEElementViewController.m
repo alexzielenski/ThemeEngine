@@ -34,7 +34,6 @@ static NSString *md5(NSString *input) {
 - (void)_initialize;
 - (void)_filterPredicates;
 - (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndices:(NSIndexSet *)indices;
-- (NSArray *)newSliceRectsFromOldSliceRects:(NSArray *)slices oldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image;
 @end
 
 @implementation TEElementViewController
@@ -89,7 +88,6 @@ static void *kTEDirtyContext;
     self.imageBrowserView.delegate = self;
 }
 
-//!TODO: Observe each element for asset changes
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"elements"]) {
         
@@ -102,17 +100,6 @@ static void *kTEDirtyContext;
         [self _filterPredicates];
     } else if ([keyPath isEqualToString:@"previewImage"]) {
         [self.imageBrowserView reloadData];
-    } else if ([keyPath isEqualToString:@"image"]) {
-        //!TODO: Move this logic into CFTAsset
-        NSBitmapImageRep *oldImage = change[NSKeyValueChangeOldKey];
-        NSBitmapImageRep *newImage = change[NSKeyValueChangeNewKey];
-
-        if (![oldImage isKindOfClass:[NSNull class]] && ![newImage isKindOfClass:[NSNull class]]) {
-            //!TODO: Metrics too
-            ((CFTAsset *)object).slices = [self newSliceRectsFromOldSliceRects:((CFTAsset *)object).slices
-                                                                      oldImage:oldImage
-                                                                   forNewImage:newImage];
-        }
     } else if (context == &kTEDirtyContext) {
         
         [self.imageBrowserView reloadData];
@@ -163,21 +150,6 @@ static void *kTEDirtyContext;
     } else {
         self.filterPredicate = nil;
     }
-}
-
-// Scales slices for an asset when images change
-- (NSArray *)newSliceRectsFromOldSliceRects:(NSArray *)slices oldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image {
-    CGFloat widthFactor  = image.pixelsWide / oldImage.pixelsWide;
-    CGFloat heightFactor = image.pixelsHigh / oldImage.pixelsHigh;
-    
-    NSMutableArray *newSlices = [NSMutableArray array];
-    for (NSValue *value in slices) {
-        NSRect rect = value.rectValue;
-        rect = NSMakeRect(rect.origin.x * widthFactor, rect.origin.y * heightFactor, rect.size.width * widthFactor, rect.size.height * heightFactor);
-        [newSlices addObject:[NSValue valueWithRect:rect]];
-    }
-    
-    return newSlices;
 }
 
 #pragma mark - Actions
