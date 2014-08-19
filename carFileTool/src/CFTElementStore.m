@@ -18,6 +18,7 @@
 - (void)_enumerateColors;
 - (void)_enumerateFonts;
 - (void)_addElement:(CFTElement *)element;
+- (void)_removeElement:(CFTElement *)element;
 + (NSString *)elementNameForAsset:(CFTAsset *)asset;
 @end
 
@@ -83,10 +84,12 @@
 
 - (void)_enumerateAssets {
     __weak CFTElementStore *weakSelf = self;
-    [self.assetStorage enumerateKeysAndObjectsUsingBlock:^(struct _renditionkeytoken *key, NSData *csiData) {
-        CFTAsset *asset = [CFTAsset assetWithRenditionCSIData:csiData forKey:key];
-        [weakSelf addAsset:asset];
-    }];
+    @autoreleasepool {
+        [self.assetStorage enumerateKeysAndObjectsUsingBlock:^(struct _renditionkeytoken *key, NSData *csiData) {
+            CFTAsset *asset = [CFTAsset assetWithRenditionCSIData:csiData forKey:key];
+            [weakSelf addAsset:asset];
+        }];
+    }
 }
 
 - (void)_enumerateColors {
@@ -147,14 +150,7 @@
         CFTElement *element = asset.element;
         [element removeAsset:asset];
         if (element.assets.count == 0) {
-            NSSet *set = [NSSet setWithObject:element];
-            [self willChangeValueForKey:@"elements"
-                        withSetMutation:NSKeyValueMinusSetMutation
-                           usingObjects:set];
-            [self.elements removeObject:element];
-            [self didChangeValueForKey:@"elements"
-                       withSetMutation:NSKeyValueMinusSetMutation
-                          usingObjects:set];
+            [self _removeElement:element];
         }
     }
 }
@@ -177,6 +173,17 @@
                   usingObjects:set];
 }
 
+- (void)_removeElement:(CFTElement *)element {
+    NSSet *set = [NSSet setWithObject:element];
+    [self willChangeValueForKey:@"elements"
+                withSetMutation:NSKeyValueMinusSetMutation
+                   usingObjects:set];
+    [self.elements removeObject:element];
+    [self didChangeValueForKey:@"elements"
+               withSetMutation:NSKeyValueMinusSetMutation
+                  usingObjects:set];
+}
+
 - (NSArray *)allElementNames {
     return [self valueForKeyPath:@"elements.name"];
 }
@@ -187,10 +194,12 @@
 }
 
 - (BOOL)save {
-    NSSet *assets = self.allAssets;
-    [assets makeObjectsPerformSelector:@selector(commitToStorage:) withObject:self.assetStorage];
-    [self.assetStorage setRenditionCount:(unsigned int)self.allAssets.count];
-    return [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
+    @autoreleasepool {
+        NSSet *assets = self.allAssets;
+        [assets makeObjectsPerformSelector:@selector(commitToStorage:) withObject:self.assetStorage];
+        [self.assetStorage setRenditionCount:(unsigned int)self.allAssets.count];
+        return [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
+    }
 }
 
 - (NSSet *)allAssets {
