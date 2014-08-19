@@ -22,7 +22,7 @@ IB_DESIGNABLE
 
 - (IBAction)paste:(id)sender;
 - (IBAction)sendToPhotoshop:(id)sender;
-- (IBAction)removeColor:(id)sender;
+- (IBAction)removeAsset:(id)sender;
 - (IBAction)receiveFromPhotoshop:(id)sender;
 
 @end

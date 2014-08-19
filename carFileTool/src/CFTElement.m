@@ -37,7 +37,6 @@
     return self;
 }
 
-//!TODO implement undo
 - (void)addAssets:(NSSet *)assets {
     [[self.undoManager prepareWithInvocationTarget:self.store] removeAssets:assets];
     if (!self.undoManager.isUndoing) {

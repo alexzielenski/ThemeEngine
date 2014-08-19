@@ -131,7 +131,6 @@
         CFTElement *element = [self elementWithName:elementName];
         if (!element) {
             element = [CFTElement elementWithAssets:nil name:elementName];
-            element.undoManager = self.undoManager;
             [self _addElement:element];
         }
         
@@ -147,8 +146,16 @@
     for (CFTAsset *asset in assets) {
         CFTElement *element = asset.element;
         [element removeAsset:asset];
-        if (element.assets.count == 0)
+        if (element.assets.count == 0) {
+            NSSet *set = [NSSet setWithObject:element];
+            [self willChangeValueForKey:@"elements"
+                        withSetMutation:NSKeyValueMinusSetMutation
+                           usingObjects:set];
             [self.elements removeObject:element];
+            [self didChangeValueForKey:@"elements"
+                       withSetMutation:NSKeyValueMinusSetMutation
+                          usingObjects:set];
+        }
     }
 }
 
@@ -157,8 +164,17 @@
 }
 
 - (void)_addElement:(CFTElement *)element {
+    NSSet *set = [NSSet setWithObject:element];
+
+    [self willChangeValueForKey:@"elements"
+                withSetMutation:NSKeyValueUnionSetMutation
+                   usingObjects:set];
     element.store = self;
+    element.undoManager = self.undoManager;
     [self.elements addObject:element];
+    [self didChangeValueForKey:@"elements"
+               withSetMutation:NSKeyValueUnionSetMutation
+                  usingObjects:set];
 }
 
 - (NSArray *)allElementNames {

@@ -172,14 +172,8 @@ static void *kTEDirtyContext;
                                                                   dimensions:NSMakeSize(self.imageBrowserView.numberOfColumns, self.imageBrowserView.numberOfRows)];
 }
 
-- (IBAction)removeColor:(id)sender {
-    NSIndexSet *indices = [self.assetsArrayController.selectionIndexes indexesPassingTest:^BOOL(NSUInteger idx, BOOL *stop) {
-        return [(CFTAsset *)self.assetsArrayController.arrangedObjects[idx] type] == kCoreThemeTypeColor;
-    }];
-    
-    for (CFTAsset *color in [self.assetsArrayController.arrangedObjects objectsAtIndexes:indices]) {
-        [color.element.store removeAsset: color];
-    }
+- (IBAction)removeAsset:(id)sender {
+    [self.elementStore removeAssets:[NSSet setWithArray:self.assetsArrayController.selectedObjects]];
 }
 
 - (IBAction)receiveFromPhotoshop:(id)sender {
