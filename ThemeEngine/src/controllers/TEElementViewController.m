@@ -194,6 +194,19 @@ static void *kTEDirtyContext;
         self.detailPopoverViewController = [[TEAssetDetailViewController alloc] initWithNibName:@"Detail" bundle:nil];
      }
 
+    if (self.detailPopoverViewController.presentingViewController != nil) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.informativeText = @"If you have unsaved changes they will be lost. This operation cannot be undone.";
+        alert.messageText = @"Are you sure?";
+        [alert addButtonWithTitle:@"Absolutely"];
+        [alert addButtonWithTitle:@"Naw"];
+        NSModalResponse response = alert.runModal;
+
+        if (response != 1000) {
+            return;
+        }
+    }
+
     IKImageBrowserCell *cell = [browser cellForItemAtIndex:index];
     
     if (self.detailPopoverViewController.presentingViewController)
