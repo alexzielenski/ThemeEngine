@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6205" systemVersion="14A314h" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6205" systemVersion="14A329f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="101000" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6205"/>
@@ -8,7 +8,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TEDocument">
             <connections>
                 <outlet property="contentView" destination="7Iw-xe-zm2" id="hsE-2q-snm"/>
-                <outlet property="elementArrayController" destination="5vm-Is-DQ2" id="dOX-Jj-kgT"/>
                 <outlet property="elementContentView" destination="7Iw-xe-zm2" id="Kkg-Cg-B0n"/>
                 <outlet property="elementTableView" destination="wAz-OS-r9z" id="xzJ-8c-U7S"/>
                 <outlet property="elementViewController" destination="kDe-jO-4eI" id="BhY-no-KlC"/>
@@ -168,8 +167,8 @@
         </arrayController>
         <arrayController objectClassName="CFTAsset" editable="NO" avoidsEmptySelection="NO" id="Ke5-zr-LWI">
             <connections>
-                <binding destination="5vm-Is-DQ2" name="contentArray" keyPath="selection.@distinctUnionOfSets.assets" id="gtj-qK-nuf"/>
                 <binding destination="kDe-jO-4eI" name="filterPredicate" keyPath="filterPredicate" id="d3K-jk-kPd"/>
+                <binding destination="5vm-Is-DQ2" name="contentArray" keyPath="selection.@distinctUnionOfSets.assets" id="gtj-qK-nuf"/>
             </connections>
         </arrayController>
         <viewController title="Elements View Controller" nibName="Elements" id="kDe-jO-4eI" userLabel="Elements View Controller" customClass="TEElementViewController">

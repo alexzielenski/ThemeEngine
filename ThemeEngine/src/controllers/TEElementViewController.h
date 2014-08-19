@@ -14,10 +14,10 @@ IB_DESIGNABLE
 @interface TEElementViewController : NSViewController <NSDraggingDestination>
 @property (weak) IBOutlet IKImageBrowserView *imageBrowserView;
 @property (weak) IBOutlet NSTextField *statusLabel;
-@property (strong) NSArray *elements;
 @property (weak) IBOutlet NSSearchField *search;
 @property (weak) IBOutlet NSArrayController *assetsArrayController;
 @property (weak) IBOutlet NSArrayController *elementsArrayController;
+@property (weak) CFTElementStore *elementStore;
 - (IBAction)searchChanged:(NSSearchField *)sender;
 
 - (IBAction)paste:(id)sender;

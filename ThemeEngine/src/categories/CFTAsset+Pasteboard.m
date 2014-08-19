@@ -7,7 +7,7 @@
 //
 
 #import "CFTAsset+Pasteboard.h"
-
+#import "CFTAsset+Coding.h"
 @implementation CFTAsset (Pasteboard)
 
 #pragma mark - NSPasteboardReading
@@ -21,8 +21,8 @@
         return nil;
     if (!propertyList)
         return nil;
-    
-    return [NSKeyedUnarchiver unarchiveObjectWithData:propertyList];
+
+    return [self initWithCoder:[[NSKeyedUnarchiver alloc] initForReadingWithData:propertyList]];
 }
 
 + (NSArray *)readableTypesForPasteboard:(NSPasteboard *)pasteboard {

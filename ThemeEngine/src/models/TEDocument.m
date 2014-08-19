@@ -42,8 +42,7 @@
                                                                                     metrics:nil
                                                                                       views:views]];
     
-    //!TODO: get rid of this property
-    [self.elementViewController bind:@"elements" toObject:self.elementArrayController withKeyPath:@"selectedObjects" options:nil];
+    self.elementViewController.elementStore = self.elementStore;
 }
 
 - (BOOL)writeToURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError *__autoreleasing *)outError {
@@ -86,7 +85,6 @@
 
 - (void)dealloc {
     // remove temporary storage
-    [self.elementViewController unbind:@"elements"];
     if ([self.elementStore.path hasPrefix:NSTemporaryDirectory()])
         [[NSFileManager defaultManager] removeItemAtPath:self.elementStore.path error:nil];
 }

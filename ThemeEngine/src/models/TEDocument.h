@@ -17,7 +17,6 @@
 @property (readonly, strong) NSArray *sortDescriptors;
 @property (weak) IBOutlet NSView *contentView;
 @property (weak) IBOutlet TEElementViewController *elementViewController;
-@property (weak) IBOutlet NSArrayController *elementArrayController;
 - (IBAction)addColor:(id)sender;
 
 @end

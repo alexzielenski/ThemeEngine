@@ -63,13 +63,12 @@ static NSString *md5(NSString *input) {
 }
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"elements"];
+    [self.elementsArrayController removeObserver:self forKeyPath:@"selectedObjects"];
     [self.assetsArrayController removeObserver:self forKeyPath:@"arrangedObjects.previewImage"];
     [self.imageBrowserView unbind:NSContentBinding];
 }
 
 - (void)_initialize {
-    [self addObserver:self forKeyPath:@"elements" options:0 context:nil];
 }
 
 static void *kTEDirtyContext;
@@ -86,6 +85,7 @@ static void *kTEDirtyContext;
                                                     [NSSortDescriptor sortDescriptorWithKey:@"key.themePresentationState" ascending:NO],
                                                     [NSSortDescriptor sortDescriptorWithKey:@"key.themeSize" ascending:NO],
                                                     [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:NO selector:@selector(caseInsensitiveCompare:)] ];
+    [self.elementsArrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
     [self.assetsArrayController addObserver:self forKeyPath:@"arrangedObjects.previewImage" options:0 context:&kTEDirtyContext];
     [self.imageBrowserView bind:NSContentBinding toObject:self.assetsArrayController withKeyPath:@"arrangedObjects" options:nil];
     self.imageBrowserView.draggingDestinationDelegate = self;
@@ -93,7 +93,7 @@ static void *kTEDirtyContext;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"elements"]) {
+    if ([keyPath isEqualToString:@"selectedObjects"]) {
         
         __weak TEElementViewController *weakSelf = self;
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -258,65 +258,75 @@ static void *kTEDirtyContext;
 }
 
 - (BOOL)_pasteFromPasteboard:(NSPasteboard *)pb atIndices:(NSIndexSet *)indices {
-    NSUInteger *indexes = malloc(sizeof(NSUInteger) * indices.count);
-    [indices getIndexes:indexes maxCount:indices.count inIndexRange:NULL];
+    if (indices.count > 0) {
+        NSUInteger *indexes = malloc(sizeof(NSUInteger) * indices.count);
+        [indices getIndexes:indexes maxCount:indices.count inIndexRange:NULL];
     
-    for (NSUInteger x = 0; x < MAX(pb.pasteboardItems.count, indices.count); x++) {
-        NSPasteboardItem *item = nil;
-        CFTAsset *asset = nil;
-        
-        if (x >= indices.count)
-            break;
-        else {
-            item = pb.pasteboardItems[x % pb.pasteboardItems.count];
-        }
-        
-        asset = self.assetsArrayController.arrangedObjects[indexes[x]];
-        
-        BOOL bad = NO;
-        
-        if ([item availableTypeFromArray:@[kCFTColorPboardType]]) {
-            if (asset.type == kCoreThemeTypeColor)
-                asset.color = [[NSColor alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTColorPboardType] ofType:kCFTColorPboardType];
+        for (NSUInteger x = 0; x < MAX(pb.pasteboardItems.count, indices.count); x++) {
+            NSPasteboardItem *item = nil;
+            CFTAsset *asset = nil;
+            
+            if (x >= indices.count)
+                break;
+            else {
+                item = pb.pasteboardItems[x % pb.pasteboardItems.count];
+            }
+            
+            asset = self.assetsArrayController.arrangedObjects[indexes[x]];
+            
+            BOOL bad = NO;
+            
+            if ([item availableTypeFromArray:@[kCFTColorPboardType]]) {
+                if (asset.type == kCoreThemeTypeColor)
+                    asset.color = [[NSColor alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTColorPboardType] ofType:kCFTColorPboardType];
+                else
+                    bad = YES;
+            }
+            
+            if ([item availableTypeFromArray:@[kCFTEffectWrapperPboardType]]) {
+                if (asset.type == kCoreThemeTypeEffect)
+                    asset.effectPreset = [[CFTEffectWrapper alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTEffectWrapperPboardType] ofType:kCFTEffectWrapperPboardType];
             else
                 bad = YES;
+            }
+            
+            if ([item availableTypeFromArray:@[kCFTGradientPboardType]]) {
+                if (asset.type == kCoreThemeTypeGradient)
+                    asset.gradient = [[CFTGradient alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTGradientPboardType] ofType:kCFTGradientPboardType];
+                else
+                    bad = YES;
+            }
+            
+            if ([item availableTypeFromArray:@[NSPasteboardTypePNG]]) {
+                if (asset.type <= kCoreThemeTypeSixPart || asset.type == kCoreThemeTypeAnimation) {
+                    asset.image = [[NSBitmapImageRep alloc] initWithData:[item dataForType:NSPasteboardTypePNG]];;
+                }// else
+                //                bad = YES;
+            }
+            
+            if ([item availableTypeFromArray:@[NSPasteboardTypePDF]]) {
+                if (asset.type == kCoreThemeTypePDF)
+                    asset.pdfData = [item dataForType:NSPasteboardTypePDF];
+                //            else
+                //                bad = YES;
+            }
+            
+            if (bad) {
+                NSRunAlertPanel(@"Invalid type", @"The destination doesn't support this value type. (e.g. you copied a gradient to an image)", @"Sorry", nil, nil);
+                return NO;
+            }
         }
         
-        if ([item availableTypeFromArray:@[kCFTEffectWrapperPboardType]]) {
-            if (asset.type == kCoreThemeTypeEffect)
-                asset.effectPreset = [[CFTEffectWrapper alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTEffectWrapperPboardType] ofType:kCFTEffectWrapperPboardType];
-            else
-                bad = YES;
-        }
-        
-        if ([item availableTypeFromArray:@[kCFTGradientPboardType]]) {
-            if (asset.type == kCoreThemeTypeGradient)
-                asset.gradient = [[CFTGradient alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTGradientPboardType] ofType:kCFTGradientPboardType];
-            else
-                bad = YES;
-        }
-        
-        if ([item availableTypeFromArray:@[NSPasteboardTypePNG]]) {
-            if (asset.type <= kCoreThemeTypeSixPart || asset.type == kCoreThemeTypeAnimation) {
-                asset.image = [[NSBitmapImageRep alloc] initWithData:[item dataForType:NSPasteboardTypePNG]];;
-            }// else
-//                bad = YES;
-        }
-        
-        if ([item availableTypeFromArray:@[NSPasteboardTypePDF]]) {
-            if (asset.type == kCoreThemeTypePDF)
-                asset.pdfData = [item dataForType:NSPasteboardTypePDF];
-//            else
-//                bad = YES;
-        }
-     
-        if (bad) {
-            NSRunAlertPanel(@"Invalid type", @"The destination doesn't support this value type. (e.g. you copied a gradient to an image)", @"Sorry", nil, nil);
-            return NO;
+        free(indexes);
+    } else {
+        for (NSPasteboardItem *item in pb.pasteboardItems) {
+            if ([item availableTypeFromArray:@[ kCFTAssetPboardType ]]) {
+                CFTAsset *asset = [NSKeyedUnarchiver unarchiveObjectWithData:[item dataForType:kCFTAssetPboardType]];
+
+                [self.elementStore addAsset:asset];
+            }
         }
     }
-    
-    free(indexes);
     
     return YES;
 }
