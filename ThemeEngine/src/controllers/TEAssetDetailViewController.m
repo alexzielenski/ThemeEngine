@@ -35,11 +35,12 @@
     
     self.imageSliceView.hasHorizontalScroller = YES;
     self.imageSliceView.hasVerticalScroller = YES;
-    self.imageSliceView.autohidesScrollers = NO;
+//    self.imageSliceView.autohidesScrollers = NO;
     self.imageSliceView.autoresizes = YES;
     self.imageSliceView.backgroundColor = [NSColor whiteColor];
     
     self.inspector.inspectorDelegate = self;
+    self.inspector.backgroundColor = [NSColor whiteColor];
     [self.inspector addView:self.infoPanel withTitle:@"Info" expanded:NO];
 
 }

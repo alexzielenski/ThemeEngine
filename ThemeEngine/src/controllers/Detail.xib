@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6205" systemVersion="14A314h" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6205" systemVersion="14A329f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="101000" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6205"/>
@@ -93,7 +93,7 @@ Gw
                             <outlineView wantsLayer="YES" canDrawConcurrently="YES" appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="ojH-kR-c1Y" viewBased="YES" indentationPerLevel="14" autoresizesOutlineColumn="YES" outlineTableColumn="5sH-si-I4I" id="2P6-dX-BDD" customClass="ZKInspector">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="0.0"/>
-                                <color key="backgroundColor" red="0.0" green="0.41176470590000003" blue="0.85098039219999999" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn identifier="AutomaticTableColumnIdentifier.0" editable="NO" width="296" minWidth="40" maxWidth="9999" id="5sH-si-I4I">
@@ -197,7 +197,7 @@ Gw
                         </segments>
                     </segmentedCell>
                 </segmentedControl>
-                <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qc1-fN-QNE">
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qc1-fN-QNE">
                     <rect key="frame" x="18" y="49" width="282" height="282"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="BXk-Ld-pwy">
                         <rect key="frame" x="1" y="1" width="166" height="79"/>
@@ -214,11 +214,11 @@ Gw
                             <constraint firstAttribute="bottom" secondItem="Odf-36-59F" secondAttribute="bottom" id="xc6-ZL-hDe"/>
                         </constraints>
                     </clipView>
-                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="via-xb-a7W">
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="via-xb-a7W">
                         <rect key="frame" x="1" y="80" width="166" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="8Rn-eh-gdH">
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="8Rn-eh-gdH">
                         <rect key="frame" x="167" y="1" width="15" height="79"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
