@@ -189,6 +189,7 @@
 - (BOOL)save {
     NSSet *assets = self.allAssets;
     [assets makeObjectsPerformSelector:@selector(commitToStorage:) withObject:self.assetStorage];
+    [self.assetStorage setRenditionCount:(unsigned int)self.allAssets.count];
     return [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
 }
 

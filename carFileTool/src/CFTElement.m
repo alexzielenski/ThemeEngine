@@ -47,6 +47,9 @@
                 withSetMutation:NSKeyValueUnionSetMutation
                    usingObjects:assets];
     [assets makeObjectsPerformSelector:@selector(setUndoManager:) withObject:self.undoManager];
+    if (self.undoManager.isUndoRegistrationEnabled) {
+        [assets setValue:@1 forKeyPath:@"changeCount"];
+    }
     [assets makeObjectsPerformSelector:NSSelectorFromString(@"setElement:") withObject:self];
     [self.assets unionSet:assets];
     [self didChangeValueForKey:@"assets"

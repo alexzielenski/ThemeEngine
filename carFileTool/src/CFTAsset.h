@@ -66,6 +66,7 @@
 - (void)removeFromStorage:(CUIMutableCommonAssetStorage *)assetStorage;
 
 - (BOOL)isDirty;
+- (void)updateChangeCount:(NSDocumentChangeType)change;
 
 - (NSString *)debugDescription;
 

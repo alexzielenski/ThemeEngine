@@ -44,7 +44,6 @@
 - (void)_initializeRawDataFromCSIData:(NSData *)csiData;
 - (void)_initializeMetadataFromCSIData:(NSData *)csiData;
 - (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format;
-- (void)updateChangeCount:(NSDocumentChangeType)change;
 - (NSArray *)_newSlicesFromOldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image;
 - (NSArray *)_newMetricsFromOldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image;
 @end
@@ -332,7 +331,7 @@ static void *kCFTAssetEvaluateDimensionsContext;
 
     if (!self.isDirty)
         return;
-    
+
     if (self.type > kCoreThemeTypePDF) {
         // we only save shape effects, gradients, pdfs, and bitmaps
         return;
@@ -387,10 +386,13 @@ static void *kCFTAssetEvaluateDimensionsContext;
     gen.isVectorBased = self.isVector;
     gen.utiType = self.utiType;
     gen.isRenditionFPO = self.isRenditionFPO;
-    gen.name = self.rendition.name;
+    gen.name = self.name;
     gen.excludedFromContrastFilter = self.isExcludedFromContrastFilter;
     NSData *csiData = [gen CSIRepresentationWithCompression:YES];
     [assetStorage setAsset:csiData forKey:renditionKey];
+    
+    [renditionKey writeToFile:@"/Users/Alex/Desktop/data" atomically:NO];
+    [csiData writeToFile:@"/Users/Alex/Desktop/csi_old" atomically:NO];
     
     [self updateChangeCount:NSChangeCleared];
 }
