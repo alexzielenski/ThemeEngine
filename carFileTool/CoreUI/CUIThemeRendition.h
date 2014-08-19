@@ -10,8 +10,8 @@
 
 // CSI Stands for Core Structured Image
 struct _csiheader {
-    unsigned int prefix; // CTSI – Core Theme Structured Image
-    unsigned int pad; // always 1
+    unsigned int magic; // CTSI – Core Theme Structured Image
+    unsigned int version; // current known version is 1
     struct {
         unsigned int isHeaderFlaggedFPO:1;
         unsigned int isExcludedFromContrastFilter:1;
