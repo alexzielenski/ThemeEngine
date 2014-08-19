@@ -30,7 +30,7 @@
         NSColor *color = [[NSColor alloc] initWithPasteboardPropertyList:colors[x] ofType:kCFTColorPboardType];
         newColors[x] = color;
     }
-        
+            
     if ((self = [self initWithColors:newColors
                       colorlocations:propertyList[@"colorLocations"]
                       colorMidpoints:propertyList[@"colorMidpoints"]

@@ -127,18 +127,22 @@ static CUIPSDGradientEvaluator *evaluatorFromGradient(CUIThemeGradient *gradient
 #pragma mark - Properties
 
 - (NSArray *)colorStops {
-    NSArray *colorStops = self.themeGradient.colorStops;
+    NSArray *colorStops = self.evaluator.colorStops;
     NSMutableArray *clrs = [NSMutableArray array];
     for (NSUInteger x = 0; x < colorStops.count; x++) {
-        CUIColor *color = colorStops[x];
-        [clrs addObject:[NSColor colorWithCGColor:color.CGColor]];
+        CUIPSDGradientColorStop *stop = colorStops[x];
+        
+        [clrs addObject:[NSColor colorWithRed:stop.gradientColor.red
+                                        green:stop.gradientColor.green
+                                         blue:stop.gradientColor.blue
+                                        alpha:stop.gradientColor.alpha]];
     }
 
     return clrs;
 }
 
 - (NSArray *)colorLocations {
-    return self.themeGradient.colorLocations;
+    return [self.evaluator.colorStops valueForKey:@"location"];
 }
 
 - (NSArray *)colorMidpoints {
@@ -146,11 +150,17 @@ static CUIPSDGradientEvaluator *evaluatorFromGradient(CUIThemeGradient *gradient
 }
 
 - (NSArray *)opacityStops {
-    return self.themeGradient.opacityStops;
+    NSArray *opacityStops = self.evaluator.opacityStops;
+    NSMutableArray *opacities = [NSMutableArray array];
+    for (NSUInteger x = 0; x < opacityStops.count; x++) {
+        CUIPSDGradientOpacityStop *stop = opacityStops[x];
+        [opacities addObject:@(stop.opacity)];
+    }
+    return opacities;
 }
 
 - (NSArray *)opacityLocations {
-    return self.themeGradient.opacityLocations;
+    return [self.evaluator.opacityStops valueForKey:@"location"];
 }
 
 - (NSArray *)opacityMidpoints {
