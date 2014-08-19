@@ -63,7 +63,6 @@ static NSString *md5(NSString *input) {
 }
 
 - (void)dealloc {
-    [self.elementsArrayController removeObserver:self forKeyPath:@"selectedObjects"];
     [self.assetsArrayController removeObserver:self forKeyPath:@"arrangedObjects.previewImage"];
     [self.imageBrowserView unbind:NSContentBinding];
 }
@@ -85,7 +84,6 @@ static void *kTEDirtyContext;
                                                     [NSSortDescriptor sortDescriptorWithKey:@"key.themePresentationState" ascending:NO],
                                                     [NSSortDescriptor sortDescriptorWithKey:@"key.themeSize" ascending:NO],
                                                     [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:NO selector:@selector(caseInsensitiveCompare:)] ];
-    [self.elementsArrayController addObserver:self forKeyPath:@"selectedObjects" options:0 context:nil];
     [self.assetsArrayController addObserver:self forKeyPath:@"arrangedObjects.previewImage" options:0 context:&kTEDirtyContext];
     [self.imageBrowserView bind:NSContentBinding toObject:self.assetsArrayController withKeyPath:@"arrangedObjects" options:nil];
     self.imageBrowserView.draggingDestinationDelegate = self;
@@ -93,19 +91,9 @@ static void *kTEDirtyContext;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"selectedObjects"]) {
-        
-        __weak TEElementViewController *weakSelf = self;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (weakSelf.detailPopoverViewController.presentingViewController)
-                [weakSelf dismissViewController:self.detailPopoverViewController];
-        });
-        
-        [self _filterPredicates];
-    } else if ([keyPath isEqualToString:@"previewImage"]) {
+    if ([keyPath isEqualToString:@"previewImage"]) {
         [self.imageBrowserView reloadData];
     } else if (context == &kTEDirtyContext) {
-        
         [self.imageBrowserView reloadData];
     }
     
