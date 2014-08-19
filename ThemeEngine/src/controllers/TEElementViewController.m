@@ -334,6 +334,9 @@ static void *kTEDirtyContext;
 @end
 
 @interface CHPreviewItem : NSObject <QLPreviewItem>
+@end
+
+@interface CHPreviewItem ()
 @property (readwrite, copy) NSURL *previewItemURL;
 @property (readwrite, copy) NSString *previewItemTitle;
 @property (readwrite, strong) id previewItemDisplayState;
