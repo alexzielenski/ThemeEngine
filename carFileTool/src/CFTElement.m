@@ -39,6 +39,11 @@
 
 //!TODO implement undo
 - (void)addAssets:(NSSet *)assets {
+    [[self.undoManager prepareWithInvocationTarget:self] removeAssets:assets];
+    if (!self.undoManager.isUndoing) {
+        [self.undoManager setActionName:@"Add Assets"];
+    }
+    
     [self willChangeValueForKey:@"assets"
                 withSetMutation:NSKeyValueUnionSetMutation
                    usingObjects:assets];
@@ -56,8 +61,13 @@
 
 - (void)removeAssets:(NSSet *)assets {
     assets = [assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"element == %@", self]];
+    
+    [[self.undoManager prepareWithInvocationTarget:self] addAssets:assets];
+    if (!self.undoManager.isUndoing) {
+        [self.undoManager setActionName:@"Remove Assets"];
+    }
+    
     [assets makeObjectsPerformSelector:NSSelectorFromString(@"setElement:") withObject:nil];
-
     [self willChangeValueForKey:@"assets"
                 withSetMutation:NSKeyValueMinusSetMutation
                    usingObjects:assets];

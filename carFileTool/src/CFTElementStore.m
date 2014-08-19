@@ -30,6 +30,7 @@
 - (instancetype)initWithPath:(NSString *)path {
     if ((self = [super init])) {
         self.undoManager = [[NSUndoManager alloc] init];
+        [self.undoManager disableUndoRegistration];
         self.elements = [NSMutableSet set];
         self.path = path;
         
@@ -44,6 +45,7 @@
         [self _enumerateAssets];
         [self _enumerateColors];
         [self _enumerateFonts];
+        [self.undoManager enableUndoRegistration];
     }
     
     return self;
