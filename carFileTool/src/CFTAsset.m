@@ -62,6 +62,8 @@ static void *kCFTAssetEvaluateDimensionsContext;
 }
 
 - (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key {
+    if (!csiData)
+        return nil;
     if ((self = [self init])) {
         self.key = [CUIRenditionKey renditionKeyWithKeyList:key];
         self.rendition = [[objc_getClass("CUIThemeRendition") alloc] initWithCSIData:csiData forKey:key];
@@ -110,7 +112,6 @@ static void *kCFTAssetEvaluateDimensionsContext;
 #endif
     
     if ((self = [self initWithColor:color name:[NSString stringWithCString:key.name encoding:NSUTF8StringEncoding]])) {
-
     }
     
     return self;
