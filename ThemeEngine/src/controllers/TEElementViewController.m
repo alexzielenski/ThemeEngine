@@ -193,6 +193,10 @@ static void *kTEDirtyContext;
     if (!self.detailPopoverViewController) {
         self.detailPopoverViewController = [[TEAssetDetailViewController alloc] initWithNibName:@"Detail" bundle:nil];
      }
+    
+    CFTAsset *selectedAsset = self.assetsArrayController.arrangedObjects[index];
+    if (self.detailPopoverViewController.asset == selectedAsset)
+        return;
 
     if (self.detailPopoverViewController.presentingViewController != nil) {
         NSAlert *alert = [[NSAlert alloc] init];
@@ -206,10 +210,6 @@ static void *kTEDirtyContext;
             return;
         }
     }
-    
-    CFTAsset *selectedAsset = self.assetsArrayController.arrangedObjects[index];
-    if (self.detailPopoverViewController.asset == selectedAsset)
-        return;
     
     IKImageBrowserCell *cell = [browser cellForItemAtIndex:index];
     
