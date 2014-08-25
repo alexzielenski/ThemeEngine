@@ -37,19 +37,17 @@
     self.imageSliceView.hasVerticalScroller = YES;
 //    self.imageSliceView.autohidesScrollers = NO;
     self.imageSliceView.autoresizes = YES;
-    self.imageSliceView.backgroundColor = [NSColor whiteColor];
     
     self.inspector.inspectorDelegate = self;
-    self.inspector.backgroundColor = [NSColor whiteColor];
-    [self.inspector addView:self.infoPanel withTitle:@"Info" expanded:NO];
-
+    self.inspector.enclosingScrollView.drawsBackground = YES;
+    self.inspector.enclosingScrollView.backgroundColor = [NSColor clearColor];
+    [self.inspector addView:self.infoPanel withTitle:@"Info" expanded:NO];    
 }
 
 - (void)dealloc {
     [self.pdfPreview unbind:@"document"];
     [self.imageSliceView unbind:@"themeType"];
     [self.imageSliceView unbind:@"sliceRects"];
-    
     [self removeObserver:self forKeyPath:@"asset"];
     [self removeObserver:self forKeyPath:@"asset.pdfData"];
     [self removeObserver:self forKeyPath:@"asset.type"];
