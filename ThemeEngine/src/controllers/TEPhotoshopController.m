@@ -125,12 +125,7 @@
     //!TODO: Do something with all of these applescript errors waiting to happen
     NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier] stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]] stringByAppendingPathExtension:@"png"];
     
-    //! the path returned by photoshop has /private/var while we give it /var so workaround it
-    if (![tempPath hasPrefix:@"/private"]) {
-        tempPath = [@"/private" stringByAppendingPathComponent:tempPath];
-    }
-    
-    [self.currentDocuments setObject:slices forKey:tempPath];
+    [self.currentDocuments setObject:slices forKey:tempPath.lastPathComponent];
     [[rowImage representationUsingType:NSPNGFileType properties:nil] writeToFile:tempPath atomically:NO];
     
     NSString *ps = [[[[NSAppleScript alloc] initWithSource:@"tell application \"Finder\" to set appPath to name of application file id \"com.adobe.Photoshop\" "] executeAndReturnError:nil] stringValue];
@@ -155,7 +150,7 @@
     
     NSString *path = [[[[NSAppleScript alloc] initWithSource:script] executeAndReturnError:nil] stringValue];
     
-    if ([self.currentDocuments.allKeys containsObject:path]) {
+    if ([self.currentDocuments.allKeys containsObject:path.lastPathComponent]) {
         NSArray *slices = self.currentDocuments[path];
         NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithData:[NSData dataWithContentsOfFile:path]];
         CGImageRef image = imageRep.CGImage;
