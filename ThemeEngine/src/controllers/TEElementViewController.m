@@ -206,7 +206,11 @@ static void *kTEDirtyContext;
             return;
         }
     }
-
+    
+    CFTAsset *selectedAsset = self.assetsArrayController.arrangedObjects[index];
+    if (self.detailPopoverViewController.asset == selectedAsset)
+        return;
+    
     IKImageBrowserCell *cell = [browser cellForItemAtIndex:index];
     
     if (self.detailPopoverViewController.presentingViewController)
@@ -216,8 +220,9 @@ static void *kTEDirtyContext;
                          ofView:cell.imageBrowserView
                   preferredEdge:CGRectMaxXEdge
                        behavior:NSPopoverBehaviorApplicationDefined];
-    
-    self.detailPopoverViewController.asset = self.assetsArrayController.arrangedObjects[index];
+    self.detailPopoverViewController.asset = selectedAsset;
+    //!TODO: Figure out how to do something with undo in the popover
+    self.detailPopoverViewController.asset.undoManager = [[NSUndoManager alloc] init];
 }
 
 #pragma mark - NSDraggingDestination
