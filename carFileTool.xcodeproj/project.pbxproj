@@ -11,6 +11,7 @@
 		FA0A02F7199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */; };
 		FA0A02FA199AD8B8000F56A2 /* CFTGradient+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */; };
 		FA472ABC19985AB4003631BC /* ZKInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA472AAC19985AB4003631BC /* ZKInspector.m */; };
+		FA51074119AEBECB002A1C66 /* colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA51074019AEBECB002A1C66 /* colors.plist */; };
 		FA6BEDB61999B8D1006BF951 /* TEGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6BEDB51999B8D1006BF951 /* TEGradientView.m */; };
 		FA6BEDB91999D5C3006BF951 /* CFTEffectWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6BEDB81999D5C3006BF951 /* CFTEffectWrapper.m */; };
 		FA6BEDBC1999D5CE006BF951 /* CFTEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6BEDBB1999D5CE006BF951 /* CFTEffect.m */; };
@@ -81,6 +82,7 @@
 		FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CFTGradient+Pasteboard.m"; path = "src/categories/CFTGradient+Pasteboard.m"; sourceTree = "<group>"; };
 		FA472AAB19985AB4003631BC /* ZKInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKInspector.h; path = ZKInspector/ZKInspector.h; sourceTree = "<group>"; };
 		FA472AAC19985AB4003631BC /* ZKInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKInspector.m; path = ZKInspector/ZKInspector.m; sourceTree = "<group>"; };
+		FA51074019AEBECB002A1C66 /* colors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = colors.plist; path = ThemeEngine/colors.plist; sourceTree = SOURCE_ROOT; };
 		FA6BEDB41999B8D1006BF951 /* TEGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEGradientView.h; path = src/views/TEGradientView.h; sourceTree = "<group>"; };
 		FA6BEDB51999B8D1006BF951 /* TEGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEGradientView.m; path = src/views/TEGradientView.m; sourceTree = "<group>"; };
 		FA6BEDB71999D5C3006BF951 /* CFTEffectWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFTEffectWrapper.h; path = src/CFTEffectWrapper.h; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 		FACFC31D1995A21700ED936C /* ThemeEngine */ = {
 			isa = PBXGroup;
 			children = (
+				FA51074019AEBECB002A1C66 /* colors.plist */,
 				FA472A9D19985AB4003631BC /* external */,
 				FACFC3461995A3B700ED936C /* TEAppDelegate.h */,
 				FACFC3471995A3B700ED936C /* TEAppDelegate.m */,
@@ -448,6 +451,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA51074119AEBECB002A1C66 /* colors.plist in Resources */,
 				FACFC34D1995A3D300ED936C /* TEDocument.xib in Resources */,
 				FACFC3291995A21700ED936C /* Images.xcassets in Resources */,
 				FA7B5F79199600FF00D0B2AD /* Detail.xib in Resources */,

@@ -38,6 +38,10 @@
 }
 
 - (void)addAssets:(NSSet *)assets {
+    assets = [assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (name IN %@)", [self.assets valueForKey:@"name"]]];
+    if (assets.count == 0)
+        return;
+    
     [[self.undoManager prepareWithInvocationTarget:self.store] removeAssets:assets];
     if (!self.undoManager.isUndoing) {
         [self.undoManager setActionName:@"Add Assets"];

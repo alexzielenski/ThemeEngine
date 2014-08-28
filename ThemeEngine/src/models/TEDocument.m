@@ -92,18 +92,30 @@
 #pragma mark - actions
 
 - (IBAction)addColor:(id)sender {
+    static NSMenu *colorMenu = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        colorMenu = [[NSMenu alloc] init];
+        NSDictionary *colors = [NSDictionary dictionaryWithContentsOfFile:[NSBundle.mainBundle pathForResource:@"colors" ofType:@"plist"]];
+        NSArray *keys = [colors.allKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+        for (NSString *key in keys) {
+            NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:colors[key] action:NULL keyEquivalent:@""];
+            item.representedObject = key;
+            [colorMenu addItem:item];
+        }
+    });
     NSAlert *alert = [[NSAlert alloc] init];
-    alert.messageText = @"Enter a color name:";
+    alert.messageText = @"Choose a color:";
     [alert addButtonWithTitle:@"Done"];
     [alert addButtonWithTitle:@"Cancel"];
-    
-    NSTextField *field = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 250, 22)];
-    alert.accessoryView = field;
+    NSPopUpButton *popUp = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 250, 22)];
+    popUp.menu = colorMenu;
+    alert.accessoryView = popUp;
     
     [alert beginSheetModalForWindow:[self.windowControllers[0] window] completionHandler:^(NSModalResponse returnCode) {
         if (returnCode == 1000) {
-            NSString *name = [(NSTextField *)alert.accessoryView stringValue];
-            CFTAsset *asset = [CFTAsset assetWithColor:[NSColor whiteColor] name:name];
+            NSString *name = popUp.selectedItem.representedObject;
+            CFTAsset *asset = [CFTAsset assetWithColor:[NSColor performSelector:NSSelectorFromString(name)] name:name];
             [self.elementStore addAsset:asset];
         }
     }];
