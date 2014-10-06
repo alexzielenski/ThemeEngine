@@ -195,7 +195,7 @@ static void *kTEDirtyContext;
      }
     
     CFTAsset *selectedAsset = self.assetsArrayController.arrangedObjects[index];
-    if (self.detailPopoverViewController.asset == selectedAsset)
+    if (self.detailPopoverViewController.asset == selectedAsset && self.detailPopoverViewController.presentingViewController != nil)
         return;
 
     if (self.detailPopoverViewController.presentingViewController != nil) {
