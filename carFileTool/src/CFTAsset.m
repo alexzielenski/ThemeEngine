@@ -258,8 +258,7 @@ static void *kCFTAssetEvaluateDimensionsContext;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     HANDLE_UNDO
-    
-    if (context == &kCFTAssetEvaluateDimensionsContext) {
+    else if (context == &kCFTAssetEvaluateDimensionsContext) {
         NSBitmapImageRep *oldImage = change[NSKeyValueChangeOldKey];
         NSBitmapImageRep *newImage = change[NSKeyValueChangeNewKey];
         
@@ -519,44 +518,49 @@ static void *kCFTAssetEvaluateDimensionsContext;
         
     } else if (self.type == kCoreThemeTypeEffect) {
         //!TODO: Don't use coretext
-        NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                                        pixelsWide:32
-                                                                        pixelsHigh:32
-                                                                     bitsPerSample:8
-                                                                   samplesPerPixel:4
-                                                                          hasAlpha:YES
-                                                                          isPlanar:NO
-                                                                    colorSpaceName:NSDeviceRGBColorSpace
-                                                                       bytesPerRow:4 * 32
-                                                                      bitsPerPixel:32];
-        NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
-        
-        unichar chars[2] = { 0x41, 0x61 };
-        CGGlyph glyphs[2];
-        CGPoint positions[2];
-        CGSize advances[2];
-        
-        CTFontRef font = CTFontCreateWithName(CFSTR("HelveticaNeue-Medium"), 18.0, NULL);
-        CTFontGetGlyphsForCharacters(font, chars, glyphs, 2);
-        CTFontGetAdvancesForGlyphs(font, kCTFontDefaultOrientation, glyphs, advances, 2);
-        
-        CGPoint position = CGPointZero;
-        for (NSUInteger i = 0; i < 2; i++) {
-            positions[i] = CGPointMake(position.x, position.y);
-            CGSize advance = advances[i];
-            position.x += advance.width;
-            position.y += advance.height;
-        }
-        
-        positions[0].x += rep.pixelsWide / 2 - position.x / 2;
-        positions[0].y += rep.pixelsHigh / 2 - position.y / 2 - 6;
-        positions[1].x += rep.pixelsWide / 2 - position.x / 2;
-        positions[1].y += rep.pixelsHigh / 2 - position.y / 2 - 6;
+        static NSBitmapImageRep *rep = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                          pixelsWide:32
+                                                          pixelsHigh:32
+                                                       bitsPerSample:8
+                                                     samplesPerPixel:4
+                                                            hasAlpha:YES
+                                                            isPlanar:NO
+                                                      colorSpaceName:NSDeviceRGBColorSpace
+                                                         bytesPerRow:4 * 32
+                                                        bitsPerPixel:32];
+            NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
 
+            unichar chars[2] = { 0x41, 0x61 };
+            CGGlyph glyphs[2];
+            CGPoint positions[2];
+            CGSize advances[2];
+
+            CTFontRef font = CTFontCreateWithName(CFSTR("HelveticaNeue-Medium"), 18.0, NULL);
+            CTFontGetGlyphsForCharacters(font, chars, glyphs, 2);
+            CTFontGetAdvancesForGlyphs(font, kCTFontDefaultOrientation, glyphs, advances, 2);
+
+            CGPoint position = CGPointZero;
+            for (NSUInteger i = 0; i < 2; i++) {
+                positions[i] = CGPointMake(position.x, position.y);
+                CGSize advance = advances[i];
+                position.x += advance.width;
+                position.y += advance.height;
+            }
+
+            positions[0].x += rep.pixelsWide / 2 - position.x / 2;
+            positions[0].y += rep.pixelsHigh / 2 - position.y / 2 - 6;
+            positions[1].x += rep.pixelsWide / 2 - position.x / 2;
+            positions[1].y += rep.pixelsHigh / 2 - position.y / 2 - 6;
+
+            CTFontDrawGlyphs(font, glyphs, positions, 2, ctx.graphicsPort);
+        });
         CUITextEffectStack *stack = [[CUITextEffectStack alloc] initWithEffectPreset:self.effectPreset.effectPreset];
-        CTFontDrawGlyphs(font, glyphs, positions, 2, ctx.graphicsPort);
-
-        [image addRepresentation:[[NSBitmapImageRep alloc] initWithCGImage:[stack newFlattenedImageFromShapeCGImage:rep.CGImage]]];
+        CGImageRef flat = [stack newFlattenedImageFromShapeCGImage:rep.CGImage];
+        if (flat != NULL)
+            [image addRepresentation:[[NSBitmapImageRep alloc] initWithCGImage:flat]];
     } else if (self.type == kCoreThemeTypeColor) {
         NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
                                                                         pixelsWide:40
