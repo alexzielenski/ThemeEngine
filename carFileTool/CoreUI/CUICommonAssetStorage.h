@@ -67,7 +67,7 @@ __attribute__((visibility("hidden")))
 - (struct _renditionkeytoken)_swapRenditionKeyToken:(struct _renditionkeytoken)arg1;
 - (void)enumerateKeysAndObjectsUsingBlock:(id /*CDUnknownBlockType*/)arg1;
 - (id)assetKeysMatchingBlock:(id /*CDUnknownBlockType*/)arg1;
-- (id)allAssetKeys;
+- (NSArray *)allAssetKeys;
 - (id)assetForKey:(id)arg1;
 - (BOOL)assetExistsForKey:(id)arg1;
 - (void)_swapRenditionKeyArray:(unsigned short *)arg1;

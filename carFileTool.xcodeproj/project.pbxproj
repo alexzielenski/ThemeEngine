@@ -416,7 +416,7 @@
 		FACFC2BF199485E900ED936C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Alexander Zielenski";
 				TargetAttributes = {
 					FACFC2C6199485E900ED936C = {
