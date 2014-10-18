@@ -92,9 +92,15 @@
 
 - (void)moveEffectAtIndex:(NSUInteger)index toIndex:(NSUInteger)destination {
     __strong CFTEffect *effect = self.effects[index];
+
+    if (index < destination)
+        destination--;
+
     [self.effects removeObjectAtIndex:index];
+
     if (destination > self.effects.count)
         destination = self.effects.count;
+
     [self.effects insertObject:effect atIndex:destination];
 }
 
