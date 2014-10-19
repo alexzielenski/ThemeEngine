@@ -125,8 +125,6 @@ static void *kCFTAssetEvaluateDimensionsContext;
     if ((self = [self init])) {
         self.color = [color colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
         self.name = name;
-        
-        self.name = name;
         self.type = kCoreThemeTypeColor;
         
         NSString *name = [self.name stringByReplacingOccurrencesOfString:@"_" withString:@""];
