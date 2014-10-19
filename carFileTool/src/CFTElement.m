@@ -41,8 +41,7 @@
     // In future versions of Yosemite, assets no longer used unique names
     // so this line broke it
 //    assets = [assets filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (name IN %@)", [self.assets valueForKey:@"name"]]];
-//    if (assets.count == 0) {
-//        NSLog(@"kill");
+//    if (assets.count == 0)
 //        return;
 //    }
 

@@ -115,8 +115,11 @@
     [alert beginSheetModalForWindow:[self.windowControllers[0] window] completionHandler:^(NSModalResponse returnCode) {
         if (returnCode == 1000) {
             NSString *name = popUp.selectedItem.representedObject;
-            CFTAsset *asset = [CFTAsset assetWithColor:[NSColor performSelector:NSSelectorFromString(name)] name:name];
-            [self.elementStore addAsset:asset];
+            CFTElement *element = [self.elementStore elementWithName:@"Colors"];
+            if (![[element.assets valueForKeyPath:@"name"] containsObject:name]) {
+                CFTAsset *asset = [CFTAsset assetWithColor:[NSColor performSelector:NSSelectorFromString(name)] name:name];
+                [self.elementStore addAsset:asset];
+            }
         }
     }];
     
