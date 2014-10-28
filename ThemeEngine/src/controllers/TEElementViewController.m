@@ -278,23 +278,26 @@ static void *kTEDirtyContext;
 
             // Detect if the user is pasting an incompatible type onto another cell
             if ([item availableTypeFromArray:@[kCFTColorPboardType]]) {
-                if (asset.type == kCoreThemeTypeColor)
+                if (asset.type == kCoreThemeTypeColor) {
                     asset.color = [[NSColor alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTColorPboardType] ofType:kCFTColorPboardType];
-                else
+                    continue;
+                } else
                     bad = YES;
             }
             
             if ([item availableTypeFromArray:@[kCFTEffectWrapperPboardType]]) {
-                if (asset.type == kCoreThemeTypeEffect)
+                if (asset.type == kCoreThemeTypeEffect) {
                     asset.effectPreset = [[CFTEffectWrapper alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTEffectWrapperPboardType] ofType:kCFTEffectWrapperPboardType];
-            else
+                    continue;
+                } else
                 bad = YES;
             }
             
             if ([item availableTypeFromArray:@[kCFTGradientPboardType]]) {
-                if (asset.type == kCoreThemeTypeGradient)
+                if (asset.type == kCoreThemeTypeGradient) {
                     asset.gradient = [[CFTGradient alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTGradientPboardType] ofType:kCFTGradientPboardType];
-                else
+                    continue;
+                } else
                     bad = YES;
             }
             
@@ -302,14 +305,16 @@ static void *kTEDirtyContext;
             if ((imageType = [item availableTypeFromArray:@[NSPasteboardTypePNG, NSPasteboardTypeTIFF, (NSString *)kUTTypeJPEG]])) {
                 if (asset.type <= kCoreThemeTypeSixPart || asset.type == kCoreThemeTypeAnimation) {
                     asset.image = [[NSBitmapImageRep alloc] initWithData:[item dataForType:imageType]];
+                    continue;
                 } else
                     bad = YES;
             }
             
             if ([item availableTypeFromArray:@[NSPasteboardTypePDF]]) {
-                if (asset.type == kCoreThemeTypePDF)
+                if (asset.type == kCoreThemeTypePDF) {
                     asset.pdfData = [item dataForType:NSPasteboardTypePDF];
-                else
+                    continue;
+                } else
                     bad = YES;
             }
 
@@ -319,19 +324,21 @@ static void *kTEDirtyContext;
                 NSString *uti = nil;
                 NSError *err = nil;
                 [url getResourceValue:&uti forKey:NSURLTypeIdentifierKey error:&err];
-                if (uti) {
+                if (uti && (asset.type <= kCoreThemeTypeSixPart || asset.type == kCoreThemeTypeAnimation)) {
                     if ([workspace type:uti conformsToType:NSPasteboardTypePNG] ||
                         [workspace type:uti conformsToType:NSPasteboardTypeTIFF] ||
                         [workspace type:uti conformsToType:(NSString *)kUTTypeJPEG]) {
                         asset.image = [[NSBitmapImageRep alloc] initWithData:[NSData dataWithContentsOfURL:url]];
-                    } else  if ([workspace type:uti conformsToType:NSPasteboardTypePDF]) {
+                        continue;
+                    } else if ([workspace type:uti conformsToType:NSPasteboardTypePDF] && asset.type == kCoreThemeTypePDF) {
                         asset.pdfData = [NSData dataWithContentsOfURL:url];
+                    } else {
+                        bad = YES;
                     }
                 } else {
                     NSLog(@"Failed to obtain UTI Type at %@: %@", url, err);
                 }
             }
-
             if (bad) {
                 NSRunAlertPanel(@"Invalid type", @"The destination doesn't support this value type. (e.g. you copied a gradient to an image)", @"Sorry", nil, nil);
                 return NO;
