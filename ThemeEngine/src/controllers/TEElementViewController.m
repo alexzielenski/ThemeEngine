@@ -275,7 +275,8 @@ static void *kTEDirtyContext;
             asset = self.assetsArrayController.arrangedObjects[indexes[x]];
             
             BOOL bad = NO;
-            
+
+            // Detect if the user is pasting an incompatible type onto another cell
             if ([item availableTypeFromArray:@[kCFTColorPboardType]]) {
                 if (asset.type == kCoreThemeTypeColor)
                     asset.color = [[NSColor alloc] initWithPasteboardPropertyList:[item propertyListForType:kCFTColorPboardType] ofType:kCFTColorPboardType];
@@ -297,20 +298,40 @@ static void *kTEDirtyContext;
                     bad = YES;
             }
             
-            if ([item availableTypeFromArray:@[NSPasteboardTypePNG]]) {
+            NSString *imageType = nil;
+            if ((imageType = [item availableTypeFromArray:@[NSPasteboardTypePNG, NSPasteboardTypeTIFF, (NSString *)kUTTypeJPEG]])) {
                 if (asset.type <= kCoreThemeTypeSixPart || asset.type == kCoreThemeTypeAnimation) {
-                    asset.image = [[NSBitmapImageRep alloc] initWithData:[item dataForType:NSPasteboardTypePNG]];;
-                }// else
-                //                bad = YES;
+                    asset.image = [[NSBitmapImageRep alloc] initWithData:[item dataForType:imageType]];
+                } else
+                    bad = YES;
             }
             
             if ([item availableTypeFromArray:@[NSPasteboardTypePDF]]) {
                 if (asset.type == kCoreThemeTypePDF)
                     asset.pdfData = [item dataForType:NSPasteboardTypePDF];
-                //            else
-                //                bad = YES;
+                else
+                    bad = YES;
             }
-            
+
+            if ([item availableTypeFromArray:@[(NSString *)kUTTypeFileURL, (NSString *)kUTTypeURL]]) {
+                NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+                NSURL *url = [NSURL URLWithString:[item stringForType:(NSString *)kUTTypeFileURL]];
+                NSString *uti = nil;
+                NSError *err = nil;
+                [url getResourceValue:&uti forKey:NSURLTypeIdentifierKey error:&err];
+                if (uti) {
+                    if ([workspace type:uti conformsToType:NSPasteboardTypePNG] ||
+                        [workspace type:uti conformsToType:NSPasteboardTypeTIFF] ||
+                        [workspace type:uti conformsToType:(NSString *)kUTTypeJPEG]) {
+                        asset.image = [[NSBitmapImageRep alloc] initWithData:[NSData dataWithContentsOfURL:url]];
+                    } else  if ([workspace type:uti conformsToType:NSPasteboardTypePDF]) {
+                        asset.pdfData = [NSData dataWithContentsOfURL:url];
+                    }
+                } else {
+                    NSLog(@"Failed to obtain UTI Type at %@: %@", url, err);
+                }
+            }
+
             if (bad) {
                 NSRunAlertPanel(@"Invalid type", @"The destination doesn't support this value type. (e.g. you copied a gradient to an image)", @"Sorry", nil, nil);
                 return NO;
