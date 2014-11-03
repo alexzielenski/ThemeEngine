@@ -18,7 +18,7 @@
 - (id)init  {
     if ((self = [super init])) {
         self.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)] ];
-
+        
     }
     return self;
 }
@@ -69,7 +69,7 @@
     if (![manager createDirectoryAtPath:tempPath.stringByDeletingLastPathComponent withIntermediateDirectories:YES attributes:nil error:outError]) {
         return NO;
     }
-        
+    
     if (![[NSFileManager defaultManager] copyItemAtURL:url toURL:[NSURL fileURLWithPath:tempPath] error:outError]) {
         return NO;
     }
@@ -122,6 +122,64 @@
             }
         }
     }];
+}
+
+- (IBAction)export:(NSMenuItem *)sender {
+    // Exports all the assets in the current document to a folder structure
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    panel.title = @"Export";
+    panel.canChooseDirectories = YES;
+    panel.canChooseFiles = NO;
+    panel.resolvesAliases = YES;
+    panel.canCreateDirectories = YES;
+    panel.allowsMultipleSelection = NO;
+    
+    if (panel.runModal != NSFileHandlingPanelOKButton) {
+        NSLog(@"Export panel cancelled");
+        return;
+    }
+    
+    NSURL *url = panel.URL;
+    
+    NSUInteger writes = 0;
+    NSSet *allAssets = self.elementStore.allAssets;
+    
+    for (CFTAsset *asset in allAssets) {
+        // only way to get a unique name
+        NSString *name = [asset.name stringByAppendingFormat:@".%@.%@.%@.%@.%@.%@.%@.%@.%@.%lld.%lld%lld%lld.%lld%lld.%@",
+                          CoreThemeLayerToString(asset.key.themeLayer),
+                          CoreThemeIdiomToString(asset.key.themeIdiom),
+                          CoreThemeSizeToString(asset.key.themeSize),
+                          CoreThemeValueToString(asset.key.themeValue),
+                          CoreThemeDirectionToString(asset.key.themeDirection),
+                          CoreThemeStateToString(asset.key.themeState),
+                          CoreThemePresentationStateToString(asset.key.themePresentationState),
+                          CoreThemeLayoutToString(asset.layout),
+                          CoreThemeTypeToString(asset.type),
+                          asset.key.themeIdentifier,
+                          asset.key.themeSubtype,
+                          asset.key.themePreviousState,
+                          asset.key.themePreviousValue,
+                          asset.key.themeDimension1,
+                          asset.key.themeDimension2,
+                          CFTScaleToString(asset.scale)];
+        if (!(CoreThemeTypeIsBitmap(asset.type) || asset.type == kCoreThemeTypePDF)) {
+            continue;
+        }
+        
+        if (asset.type == kCoreThemeTypePDF) {
+            NSString *destination = [url URLByAppendingPathComponent:[name stringByAppendingPathExtension:@"pdf"]].path;
+            [asset.pdfData writeToFile:destination atomically:NO];
+        } else {
+            NSString *destination = [url URLByAppendingPathComponent:[name stringByAppendingPathExtension:@"png"]].path;
+            [[asset.image representationUsingType:NSPNGFileType properties:nil]
+             writeToFile:destination atomically:NO];
+        }
+        
+        writes++;
+    }
+    
+    NSLog(@"wrote %llu files", (unsigned long long)writes);
     
 }
 
