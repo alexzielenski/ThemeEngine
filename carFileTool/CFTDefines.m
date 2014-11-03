@@ -191,5 +191,5 @@ NSString *CFTScaleToString(double scale) {
         return @"@2x";
     else if (scale == 3.0)
         return @"@3x";
-    return @"";
+    return [NSString stringWithFormat:@"@%.0fx", scale];
 }
