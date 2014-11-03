@@ -39,8 +39,11 @@
     self.imageSliceView.autoresizes = YES;
     
     self.inspector.inspectorDelegate = self;
-    self.inspector.enclosingScrollView.drawsBackground = YES;
-    self.inspector.enclosingScrollView.backgroundColor = [NSColor clearColor];
+    self.inspector.enclosingScrollView.drawsBackground = NO;
+    self.inspector.backgroundColor = [NSColor clearColor];
+//    self.inspector.enclosingScrollView.backgroundColor = [NSColor whiteColor];
+//    self.inspector.backgroundColor = [NSColor whiteColor];
+
     [self.inspector addView:self.infoPanel withTitle:@"Info" expanded:NO];    
 }
 
