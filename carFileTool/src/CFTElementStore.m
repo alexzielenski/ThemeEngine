@@ -61,7 +61,8 @@
     if (asset.type == kCoreThemeTypeColor)
         return @"Colors";
     
-    NSString *name = [[asset.name stringByReplacingOccurrencesOfString:@"@2x" withString:@""] stringByDeletingPathExtension];
+    NSString *name = [[[asset.name stringByReplacingOccurrencesOfString:@"@2x" withString:@""]stringByReplacingOccurrencesOfString:@"@3x" withString:@""]stringByDeletingPathExtension];
+    
     // element is to be size agnostic
     name = [name stringByReplacingOccurrencesOfString:@"_Mini" withString:@""];
     name = [name stringByReplacingOccurrencesOfString:@"_Regular" withString:@""];
