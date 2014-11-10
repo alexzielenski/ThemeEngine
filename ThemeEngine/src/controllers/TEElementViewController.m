@@ -111,7 +111,7 @@ static void *kTEDirtyContext;
                 continue;
             
             NSMutableString *field = term.mutableCopy;
-            NSString *format = @"ANY keywords LIKE[cd] %@";
+            NSString *format = @"ANY keywords LIKE[cd] %@ OR ANY keywords CONTAINS[cd] %@";
 
             if ([field rangeOfString:@"\""].location == NSNotFound) {
                 [field appendString:@"*"];
@@ -123,7 +123,7 @@ static void *kTEDirtyContext;
                     continue;
                 
             }
-            
+
             if ([field rangeOfString:@"!"].location == 0) {
                 format = [format stringByReplacingOccurrencesOfString:@"ANY" withString:@"NONE"];
                 [field deleteCharactersInRange:NSMakeRange(0, 1)];
@@ -135,7 +135,7 @@ static void *kTEDirtyContext;
             if (field.length == 0)
                 continue;
             
-            [terms addObject:[NSPredicate predicateWithFormat:format, field]];
+            [terms addObject:[NSPredicate predicateWithFormat:format, field, field]];
         }
         
         self.filterPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:terms];
@@ -395,7 +395,9 @@ static void *kTEDirtyContext;
     
     NSImage *previewImage = asset.previewImage;
     NSImageRep *rep = previewImage.representations[0];
-    NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier] stringByAppendingPathComponent:md5(asset.imageUID)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *dir = [NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier];
+    [[NSFileManager defaultManager] createDirectoryAtPath:dir withIntermediateDirectories:YES attributes:nil error:nil];
+    NSString *tempPath = [[dir stringByAppendingPathComponent:md5(asset.imageUID)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSFileManager *manager = [NSFileManager defaultManager];
     if ([rep isKindOfClass:[NSPDFImageRep class]]) {
         
