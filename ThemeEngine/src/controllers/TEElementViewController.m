@@ -166,10 +166,14 @@ static void *kTEDirtyContext;
 
 - (IBAction)receiveFromPhotoshop:(id)sender {
     NSArray *received = [TEPhotoshopController.sharedPhotoshopController receiveImagesFromPhotoshop];
+    if (received.count == 0) {
+        NSLog(@"Found no images to receive from photoshop.");
+        return;
+    }
     
     __block NSUInteger currentRepIndex = 0;
     [self.assetsArrayController.selectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        NSBitmapImageRep *rep = rep = received[currentRepIndex % received.count];
+        NSBitmapImageRep *rep = received[currentRepIndex % received.count];
         
         CFTAsset *asset = self.assetsArrayController.arrangedObjects[idx];
         if (CoreThemeTypeIsBitmap(asset.type)) {

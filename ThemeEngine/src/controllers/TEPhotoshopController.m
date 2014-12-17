@@ -19,6 +19,7 @@
 
 @interface TEPhotoshopController ()
 @property (strong) NSMutableDictionary *currentDocuments;
+- (NSDictionary *)exportDocumentToPath:(NSString *)path withPhotoshopInstance:(NSString *)ps
 @end
 
 @implementation TEPhotoshopController
@@ -139,9 +140,11 @@
 }
 
 - (NSArray *)receiveImagesFromPhotoshop {
-    NSString *ps = [[[[NSAppleScript alloc] initWithSource:@"tell application \"Finder\" to set appPath to name of application file id \"com.adobe.Photoshop\" "] executeAndReturnError:nil] stringValue];
-    if (!ps) {
-        NSLog(@"failed to get photoshop instance");
+    NSDictionary *err = nil;
+    NSString *ps = [[[[NSAppleScript alloc] initWithSource:@"tell application \"Finder\" to set appPath to name of application file id \"com.adobe.Photoshop\" "] executeAndReturnError:&err] stringValue];
+    
+    if (!ps || err.count) {
+        NSLog(@"failed to get photoshop instance and got error: %@", err);
         return nil;
     }
     
@@ -151,7 +154,13 @@
     NSString *path = [[[[NSAppleScript alloc] initWithSource:script] executeAndReturnError:nil] stringValue];
     
     if ([self.currentDocuments.allKeys containsObject:path.lastPathComponent]) {
-        NSArray *slices = self.currentDocuments[path];
+        
+        if ((err = [self exportDocumentToPath:path withPhotoshopInstance:ps])) {
+            NSLog(@"failed to export photoshop document and got error: %@", err);
+            return nil;
+        }
+            
+        NSArray *slices = self.currentDocuments[path.lastPathComponent];
         NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithData:[NSData dataWithContentsOfFile:path]];
         CGImageRef image = imageRep.CGImage;
     
@@ -167,11 +176,24 @@
         
         return images;
     }
-        NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier] stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]] stringByAppendingPathExtension:@"png"];
-    script = [NSString stringWithFormat:@"tell application \"%@\"\n\tset aDoc to current document\n\texport aDoc in file (\"%@\" as string) as save for web with options {class:save for web export options, web format:PNG}\nend tell", ps, tempPath];
-    [[[NSAppleScript alloc] initWithSource:script] executeAndReturnError:nil];
+    
+    NSString *tempPath = [[[NSTemporaryDirectory() stringByAppendingPathComponent:NSBundle.mainBundle.bundleIdentifier] stringByAppendingPathComponent:[[NSUUID UUID] UUIDString]] stringByAppendingPathExtension:@"png"];
+    
+    if ((err = [self exportDocumentToPath:tempPath withPhotoshopInstance:ps])) {
+        NSLog(@"failed to export photoshop document and got error: %@", err);
+        return nil;
+    }
     
     return @[[[NSBitmapImageRep alloc] initWithData:[NSData dataWithContentsOfFile:tempPath]]];
+}
+
+- (NSDictionary *)exportDocumentToPath:(NSString *)path withPhotoshopInstance:(NSString *)ps {
+    NSString *script = [NSString stringWithFormat:@"tell application \"%@\"\n\tset aDoc to current document\n\texport aDoc in file (\"%@\" as string) as save for web with options {class:save for web export options, web format:PNG, png eight: false}\nend tell", ps, path];
+    
+    NSDictionary *err = nil;
+    [[[NSAppleScript alloc] initWithSource:script] executeAndReturnError:&err];
+    
+    return err;
 }
 
 @end
