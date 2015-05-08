@@ -19,7 +19,7 @@
 
 @interface TEPhotoshopController ()
 @property (strong) NSMutableDictionary *currentDocuments;
-- (NSDictionary *)exportDocumentToPath:(NSString *)path withPhotoshopInstance:(NSString *)ps
+- (NSDictionary *)exportDocumentToPath:(NSString *)path withPhotoshopInstance:(NSString *)ps;
 @end
 
 @implementation TEPhotoshopController

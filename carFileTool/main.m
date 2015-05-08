@@ -93,11 +93,6 @@
 #import "CUIPSDGradientColorStop.h"
 #import "CFTEffectWrapper.h"
 
-void *ZKIvarPointer(id self, const char *name) {
-    Ivar ivar = class_getInstanceVariable(object_getClass(self), name);
-    return ivar == NULL ? NULL : (__bridge void *)self + ivar_getOffset(ivar);
-}
-
 void CGImageWriteToFile(CGImageRef image, NSString *path)
 {
     CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath:path];
@@ -117,17 +112,33 @@ void CGImageWriteToFile(CGImageRef image, NSString *path)
  Value at 0, 4, 8, 24, 32, 40, 56
  
  */
+
+#import <mach/mach_time.h>
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        CUIShapeEffectPreset *preset = [[CUIShapeEffectPreset alloc] init];
-        [preset addColorFillWithRed:255 green:0 blue:0 opacity:1.0 blendMode:kCGBlendModeColor];
-        [preset addDropShadowWithColorRed:0 green:0 blue:0 opacity:1 blur:1 spread:4 offset:2 angle:3];
+//        CUIShapeEffectPreset *preset = [[CUIShapeEffectPreset alloc] init];
+//        [preset addColorFillWithRed:255 green:0 blue:0 opacity:1.0 blendMode:kCGBlendModeColor];
+//        [preset addDropShadowWithColorRed:0 green:0 blue:0 opacity:1 blur:1 spread:4 offset:2 angle:3];
         
-        CFTEffectWrapper *wrapper = [CFTEffectWrapper effectWrapperWithEffectPreset:preset];
+//        CFTEffectWrapper *wrapper = [CFTEffectWrapper effectWrapperWithEffectPreset:preset];
         
-        [wrapper.effectPreset.CUIEffectDataRepresentation writeToFile:@"/Users/Alex/Desktop/data" atomically:NO];
-        [preset.CUIEffectDataRepresentation writeToFile:@"/Users/Alex/Desktop/data 2" atomically:NO];
+//        [wrapper.effectPreset.CUIEffectDataRepresentation writeToFile:@"/Users/Alex/Desktop/data" atomically:NO];
+//        [preset.CUIEffectDataRepresentation writeToFile:@"/Users/Alex/Desktop/data 2" atomically:NO];
         
-    }
+        uint64_t start = mach_absolute_time();
+        
+        for (int x = 0; x < 10000000; x++) {
+            printf("%d\n", x);
+        }
+        
+        uint64_t end = mach_absolute_time();
+        uint64_t elapsed = end - start;
+        mach_timebase_info_data_t info;
+        mach_timebase_info(&info);
+        uint64_t nanoSeconds = elapsed * info.numer / info.denom;
+        
+        printf ("elapsed time was %lld nanoseconds\n", nanoSeconds);
+        printf ("elapsed time was %f seconds\n", nanoSeconds / (pow(10.0, 9.0)));
+}
     return 0;
 }

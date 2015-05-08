@@ -24,7 +24,7 @@
 		FA7C1EEF199ED87500AE156A /* TELayerEffectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EEE199ED87500AE156A /* TELayerEffectsViewController.m */; };
 		FA7C1EF1199FFE4400AE156A /* CFTEffectWrapper+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A02F6199AD1CC000F56A2 /* CFTEffectWrapper+Pasteboard.m */; };
 		FA7C1EF2199FFE4400AE156A /* CFTGradient+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0A02F9199AD8B8000F56A2 /* CFTGradient+Pasteboard.m */; };
-		FA7C1EF3199FFE4400AE156A /* NSColor+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */; };
+		FA7C1EF3199FFE4400AE156A /* NSColor+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FA7C1EF619A005D700AE156A /* CFTAsset+Coding.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EF519A005D700AE156A /* CFTAsset+Coding.m */; };
 		FA7C1EFC19A0093800AE156A /* CFTAsset+IKImageBrowserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7C1EFB19A0093800AE156A /* CFTAsset+IKImageBrowserItem.m */; };
 		FA98319F199BB9FD00739B89 /* NSColor+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA98319E199BB9FD00739B89 /* NSColor+Pasteboard.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };

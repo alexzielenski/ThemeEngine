@@ -252,7 +252,7 @@ void *kCFTUndoContext;
             id newValue = change[NSKeyValueChangeNewKey]; \
             if ([oldValue isKindOfClass: [NSNull class]]) { oldValue = nil; } \
             if ([newValue isKindOfClass: [NSNull class]]) { newValue = nil; } \
-            if (![oldValue isEqual: newValue] && oldValue != newValue) { \
+            if (![oldValue isEqual: newValue]) { \
                 [[self.undoManager prepareWithInvocationTarget: object] setValue: oldValue forKeyPath: keyPath]; \
                 if (!self.undoManager.isUndoing) { [self.undoManager setActionName:[@"Change " stringByAppendingString: decamelize(keyPath)]]; } \
                     return; \
