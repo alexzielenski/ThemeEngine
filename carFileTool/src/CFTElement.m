@@ -80,7 +80,7 @@
     [self willChangeValueForKey:@"assets"
                 withSetMutation:NSKeyValueMinusSetMutation
                    usingObjects:assets];
-    [assets makeObjectsPerformSelector:@selector(removeFromStorage:) withObject:self.store.assetStorage];
+    [assets makeObjectsPerformSelector:@selector(removeFromStorage) withObject:nil];
     [self.assets minusSet:assets];
     [self didChangeValueForKey:@"assets"
                withSetMutation:NSKeyValueMinusSetMutation

@@ -12,6 +12,7 @@
 @interface CFTElementStore ()
 @property (readwrite, strong) CUIMutableCommonAssetStorage *assetStorage;
 @property (readwrite, copy) NSString *path;
+@property (readwrite, strong) NSMutableDictionary *assetPacks;
 @property (readwrite, strong) NSMutableSet *elements;
 @property (readwrite, strong) NSUndoManager *undoManager;
 - (void)_enumerateAssets;
@@ -84,12 +85,42 @@
 }
 
 - (void)_enumerateAssets {
-    __weak CFTElementStore *weakSelf = self;
     @autoreleasepool {
-        [self.assetStorage enumerateKeysAndObjectsUsingBlock:^(struct _renditionkeytoken *key, NSData *csiData) {
-            CFTAsset *asset = [CFTAsset assetWithRenditionCSIData:csiData forKey:key];
-            [weakSelf addAsset:asset];
-        }];
+        self.assetPacks = [NSMutableDictionary dictionary];
+        
+        BOMTreeRef treeRef = ZKHookIvar(self.assetStorage, BOMTreeRef, "_imagedb");
+        if (treeRef == NULL)
+            return;
+        
+        int count = BOMTreeCount(treeRef);
+        NSLog(@"Found %d assets", count);
+        BOMTreeIteratorRef iterator = BOMTreeIteratorNew(treeRef, 0x0, 0x0, 0x0);
+        do {
+            size_t size = BOMTreeIteratorKeySize(iterator);
+            void *bytes = BOMTreeIteratorKey(iterator);
+            
+            size_t valueSize = BOMTreeIteratorValueSize(iterator);
+            void *valueBytes = BOMTreeIteratorValue(iterator);
+
+            NSData *keyData = [NSData dataWithBytes:bytes length:size];
+            NSData *valueData = [NSData dataWithBytes:valueBytes length:valueSize];
+            // format the truncated car key data into annotated rendition key lists
+            NSData *formatted = CFTConvertCARKeyToRenditionKey(keyData, self.assetStorage);
+            
+            if (size > 0 && valueSize > 0) {
+                CFTAsset *asset = [CFTAsset assetWithRenditionCSIData:valueData forKey:(struct _renditionkeytoken *)formatted.bytes storage:self.assetStorage];
+                
+                if (asset.isAssetPack) {
+                    self.assetPacks[[asset _keyData]] = asset;
+                } else {
+                    [self addAsset: asset];
+                }
+            }
+            
+            BOMTreeIteratorNext(iterator);
+            
+        } while (!BOMTreeIteratorIsAtEnd(iterator));
+        BOMTreeIteratorFree(iterator);
     }
 }
 
@@ -109,7 +140,7 @@
         void *valueBytes = BOMTreeIteratorValue(iterator);
         
         if (size > 0 && valueSize > 0) {
-            CFTAsset *asset = [CFTAsset assetWithColorDef:*(struct _colordef *)valueBytes forKey:*(struct _colorkey *)bytes];
+            CFTAsset *asset = [CFTAsset assetWithColorDef:*(struct _colordef *)valueBytes forKey:*(struct _colorkey *)bytes storage:self.assetStorage];
             [self addAsset: asset];
         }
         
@@ -125,9 +156,7 @@
         return;
     
     int count = BOMTreeCount(treeRef);
-    if (count > 0) {
-        NSLog(@"Found %d fonts!", count);
-    }
+    NSLog(@"Found %d fonts", count);
 }
 - (void)addAssets:(NSSet *)assets {
     for (CFTAsset *asset in assets) {
@@ -197,7 +226,7 @@
 - (BOOL)save {
     @autoreleasepool {
         NSSet *assets = self.allAssets;
-        [assets makeObjectsPerformSelector:@selector(commitToStorage:) withObject:self.assetStorage];
+        [assets makeObjectsPerformSelector:@selector(commitToStorage) withObject:nil];
         [self.assetStorage setRenditionCount:(unsigned int)self.allAssets.count];
         return [(CUIMutableCommonAssetStorage *)self.assetStorage writeToDiskAndCompact:YES];
     }
@@ -205,6 +234,12 @@
 
 - (NSSet *)allAssets {
     return [self valueForKeyPath:@"elements.@distinctUnionOfSets.assets"];
+}
+
+- (CUIThemeRendition *)renditionWithKey:(const struct _renditionkeytoken *)key {
+    NSData *keyData = CFTConvertRenditionKeyToCARKey([NSData dataWithBytesNoCopy:(void *)key length:60 freeWhenDone:NO], self.assetStorage);
+    CFTAsset *sourceAsset = [self.assetPacks objectForKey:keyData];
+    return sourceAsset.rendition;
 }
 
 #pragma mark - Filters

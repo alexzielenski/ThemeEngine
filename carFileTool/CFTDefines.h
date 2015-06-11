@@ -46,10 +46,43 @@ extern BOMStorageRef BOMTreeStorage(BOMTreeRef tree);
 extern BOOL BOMTreeCommit(BOMTreeRef tree);
 extern int BOMTreeSetValue(BOMTreeRef tree, void *key, size_t keySize, void *value, size_t valueSize); // return 1 if failed, 0 if success
 extern void *BOMTreeGetValue(BOMTreeRef tree, void *key, size_t keySize); // guess
-extern int BOMTreeGetValueSize(BOMTreeRef tree, void *key, size_t keySize, int unk); //guess  // return 1 if failed, 0 if success
+extern int BOMTreeGetValueSize(BOMTreeRef tree, void *key, size_t keySize, size_t *valueSize); //guess  // return 1 if failed, 0 if success
 extern int BOMTreeCount(BOMTreeRef tree);
 // guessing it is key and not value
 extern int BOMTreeRemoveValue(BOMTreeRef tree, void *key, size_t keySize);
+
+// Reversed Rendtiion Key Stuff
+struct _renditionkeyfmt {
+    unsigned int prefix; // 'kfmt'
+    unsigned int _field2;
+    unsigned int numTokens; // i've seen 14
+    unsigned int attributes[0]; // list of the order of token attributes in a keylist
+};
+struct _renditionkeytoken {
+    unsigned short identifier;
+    unsigned short value;
+};
+
+///Not Exported
+extern void CUIFillCARKeyArrayForRenditionKey(uint16_t *dst, struct _renditionkeytoken *src, struct _renditionkeyfmt const*format);
+extern void CUIFillRenditionKeyForCARKeyArray(struct _renditionkeytoken *dst, uint16_t *src, struct _renditionkeyfmt const*format);
+
+extern OSErr CUIRenditionKeyCopy(struct _renditionkeytoken *dst, struct _renditionkeytoken *src, int maxCountIncludingZeroTerminator); // use 0x10
+
+extern OSErr CUIRenditionKeySetValueForAttribute(struct _renditionkeytoken *rendition, int, int, int);
+extern CFIndex CUIRenditionKeyIndexForAttribute(struct _renditionkeytoken *rendition, int attribute);
+extern size_t CUIRenditionKeyTokenCount(struct _renditionkeytoken *rendition);
+extern BOOL CUIRenditionKeyHasIdentifier(struct _renditionkeytoken *rendition, int, int);
+extern int CUIRenditionKeyValueForAttribute(struct _renditionkeytoken *rendition, int attribute);
+extern int CUIRenditionKeyStandardize(int arg0, int arg1, int arg2);
+@class CUIRenditionKey;
+extern CUIRenditionKey *CUIRenditionKeyFromKeySignature(NSString *signature, int *unk);
+extern int CUIRenditionKeyTokenIsBaseKeyOfKeyList(struct _renditionkeytoken *arg0, int arg1);
+///
+
+@class CUICommonAssetStorage;
+extern NSData *CFTConvertCARKeyToRenditionKey(NSData *src, CUICommonAssetStorage *storage);
+extern NSData *CFTConvertRenditionKeyToCARKey(NSData *src, CUICommonAssetStorage *storage);
 
 // http://stackoverflow.com/questions/7792622/manual-retain-with-arc
 #define AntiARCRetain(...) { void *retainedThing = (__bridge_retained void *)__VA_ARGS__; retainedThing = retainedThing; }
@@ -143,7 +176,12 @@ typedef NS_ENUM(NSUInteger, CoreThemeType) {
     kCoreThemeTypePDF                 = 9,
     kCoreThemeTypeRawData             = 1000,
     kCoreThemeTypeRawPixel            = 1245774599,
-    kCoreThemeTypeColor               = 1001
+    kCoreThemeTypeColor               = 1001,
+    
+    // new in 10.11
+    // there's more stuff I haven't bothered adding here
+    kCoreThemeTypeLayerStack          = 1000, // Mica
+    kCoreThemeTypeAssetPack           = 1004  // ZZZPackedAssets-1.0.0/2.0.0 I've seen subtype 10
 };
 
 typedef NS_ENUM(NSUInteger, CFTEXIFOrientation) {

@@ -193,3 +193,86 @@ NSString *CFTScaleToString(double scale) {
         return @"@3x";
     return [NSString stringWithFormat:@"@%.0fx", scale];
 }
+
+#import "CUICommonAssetStorage.h"
+#import <dlfcn.h>
+
+static CFIndex CFTRenditionKeyIndexForAttribute(struct _renditionkeytoken *dst, uint16_t attribute) {
+    CFIndex idx = 0;
+    struct _renditionkeytoken current = dst[0];
+    do {
+        if (current.identifier == attribute) {
+            return idx;
+        }
+        
+        idx++;
+    } while (current.identifier != 0);
+    return -1;
+}
+
+extern NSData *CFTConvertCARKeyToRenditionKey(NSData *src, CUICommonAssetStorage *storage) {
+    unsigned short *bytes = (unsigned short *)src.bytes;
+    if (storage.swapped) {
+        [storage _swapRenditionKeyArray:bytes];
+    }
+    
+    // CAR key is just flat list of short values in the order of the attributes from the keyformat
+    // plus a trailing null
+    struct _renditionkeytoken *dst = calloc(storage.keyFormat->numTokens + 1, sizeof(uint32_t));
+    NSUInteger count = storage.keyFormat->numTokens;
+    if (count != 0) {
+        NSUInteger idx = 0;
+        NSUInteger write_idx = 0;
+        
+        uint16_t *source = (uint16_t*)src.bytes;
+        do {
+            int attribute = storage.keyFormat->attributes[idx];
+            int value = source[idx];
+            
+            if (value != 0) {
+                struct _renditionkeytoken *current = &dst[write_idx];
+                current->identifier = attribute;
+                current->value = value;
+                write_idx++;
+            }
+            
+            idx++;
+        } while (idx < count);
+    }
+    
+    return [NSData dataWithBytesNoCopy:dst length:(storage.keyFormat->numTokens + 1) * sizeof(uint32_t) freeWhenDone:YES];
+}
+
+extern NSData *CFTConvertRenditionKeyToCARKey(NSData *src, CUICommonAssetStorage *storage) {
+    uint16_t *dst = calloc(storage.keyFormat->numTokens, sizeof(uint16_t)); //! TODO: max out at 0x10 elements
+    
+    NSMutableData *copy = src.mutableCopy;
+    // compatibility updates
+    struct _renditionkeytoken *source = copy.mutableBytes;
+
+    if (storage.storageVersion <= 4) {
+        CFIndex idx = CFTRenditionKeyIndexForAttribute(source, CFTThemeAttributePresentationState);
+        if (idx >= 0) {
+            uint16_t value = *(uint16_t *)((void *)source + idx * sizeof(struct _renditionkeytoken) + 0x2);
+            if (value == 0) {
+                value = obsolete_kCoreThemeInactive;
+            }
+            
+            *(uint16_t *)((void *)source + idx * sizeof(struct _renditionkeytoken) + 0x2) = value;
+        }
+        
+    }
+    
+    // this is exported for some reason
+    CUIFillCARKeyArrayForRenditionKey(dst, (struct _renditionkeytoken *)copy.bytes, storage.keyFormat);
+    if (storage.swapped) {
+        NSUInteger idx = storage.keyFormat->numTokens;
+        do {
+            *dst = CFSwapInt16(*dst);
+            dst += 1;
+            idx--;
+        } while (idx != 0);
+    }
+    
+    return [NSData dataWithBytesNoCopy:dst length:storage.keyFormat->numTokens * sizeof(uint16_t) freeWhenDone:YES];
+}

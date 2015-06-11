@@ -4,18 +4,6 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
-struct _renditionkeyfmt {
-    unsigned int prefix; // 'kfmt'
-    unsigned int _field2;
-    unsigned int numTokens; // i've seen 14
-    unsigned int attributes[0]; // list of the order of token attributes in a keylist
-};
-struct _renditionkeytoken {
-    unsigned short identifier;
-    unsigned short value;
-};
-
-
 @interface CUIRenditionKey : NSObject <NSCopying, NSCoding>
 {
     struct _renditionkeytoken _stackKey[16];

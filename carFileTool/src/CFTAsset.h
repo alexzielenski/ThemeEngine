@@ -17,6 +17,8 @@
 @class CFTElement;
 @interface CFTAsset : NSObject
 @property (strong) NSUndoManager *undoManager;
+@property (readonly, weak) CUICommonAssetStorage *storage;
+@property (readonly, strong) CUIThemeRendition *rendition;
 
 @property (readonly, weak) CFTElement *element;
 @property (readwrite, strong) NSArray *slices;
@@ -47,23 +49,25 @@
 @property (assign, getter=isVector) BOOL vector;
 @property (assign, getter=isOpaque) BOOL opaque;
 @property (readonly, strong) NSSet *keywords;
+@property (readonly, assign, getter=isAssetPack) BOOL assetPack;
 
 #if TARGET_OS_IPHONE
 @property (readonly) UIImage *previewImage;
 #else
 @property (readonly) NSImage *previewImage;
 #endif
+- (NSData *)_keyData;
 
++ (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key storage:(CUICommonAssetStorage*)assetStore;
+- (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key storage:(CUICommonAssetStorage *)assetStore;
++ (instancetype)assetWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key storage:(CUICommonAssetStorage *)assetStore;
+- (instancetype)initWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key storage:(CUICommonAssetStorage *)assetStore;
++ (instancetype)assetWithColor:(NSColor *)color name:(NSString *)name storage:(CUICommonAssetStorage *)assetStore;
+- (instancetype)initWithColor:(NSColor *)color name:(NSString *)name storage:(CUICommonAssetStorage *)assetStore;
 
-+ (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
-- (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key;
-+ (instancetype)assetWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key;
-- (instancetype)initWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key;
-+ (instancetype)assetWithColor:(NSColor *)color name:(NSString *)name;
-- (instancetype)initWithColor:(NSColor *)color name:(NSString *)name;
-
-- (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage;
-- (void)removeFromStorage:(CUIMutableCommonAssetStorage *)assetStorage;
+- (void)commitToStorage;
+- (void)removeFromStorage;
+- (void)computeImageIfNeeded;
 
 - (BOOL)isDirty;
 - (void)updateChangeCount:(NSDocumentChangeType)change;

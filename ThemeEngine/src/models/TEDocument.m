@@ -117,7 +117,7 @@
             NSString *name = popUp.selectedItem.representedObject;
             CFTElement *element = [self.elementStore elementWithName:@"Colors"];
             if (![[element.assets valueForKeyPath:@"name"] containsObject:name]) {
-                CFTAsset *asset = [CFTAsset assetWithColor:[NSColor performSelector:NSSelectorFromString(name)] name:name];
+                CFTAsset *asset = [CFTAsset assetWithColor:[NSColor performSelector:NSSelectorFromString(name)] name:name storage:self.elementStore.assetStorage];
                 [self.elementStore addAsset:asset];
             }
         }

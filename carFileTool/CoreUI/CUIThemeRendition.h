@@ -77,17 +77,27 @@ struct csi_info {
  for csi_info in a list
  
  0xE903 - 1001: Slice rects, First 4 bytes length, next num slices rects, next a list of the slice rects
- 0xEB03 - 1003: Metrics – First 4 length, next 4 num metrics, next a list of metrics (struct of 3 CGSizes)
+ 0xEB03 - 1003: Metrics – First 4 length (including num metrics), next 4 num metrics, next a list of metrics (struct of 3 CGSizes)
  0xEC03 - 1004: Composition - First 4 length, second is the blendmode, third is a float for opacity
  0xED03 - 1005: UTI Type, First 4 length, next 4 length of string, then the string
  0xEE03 - 1006: Image Metadata: First 4 length, next 4 EXIF orientation, (UTI type...?)
+ 0xF203 - 1010: UNKNOWN. CONTAINS ONE VALUE. I think it's the length of the Internal Link Section, 'INKL'
  
  GRADIENT format documented in CFTGradient.h
  SHAPE EFFECT format documented in CUIShapeEffectPreset.h
  
  IMAGES: 'CELM' – Core Element – Header followed by Zipped up raw image data, format coming soon
  RAW DATA: marts 'RAWD' followed by 4 bytes of zero and an unsigned int of the length of the raw data
+ INTERNAL LINK: 'INKL' – 
+     OFFSET   SIZE   DESCRIPTION
+     0        4      Magic
+     4        4      Padding. Always zero
+     8        16     Destination Frame
+     24       2      '10'|'20' scale factor X 10?
+     26       4      Length of Reference Key
+     30       X      Rendition Reference Key List
  
+ Reference key being the key of the asset whose pixel data contains this image
  */
 
 
@@ -151,6 +161,7 @@ __attribute__((visibility("hidden")))
 - (CUIImage *)maskForSliceIndex:(long long)arg1;
 - (CUIImage *)imageForSliceIndex:(long long)arg1;
 - (struct CGImage *)unslicedImage;
+- (struct CGImage *)sourceImage;
 - (NSString *)description;
 - (BOOL)isValidForLookGradation:(long long)arg1;
 - (unsigned long long)colorSpaceID;
@@ -173,5 +184,10 @@ __attribute__((visibility("hidden")))
 - (void)_initializeCompositingOptionsFromCSIData:(const struct _csiheader *)arg1;
 - (void)_initializeTypeIdentifiersWithLayout:(unsigned short)arg1;
 
+//10.11
+- (id)layerReferences;
+- (id)externalTags;
+- (id)assetPackIdentifier;
+- (BOOL)isInternalLink;
 @end
 

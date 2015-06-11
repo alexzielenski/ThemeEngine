@@ -7,6 +7,9 @@
 //
 
 #import "CFTAsset.h"
+#import "CFTElement.h"
+#import "CFTElementStore.h"
+
 #import "CSIBitmapWrapper.h"
 #import "CUIThemeGradient.h"
 #import "CUIPSDGradientEvaluator.h"
@@ -15,6 +18,7 @@
 #import <stddef.h>
 #import <CoreText/CoreText.h>
 #import "CUITextEffectStack.h"
+#import "_CUIInternalLinkRendition.h"
 #import "ZKSwizzle.h"
 
 #import "CFTGradient+Pasteboard.h"
@@ -29,8 +33,8 @@
 #define kRAWD 'RAWD'
 #define kPDF 'PDF '
 
-
 @interface CFTAsset ()
+@property (readwrite, weak) CUICommonAssetStorage *storage;
 @property (readwrite, weak) CFTElement *element;
 @property (readwrite, strong) CUIThemeRendition *rendition;
 @property (readwrite, copy) NSString *name;
@@ -43,7 +47,7 @@
 - (void)_initializeMetricsFromCSIData:(NSData *)csiData;
 - (void)_initializeRawDataFromCSIData:(NSData *)csiData;
 - (void)_initializeMetadataFromCSIData:(NSData *)csiData;
-- (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format;
+- (NSData *)_keyData;
 - (NSArray *)_newSlicesFromOldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image;
 - (NSArray *)_newMetricsFromOldImage:(NSBitmapImageRep *)oldImage forNewImage:(NSBitmapImageRep *)image;
 @end
@@ -51,27 +55,50 @@
 static void *kCFTAssetEvaluateDimensionsContext;
 
 @implementation CFTAsset
-@dynamic pdfData, previewImage;
+@dynamic pdfData, previewImage, assetPack;
 
 + (NSArray *)undoProperties {
     return @[@"slices", @"metrics", @"gradient", @"effectPreset", @"rawData", @"color", @"image", @"layout", @"type", @"scale", @"name", @"utiType", @"blendMode", @"opacity", @"exifOrientation", @"colorSpaceID", @"excludedFromContrastFilter", @"renditionFPO", @"vector", @"opaque"];
 }
 
-+ (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key {
-    return [[self alloc] initWithRenditionCSIData:csiData forKey:key];
++ (instancetype)assetWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key storage:(CUICommonAssetStorage *)assetStore{
+    return [[self alloc] initWithRenditionCSIData:csiData forKey:key storage:assetStore];
 }
 
-- (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key {
+- (instancetype)initWithRenditionCSIData:(NSData *)csiData forKey:(struct _renditionkeytoken *)key storage:(CUICommonAssetStorage *)assetStore {
     if (!csiData)
         return nil;
     if ((self = [self init])) {
+        self.storage = assetStore;
         self.key = [CUIRenditionKey renditionKeyWithKeyList:key];
         self.rendition = [[objc_getClass("CUIThemeRendition") alloc] initWithCSIData:csiData forKey:key];
+        
+        // Starting in iOS9/10.11 we have internal link images, handle that case
+        // When we replace images for such images, 'unlink' them, leaving the packed assets untouched
+        // thus turning images back into pixel renditions
+        if ([self.rendition respondsToSelector:@selector(isInternalLink)]) {
+            // we don't have the original structured theme store at this point
+            // best we can do really is an asset catalog
+            if ([self.rendition isInternalLink]) {
+                if ([self.rendition isKindOfClass:ZKClass(_CUIInternalLinkRendition)]) {
+                    _CUIInternalLinkRendition *internal = (_CUIInternalLinkRendition *)self.rendition;
+//                    NSLog(@"bro: %@", [internal linkingToRendition]);
+//                    NSLog(@"\n{\n\talphaCroppedRect:%@,\n\toriginalUncroppedSize:%@\n\tedgesOnly:%d\n\tisTiled:%d\n\tisScaled:%d\n\tdestinationFrame:%@\n\t\n}", NSStringFromRect(internal.alphaCroppedRect), NSStringFromSize(internal.originalUncroppedSize), internal.edgesOnly, internal.isTiled, internal.isScaled, NSStringFromRect(internal._destinationFrame));
+                    
+//                    NSData *keyData = [NSData dataWithBytes:key.keyList length:60];
+//                    [keyData writeToFile:@"/Users/Alex/Desktop/csi_key" atomically:NO];
+//                    [csiData writeToFile:@"/Users/Alex/Desktop/csi" atomically:NO];
+                    
+//                    NSLog(@"%@", [self.storage assetForKey:renditionKey]);
+                    
+                }
+            }
+        }
+        
         self.gradient = [CFTGradient gradientWithThemeGradient:self.rendition.gradient angle:self.rendition.gradientDrawingAngle style:self.rendition.gradientStyle];
 
         self.effectPreset = [CFTEffectWrapper effectWrapperWithEffectPreset:self.rendition.effectPreset];
-        if (self.rendition.unslicedImage)
-            self.image = [[NSBitmapImageRep alloc] initWithCGImage:self.rendition.unslicedImage];
+
         self.type = self.rendition.type;
         self.name = self.rendition.name;
         self.utiType = self.rendition.utiType;
@@ -88,16 +115,18 @@ static void *kCFTAssetEvaluateDimensionsContext;
         name = [name stringByReplacingOccurrencesOfString:@" " withString:@""];
         name = decamelize(name);
         self.keywords = [[NSSet setWithObjects:self.name, self.keyTypeString, self.keyStateString, self.keyLayerString, self.keyIdiomString, self.keySizeString, self.keyValueString, self.keyPresentationStateString, self.keyDirectionString, self.keyScaleString, nil] setByAddingObjectsFromArray:[name componentsSeparatedByString:@" "]];
+        
+        [self computeImageIfNeeded];
     }
     
     return self;
 }
 
-+ (instancetype)assetWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key {
-    return [[self alloc] initWithColorDef:colordef forKey:key];
++ (instancetype)assetWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key storage:(CUICommonAssetStorage *)assetStore{
+    return [[self alloc] initWithColorDef:colordef forKey:key storage:assetStore];
 }
 
-- (id)initWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key {
+- (id)initWithColorDef:(struct _colordef)colordef forKey:(struct _colorkey)key storage:(CUICommonAssetStorage *)assetStore{
     id color = nil;
 #if TARGET_OS_IPHONE
     color = [UIColor colorWithRed:(double)colordef.color.r / 255.0
@@ -111,18 +140,19 @@ static void *kCFTAssetEvaluateDimensionsContext;
                                  alpha:(double)colordef.color.a / 255.0];
 #endif
     
-    if ((self = [self initWithColor:color name:[NSString stringWithCString:key.name encoding:NSUTF8StringEncoding]])) {
+    if ((self = [self initWithColor:color name:[NSString stringWithCString:key.name encoding:NSUTF8StringEncoding] storage:assetStore])) {
     }
     
     return self;
 }
 
-+ (instancetype)assetWithColor:(NSColor *)color name:(NSString *)name {
-    return [[self alloc] initWithColor:color name:name];
++ (instancetype)assetWithColor:(NSColor *)color name:(NSString *)name storage:(CUICommonAssetStorage *)assetStore{
+    return [[self alloc] initWithColor:color name:name storage:assetStore];
 }
 
-- (instancetype)initWithColor:(NSColor *)color name:(NSString *)name {
+- (instancetype)initWithColor:(NSColor *)color name:(NSString *)name storage:(CUICommonAssetStorage *)assetStore{
     if ((self = [self init])) {
+        self.storage = assetStore;
         self.color = [color colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
         self.name = name;
         self.type = kCoreThemeTypeColor;
@@ -219,6 +249,10 @@ static void *kCFTAssetEvaluateDimensionsContext;
     [csiData getBytes:&listLength range:NSMakeRange(listOffset, sizeof(listLength))];
     listOffset += listLength + sizeof(unsigned int) * 4;
     
+    if (listOffset >= csiData.length) {
+        return;
+    }
+    
     unsigned int type = 0;
     [csiData getBytes:&type range:NSMakeRange(listOffset, sizeof(type))];
     if (type != kRAWD)
@@ -230,7 +264,6 @@ static void *kCFTAssetEvaluateDimensionsContext;
     
     if (dataLength == 0)
         return;
-    
     listOffset += sizeof(dataLength);
     self.rawData = [csiData subdataWithRange:NSMakeRange(listOffset, dataLength)];
 }
@@ -280,38 +313,24 @@ static void *kCFTAssetEvaluateDimensionsContext;
     }
 }
 
-// same as calling CUIStructuredThemeStore _newRenditionKeyDataFromKey:
-- (NSData *)_keyDataWithFormat:(struct _renditionkeyfmt *)format {
-    /*
-     The key format contains a list of the order of attributes for which they should appear
-     for each key in data. The list has just ints corresponding to the identifier for each attribute
-     so we find which index each value in the attribute list shall go into and place its value at the
-     right offset. Identifiers correspond to CFTThemeAttributeName
-     */
-    NSMutableData *data = [[NSMutableData alloc] initWithLength:format->numTokens * sizeof(uint16_t)];
-    struct _renditionkeytoken currentToken = self.key.keyList[0];
-    unsigned int idx = 0;
-    do {
-        int tokenIdx = -1;
-        unsigned int keyIdx = 0;
-        do {
-            if (format->attributes[keyIdx] == currentToken.identifier)
-                tokenIdx = keyIdx;
-            keyIdx++;
-        } while (tokenIdx == -1 && keyIdx < format->numTokens);
-        
-        if (tokenIdx != -1) {
-            size_t size = sizeof(currentToken.value);
-            [data replaceBytesInRange:NSMakeRange(tokenIdx * size, size) withBytes:&currentToken.value length:size];
-        }
-        
-        currentToken = self.key.keyList[++idx];
-    } while (currentToken.identifier != 0);
-    
-    return data;
+- (NSData *)_keyData {
+    return CFTConvertRenditionKeyToCARKey([NSData dataWithBytesNoCopy:(void*)self.key.keyList length:60 freeWhenDone:NO], self.storage);
 }
 
-- (void)commitToStorage:(CUIMutableCommonAssetStorage *)assetStorage {
+- (void)commitToStorage {
+    NSLog(@"wat");
+    
+    if (![self.storage isKindOfClass:[CUIMutableCommonAssetStorage class]]) {
+        return;
+    }
+    
+    CUIMutableCommonAssetStorage *assetStorage = (CUIMutableCommonAssetStorage *)self.storage;
+    
+    if (!assetStorage) {
+        NSLog(@"cannot commit to non-existent asset storage");
+        return;
+    }
+    
     if (self.type == kCoreThemeTypeColor) {
         struct _rgbquad quad;
         quad.r = (uint8_t)(self.color.redComponent * 255);
@@ -325,7 +344,8 @@ static void *kCFTAssetEvaluateDimensionsContext;
         
         return;
     }
-    NSData *renditionKey = [self _keyDataWithFormat:(struct _renditionkeyfmt *)assetStorage.keyFormat];
+    
+    NSData *renditionKey = [self _keyData];
 
     if (!self.isDirty)
         return;
@@ -354,7 +374,8 @@ static void *kCFTAssetEvaluateDimensionsContext;
         CSIBitmapWrapper *wrapper = [[CSIBitmapWrapper alloc] initWithPixelWidth:imageSize.width
                                                                      pixelHeight:imageSize.height];
         CGContextDrawImage(wrapper.bitmapContext, CGRectMake(0, 0, imageSize.width, imageSize.height), self.image.CGImage);
-        
+        wrapper.pixelFormat = 'ARGB';
+        wrapper.allowsMultiPassEncoding = YES;
         [gen addBitmap:wrapper];
     }
     
@@ -389,15 +410,22 @@ static void *kCFTAssetEvaluateDimensionsContext;
     NSData *csiData = [gen CSIRepresentationWithCompression:YES];
     [assetStorage setAsset:csiData forKey:renditionKey];
     
-    [renditionKey writeToFile:@"/Users/Alex/Desktop/data" atomically:NO];
-    [csiData writeToFile:@"/Users/Alex/Desktop/csi_old" atomically:NO];
-    
     [self updateChangeCount:NSChangeCleared];
 }
 
-- (void)removeFromStorage:(CUIMutableCommonAssetStorage *)assetStorage {
+- (void)removeFromStorage {
+    if (![self.storage isKindOfClass:[CUIMutableCommonAssetStorage class]])
+        return;
+    
+    CUIMutableCommonAssetStorage *assetStorage = (CUIMutableCommonAssetStorage *)self.storage;
+    
+    if (!assetStorage) {
+        NSLog(@"cannot remove from non-existent asset storage");
+        return;
+    }
+    
     if (self.type != kCoreThemeTypeColor) {
-        NSData *renditionKey = [self _keyDataWithFormat:(struct _renditionkeyfmt *)assetStorage.keyFormat];
+        NSData *renditionKey = [self _keyData];
         [assetStorage removeAssetForKey:renditionKey];
     } else {
         if ([assetStorage hasColorForName:self.name.UTF8String]) {
@@ -478,6 +506,25 @@ static void *kCFTAssetEvaluateDimensionsContext;
     return [NSSet setWithObject:@"rawData"];
 }
 
+- (void)computeImageIfNeeded {
+    [self.undoManager disableUndoRegistration];
+    if (!self.image) {
+        if ([self.rendition isKindOfClass:ZKClass(_CUIInternalLinkRendition)]) {
+            [(_CUIInternalLinkRendition *)self.rendition _setStructuredThemeStore:self.element.store];
+//            
+//            CUIRenditionKey *referenceKey = ZKHookIvar(self.rendition, CUIRenditionKey *, "_referenceKey");
+//            NSData *keyData = CFTConvertRenditionKeyToCARKey([NSData dataWithBytesNoCopy:referenceKey.keyList length:60 freeWhenDone:NO], self.storage);
+//            CFTAsset *asset = [self.element.store.assetPacks objectForKey:keyData];
+//            self.image = asset.image;
+            
+        }
+        if (self.rendition.unslicedImage)
+            self.image = [[NSBitmapImageRep alloc] initWithCGImage:self.rendition.unslicedImage];
+    }
+    
+    [self.undoManager enableUndoRegistration];
+}
+
 #if TARGET_OS_IPHONE
 - (UIImage *)previewImage {
     return [UIImage imageWithCGImage:self.image];
@@ -485,6 +532,7 @@ static void *kCFTAssetEvaluateDimensionsContext;
 #else
 - (NSImage *)previewImage {
     NSImage *image = [[NSImage alloc] init];
+    
     if (self.image) {
         [image addRepresentation:self.image];
     } else if (self.type == kCoreThemeTypePDF) {
@@ -585,6 +633,10 @@ static void *kCFTAssetEvaluateDimensionsContext;
 
 + (NSSet *)keyPathsForValuesAffectingPreviewImage {
     return [NSSet setWithObjects:@"image", @"pdfData", @"gradient", @"effectPreset", @"color", nil];
+}
+
+- (BOOL)isAssetPack {
+    return self.rendition.type == kCoreThemeTypeAssetPack;
 }
 
 - (NSString *)debugDescription {

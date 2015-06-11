@@ -57,4 +57,5 @@
 
 @interface CFTElementStore (Properties)
 @property (readonly, strong) NSSet *elements;
+@property (readonly, strong) NSDictionary *assetPacks;
 @end

@@ -29,6 +29,8 @@
     else if (self.type == kCoreThemeTypeColor) {
         return [NSString stringWithFormat:@"%f, %f, %f, %f", self.color.redComponent, self.color.greenComponent, self.color.blueComponent, self.color.alphaComponent];
     }
+
+    [self computeImageIfNeeded];
     return [self.image description];
 }
 
