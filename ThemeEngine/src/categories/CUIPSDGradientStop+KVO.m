@@ -36,7 +36,25 @@ __attribute__((__constructor__)) static void INITKVO() {
     ZKSwizzle(_PSDKVO, CUIPSDGradientDoubleColorStop);
     ZKSwizzle(_PSDKVO, CUIPSDGradientOpacityStop);
     ZKSwizzle(_PSDKVO, CUIPSDGradientDoubleOpacityStop);
+    
+    if (![ZKClass(CUIPSDGradientColorStop) respondsToSelector:@selector(_setGradientColor:)]) {
+        ZKSwizzle(_PSDGradStop, CUIPSDGradientColorStop);
+    }
 }
+
+@interface _PSDGradStop : NSObject
+@end
+
+@implementation _PSDGradStop
+
+- (void)_setGradientColor:(struct _psdGradientColor)newColor {
+    struct _psdGradientColor *color = &ZKHookIvar(self, struct _psdGradientColor, "gradientColor");
+    if (color != NULL) {
+        memcpy(color, &newColor, sizeof(struct _psdGradientColor));
+    }
+}
+
+@end
 
 @implementation _PSDKVO
 @dynamic isMidpointStop, gradientColorValue, leadOutColorValue, opacityValue, leadOutOpacityValue, isDoubleColorStop, isDoubleOpacityStop;
