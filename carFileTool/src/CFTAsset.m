@@ -510,14 +510,11 @@ static void *kCFTAssetEvaluateDimensionsContext;
     [self.undoManager disableUndoRegistration];
     if (!self.image) {
         if ([self.rendition isKindOfClass:ZKClass(_CUIInternalLinkRendition)]) {
+            // HAX: CFTElementStore implements renditionWithKey: which looks up in the assetPacks dictionary
+            // for the asset packs which store the images for linked renditions.
             [(_CUIInternalLinkRendition *)self.rendition _setStructuredThemeStore:self.element.store];
-//            
-//            CUIRenditionKey *referenceKey = ZKHookIvar(self.rendition, CUIRenditionKey *, "_referenceKey");
-//            NSData *keyData = CFTConvertRenditionKeyToCARKey([NSData dataWithBytesNoCopy:referenceKey.keyList length:60 freeWhenDone:NO], self.storage);
-//            CFTAsset *asset = [self.element.store.assetPacks objectForKey:keyData];
-//            self.image = asset.image;
-            
         }
+        
         if (self.rendition.unslicedImage)
             self.image = [[NSBitmapImageRep alloc] initWithCGImage:self.rendition.unslicedImage];
     }
