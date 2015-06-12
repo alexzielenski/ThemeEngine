@@ -208,10 +208,17 @@ static void *kInsetsContext;
 }
 
 - (void)_repositionHandles {
-    self.leftHandle.frame =  CGRectMake(round(self.edgeInsets.left), 0, kHandleSize, self.imageSize.height);
-    self.rightHandle.frame = CGRectMake(round(NSMaxX(self.sliceLayer.bounds) - self.edgeInsets.right), 0, kHandleSize, self.imageSize.height);
-    self.topHandle.frame = CGRectMake(0, round(NSMaxY(self.sliceLayer.bounds) - self.edgeInsets.top), self.imageSize.width, kHandleSize);
-    self.bottomHandle.frame = CGRectMake(0, round(self.edgeInsets.bottom), self.imageSize.width, kHandleSize);
+    self.leftHandle.bounds =  CGRectMake(0, 0, kHandleSize, self.imageSize.height);
+    self.rightHandle.bounds = CGRectMake(0, 0, kHandleSize, self.imageSize.height);
+    
+    self.leftHandle.position =  CGPointMake(round(self.edgeInsets.left), 0);
+    self.rightHandle.position = CGPointMake(round(NSMaxX(self.sliceLayer.bounds) - self.edgeInsets.right), 0);
+    
+    self.topHandle.bounds = CGRectMake(0, 0, self.imageSize.width, kHandleSize);
+    self.bottomHandle.bounds = CGRectMake(0, 0, self.imageSize.width, kHandleSize);
+    
+    self.topHandle.position = CGPointMake(0, round(NSMaxY(self.sliceLayer.bounds) - self.edgeInsets.top));
+    self.bottomHandle.position = CGPointMake(0, round(self.edgeInsets.bottom));
 }
 
 - (void)mouseMoved:(NSEvent *)event {
