@@ -8,9 +8,10 @@
 
 #import "TKGradient.h"
 #import "TKGradient+Private.h"
+#import "TKGradientStop+Private.h"
+
 #import "NSColor+CoreUI.h"
 #import "TKHelpers.h"
-#import "TKGradientStop+Private.h"
 
 @interface TKGradient ()
 @property (readwrite, strong) NSSet<__kindof TKGradientColorStop *> *colorStops;
@@ -138,12 +139,12 @@
 }
 
 - (NSColor *)fillColor {
-    return PSDColorToNSColor(self.evaluator.fillColor);
+    return [NSColor colorWithPSDColor:self.evaluator.fillColor];
 }
 
 - (void)setFillColor:(NSColor *)fillColor {
     struct _psdGradientColor *psdColor = (struct _psdGradientColor *)TKIvarPointer(self.evaluator, "fillColor");
-    NSColorToPSDColor(fillColor, psdColor);
+    [fillColor getPSDColor:psdColor];
 }
 
 - (CGBlendMode)blendMode {

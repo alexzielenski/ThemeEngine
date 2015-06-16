@@ -9,6 +9,7 @@
 #import "TKGradientStop.h"
 #import "TKGradientStop+Private.h"
 #import "TKStructs.h"
+#import "NSColor+CoreUI.h"
 
 @interface TKGradientStop ()
 - (instancetype)initWithCUIPSDGradientStop:(CUIPSDGradientStop *)stop;
@@ -84,7 +85,7 @@
 - (instancetype)initWithLocation:(CGFloat)location color:(NSColor *)color {
     if ((self = [self init])) {
         struct _psdGradientColor psdColor;
-        NSColorToPSDColor(color, &psdColor);
+        [color getPSDColor:&psdColor];
         self.backingStop = (CUIPSDGradientStop *)[CUIPSDGradientColorStop
                                                   colorStopWithLocation:location gradientColor:psdColor];
     }
@@ -113,30 +114,24 @@
 }
 
 - (NSColor *)color {
-    return PSDColorToNSColor(((CUIPSDGradientColorStop *)self.backingStop).gradientColor);
+    return [NSColor colorWithPSDColor:((CUIPSDGradientColorStop *)self.backingStop).gradientColor];
 }
 
 - (void)setColor:(NSColor *)color {
-    struct _psdGradientColor psdColor;
-    NSColorToPSDColor(color, &psdColor);
-    
     struct _psdGradientColor *original = (struct _psdGradientColor *)TKIvarPointer(self.backingStop, "gradientColor");
     if (original != NULL) {
-        memcpy(original, &psdColor, sizeof(psdColor));
+        [color getPSDColor:original];;
     }
 }
 
 - (NSColor *)leadOutColor {
-    return PSDColorToNSColor(((CUIPSDGradientDoubleColorStop *)self.backingStop).leadOutColor);
+    return [NSColor colorWithPSDColor:((CUIPSDGradientDoubleColorStop *)self.backingStop).leadOutColor];
 }
 
 - (void)setLeadOutColor:(NSColor *)leadOutColor {
-    struct _psdGradientColor psdColor;
-    NSColorToPSDColor(leadOutColor, &psdColor);
-    
     struct _psdGradientColor *original = (struct _psdGradientColor *)TKIvarPointer(self.backingStop, "leadOutColor");
     if (original != NULL) {
-        memcpy(original, &psdColor, sizeof(psdColor));
+        [leadOutColor getPSDColor:original];
     }
 }
 

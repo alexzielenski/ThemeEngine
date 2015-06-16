@@ -23,4 +23,19 @@
     return [NSColor colorWithCGColor:color.CGColor];
 }
 
++ (instancetype)colorWithPSDColor:(struct _psdGradientColor)color {
+    return [NSColor colorWithRed:color.red
+                           green:color.green
+                            blue:color.blue
+                           alpha:color.alpha];
+}
+
+- (void)getPSDColor:(struct _psdGradientColor *)psdColor {
+    NSColor *color = [self colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
+    psdColor->red   = color.redComponent;
+    psdColor->green = color.greenComponent;
+    psdColor->blue  = color.blueComponent;
+    psdColor->alpha = color.alphaComponent;
+}
+
 @end

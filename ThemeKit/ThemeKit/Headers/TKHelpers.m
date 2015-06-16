@@ -53,16 +53,3 @@ extern NSString *TKElementNameForRendition(TKRendition *rendition) {
     return [name stringByDeletingPathExtension];
 }
 
-extern void NSColorToPSDColor(NSColor *color, struct _psdGradientColor *psdColor) {
-    color = [color colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
-    psdColor->red   = color.redComponent;
-    psdColor->green = color.greenComponent;
-    psdColor->blue  = color.blueComponent;
-    psdColor->alpha = color.alphaComponent;
-}
-extern NSColor *PSDColorToNSColor(struct _psdGradientColor color) {
-    return [NSColor colorWithRed:color.red
-                           green:color.green
-                            blue:color.blue
-                           alpha:color.alpha];
-}

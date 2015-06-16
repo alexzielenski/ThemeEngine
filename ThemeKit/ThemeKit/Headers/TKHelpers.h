@@ -26,7 +26,4 @@ extern void *TKIvarPointer(id self, const char *name);
 @class TKRendition;
 extern NSString *TKElementNameForRendition(TKRendition *rendition);
 
-extern void NSColorToPSDColor(NSColor *color, struct _psdGradientColor *psdColor);
-extern NSColor *PSDColorToNSColor(struct _psdGradientColor color);
-
 #endif /* TKHelpers_h */

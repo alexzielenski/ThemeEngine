@@ -12,5 +12,9 @@
 
 @interface NSColor (CoreUI)
 + (instancetype)colorWithColorDef:(struct colordef)definition;
++ (instancetype)colorWithPSDColor:(struct _psdGradientColor)gradientColor;
 + (instancetype)colorWithCUIColor:(CUIColor *)color;
+
+- (void)getPSDColor:(struct _psdGradientColor *)gradientColor;
+
 @end
