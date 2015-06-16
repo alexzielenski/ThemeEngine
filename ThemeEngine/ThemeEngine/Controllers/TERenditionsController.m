@@ -64,6 +64,10 @@ static NSString *stringKeyForGroupTag(NSInteger tag) {
 const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
 @implementation TERenditionsController
 
+- (void)dealloc {
+    [self.renditionsArrayController removeObserver:self forKeyPath:@"arrangedObjects" context:&REEVALUATEGROUPS];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.currentGroup = -1;
