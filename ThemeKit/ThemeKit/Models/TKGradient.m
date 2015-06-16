@@ -47,7 +47,19 @@
         self.angle     = angle;
         self.radial    = style == CUIGradientStyleRadial;
         
+        self.colorStops   = [NSMutableSet set];
+        self.opacityStops = [NSMutableSet set];
         
+        for (CUIPSDGradientColorStop *colorStop in self.evaluator.colorStops) {
+            [(NSMutableSet *)self.colorStops addObject:[TKGradientColorStop gradientStopWithCUIPSDGradientStop:colorStop]];
+        }
+        
+        for (CUIPSDGradientOpacityStop *opacityStop in self.evaluator.opacityStops) {
+            [(NSMutableSet *)self.opacityStops addObject:[TKGradientColorStop gradientStopWithCUIPSDGradientStop:opacityStop]];
+        }
+        
+        self.colorMidpoints = [NSMutableSet setWithArray:self.evaluator.colorMidpointLocations];
+        self.opacityMidpoints = [NSMutableSet setWithArray:self.evaluator.opacityMidpointLocations];
     }
     
     return self;

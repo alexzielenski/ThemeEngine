@@ -19,6 +19,7 @@
     
     if (self.gradient) {
         __weak typeof(self) weakSelf = self;
+        
         self._previewImage = [NSImage imageWithSize:NSMakeSize(64, 64)
                                             flipped:NO
                                      drawingHandler:^BOOL(NSRect dstRect) {
