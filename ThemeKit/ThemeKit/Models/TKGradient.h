@@ -20,15 +20,15 @@
 @property (strong) NSColor *fillColor;
 @property (assign) CGBlendMode blendMode;
 
-@property (readonly, strong) NSSet<__kindof TKGradientColorStop *> *colorStops;
-@property (readonly, strong) NSSet<__kindof TKGradientOpacityStop *> *opacityStops;
-@property (readonly, strong) NSSet<NSNumber *> *colorMidpoints;
-@property (readonly, strong) NSSet<NSNumber *> *opacityMidpoints;
+@property (readonly, strong) NSArray<__kindof TKGradientColorStop *> *colorStops;
+@property (readonly, strong) NSArray<__kindof TKGradientOpacityStop *> *opacityStops;
+@property (readonly, strong) NSArray<NSNumber *> *colorMidpoints;
+@property (readonly, strong) NSArray<NSNumber *> *opacityMidpoints;
 
-+ (instancetype)gradientWithColorStops:(NSSet<__kindof TKGradientColorStop *> *)colorStops
-                          opacityStops:(NSSet<__kindof TKGradientOpacityStop *> *)opacityStops
-                colorMidPointLocations:(NSSet<NSNumber *> *)colorMidPointLocations
-              opacityMidPointLocations:(NSSet<NSNumber *> *)opacityMidPointLocations
++ (instancetype)gradientWithColorStops:(NSArray<__kindof TKGradientColorStop *> *)colorStops
+                          opacityStops:(NSArray<__kindof TKGradientOpacityStop *> *)opacityStops
+                colorMidPointLocations:(NSArray<NSNumber *> *)colorMidPointLocations
+              opacityMidPointLocations:(NSArray<NSNumber *> *)opacityMidPointLocations
                                 radial:(BOOL)radial
                                  angle:(CGFloat)angle
                               dithered:(BOOL)dithered;
@@ -46,6 +46,16 @@
 
 - (void)removeOpacityStopsObject:(TKGradientOpacityStop *)object;
 - (void)removeOpacityMidpointsObject:(NSNumber *)object;
+
+- (void)insertObject:(TKGradientColorStop *)object inColorStopsAtIndex:(NSUInteger)index;
+- (void)insertObject:(NSNumber *)object inColorMidpointsAtIndex:(NSUInteger)index;
+- (void)insertObject:(TKGradientOpacityStop *)object inOpacityStopsAtIndex:(NSUInteger)index;
+- (void)insertObject:(NSNumber *)object inOpacityMidpointsAtIndex:(NSUInteger)index;
+
+- (void)removeObjectFromColorStopsAtIndex:(NSUInteger)index;
+- (void)removeObjectFromColorMidpointsAtIndex:(NSUInteger)index;
+- (void)removeObjectFromOpacityStopsAtIndex:(NSUInteger)index;
+- (void)removeObjectFromOpacityMidpointsAtIndex:(NSUInteger)index;
 
 // The gradient renderer
 - (void)resetShaders;

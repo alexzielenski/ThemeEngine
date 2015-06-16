@@ -14,10 +14,10 @@
 #import "TKHelpers.h"
 
 @interface TKGradient ()
-@property (readwrite, strong) NSSet<__kindof TKGradientColorStop *> *colorStops;
-@property (readwrite, strong) NSSet<__kindof TKGradientOpacityStop *> *opacityStops;
-@property (readwrite, strong) NSSet<NSNumber *> *colorMidpoints;
-@property (readwrite, strong) NSSet<NSNumber *> *opacityMidpoints;
+@property (readwrite, strong) NSArray<__kindof TKGradientColorStop *> *colorStops;
+@property (readwrite, strong) NSArray<__kindof TKGradientOpacityStop *> *opacityStops;
+@property (readwrite, strong) NSArray<NSNumber *> *colorMidpoints;
+@property (readwrite, strong) NSArray<NSNumber *> *opacityMidpoints;
 
 @property (strong) CUIThemeGradient *gradient;
 @property (strong) CUIPSDGradientEvaluator *evaluator;
@@ -25,10 +25,10 @@
 
 @implementation TKGradient
 @dynamic dithered, smoothingCoefficient, fillCoefficient, fillColor, blendMode;
-+ (instancetype)gradientWithColorStops:(NSSet<TKGradientColorStop *> *)colorStops
-                          opacityStops:(NSSet<TKGradientOpacityStop *> *)opacityStops
-                colorMidPointLocations:(NSSet<NSNumber *> *)colorMidPointLocations
-              opacityMidPointLocations:(NSSet<NSNumber *> *)opacityMidPointLocations
++ (instancetype)gradientWithColorStops:(NSArray<TKGradientColorStop *> *)colorStops
+                          opacityStops:(NSArray<TKGradientOpacityStop *> *)opacityStops
+                colorMidPointLocations:(NSArray<NSNumber *> *)colorMidPointLocations
+              opacityMidPointLocations:(NSArray<NSNumber *> *)opacityMidPointLocations
                                 radial:(BOOL)radial
                                  angle:(CGFloat)angle
                               dithered:(BOOL)dithered {
@@ -47,19 +47,19 @@
         self.angle     = angle;
         self.radial    = style == CUIGradientStyleRadial;
         
-        self.colorStops   = [NSMutableSet set];
-        self.opacityStops = [NSMutableSet set];
+        self.colorStops   = [NSMutableArray array];
+        self.opacityStops = [NSMutableArray array];
         
         for (CUIPSDGradientColorStop *colorStop in self.evaluator.colorStops) {
-            [(NSMutableSet *)self.colorStops addObject:[TKGradientColorStop gradientStopWithCUIPSDGradientStop:colorStop]];
+            [(NSMutableArray *)self.colorStops addObject:[TKGradientColorStop gradientStopWithCUIPSDGradientStop:colorStop]];
         }
         
         for (CUIPSDGradientOpacityStop *opacityStop in self.evaluator.opacityStops) {
-            [(NSMutableSet *)self.opacityStops addObject:[TKGradientColorStop gradientStopWithCUIPSDGradientStop:opacityStop]];
+            [(NSMutableArray *)self.opacityStops addObject:[TKGradientColorStop gradientStopWithCUIPSDGradientStop:opacityStop]];
         }
         
-        self.colorMidpoints = [NSMutableSet setWithArray:self.evaluator.colorMidpointLocations];
-        self.opacityMidpoints = [NSMutableSet setWithArray:self.evaluator.opacityMidpointLocations];
+        self.colorMidpoints = self.evaluator.colorMidpointLocations.mutableCopy;
+        self.opacityMidpoints = self.evaluator.opacityMidpointLocations.mutableCopy;
     }
     
     return self;
@@ -76,51 +76,84 @@
 #pragma mark - Stop Management
 
 - (void)addColorStopsObject:(TKGradientColorStop *)object {
-    [(NSMutableSet *)self.colorStops addObject:object];
+    [self insertObject:object inColorStopsAtIndex:self.colorStops.count];
+}
+
+- (void)insertObject:(TKGradientColorStop *)object inColorStopsAtIndex:(NSUInteger)index {
+    [(NSMutableArray *)self.colorStops insertObject:object atIndex:index];
     [self.evaluator setColorStops:[self.colorStops valueForKey:TKKey(backingStop)]
-                        midpoints:self.colorMidpoints.allObjects];
+                        midpoints:self.colorMidpoints];
 }
 
 - (void)addColorMidpointsObject:(NSNumber *)object {
-    [(NSMutableSet *)self.colorMidpoints addObject:object];
+    [self insertObject:object inOpacityMidpointsAtIndex:self.colorMidpoints.count];
+}
+
+- (void)insertObject:(NSNumber *)object inColorMidpointsAtIndex:(NSUInteger)index {
+    [(NSMutableArray *)self.colorMidpoints insertObject:object atIndex:index];
     [self.evaluator setColorStops:[self.colorStops valueForKey:TKKey(backingStop)]
-                        midpoints:self.colorMidpoints.allObjects];
+                        midpoints:self.colorMidpoints];
 }
 
 - (void)removeColorStopsObject:(TKGradientColorStop *)object {
-    [(NSMutableSet *)self.colorStops removeObject:object];
+    [self removeObjectFromColorStopsAtIndex:[self.colorStops indexOfObject:object]];
+}
+
+- (void)removeObjectFromColorStopsAtIndex:(NSUInteger)index {
+    [(NSMutableArray *)self.colorStops removeObjectAtIndex:index];
     [self.evaluator setColorStops:[self.colorStops valueForKey:TKKey(backingStop)]
-                        midpoints:self.colorMidpoints.allObjects];
+                        midpoints:self.colorMidpoints];
 }
 
 - (void)removeColorMidpointsObject:(NSNumber *)object {
-    [(NSMutableSet *)self.colorMidpoints removeObject:object];
+    [self removeObjectFromColorMidpointsAtIndex:[self.colorMidpoints indexOfObject:object]];
+}
+
+- (void)removeObjectFromColorMidpointsAtIndex:(NSUInteger)index {
+    [(NSMutableArray *)self.colorMidpoints removeObjectAtIndex:index];
     [self.evaluator setColorStops:[self.colorStops valueForKey:TKKey(backingStop)]
-                        midpoints:self.colorMidpoints.allObjects];
+                        midpoints:self.colorMidpoints];
 }
 
 - (void)addOpacityStopsObject:(TKGradientOpacityStop *)object {
-    [(NSMutableSet *)self.opacityStops addObject:object];
+    [self insertObject:object inOpacityStopsAtIndex:self.opacityStops.count];
+}
+
+- (void)insertObject:(TKGradientOpacityStop *)object inOpacityStopsAtIndex:(NSUInteger)index {
+    [(NSMutableArray *)self.opacityStops insertObject:object atIndex:index];
     [self.evaluator setOpacityStops:[self.opacityMidpoints valueForKey:TKKey(backingStop)]
-                          midpoints:self.opacityMidpoints.allObjects];
+                          midpoints:self.opacityMidpoints];
 }
 
 - (void)addOpacityMidpointsObject:(NSNumber *)object {
-    [(NSMutableSet *)self.opacityMidpoints addObject:object];
+    [self insertObject:object inOpacityMidpointsAtIndex:self.opacityMidpoints.count];
+}
+
+- (void)insertObject:(NSNumber *)object inOpacityMidpointsAtIndex:(NSUInteger)index {
+    [(NSMutableArray *)self.opacityMidpoints insertObject:object atIndex:index];
     [self.evaluator setOpacityStops:[self.opacityMidpoints valueForKey:TKKey(backingStop)]
-                          midpoints:self.opacityMidpoints.allObjects];
+                          midpoints:self.opacityMidpoints];
 }
 
 - (void)removeOpacityStopsObject:(TKGradientOpacityStop *)object {
-    [(NSMutableSet *)self.opacityStops removeObject:object];
+    [self removeObjectFromOpacityStopsAtIndex:[self.opacityStops indexOfObject:object]];
+}
+
+- (void)removeObjectFromOpacityStopsAtIndex:(NSUInteger)index {
+    [(NSMutableArray *)self.opacityStops removeObjectAtIndex:index];
     [self.evaluator setOpacityStops:[self.opacityMidpoints valueForKey:TKKey(backingStop)]
-                          midpoints:self.opacityMidpoints.allObjects];
+                          midpoints:self.opacityMidpoints];
+
 }
 
 - (void)removeOpacityMidpointsObject:(NSNumber *)object {
-    [(NSMutableSet *)self.opacityMidpoints removeObject:object];
+    [self removeObjectFromOpacityMidpointsAtIndex:[self.opacityMidpoints indexOfObject:object]];
+}
+
+- (void)removeObjectFromOpacityMidpointsAtIndex:(NSUInteger)index {
+    [(NSMutableArray *)self.opacityMidpoints removeObjectAtIndex:index];
     [self.evaluator setOpacityStops:[self.opacityMidpoints valueForKey:TKKey(backingStop)]
-                          midpoints:self.opacityMidpoints.allObjects];
+                          midpoints:self.opacityMidpoints];
 }
 
 #pragma mark - Properties

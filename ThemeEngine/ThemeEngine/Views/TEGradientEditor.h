@@ -7,7 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <ThemeKit/ThemeKit.h>
 
 @interface TEGradientEditor : NSView
-
+@property (readonly, strong) TKGradientStop *selectedStop;
+@property (strong) TKGradient *gradient;
 @end
