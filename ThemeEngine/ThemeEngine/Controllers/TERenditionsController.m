@@ -60,20 +60,23 @@ static NSString *stringKeyForGroupTag(NSInteger tag) {
 @property (strong) NSArray *originalSortDescriptors;
 @end
 
+const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
 @implementation TERenditionsController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.currentGroup = -1;
     
-    self.sortDescriptors = @[
-                             [NSSortDescriptor sortDescriptorWithKey:@"elementID" ascending:NO],
-                             [NSSortDescriptor sortDescriptorWithKey:@"partID" ascending:NO],
-                             [NSSortDescriptor sortDescriptorWithKey:@"value" ascending:NO],
-                             [NSSortDescriptor sortDescriptorWithKey:@"state" ascending:NO],
-                             [NSSortDescriptor sortDescriptorWithKey:@"size" ascending:NO],
-                             [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:NO selector:@selector(caseInsensitiveCompare:)]
-                             ];
-    self.originalSortDescriptors = self.sortDescriptors;
+    self.renditionsArrayController
+    .sortDescriptors = @[
+                         [NSSortDescriptor sortDescriptorWithKey:@"element.name" ascending:NO
+                                                        selector:@selector(caseInsensitiveCompare:)],
+                         [NSSortDescriptor sortDescriptorWithKey:@"partID" ascending:YES],
+                         [NSSortDescriptor sortDescriptorWithKey:@"value" ascending:YES],
+                         [NSSortDescriptor sortDescriptorWithKey:@"state" ascending:YES],
+                         [NSSortDescriptor sortDescriptorWithKey:@"size" ascending:YES]
+                         ];
+    self.originalSortDescriptors = self.renditionsArrayController.sortDescriptors;
     
     [self.renditionBrowser bind:NSContentBinding
                        toObject:self.renditionsArrayController
@@ -81,51 +84,82 @@ static NSString *stringKeyForGroupTag(NSInteger tag) {
                         options:nil];
     self.renditionBrowser.canControlQuickLookPanel = YES;
     self.inspectorController.representedObject = self.renditionsArrayController;
+    
+    [self.renditionsArrayController addObserver:self
+                                     forKeyPath:NSStringFromSelector(@selector(arrangedObjects))
+                                        options:0
+                                        context:&REEVALUATEGROUPS];
 }
 
-- (IBAction)changeGroup:(NSPopUpButton *)sender {
-    NSString *key = keyForGroupTag([sender selectedTag]);
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
+    if (context == &REEVALUATEGROUPS) {
+        self.currentGroup = self.currentGroup;
+    } else {
+        [super observeValueForKeyPath:keyPath
+                             ofObject:object
+                               change:change
+                              context:context];
+    }
+}
+
+- (void)setCurrentGroup:(NSInteger)currentGroup {
+    // Use this so we can observe arranged objects and regroup everytime it changes
+    // without triggering an infinite loop
+    BOOL refresh = _currentGroup != currentGroup;
+    _currentGroup = currentGroup;
+    
+    NSString *key = keyForGroupTag(currentGroup);
     if (key) {
         // sort primarily by the group selected
         NSMutableArray *groups = [NSMutableArray array];
-        self.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:key ascending:YES] ];
-        [self.renditionsArrayController rearrangeObjects];
+        
+        if (refresh) {
+            self.renditionsArrayController.sortDescriptors =
+            @[ [NSSortDescriptor sortDescriptorWithKey:key ascending:YES] ];
+            // Come back after it's been resorted
+            return;
+        }
+        
         NSArray *objects = self.renditionsArrayController.arrangedObjects;
-        
-        // This is faster than using valueForKeyPath on the array then looping again to get
-        // unique values with orderedSetWithArray:
-        NSMutableArray *values = [NSMutableArray array];
-        NSMutableOrderedSet *uniqueValues = [NSMutableOrderedSet orderedSet];
-        for (NSUInteger x = 0; x < objects.count; x++) {
-            id value = [objects[x] valueForKeyPath:key];
-            [values addObject:value];
-            [uniqueValues addObject:value];
+        if (objects.count == 0) {
+            goto reset;
         }
         
-        NSUInteger nextStart = 0;
-        for (NSUInteger i = 0; i < uniqueValues.count; i++) {
-            NSUInteger start = nextStart;
-            
-            if (i + 1 < uniqueValues.count) {
-                id nextValue = uniqueValues[i + 1];
-                nextStart = [values indexOfObject:nextValue inRange:NSMakeRange(start, values.count - start)];
-            } else {
-                nextStart = values.count;
+        NSLog(@"regroup: %ld", objects.count);
+        // Loop through every element
+        // Test to see if this current item is different from the last unique one we found
+        // if so, create the group
+        // Also, make sure to include a terminating nil for the last group
+        id lastObject = [objects[0] valueForKeyPath:key];
+        NSUInteger lastIdx = 0;
+        for (NSUInteger x = 0; x <= objects.count; x++) {
+            id value = x < objects.count ? [objects[x] valueForKeyPath:key] : nil;
+
+            if (![value isEqualTo:lastObject]) {
+                // new unique object, commit the last one to the array
+                [groups addObject:@{
+                                    IKImageBrowserGroupStyleKey: @(IKGroupDisclosureStyle),
+                                    IKImageBrowserGroupTitleKey: [objects[x - 1] valueForKeyPath:stringKeyForGroupTag(currentGroup)],
+                                    IKImageBrowserGroupRangeKey: [NSValue valueWithRange:NSMakeRange(lastIdx, x - lastIdx)]
+                                    }];
+                lastObject = value;
+                lastIdx = x;
             }
-            
-            [groups addObject:@{
-                                IKImageBrowserGroupStyleKey: @(IKGroupDisclosureStyle),
-                                IKImageBrowserGroupTitleKey: [objects[start] valueForKeyPath:stringKeyForGroupTag(sender.selectedTag)],
-                                IKImageBrowserGroupRangeKey: [NSValue valueWithRange:NSMakeRange(start, nextStart - start)]
-                                }];
         }
+        
         self.groups = groups;
     } else {
+    reset:
         self.groups = nil;
-        self.sortDescriptors = self.originalSortDescriptors;
-        [self.renditionsArrayController rearrangeObjects];
+        if (refresh)
+            self.renditionsArrayController.sortDescriptors = self.originalSortDescriptors;
     }
-    [self.renditionBrowser reloadData];
+    
+    if (refresh)
+        [self.renditionsArrayController rearrangeObjects];
+    else {
+        [self.renditionBrowser reloadData];
+    }
 }
 
 - (IBAction)zoomAnchorPressed:(NSButton *)sender {
@@ -153,7 +187,7 @@ static NSString *sanitizeToken(NSString *token) {
 // sorround any token with quotes for absolute matching (no fuzzy matching)
 - (IBAction)searchRenditions:(NSSearchField *)sender {
     if (sender.stringValue.length < 2) {
-        self.filterPredicate = nil;
+        self.renditionsArrayController.filterPredicate = nil;
         return;
     }
     
@@ -213,7 +247,7 @@ static NSString *sanitizeToken(NSString *token) {
         [predicates addObject:predicate];
     }
     
-    self.filterPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
+    self.renditionsArrayController.filterPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
 }
 
 #pragma mark - IKImageBrowserViewDataSource

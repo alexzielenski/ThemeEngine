@@ -137,14 +137,14 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                      pixelsWide:64
-                                                      pixelsHigh:64
+                                                      pixelsWide:32
+                                                      pixelsHigh:32
                                                    bitsPerSample:8
                                                  samplesPerPixel:4
                                                         hasAlpha:YES
                                                         isPlanar:NO
                                                   colorSpaceName:NSDeviceRGBColorSpace
-                                                     bytesPerRow:4 * 64
+                                                     bytesPerRow:4 * 32
                                                     bitsPerPixel:32];
         NSGraphicsContext *ctx = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
         
@@ -153,7 +153,7 @@
         CGPoint positions[2];
         CGSize advances[2];
         
-        CTFontRef font = CTFontCreateWithName(CFSTR("HelveticaNeue-Medium"), 50.0, NULL);
+        CTFontRef font = CTFontCreateWithName(CFSTR("HelveticaNeue-Medium"), 18.0, NULL);
         CTFontGetGlyphsForCharacters(font, chars, glyphs, 2);
         CTFontGetAdvancesForGlyphs(font, kCTFontOrientationDefault, glyphs, advances, 2);
         
@@ -166,9 +166,9 @@
         }
         
         positions[0].x += rep.pixelsWide / 2 - position.x / 2;
-        positions[0].y += rep.pixelsHigh / 2 - position.y / 2 - 18;
+        positions[0].y += rep.pixelsHigh / 2 - position.y / 2 - 6;
         positions[1].x += rep.pixelsWide / 2 - position.x / 2;
-        positions[1].y += rep.pixelsHigh / 2 - position.y / 2 - 18;
+        positions[1].y += rep.pixelsHigh / 2 - position.y / 2 - 6;
         
         CTFontDrawGlyphs(font, glyphs, positions, 2, ctx.graphicsPort);
     });

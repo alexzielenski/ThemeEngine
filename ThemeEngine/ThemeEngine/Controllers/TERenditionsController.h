@@ -11,13 +11,11 @@
 #import "TEInspectorController.h"
 
 @interface TERenditionsController : NSViewController
-@property (strong) NSArray *sortDescriptors;
-@property (strong) NSPredicate *filterPredicate;
 @property (weak) IBOutlet NSArrayController *renditionsArrayController;
 @property (weak) IBOutlet IKImageBrowserView *renditionBrowser;
 @property (weak) IBOutlet NSSlider *zoomSlider;
 @property (weak) IBOutlet TEInspectorController *inspectorController;
+@property (nonatomic, assign) NSInteger currentGroup;
 - (IBAction)zoomAnchorPressed:(NSButton *)sender;
 - (IBAction)searchRenditions:(NSSearchField *)sender;
-- (IBAction)changeGroup:(NSPopUpButton *)sender;
 @end
