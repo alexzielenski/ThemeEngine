@@ -16,7 +16,6 @@
 @end
 
 @implementation TKGradientOpacityStop
-@dynamic opacity, leadOutOpacity;
 - (instancetype)init {
     if ((self = [super init])) {
         self.opacityStop = YES;
@@ -73,7 +72,6 @@
 @end
 
 @implementation TKGradientColorStop
-@dynamic color;
 - (instancetype)init {
     if ((self = [super init])) {
         self.colorStop = YES;
@@ -139,6 +137,8 @@
 
 @implementation TKGradientStop
 @dynamic location;
+@dynamic color, leadOutColor;
+@dynamic opacity, leadOutOpacity;
 
 + (id)gradientStopWithCUIPSDGradientStop:(CUIPSDGradientStop *)stop {
     if (stop.isColorStop) {
@@ -178,14 +178,6 @@
     return stop;
 }
 
-- (instancetype)init {
-    if ((self = [super init])) {
-        self.midpointStop = YES;
-    }
-    
-    return self;
-}
-
 // Midpoints don't support this feature
 - (void)setDoubleStop:(BOOL)doubleStop {}
 
@@ -196,5 +188,27 @@
 - (void)setLocation:(CGFloat)location {
     self.backingStop.location = location;
 }
+
+// For subclasses
+- (NSColor *)color {
+    return nil;
+}
+
+- (CGFloat)opacity {
+    return 0.0;
+}
+
+- (NSColor *)leadOutColor {
+    return nil;
+}
+
+- (CGFloat)leadOutOpacity {
+    return 0.0;
+}
+
+- (void)setColor:(NSColor *)color {}
+- (void)setLeadOutColor:(NSColor *)leadOutColor {}
+- (void)setLeadOutOpacity:(CGFloat)leadOutOpacity {}
+- (void)setOpacity:(CGFloat)opacity {}
 
 @end
