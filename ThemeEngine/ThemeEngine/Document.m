@@ -60,23 +60,4 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
     return YES;
 }
 
-- (IBAction)toggleSidebar:(NSSegmentedControl *)sender {
-    self.leftPane.hidden = ![sender isSelectedForSegment:0];
-    self.rightPane.hidden = ![sender isSelectedForSegment:1];
-    [self.splitView adjustSubviews];
-    
-    [self.splitView setNeedsDisplay:YES];
-    self.splitView.frame = self.splitView.frame;
-}
-
-#pragma mark - NSSplitViewDelegate
-
-- (BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview {
-    return subview == self.leftPane || subview == self.rightPane;
-}
-
-- (BOOL)splitView:(NSSplitView *)splitView shouldHideDividerAtIndex:(NSInteger)dividerIndex {
-    return YES;
-}
-
 @end

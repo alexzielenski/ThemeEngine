@@ -11,12 +11,5 @@
 
 @interface Document : NSDocument
 @property (strong) TKAssetStorage *assetStorage;
-@property (weak) IBOutlet NSSplitView *splitView;
-
-@property (weak) IBOutlet NSView *leftPane;
-@property (weak) IBOutlet NSView *rightPane;
-@property (weak) IBOutlet NSSegmentedControl *paneControl;
-
-- (IBAction)toggleSidebar:(NSSegmentedControl *)sender;
 @end
 

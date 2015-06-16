@@ -33,16 +33,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    NSView *view = self.view;
+    
+    NSView *view = self.contentView;
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
-    self.scrollView.documentView = self.view;
+    self.scrollView.documentView = view;
     [self.scrollView.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[view]-0-|"
                                                                                         options:0
                                                                                         metrics:nil
                                                                                           views:NSDictionaryOfVariableBindings(view)]];
     
-    [(NSStackView *)self.view addView:self.attributesInspector.view inGravity:NSStackViewGravityTop];
+    [(NSStackView *)self.contentView addView:self.attributesInspector.view inGravity:NSStackViewGravityTop];
 }
 
 @end

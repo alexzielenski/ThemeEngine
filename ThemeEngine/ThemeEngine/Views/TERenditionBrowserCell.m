@@ -30,7 +30,7 @@ static NSURL *TKRenditionTemporaryDirectoryURL;
 - (NSURL *)previewItemURL {
     TKRendition *rendition = self.representedItem;
     // Save the Image to a temporary directory
-    NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@_%lu.tiff", rendition.name, rendition.changeCount]
+    NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@_%@_%lu.tiff", rendition.name, rendition.renditionHash, rendition.changeCount]
                                      relativeToURL:TKRenditionTemporaryDirectoryURL];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:destinationURL.path])

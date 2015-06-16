@@ -9,5 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "TEInspectorDetailController.h"
 @interface TEInspectorController : NSViewController
+@property IBOutlet NSView *contentView;
 @property (strong) IBOutlet TEInspectorDetailController *attributesInspector;
 @end

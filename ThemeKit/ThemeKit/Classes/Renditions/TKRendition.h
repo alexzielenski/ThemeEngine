@@ -34,6 +34,8 @@
 @property (readonly) CoreThemeLayer layer;
 @property (readonly) CGFloat scale;
 
+// Hash unique to this rendition key
+- (NSString *)renditionHash;
 - (void)computePreviewImageIfNecessary;
 
 @end

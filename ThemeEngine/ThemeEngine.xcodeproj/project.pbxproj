@@ -18,6 +18,7 @@
 		FA606C171B2C1D2100F24960 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA606C151B2C1D2100F24960 /* Document.xib */; };
 		FA606C191B2C1D2100F24960 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA606C181B2C1D2100F24960 /* Assets.xcassets */; };
 		FA606C1C1B2C1D2100F24960 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA606C1A1B2C1D2100F24960 /* MainMenu.xib */; };
+		FA6E01341B301F1A00209DE2 /* TEDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6E01331B301F1A00209DE2 /* TEDocumentViewController.m */; };
 		FA81475D1B2D95D100881F36 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA81475C1B2D95D100881F36 /* Quartz.framework */; };
 		FAA2B1BE1B2E023900D70473 /* TKRendition+ImageBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA2B1BD1B2E023900D70473 /* TKRendition+ImageBrowser.m */; };
 		FAA54F691B2E211F00EA15F2 /* RBLScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA54F681B2E211F00EA15F2 /* RBLScrollView.m */; };
@@ -66,6 +67,8 @@
 		FA606C1B1B2C1D2100F24960 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		FA606C1D1B2C1D2100F24960 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA606C2B1B2C1D5A00F24960 /* CoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreUI.framework; path = ../../../../../../../System/Library/PrivateFrameworks/CoreUI.framework; sourceTree = "<group>"; };
+		FA6E01321B301F1A00209DE2 /* TEDocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEDocumentViewController.h; path = Controllers/TEDocumentViewController.h; sourceTree = "<group>"; };
+		FA6E01331B301F1A00209DE2 /* TEDocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEDocumentViewController.m; path = Controllers/TEDocumentViewController.m; sourceTree = "<group>"; };
 		FA81475C1B2D95D100881F36 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		FAA2B1BC1B2E023900D70473 /* TKRendition+ImageBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKRendition+ImageBrowser.h"; path = "Categories/TKRendition+ImageBrowser.h"; sourceTree = "<group>"; };
 		FAA2B1BD1B2E023900D70473 /* TKRendition+ImageBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKRendition+ImageBrowser.m"; path = "Categories/TKRendition+ImageBrowser.m"; sourceTree = "<group>"; };
@@ -200,6 +203,8 @@
 		FABEAED21B2F714A00B02805 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FA6E01321B301F1A00209DE2 /* TEDocumentViewController.h */,
+				FA6E01331B301F1A00209DE2 /* TEDocumentViewController.m */,
 				FAA54F731B2E4DB700EA15F2 /* TEElementsController.h */,
 				FAA54F741B2E4DB700EA15F2 /* TEElementsController.m */,
 				FAA54F761B2E4DC700EA15F2 /* TERenditionsController.h */,
@@ -301,6 +306,7 @@
 				FABEAEC81B2F70ED00B02805 /* TEInspectorController.m in Sources */,
 				FA606C0E1B2C1D2100F24960 /* AppDelegate.m in Sources */,
 				FAA54F6F1B2E34B300EA15F2 /* TETexturedScope.m in Sources */,
+				FA6E01341B301F1A00209DE2 /* TEDocumentViewController.m in Sources */,
 				FAA54F691B2E211F00EA15F2 /* RBLScrollView.m in Sources */,
 				FA59C2CB1B2E893F00EF027D /* TEImageBrowserView.m in Sources */,
 				FAA54F791B2E4DC700EA15F2 /* TERenditionsController.m in Sources */,

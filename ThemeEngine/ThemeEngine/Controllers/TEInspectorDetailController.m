@@ -22,7 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
-    self.view.wantsLayer = YES;
 }
 
 - (void)toggleHide:(NSButton *)sender {
@@ -67,8 +66,6 @@
     if (inspectorView != _inspectorView) {
         [self.inspectorView removeFromSuperview];
         _inspectorView = inspectorView;
-        
-        self.inspectorView.wantsLayer = YES;
         
         [self.view addSubview:self.inspectorView];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_inspectorView]|"
