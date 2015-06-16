@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "FX.png",
+      "filename" : "Box 1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "FX-1.png",
+      "filename" : "Box 1-1.png",
       "scale" : "2x"
     },
     {

@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSSplitViewItem *elementsItem   = [NSSplitViewItem sidebarWithViewController:self.elementsController];
+    NSSplitViewItem *elementsItem   = [NSSplitViewItem splitViewItemWithViewController:self.elementsController];
     NSSplitViewItem *renditionsItem = [NSSplitViewItem splitViewItemWithViewController:self.renditionsController];
     NSSplitViewItem *inspectorItem  = [NSSplitViewItem splitViewItemWithViewController:self.inspectorController];
 
@@ -26,10 +26,12 @@
     [self addSplitViewItem:inspectorItem];
 
     renditionsItem.holdingPriority = NSLayoutPriorityDefaultLow - 1;
-    
+
+    elementsItem.preferredThicknessFraction = 0.24;
     renditionsItem.preferredThicknessFraction = 0.6;
     inspectorItem.preferredThicknessFraction = 0.24;
     
+    elementsItem.minimumThickness = 160.0;
     inspectorItem.minimumThickness = 230.0;
     
     elementsItem.canCollapse   = YES;

@@ -19,5 +19,5 @@
 @property (weak) IBOutlet TEInspectorController *inspectorController;
 - (IBAction)zoomAnchorPressed:(NSButton *)sender;
 - (IBAction)searchRenditions:(NSSearchField *)sender;
-
+- (IBAction)changeGroup:(NSPopUpButton *)sender;
 @end

@@ -14,4 +14,8 @@
     return [NSColor grayColor];
 }
 
+- (BOOL)mouseDownCanMoveWindow {
+    return YES;
+}
+
 @end

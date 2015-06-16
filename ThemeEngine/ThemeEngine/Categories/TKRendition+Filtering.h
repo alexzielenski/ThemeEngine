@@ -11,6 +11,9 @@
 @interface TKRendition (Filtering)
 @property (readonly) BOOL isColor;
 @property (readonly) BOOL isEffect;
+@property (readonly) BOOL isRawData;
+@property (readonly) BOOL isBitmap;
+
 @property (readonly) NSSet *keywords;
 
 @property (readonly) NSString *sizeString;

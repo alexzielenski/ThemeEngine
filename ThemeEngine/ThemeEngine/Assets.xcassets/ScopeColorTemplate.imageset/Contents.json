@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "ScopeColorTemplate@2x.png",
+      "filename" : "Dropper.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ScopeColorTemplate.png",
+      "filename" : "Dropper-1.png",
       "scale" : "2x"
     },
     {

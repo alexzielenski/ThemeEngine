@@ -11,7 +11,7 @@
 #import <ThemeKit/TKTypes.h>
 
 @implementation TKRendition (Filtering)
-@dynamic isColor, isEffect;
+@dynamic isColor, isEffect, isRawData;
 @dynamic sizeString, typeString, stateString, layerString, scaleString, idiomString, valueString, presentationStateString, directionString;
 - (BOOL)isColor {
     return [self isKindOfClass:[TKColorRendition class]];
@@ -19,6 +19,14 @@
 
 - (BOOL)isEffect {
     return [self isKindOfClass:[TKEffectRendition class]];
+}
+
+- (BOOL)isRawData {
+    return [self isKindOfClass:[TKRawDataRendition class]];
+}
+
+- (BOOL)isBitmap {
+    return [self isKindOfClass:[TKBitmapRendition class]];
 }
 
 - (NSSet *)keywords {

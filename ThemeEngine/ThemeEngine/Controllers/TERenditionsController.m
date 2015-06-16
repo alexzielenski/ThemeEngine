@@ -9,8 +9,55 @@
 #import "TERenditionsController.h"
 #import <ThemeKit/TKRendition.h>
 
-@interface TERenditionsController ()
+static NSString *keyForGroupTag(NSInteger tag) {
+    switch (tag) {
+        case 0:
+            return @"element.name";
+        case 1:
+            return @"type";
+        case 2:
+            return @"state";
+        case 3:
+            return @"scale";
+        case 4:
+            return @"size";
+        case 5:
+            return @"value";
+        case 6:
+            return @"layer";
+        case 7:
+            return @"idiom";
+        default:
+            return nil;
+    }
+}
 
+static NSString *stringKeyForGroupTag(NSInteger tag) {
+    switch (tag) {
+        case 0:
+            return @"element.name";
+        case 1:
+            return @"typeString";
+        case 2:
+            return @"stateString";
+        case 3:
+            return @"scaleString";
+        case 4:
+            return @"sizeString";
+        case 5:
+            return @"valueString";
+        case 6:
+            return @"layerString";
+        case 7:
+            return @"idiomString";
+        default:
+            return nil;
+    }
+}
+
+@interface TERenditionsController ()
+@property (strong) NSArray *groups;
+@property (strong) NSArray *originalSortDescriptors;
 @end
 
 @implementation TERenditionsController
@@ -26,6 +73,7 @@
                              [NSSortDescriptor sortDescriptorWithKey:@"size" ascending:NO],
                              [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:NO selector:@selector(caseInsensitiveCompare:)]
                              ];
+    self.originalSortDescriptors = self.sortDescriptors;
     
     [self.renditionBrowser bind:NSContentBinding
                        toObject:self.renditionsArrayController
@@ -33,6 +81,51 @@
                         options:nil];
     self.renditionBrowser.canControlQuickLookPanel = YES;
     self.inspectorController.representedObject = self.renditionsArrayController;
+}
+
+- (IBAction)changeGroup:(NSPopUpButton *)sender {
+    NSString *key = keyForGroupTag([sender selectedTag]);
+    if (key) {
+        // sort primarily by the group selected
+        NSMutableArray *groups = [NSMutableArray array];
+        self.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:key ascending:YES] ];
+        [self.renditionsArrayController rearrangeObjects];
+        NSArray *objects = self.renditionsArrayController.arrangedObjects;
+        
+        // This is faster than using valueForKeyPath on the array then looping again to get
+        // unique values with orderedSetWithArray:
+        NSMutableArray *values = [NSMutableArray array];
+        NSMutableOrderedSet *uniqueValues = [NSMutableOrderedSet orderedSet];
+        for (NSUInteger x = 0; x < objects.count; x++) {
+            id value = [objects[x] valueForKeyPath:key];
+            [values addObject:value];
+            [uniqueValues addObject:value];
+        }
+        
+        NSUInteger nextStart = 0;
+        for (NSUInteger i = 0; i < uniqueValues.count; i++) {
+            NSUInteger start = nextStart;
+            
+            if (i + 1 < uniqueValues.count) {
+                id nextValue = uniqueValues[i + 1];
+                nextStart = [values indexOfObject:nextValue inRange:NSMakeRange(start, values.count - start)];
+            } else {
+                nextStart = values.count;
+            }
+            
+            [groups addObject:@{
+                                IKImageBrowserGroupStyleKey: @(IKGroupDisclosureStyle),
+                                IKImageBrowserGroupTitleKey: [objects[start] valueForKeyPath:stringKeyForGroupTag(sender.selectedTag)],
+                                IKImageBrowserGroupRangeKey: [NSValue valueWithRange:NSMakeRange(start, nextStart - start)]
+                                }];
+        }
+        self.groups = groups;
+    } else {
+        self.groups = nil;
+        self.sortDescriptors = self.originalSortDescriptors;
+        [self.renditionsArrayController rearrangeObjects];
+    }
+    [self.renditionBrowser reloadData];
 }
 
 - (IBAction)zoomAnchorPressed:(NSButton *)sender {
@@ -121,6 +214,16 @@ static NSString *sanitizeToken(NSString *token) {
     }
     
     self.filterPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
+}
+
+#pragma mark - IKImageBrowserViewDataSource
+
+- (NSUInteger)numberOfGroupsInImageBrowser:(IKImageBrowserView *)aBrowser {
+    return self.groups.count;
+}
+
+- (NSDictionary *)imageBrowser:(IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index {
+    return self.groups[index];
 }
 
 @end

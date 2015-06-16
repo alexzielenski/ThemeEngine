@@ -18,9 +18,10 @@ static NSArray<NSArray *> *filterPredicates = nil;
 
 + (void)initialize {
     filterPredicates = @[
-                         @[ [NSImage imageNamed:@"ScopeMediaTemplate"], [NSPredicate predicateWithFormat:@"NONE renditions.isColor == YES && NONE renditions.isEffect == YES"] ],
-                         @[ [NSImage imageNamed:@"ScopeColorTemplate"], [NSPredicate predicateWithFormat:@"ALL renditions.isColor == YES"] ],
-                         @[ [NSImage imageNamed:@"ScopeFXTemplate"], [NSPredicate predicateWithFormat:@"ALL renditions.isEffect == YES"] ]
+                         @[ [NSImage imageNamed:@"ScopeMediaTemplate"], [NSPredicate predicateWithFormat:@"NONE renditions.isColor == YES && NONE renditions.isEffect == YES && NONE renditions.isRawData == YES"], @"Bitmaps" ],
+                         @[ [NSImage imageNamed:@"ScopeColorTemplate"], [NSPredicate predicateWithFormat:@"ALL renditions.isColor == YES"], @"Colors" ],
+                         @[ [NSImage imageNamed:@"ScopeFXTemplate"], [NSPredicate predicateWithFormat:@"ALL renditions.isEffect == YES"], @"Effects" ],
+                         @[ [NSImage imageNamed:@"ScopeRawDataTemplate"], [NSPredicate predicateWithFormat:@"ALL renditions.isRawData == YES"], @"Raw Data" ]
                          ];
 }
 
@@ -37,6 +38,8 @@ static NSArray<NSArray *> *filterPredicates = nil;
             [self.elementScope setLabel:value forSegment:i];
         else
             [self.elementScope setImage:value forSegment:i];
+        
+        [(NSSegmentedCell *)self.elementScope.cell setToolTip: filterPredicates[i][2] forSegment: i];
     }
     
     // initialize default value
