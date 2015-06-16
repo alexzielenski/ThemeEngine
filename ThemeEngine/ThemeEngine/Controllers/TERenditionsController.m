@@ -58,6 +58,7 @@ static NSString *stringKeyForGroupTag(NSInteger tag) {
 @interface TERenditionsController ()
 @property (strong) NSArray *groups;
 @property (strong) NSArray *originalSortDescriptors;
+@property (assign) BOOL groupCalculationDisabled;
 @end
 
 const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
@@ -90,10 +91,10 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
                                         options:0
                                         context:&REEVALUATEGROUPS];
 }
-
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
     if (context == &REEVALUATEGROUPS) {
-        self.currentGroup = self.currentGroup;
+        if (!self.groupCalculationDisabled)
+            self.currentGroup = self.currentGroup;
     } else {
         [super observeValueForKeyPath:keyPath
                              ofObject:object
@@ -105,27 +106,24 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
 - (void)setCurrentGroup:(NSInteger)currentGroup {
     // Use this so we can observe arranged objects and regroup everytime it changes
     // without triggering an infinite loop
-    BOOL refresh = _currentGroup != currentGroup;
     _currentGroup = currentGroup;
     
     NSString *key = keyForGroupTag(currentGroup);
     if (key) {
+        self.groupCalculationDisabled = YES;
+        self.renditionsArrayController.sortDescriptors =
+            @[ [NSSortDescriptor sortDescriptorWithKey:key ascending:YES] ];
+        self.groupCalculationDisabled = NO;
+        
+        // Come back after it's been resorted
         // sort primarily by the group selected
         NSMutableArray *groups = [NSMutableArray array];
-        
-        if (refresh) {
-            self.renditionsArrayController.sortDescriptors =
-            @[ [NSSortDescriptor sortDescriptorWithKey:key ascending:YES] ];
-            // Come back after it's been resorted
-            return;
-        }
         
         NSArray *objects = self.renditionsArrayController.arrangedObjects;
         if (objects.count == 0) {
             goto reset;
         }
         
-        NSLog(@"regroup: %ld", objects.count);
         // Loop through every element
         // Test to see if this current item is different from the last unique one we found
         // if so, create the group
@@ -148,17 +146,17 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
         }
         
         self.groups = groups;
+        
+        self.groupCalculationDisabled = YES;
+        [self.renditionBrowser reloadData];
+        self.groupCalculationDisabled = NO;
     } else {
     reset:
         self.groups = nil;
-        if (refresh)
-            self.renditionsArrayController.sortDescriptors = self.originalSortDescriptors;
-    }
-    
-    if (refresh)
-        [self.renditionsArrayController rearrangeObjects];
-    else {
-        [self.renditionBrowser reloadData];
+        self.groupCalculationDisabled = YES;
+        self.renditionsArrayController.sortDescriptors = self.originalSortDescriptors;
+        self.groupCalculationDisabled = NO;
+        return;
     }
 }
 

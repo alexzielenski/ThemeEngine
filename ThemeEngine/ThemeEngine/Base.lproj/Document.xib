@@ -284,8 +284,8 @@
                                 </userDefinedRuntimeAttributes>
                             </textFieldCell>
                         </textField>
-                        <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YXj-cd-YIj">
-                            <rect key="frame" x="344" y="10" width="12" height="12"/>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YXj-cd-YIj">
+                            <rect key="frame" x="344" y="11" width="12" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="4ea-J6-6Wi"/>
                                 <constraint firstAttribute="width" constant="12" id="aWH-hW-nSd"/>
@@ -299,8 +299,8 @@
                                 <action selector="zoomAnchorPressed:" target="DYE-2D-1ip" id="Y94-Hw-ZcJ"/>
                             </connections>
                         </button>
-                        <button verticalHuggingPriority="750" misplaced="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-jj-xg3">
-                            <rect key="frame" x="464" y="8" width="16" height="16"/>
+                        <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-jj-xg3">
+                            <rect key="frame" x="464" y="9" width="16" height="16"/>
                             <animations/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SliderAnchorTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="Rr4-tC-JlR">
                                 <behavior key="behavior" lightByContents="YES"/>
@@ -315,8 +315,8 @@
                                 <action selector="zoomAnchorPressed:" target="DYE-2D-1ip" id="Voy-yP-pJL"/>
                             </connections>
                         </button>
-                        <slider verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4dv-Sn-CWt">
-                            <rect key="frame" x="362" y="5" width="96" height="20"/>
+                        <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4dv-Sn-CWt">
+                            <rect key="frame" x="362" y="6" width="96" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="92" id="C1j-Vu-sK4"/>
                             </constraints>
