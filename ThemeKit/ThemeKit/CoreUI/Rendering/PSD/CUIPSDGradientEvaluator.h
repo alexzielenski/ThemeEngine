@@ -5,6 +5,15 @@
  */
 
 #import "TKStructs.h"
+#import <CoreUI/Rendering/PSD/CUIPSDGradientDoubleColorStop.h>
+#import <CoreUI/Rendering/PSD/CUIPSDGradientDoubleOpacityStop.h>
+
+struct _pgeFlags {
+    unsigned int colorEdgePixel:2;
+    unsigned int opacityEdgePixel:2;
+    unsigned int isDithered:1;
+    unsigned int reserved:3;
+};
 
 @interface CUIPSDGradientEvaluator : NSObject <NSCoding, NSCopying>
 {
@@ -16,20 +25,15 @@
     struct _psdGradientColor fillColor;
     int blendMode;
     double singlePixelDistance;
-    struct {
-        unsigned int colorEdgePixel:2;
-        unsigned int opacityEdgePixel:2;
-        unsigned int isDithered:1;
-        unsigned int reserved:3;
-    } pgeFlags;
+    struct _pgeFlags pgeFlags;
 }
 
-@property(nonatomic) int blendMode; // @synthesize blendMode;
-- (void)customizeForDistance:(CGFloat)arg1;
-- (void)setFillCoefficient:(CGFloat)arg1;
-- (void)setSmoothingCoefficient:(CGFloat)arg1;
-- (void)setOpacityStops:(id)arg1 midpoints:(id)arg2;
-- (void)setColorStops:(id)arg1 midpoints:(id)arg2;
+@property(nonatomic) CGBlendMode blendMode; // @synthesize blendMode;
+- (void)customizeForDistance:(CGFloat)distance;
+- (void)setFillCoefficient:(CGFloat)fillCoefficient;
+- (void)setSmoothingCoefficient:(CGFloat)smoothingCoefficient;
+- (void)setOpacityStops:(NSArray<__kindof CUIPSDGradientOpacityStop *> *)stops midpoints:(NSArray<NSNumber *> *)points;
+- (void)setColorStops:(NSArray<__kindof CUIPSDGradientColorStop *> *)stops midpoints:(NSArray<NSNumber *> *)points;
 
 - (BOOL)hasDoubleOpacityStops;
 - (BOOL)hasDoubleColorStops;
@@ -40,10 +44,10 @@
 - (BOOL)isDithered;
 - (CGFloat)smoothingCoefficient;
 
-- (id)opacityMidpointLocations;
-- (id)opacityStops;
-- (id)colorMidpointLocations;
-- (id)colorStops;
+- (NSArray<NSNumber *> *)opacityMidpointLocations;
+- (NSArray<__kindof CUIPSDGradientOpacityStop *> *)opacityStops;
+- (NSArray<NSNumber *> *)colorMidpointLocations;
+- (NSArray<__kindof CUIPSDGradientColorStop *> *)colorStops;
 
 - (struct _psdGradientColor)_smoothedGradientColorAtLocation:(CGFloat)arg1;
 - (CGFloat)_smoothedInterpolationOfLocation:(CGFloat)arg1 betweenLower:(CGFloat)arg2 upper:(CGFloat)arg3 scaledMidpoint:(CGFloat)arg4;

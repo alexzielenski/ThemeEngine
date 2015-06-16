@@ -11,6 +11,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <objc/runtime.h>
+#import "TKStructs.h"
 
 #define TKKey(KEY) NSStringFromSelector(@selector(KEY))
 #define TKClass(NAME) objc_getClass(#NAME)
@@ -24,5 +25,8 @@ extern void *TKIvarPointer(id self, const char *name);
 
 @class TKRendition;
 extern NSString *TKElementNameForRendition(TKRendition *rendition);
+
+extern void NSColorToPSDColor(NSColor *color, struct _psdGradientColor *psdColor);
+extern NSColor *PSDColorToNSColor(struct _psdGradientColor color);
 
 #endif /* TKHelpers_h */

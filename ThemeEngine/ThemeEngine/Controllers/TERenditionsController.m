@@ -262,4 +262,9 @@ static NSString *sanitizeToken(NSString *token) {
     return self.groups[index];
 }
 
+- (NSUInteger)imageBrowser:(IKImageBrowserView *)aBrowser writeItemsAtIndexes:(NSIndexSet *)itemIndexes toPasteboard:(NSPasteboard *)pasteboard {
+    NSLog(@"write");
+    return 0;
+}
+
 @end

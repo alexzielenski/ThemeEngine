@@ -63,7 +63,7 @@
 }
 
 - (BOOL)splitView:(NSSplitView *)splitView shouldHideDividerAtIndex:(NSInteger)dividerIndex {
-    return dividerIndex == 0 || dividerIndex == 2 ||
+    return /* DISABLES CODE */ (YES) ||
     [super splitView:splitView shouldHideDividerAtIndex:dividerIndex];
 }
 

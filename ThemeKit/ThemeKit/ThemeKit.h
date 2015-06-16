@@ -27,5 +27,7 @@ FOUNDATION_EXPORT const unsigned char ThemeKitVersionString[];
 #import <ThemeKit/TKRawDataRendition.h>
 
 #import <ThemeKit/TKGradient.h>
+#import <ThemeKit/TKGradientStop.h>
+
 #import <ThemeKit/TKEffectPreset.h>
 #import <ThemeKit/TKEffect.h>

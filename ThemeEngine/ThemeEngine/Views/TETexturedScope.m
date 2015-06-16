@@ -9,7 +9,7 @@
 #import "TETexturedScope.h"
 
 static NSGradient *selectionGradient = nil;
-
+#import <objc/runtime.h>
 
 @interface TETexturedCell : NSSegmentedCell
 @end
@@ -31,7 +31,6 @@ static NSGradient *selectionGradient = nil;
 }
 
 @end
-#import <objc/runtime.h>
 @implementation TETexturedCell
 + (void)initialize {
     selectionGradient =  [[NSGradient alloc] initWithStartingColor:[[NSColor blackColor] colorWithAlphaComponent:0.5]

@@ -16,7 +16,7 @@
 @property (readwrite, copy) NSString *name;
 @end
 
-@implementation TKElement
+@implementation TKElement 
 
 + (instancetype)elementWithRenditions:(NSSet<TKRendition *> *)renditions name:(NSString *)name storage:(TKAssetStorage *)storage {
     return [[[self class] alloc] initWithRenditions:renditions name:name storage:storage];

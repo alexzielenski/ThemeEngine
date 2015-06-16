@@ -42,6 +42,9 @@
 		FA606C761B2C9E5400F24960 /* NSColor+CoreUI.h in Headers */ = {isa = PBXBuildFile; fileRef = FA606C741B2C9E5400F24960 /* NSColor+CoreUI.h */; };
 		FA606C771B2C9E5400F24960 /* NSColor+CoreUI.m in Sources */ = {isa = PBXBuildFile; fileRef = FA606C751B2C9E5400F24960 /* NSColor+CoreUI.m */; };
 		FA6E012B1B2FFB9800209DE2 /* CUIShapeEffectStack.h in Headers */ = {isa = PBXBuildFile; fileRef = FA6E012A1B2FFB9800209DE2 /* CUIShapeEffectStack.h */; };
+		FA80CDFC1B309542005E5DD2 /* TKGradientStop.h in Headers */ = {isa = PBXBuildFile; fileRef = FA80CDFA1B309542005E5DD2 /* TKGradientStop.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA80CDFD1B309542005E5DD2 /* TKGradientStop.m in Sources */ = {isa = PBXBuildFile; fileRef = FA80CDFB1B309542005E5DD2 /* TKGradientStop.m */; };
+		FA80CE081B309756005E5DD2 /* TKGradientStop+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = FA80CE061B309756005E5DD2 /* TKGradientStop+Private.h */; };
 		FAA54F5B1B2E0F6900EA15F2 /* TKGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA54F591B2E0F6900EA15F2 /* TKGradient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAA54F5C1B2E0F6900EA15F2 /* TKGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA54F5A1B2E0F6900EA15F2 /* TKGradient.m */; };
 		FAA54F601B2E0F8C00EA15F2 /* TKGradient+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA54F5F1B2E0F8C00EA15F2 /* TKGradient+Private.h */; };
@@ -132,6 +135,9 @@
 		FA606C741B2C9E5400F24960 /* NSColor+CoreUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+CoreUI.h"; path = "Categories/NSColor+CoreUI.h"; sourceTree = "<group>"; };
 		FA606C751B2C9E5400F24960 /* NSColor+CoreUI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+CoreUI.m"; path = "Categories/NSColor+CoreUI.m"; sourceTree = "<group>"; };
 		FA6E012A1B2FFB9800209DE2 /* CUIShapeEffectStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUIShapeEffectStack.h; sourceTree = "<group>"; };
+		FA80CDFA1B309542005E5DD2 /* TKGradientStop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TKGradientStop.h; path = Models/TKGradientStop.h; sourceTree = "<group>"; };
+		FA80CDFB1B309542005E5DD2 /* TKGradientStop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKGradientStop.m; path = Models/TKGradientStop.m; sourceTree = "<group>"; };
+		FA80CE061B309756005E5DD2 /* TKGradientStop+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKGradientStop+Private.h"; path = "Models/TKGradientStop+Private.h"; sourceTree = "<group>"; };
 		FAA54F591B2E0F6900EA15F2 /* TKGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TKGradient.h; path = Models/TKGradient.h; sourceTree = "<group>"; };
 		FAA54F5A1B2E0F6900EA15F2 /* TKGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKGradient.m; path = Models/TKGradient.m; sourceTree = "<group>"; };
 		FAA54F5F1B2E0F8C00EA15F2 /* TKGradient+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKGradient+Private.h"; path = "Models/TKGradient+Private.h"; sourceTree = "<group>"; };
@@ -319,6 +325,9 @@
 				FAA54F591B2E0F6900EA15F2 /* TKGradient.h */,
 				FAA54F5F1B2E0F8C00EA15F2 /* TKGradient+Private.h */,
 				FAA54F5A1B2E0F6900EA15F2 /* TKGradient.m */,
+				FA80CDFA1B309542005E5DD2 /* TKGradientStop.h */,
+				FA80CE061B309756005E5DD2 /* TKGradientStop+Private.h */,
+				FA80CDFB1B309542005E5DD2 /* TKGradientStop.m */,
 				FAA54F611B2E1A4B00EA15F2 /* TKEffectPreset.h */,
 				FAA54F651B2E1A5B00EA15F2 /* TKEffectPreset+Private.h */,
 				FAA54F621B2E1A4B00EA15F2 /* TKEffectPreset.m */,
@@ -398,6 +407,7 @@
 				FAA5C0751B2CD0E9007DEBA1 /* CUIRenditionSliceInformation.h in Headers */,
 				FA606C421B2C275400F24960 /* PrefixHeader.pch in Headers */,
 				FA57E1831B2FEECA0032B765 /* TKEffect+Private.h in Headers */,
+				FA80CE081B309756005E5DD2 /* TKGradientStop+Private.h in Headers */,
 				FA606C471B2C2ADA00F24960 /* TKMutableAssetStorage.h in Headers */,
 				FA606C761B2C9E5400F24960 /* NSColor+CoreUI.h in Headers */,
 				FAA5C0741B2CD0E9007DEBA1 /* CUIRenditionMetrics.h in Headers */,
@@ -405,6 +415,7 @@
 				FAA5C07A1B2CD30E007DEBA1 /* CUIThemeGradientDrawing-Protocol.h in Headers */,
 				FAA5C0891B2CD81B007DEBA1 /* CUIPSDGradientEvaluator.h in Headers */,
 				FA606C601B2C8FAD00F24960 /* TKElement+Private.h in Headers */,
+				FA80CDFC1B309542005E5DD2 /* TKGradientStop.h in Headers */,
 				FA606C521B2C320900F24960 /* CUIThemeRendition.h in Headers */,
 				FAA5C0851B2CD81B007DEBA1 /* CUIPSDGradient.h in Headers */,
 				FAA5C0561B2CCF04007DEBA1 /* TKGradientRendition.h in Headers */,
@@ -545,6 +556,7 @@
 				FA606C771B2C9E5400F24960 /* NSColor+CoreUI.m in Sources */,
 				FAA5C05F1B2CCFB5007DEBA1 /* TKEffectRendition.m in Sources */,
 				FA606C371B2C1E1000F24960 /* TKAssetStorage.m in Sources */,
+				FA80CDFD1B309542005E5DD2 /* TKGradientStop.m in Sources */,
 				FA606C681B2C9BF200F24960 /* TKColorRendition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

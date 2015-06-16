@@ -35,11 +35,11 @@
 - (CGFloat)smoothingCoefficient;
 
 - (NSArray<NSNumber *> *)opacityLocations;
-- (NSArray *)opacityStops;
+- (NSArray<NSNumber *> *)opacityStops;
 - (NSArray<NSNUmber *> *)colorLocations;
-- (NSArray *)colorStops;
+- (NSArray<CUIColor *> *)colorStops;
 
-- (id)_colorFromPSDGradientColor:(struct _psdGradientColor)arg1;
+- (CUIColor *)_colorFromPSDGradientColor:(struct _psdGradientColor)arg1;
 
 - (instancetype)initWithColors:(NSArray *)colors
                 colorlocations:(NSArray *)colorLocations
@@ -64,9 +64,9 @@
 
 - (instancetype)_initWithGradientEvaluator:(CUIPSDGradientEvaluator *)evaluator colorSpace:(CGColorSpaceRef)colorSpace;
 
-- (id)_psdGradientColorStopsWithColors:(NSArray *)colors locations:(NSArray *)locations colorSpace:(CGColorSpaceRef)colorSpace;
+- (NSArray<__kindof CUIPSDGradientColorStop *> *)_psdGradientColorStopsWithColors:(NSArray *)colors locations:(NSArray *)locations colorSpace:(CGColorSpaceRef)colorSpace;
 - (struct _psdGradientColor)_psdGradientColorWithColor:(id)arg1 colorSpace:(CGColorSpaceRef)colorSpace;
-- (id)_psdGradientOpacityStopsWithOpacities:(NSArray *)opacities locations:(NSArray *)locations;
+- (NSArray<__kindof CUIPSDGradientOpacityStop *> *)_psdGradientOpacityStopsWithOpacities:(NSArray *)opacities locations:(NSArray *)locations;
 
 @end
 
