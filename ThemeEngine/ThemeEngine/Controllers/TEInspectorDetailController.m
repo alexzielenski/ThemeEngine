@@ -84,4 +84,8 @@
     }
 }
 
+- (NSStackViewVisibilityPriority)visibilityPriorityForInspectedObjects:(NSArray *)objects {
+    return NSStackViewVisibilityPriorityDetachOnlyIfNecessary;
+}
+
 @end

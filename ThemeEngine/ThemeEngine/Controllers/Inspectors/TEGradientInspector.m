@@ -7,6 +7,7 @@
 //
 
 #import "TEGradientInspector.h"
+#import <ThemeKit/TKGradientRendition.h>
 
 @interface TEGradientInspector ()
 
@@ -16,7 +17,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
+    [self.gradientEditor bind:@"gradient"
+                     toObject:self
+                  withKeyPath:@"inspectorController.representedObject.selection.gradient"
+                      options:@{ NSRaisesForNotApplicableKeysBindingOption: @(NO) }];
+}
+
+- (NSStackViewVisibilityPriority)visibilityPriorityForInspectedObjects:(NSArray *)objects {
+    if (objects.count != 1) {
+        return NSStackViewVisibilityPriorityNotVisible;
+    }
+    
+    id object = objects[0];
+    return [object isKindOfClass:[TKGradientRendition class]];
 }
 
 @end

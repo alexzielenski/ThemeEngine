@@ -13,6 +13,7 @@
 @property (weak) TEInspectorController *inspector;
 @property (nonatomic, strong) IBOutlet NSView *inspectorView;
 
+- (NSStackViewVisibilityPriority)visibilityPriorityForInspectedObjects:(NSArray *)objects;
 - (IBAction)toggleHide:(NSButton *)sender;
 
 @end

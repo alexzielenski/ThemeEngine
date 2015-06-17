@@ -149,7 +149,11 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="representedObject.selection.typeString" id="RCX-uP-dlz"/>
+                                        <binding destination="-2" name="value" keyPath="representedObject.selection.typeString" id="Ogm-7P-qYc">
+                                            <dictionary key="options">
+                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                            </dictionary>
+                                        </binding>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G6P-OZ-LqZ">
@@ -298,7 +302,7 @@
         <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="0.0" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="1000" verticalClippingResistancePriority="250" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xp3-9J-lYi">
             <rect key="frame" x="0.0" y="0.0" width="256" height="32"/>
             <subviews>
-                <customView horizontalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y1K-P5-Lck">
+                <customView horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y1K-P5-Lck">
                     <rect key="frame" x="1" y="0.0" width="255" height="32"/>
                     <subviews>
                         <textField wantsLayer="YES" horizontalHuggingPriority="749" verticalHuggingPriority="750" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="L6L-Ic-uKc">
@@ -330,7 +334,7 @@
             <customSpacing>
                 <real value="3.4028234663852886e+38"/>
             </customSpacing>
-            <point key="canvasLocation" x="64" y="401"/>
+            <point key="canvasLocation" x="-110" y="378"/>
         </stackView>
         <userDefaultsController representsSharedInstance="YES" id="1Oq-2C-SyJ"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="doT-Fm-VU5">
@@ -369,7 +373,7 @@
                 <constraint firstAttribute="bottom" secondItem="jQf-bw-yCc" secondAttribute="bottom" constant="32" id="iTF-NL-J1x"/>
             </constraints>
             <animations/>
-            <point key="canvasLocation" x="-147" y="711.5"/>
+            <point key="canvasLocation" x="71" y="299.5"/>
         </customView>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="P9E-z8-bJb">
             <rect key="frame" x="0.0" y="0.0" width="435" height="64"/>
@@ -393,6 +397,8 @@
         </customView>
         <viewController title="Gradient" nibName="TEInspectorDetailController" id="Qba-ew-VCW" customClass="TEGradientInspector">
             <connections>
+                <outlet property="gradientEditor" destination="dWq-7S-Qdg" id="GAc-ii-BJB"/>
+                <outlet property="inspectorController" destination="-2" id="WQK-W5-Wcm"/>
                 <outlet property="inspectorView" destination="P9E-z8-bJb" id="U8e-I0-8KS"/>
             </connections>
         </viewController>

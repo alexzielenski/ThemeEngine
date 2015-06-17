@@ -7,7 +7,10 @@
 //
 
 #import "TEInspectorDetailController.h"
+#import "TEGradientEditor.h"
 
 @interface TEGradientInspector : TEInspectorDetailController
-
+// for programmatic binding
+@property IBOutlet NSViewController *inspectorController;
+@property IBOutlet TEGradientEditor *gradientEditor;
 @end

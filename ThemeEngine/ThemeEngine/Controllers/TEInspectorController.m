@@ -21,7 +21,10 @@
 
 @interface TEInspectorController ()
 @property (strong) IBOutlet NSScrollView *scrollView;
+- (void)reevaluatedVisibility;
 @end
+
+const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSelectionDidChange;
 
 @implementation TEInspectorController
 
@@ -34,6 +37,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+     self.inspectorViewControllers = @[
+                                       self.gradientInspector,
+                                       self.attributesInspector
+                                       ];
+    
     NSView *view = self.contentView;
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
     self.scrollView.documentView = view;
@@ -42,8 +50,29 @@
                                                                                         metrics:nil
                                                                                           views:NSDictionaryOfVariableBindings(view)]];
     
-    [(NSStackView *)self.contentView addView:self.gradientInspector.view inGravity:NSStackViewGravityTop];
-    [(NSStackView *)self.contentView addView:self.attributesInspector.view inGravity:NSStackViewGravityTop];
+    for (NSViewController *vc in self.inspectorViewControllers) {
+        [self.contentView addView:vc.view inGravity:NSStackViewGravityTop];
+    }
+
+    [self addObserver:self forKeyPath:@"representedObject.selection" options:0 context:&kTEInspectorControllerSelectionDidChange];
+    [self reevaluatedVisibility];
+}
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
+    if (context == &kTEInspectorControllerSelectionDidChange) {
+        [self reevaluatedVisibility];
+        
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+- (void)reevaluatedVisibility {
+    for (TEInspectorDetailController *vc in self.inspectorViewControllers) {
+        NSStackViewVisibilityPriority vp = [vc visibilityPriorityForInspectedObjects:[self valueForKeyPath:@"representedObject.selectedObjects"]];
+        [self.contentView setVisibilityPriority:vp
+                                        forView:vc.view];
+    }
 }
 
 @end

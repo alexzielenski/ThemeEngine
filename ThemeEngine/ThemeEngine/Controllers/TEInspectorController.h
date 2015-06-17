@@ -12,7 +12,8 @@
 #import "TEGradientInspector.h"
 
 @interface TEInspectorController : NSViewController
-@property IBOutlet NSView *contentView;
+@property IBOutlet NSStackView *contentView;
+@property (strong) NSArray *inspectorViewControllers;
 @property (strong) IBOutlet TEInspectorDetailController *gradientInspector;
 @property (strong) IBOutlet TEInspectorDetailController *attributesInspector;
 @end
