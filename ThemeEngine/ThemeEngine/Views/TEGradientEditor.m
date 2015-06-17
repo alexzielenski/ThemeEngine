@@ -86,7 +86,7 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
     self.layer      = [CALayer layer];
     self.wantsLayer = YES;
     
-    NSImage *checkerImage = [NSImage imageWithSize:NSMakeSize(24, 24)
+    NSImage *checkerImage = [NSImage imageWithSize:NSMakeSize(22, 22)
                                            flipped:YES
                                     drawingHandler:^BOOL(NSRect dstRect) {
                                         CGFloat size = dstRect.size.width / 2;
@@ -157,7 +157,14 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
 
 - (void)setFrame:(NSRect)frame {
     [super setFrame:frame];
-    [self setNeedsLayout:YES];
+    
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    [self layout];
+    
+    [self.gradientLayer layoutIfNeeded];
+    [self.gradientLayer displayIfNeeded];
+    [CATransaction commit];
 }
 
 - (void)_repositionStops {
@@ -534,7 +541,7 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
         
         theAnimation = [[CATransition alloc] init];
         theAnimation.duration = 0.15;
-        theAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+        theAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
         theAnimation.type = kCATransitionFade;
     }
     return theAnimation;
