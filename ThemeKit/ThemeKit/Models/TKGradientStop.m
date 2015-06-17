@@ -253,4 +253,13 @@
     return [NSSet setWithObject:@"doubleStop"];
 }
 
+- (void)setNilValueForKey:(nonnull NSString *)key {
+    if ([key isEqualToString:TKKey(location)]) {
+        self.location = 0;
+        return;
+    }
+    
+    [super setNilValueForKey:key];
+}
+
 @end
