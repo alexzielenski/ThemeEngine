@@ -25,16 +25,32 @@
 
 @property (readonly, strong) NSArray<__kindof TKGradientColorStop *> *colorStops;
 @property (readonly, strong) NSArray<__kindof TKGradientOpacityStop *> *opacityStops;
+
+// List of midpoints between stops. These should be ordered not related to the colorStops array
+// but in order of stop location
+// e.g. if you have 3 colorstops at locations, 0.5, 0, and 1.0
+// midpoints @[ 0.5, 0.25 ] would have a midpoint at 0.5 between stops at 0 and 0.5, and midpoint 0.25 between
+// stops at 0.5 and 1.0
 @property (nonatomic, strong) NSArray<NSNumber *> *colorMidpoints;
 @property (nonatomic, strong) NSArray<NSNumber *> *opacityMidpoints;
 
-+ (instancetype)gradientWithColorStops:(NSArray<__kindof TKGradientColorStop *> *)colorStops
-                          opacityStops:(NSArray<__kindof TKGradientOpacityStop *> *)opacityStops
++ (instancetype)gradientWithColorStops:(NSArray<TKGradientColorStop *> *)colorStops
+                          opacityStops:(NSArray<TKGradientOpacityStop *> *)opacityStops
                 colorMidPointLocations:(NSArray<NSNumber *> *)colorMidPointLocations
               opacityMidPointLocations:(NSArray<NSNumber *> *)opacityMidPointLocations
                                 radial:(BOOL)radial
                                  angle:(CGFloat)angle
-                              dithered:(BOOL)dithered;
+                  smoothingCoefficient:(CGFloat)smoothing
+                       fillCoefficient:(CGFloat)fill;
+
+- (instancetype)initWithColorStops:(NSArray<TKGradientColorStop *> *)colorStops
+                      opacityStops:(NSArray<TKGradientOpacityStop *> *)opacityStops
+            colorMidPointLocations:(NSArray<NSNumber *> *)colorMidPointLocations
+          opacityMidPointLocations:(NSArray<NSNumber *> *)opacityMidPointLocations
+                            radial:(BOOL)radial
+                             angle:(CGFloat)angle
+              smoothingCoefficient:(CGFloat)smoothing
+                   fillCoefficient:(CGFloat)fill;
 
 - (NSColor *)interpolatedColorAtLocation:(CGFloat)location;
 

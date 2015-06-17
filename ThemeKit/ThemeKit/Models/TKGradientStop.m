@@ -10,6 +10,7 @@
 #import "TKGradientStop+Private.h"
 #import "TKStructs.h"
 #import "NSColor+CoreUI.h"
+#import "TKGradient+Private.h"
 
 @interface TKGradientStop ()
 - (instancetype)initWithCUIPSDGradientStop:(CUIPSDGradientStop *)stop;
@@ -51,7 +52,7 @@
                                                                 opacity:((CUIPSDGradientDoubleOpacityStop *)self.backingStop).opacity];
     }
     
-    self.backingStop = newBacking;
+    [self.gradient resetShaders];
 }
 
 - (CGFloat)opacity {
@@ -60,6 +61,7 @@
 
 - (void)setOpacity:(CGFloat)opacity {
     [self.backingStop setValue:@(opacity) forKey:TKKey(opacity)];
+    [self.gradient resetShaders];
 }
 
 - (CGFloat)leadOutOpacity {
@@ -71,6 +73,7 @@
 - (void)setLeadOutOpacity:(CGFloat)leadOutOpacity {
     if (self.isDoubleStop)
         [self.backingStop setValue:@(leadOutOpacity) forKey:TKKey(leadOutOpacity)];
+    [self.gradient resetShaders];
 }
 
 @end
@@ -116,9 +119,14 @@
     }
     
     self.backingStop = newBacking;
+    [self.gradient resetShaders];
 }
 
 - (NSColor *)color {
+    if (self.isDoubleStop) {
+        [NSColor colorWithPSDColor:((CUIPSDGradientDoubleColorStop *)self.backingStop).leadInColor];
+    }
+    
     return [NSColor colorWithPSDColor:((CUIPSDGradientColorStop *)self.backingStop).gradientColor];
 }
 
@@ -127,11 +135,14 @@
     if (original != NULL) {
         [color getPSDColor:original];;
     }
+    
+    [self.gradient resetShaders];
 }
 
 - (NSColor *)leadOutColor {
     if (self.isDoubleStop)
         return [NSColor colorWithPSDColor:((CUIPSDGradientDoubleColorStop *)self.backingStop).leadOutColor];
+    
     return nil;
 }
 
@@ -141,6 +152,8 @@
         if (original != NULL)
             [leadOutColor getPSDColor:original];
     }
+    
+    [self.gradient resetShaders];
 }
 
 @end
@@ -205,6 +218,7 @@
 
 - (void)setLocation:(CGFloat)location {
     self.backingStop.location = location;
+    [self.gradient resetShaders];
 }
 
 // For subclasses
@@ -228,5 +242,15 @@
 - (void)setLeadOutColor:(NSColor *)leadOutColor {}
 - (void)setLeadOutOpacity:(CGFloat)leadOutOpacity {}
 - (void)setOpacity:(CGFloat)opacity {}
+
+
+// Trigger KVO on these items when doubleSotp changes
++ (NSSet *)keyPathsForValuesAffectingLeadOutColor {
+    return [NSSet setWithObject:@"doubleStop"];
+}
+
++ (NSSet *)keyPathsForValuesAffectingLeadOutOpacity {
+    return [NSSet setWithObject:@"doubleStop"];
+}
 
 @end

@@ -15,6 +15,7 @@
 #import <CoreUI/Rendering/PSD/CUIPSDGradientOpacityStop.h>
 #import <CoreUI/Rendering/PSD/CUIPSDGradientDoubleOpacityStop.h>
 
+@class TKGradient;
 @interface TKGradientStop () {
 @protected
     BOOL _doubleStop;
@@ -23,6 +24,7 @@
 @property (readwrite, getter=isOpacityStop) BOOL opacityStop;
 @property (readwrite, getter=isMidpointStop) BOOL midpointStop;
 @property (strong) CUIPSDGradientStop *backingStop;
+@property (weak) TKGradient *gradient;
 
 + (id)gradientStopWithCUIPSDGradientStop:(CUIPSDGradientStop *)stop;
 

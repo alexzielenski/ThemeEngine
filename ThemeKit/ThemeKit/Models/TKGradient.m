@@ -34,23 +34,40 @@
               opacityMidPointLocations:(NSArray<NSNumber *> *)opacityMidPointLocations
                                 radial:(BOOL)radial
                                  angle:(CGFloat)angle
-                              dithered:(BOOL)dithered {
+                  smoothingCoefficient:(CGFloat)smoothing
+                       fillCoefficient:(CGFloat)fill {
     
-    struct _psdGradientColor fill;
-    fill.alpha = 0.0;
-    
-    
+    return [[self alloc] initWithColorStops:colorStops opacityStops:opacityStops
+                     colorMidPointLocations:colorMidPointLocations
+                   opacityMidPointLocations:opacityMidPointLocations
+                                     radial:radial
+                                      angle:angle
+                       smoothingCoefficient:smoothing
+                            fillCoefficient:fill];
+}
+
+- (instancetype)initWithColorStops:(NSArray<TKGradientColorStop *> *)colorStops
+                      opacityStops:(NSArray<TKGradientOpacityStop *> *)opacityStops
+            colorMidPointLocations:(NSArray<NSNumber *> *)colorMidPointLocations
+          opacityMidPointLocations:(NSArray<NSNumber *> *)opacityMidPointLocations
+                            radial:(BOOL)radial
+                             angle:(CGFloat)angle
+              smoothingCoefficient:(CGFloat)smoothing
+                   fillCoefficient:(CGFloat)fill {
     CUIPSDGradientEvaluator *evaluator = [[TKClass(CUIPSDGradientEvaluator) alloc] initWithColorStops:[colorStops valueForKey:@"backingStop"]
                                                                                        colorMidpoints:colorMidPointLocations
                                                                                          opacityStops:[opacityStops valueForKey:@"backingStop"]
                                                                                      opacityMidpoints:opacityMidPointLocations
-                                                                                 smoothingCoefficient:1.0
-                                                                                      fillCoefficient:1.0];
+                                                                                 smoothingCoefficient:smoothing
+                                                                                      fillCoefficient:fill];
+    CUIThemeGradient *grad = [[CUIThemeGradient alloc] _initWithGradientEvaluator:evaluator
+                                                                       colorSpace:[[NSColorSpace sRGBColorSpace] CGColorSpace]];
     
-    return [self gradientWithCUIGradient:[[CUIThemeGradient alloc] _initWithGradientEvaluator:evaluator
-                                                                                   colorSpace:[[NSColorSpace sRGBColorSpace] CGColorSpace]]
-                                   angle:angle
-                                   style:radial ? CUIGradientStyleRadial : CUIGradientStyleLinear];
+    if ((self = [self initWithCUIGradient:grad angle:angle style:radial ? CUIGradientStyleRadial : CUIGradientStyleLinear])) {
+        
+    }
+    
+    return self;
 }
 
 + (instancetype)gradientWithCUIGradient:(CUIThemeGradient *)gradient angle:(CGFloat)angle style:(CUIGradientStyle)style {
@@ -68,11 +85,15 @@
         self.opacityStops = [NSMutableArray array];
         
         for (CUIPSDGradientColorStop *colorStop in self.evaluator.colorStops) {
-            [(NSMutableArray *)self.colorStops addObject:[TKGradientColorStop gradientStopWithCUIPSDGradientStop:colorStop]];
+            TKGradientColorStop *stop = [TKGradientColorStop gradientStopWithCUIPSDGradientStop:colorStop];
+            stop.gradient = self;
+            [(NSMutableArray *)self.colorStops addObject:stop];
         }
         
         for (CUIPSDGradientOpacityStop *opacityStop in self.evaluator.opacityStops) {
-            [(NSMutableArray *)self.opacityStops addObject:[TKGradientColorStop gradientStopWithCUIPSDGradientStop:opacityStop]];
+            TKGradientOpacityStop *stop = [TKGradientOpacityStop gradientStopWithCUIPSDGradientStop:opacityStop];
+            stop.gradient = self;
+            [(NSMutableArray *)self.opacityStops addObject:stop];
         }
         
         self.colorMidpoints = self.evaluator.colorMidpointLocations.mutableCopy;
@@ -94,12 +115,12 @@
 }
 
 - (void)syncColorStops {
-    [self.evaluator setColorStops:[self.colorStops valueForKey:TKKey(backingStop)]
+    [self.evaluator setColorStops:[[self.colorStops valueForKey:TKKey(backingStop)] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"location" ascending:YES]]]
                         midpoints:_colorMidpoints];
 }
 
 - (void)syncOpacityStops {
-    [self.evaluator setOpacityStops:[self.opacityStops valueForKey:TKKey(backingStop)]
+    [self.evaluator setOpacityStops:[[self.opacityStops valueForKey:TKKey(backingStop)] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"location" ascending:YES]]]
                           midpoints:_opacityMidpoints];
 }
 
@@ -110,6 +131,7 @@
 }
 
 - (void)insertObject:(TKGradientColorStop *)object inColorStopsAtIndex:(NSUInteger)index {
+    object.gradient = self;
     [(NSMutableArray *)self.colorStops insertObject:object atIndex:index];
     [self syncColorStops];
 }
@@ -186,7 +208,7 @@
 
 - (void)setColorMidpoints:(NSArray<NSNumber *> *)colorMidpoints {
     _colorMidpoints = colorMidpoints;
-    [self syncColorStops];
+    [self resetShaders];
 }
 
 - (NSArray<NSNumber *> *)opacityMidpoints {
@@ -195,7 +217,7 @@
 
 - (void)setOpacityMidpoints:(NSArray<NSNumber *> *)opacityMidpoints {
     _opacityMidpoints = opacityMidpoints;
-    [self syncOpacityStops];
+    [self resetShaders];
 }
 
 - (BOOL)isDithered {

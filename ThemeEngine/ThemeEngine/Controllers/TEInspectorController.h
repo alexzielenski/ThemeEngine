@@ -11,6 +11,8 @@
 #import "TEInspectorDetailController.h"
 #import "TEGradientInspector.h"
 
+// representedObject must be an NSArrayController
+// with updated selectionIndexes
 @interface TEInspectorController : NSViewController
 @property IBOutlet NSStackView *contentView;
 @property (strong) NSArray *inspectorViewControllers;

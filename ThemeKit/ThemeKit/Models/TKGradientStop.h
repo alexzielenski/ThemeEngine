@@ -14,6 +14,7 @@
 @property (readonly, getter=isColorStop) BOOL colorStop;
 @property (readonly, getter=isOpacityStop) BOOL opacityStop;
 @property (nonatomic, assign, getter=isDoubleStop) BOOL doubleStop;
+@property (readonly, getter=isMidpointStop) BOOL midpointStop;
 
 @property (assign) CGFloat location;
 

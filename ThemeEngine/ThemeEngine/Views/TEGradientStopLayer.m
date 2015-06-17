@@ -8,6 +8,10 @@
 
 #import "TEGradientStopLayer.h"
 
+@interface NSObject ()
+- (void)noteStopChanged:(TKGradientStop *)stop;
+@end
+
 @interface TEGradientStopLayer ()
 - (void)_initialize;
 @end
@@ -60,8 +64,13 @@ static void *kTEStopDirtyContext;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (context == &kTEStopDirtyContext)
+    if (context == &kTEStopDirtyContext) {
+        // Refresh owning gradient editor
+        if ([self.superlayer.delegate respondsToSelector:@selector(noteStopChanged:)])
+            [self.superlayer.delegate performSelector:@selector(noteStopChanged:) withObject:self.gradientStop];
+        
         [self setNeedsDisplay];
+    }
 }
 
 - (void)drawInContext:(CGContextRef)ctx {

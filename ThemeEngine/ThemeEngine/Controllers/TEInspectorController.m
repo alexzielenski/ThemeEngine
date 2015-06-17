@@ -21,7 +21,7 @@
 
 @interface TEInspectorController ()
 @property (strong) IBOutlet NSScrollView *scrollView;
-- (void)reevaluatedVisibility;
+- (void)reevaluateVisibility;
 @end
 
 const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSelectionDidChange;
@@ -55,19 +55,19 @@ const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSe
     }
 
     [self addObserver:self forKeyPath:@"representedObject.selection" options:0 context:&kTEInspectorControllerSelectionDidChange];
-    [self reevaluatedVisibility];
+    [self reevaluateVisibility];
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
     if (context == &kTEInspectorControllerSelectionDidChange) {
-        [self reevaluatedVisibility];
+        [self reevaluateVisibility];
         
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
 
-- (void)reevaluatedVisibility {
+- (void)reevaluateVisibility {
     for (TEInspectorDetailController *vc in self.inspectorViewControllers) {
         NSStackViewVisibilityPriority vp = [vc visibilityPriorityForInspectedObjects:[self valueForKeyPath:@"representedObject.selectedObjects"]];
         [self.contentView setVisibilityPriority:vp
