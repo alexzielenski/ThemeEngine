@@ -14,7 +14,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="ThemeEngine" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="xOd-HO-29H" userLabel="Window">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="235" width="1081" height="534"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
@@ -260,6 +260,7 @@
             <connections>
                 <outlet property="elementsController" destination="fev-Za-txR" id="D41-Lh-pdi"/>
                 <outlet property="inspectorController" destination="Xgf-gV-tGD" id="Q92-tJ-kVI"/>
+                <outlet property="paneControl" destination="gbi-qZ-sna" id="2eK-I4-Tnu"/>
                 <outlet property="renditionsController" destination="DYE-2D-1ip" id="P9p-YV-73x"/>
                 <outlet property="view" destination="NiR-ww-Pjh" id="MSg-FK-fhO"/>
             </connections>
@@ -381,18 +382,18 @@
                     </constraints>
                     <animations/>
                 </customView>
-                <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="119" horizontalPageScroll="10" verticalLineScroll="119" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="g3f-xN-6oz" customClass="RBLScrollView">
+                <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="72" horizontalPageScroll="10" verticalLineScroll="72" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="g3f-xN-6oz" customClass="RBLScrollView">
                     <rect key="frame" x="0.0" y="32" width="500" height="353"/>
                     <clipView key="contentView" wantsLayer="YES" copiesOnScroll="NO" id="iET-hJ-bgY" customClass="RBLClipView">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="353"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <ikImageBrowserView autoresizesSubviews="NO" wantsLayer="YES" canDrawConcurrently="YES" fixedFrame="YES" zoomValue="1.0606601238250732" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IKu-yW-SjP" customClass="TEImageBrowserView">
+                            <ikImageBrowserView autoresizesSubviews="NO" wantsLayer="YES" canDrawConcurrently="YES" fixedFrame="YES" zoomValue="1" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IKu-yW-SjP" customClass="TEImageBrowserView">
                                 <rect key="frame" x="-132" y="51" width="195" height="112"/>
                                 <animations/>
                                 <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES" subtitled="YES"/>
                                 <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                <size key="cellSize" width="53" height="53"/>
+                                <size key="cellSize" width="52" height="52"/>
                                 <connections>
                                     <binding destination="gHj-GT-QiP" name="selectionIndexes" keyPath="selectionIndexes" id="Hy1-a1-cpO"/>
                                     <outlet property="dataSource" destination="DYE-2D-1ip" id="oKE-hf-lr2"/>

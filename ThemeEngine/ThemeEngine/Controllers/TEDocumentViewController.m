@@ -9,34 +9,54 @@
 #import "TEDocumentViewController.h"
 
 @interface TEDocumentViewController ()
-
+@property (nonatomic, strong) NSSplitViewItem *elementsItem;
+@property (nonatomic, strong) NSSplitViewItem *renditionsItem;
+@property (nonatomic, strong) NSSplitViewItem *inspectorItem;
 @end
+
+const void *kTEDocumentControllerCollapseContext = &kTEDocumentControllerCollapseContext;
 
 @implementation TEDocumentViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSSplitViewItem *elementsItem   = [NSSplitViewItem splitViewItemWithViewController:self.elementsController];
-    NSSplitViewItem *renditionsItem = [NSSplitViewItem splitViewItemWithViewController:self.renditionsController];
-    NSSplitViewItem *inspectorItem  = [NSSplitViewItem splitViewItemWithViewController:self.inspectorController];
+    self.elementsItem   = [NSSplitViewItem splitViewItemWithViewController:self.elementsController];
+    self.renditionsItem = [NSSplitViewItem splitViewItemWithViewController:self.renditionsController];
+    self.inspectorItem  = [NSSplitViewItem splitViewItemWithViewController:self.inspectorController];
 
-    [self addSplitViewItem:elementsItem];
-    [self addSplitViewItem:renditionsItem];
-    [self addSplitViewItem:inspectorItem];
+    [self addSplitViewItem:self.elementsItem];
+    [self addSplitViewItem:self.renditionsItem];
+    [self addSplitViewItem:self.inspectorItem];
 
-    renditionsItem.holdingPriority = NSLayoutPriorityDefaultLow - 1;
+    self.renditionsItem.holdingPriority = NSLayoutPriorityDefaultLow - 1;
 
-    elementsItem.preferredThicknessFraction = 0.24;
-    renditionsItem.preferredThicknessFraction = 0.6;
-    inspectorItem.preferredThicknessFraction = 0.24;
+    self.elementsItem.preferredThicknessFraction = 0.24;
+    self.renditionsItem.preferredThicknessFraction = 0.6;
+    self.inspectorItem.preferredThicknessFraction = 0.24;
     
-    elementsItem.minimumThickness = 160.0;
-    inspectorItem.minimumThickness = 230.0;
+    self.elementsItem.minimumThickness = 160.0;
+    self.inspectorItem.minimumThickness = 230.0;
     
-    elementsItem.canCollapse   = YES;
-    renditionsItem.canCollapse = NO;
-    inspectorItem.canCollapse  = YES;
+    self.elementsItem.canCollapse   = YES;
+    self.renditionsItem.canCollapse = NO;
+    self.inspectorItem.canCollapse  = YES;
+    
+    [self.elementsItem addObserver:self
+                   forKeyPath:@"collapsed"
+                      options:0
+                      context:&kTEDocumentControllerCollapseContext];
+    [self.inspectorItem addObserver:self
+                    forKeyPath:@"collapsed"
+                       options:0
+                       context:&kTEDocumentControllerCollapseContext];
+}
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
+    if (context == &kTEDocumentControllerCollapseContext) {
+        [self.paneControl setSelected:!self.elementsItem.isCollapsed forSegment:0];
+        [self.paneControl setSelected:!self.inspectorItem.isCollapsed forSegment:1];
+    }
 }
 
 - (NSSplitView *)splitView {

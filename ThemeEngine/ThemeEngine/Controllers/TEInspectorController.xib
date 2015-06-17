@@ -298,8 +298,8 @@
         <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="0.0" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="1000" verticalClippingResistancePriority="250" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xp3-9J-lYi">
             <rect key="frame" x="0.0" y="0.0" width="256" height="32"/>
             <subviews>
-                <customView horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y1K-P5-Lck">
-                    <rect key="frame" x="0.0" y="0.0" width="255" height="32"/>
+                <customView horizontalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y1K-P5-Lck">
+                    <rect key="frame" x="1" y="0.0" width="255" height="32"/>
                     <subviews>
                         <textField wantsLayer="YES" horizontalHuggingPriority="749" verticalHuggingPriority="750" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="L6L-Ic-uKc">
                             <rect key="frame" x="6" y="7" width="30" height="17"/>
@@ -356,7 +356,7 @@
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="XkK-dO-3YI">
-                        <rect key="frame" x="215" y="0.0" width="15" height="315"/>
+                        <rect key="frame" x="214" y="0.0" width="16" height="315"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
@@ -372,19 +372,19 @@
             <point key="canvasLocation" x="-147" y="711.5"/>
         </customView>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="P9E-z8-bJb">
-            <rect key="frame" x="0.0" y="0.0" width="435" height="90"/>
+            <rect key="frame" x="0.0" y="0.0" width="435" height="64"/>
             <subviews>
                 <customView horizontalHuggingPriority="600" translatesAutoresizingMaskIntoConstraints="NO" id="dWq-7S-Qdg" customClass="TEGradientEditor">
-                    <rect key="frame" x="20" y="0.0" width="395" height="90"/>
+                    <rect key="frame" x="20" y="4" width="395" height="60"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="90" id="iyr-ra-0jv"/>
+                        <constraint firstAttribute="height" constant="60" id="iyr-ra-0jv"/>
                     </constraints>
                     <animations/>
                 </customView>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="dWq-7S-Qdg" secondAttribute="trailing" constant="20" symbolic="YES" id="BPp-47-flf"/>
-                <constraint firstAttribute="bottom" secondItem="dWq-7S-Qdg" secondAttribute="bottom" id="jQp-B5-dyK"/>
+                <constraint firstAttribute="bottom" secondItem="dWq-7S-Qdg" secondAttribute="bottom" constant="4" id="jQp-B5-dyK"/>
                 <constraint firstItem="dWq-7S-Qdg" firstAttribute="leading" secondItem="P9E-z8-bJb" secondAttribute="leading" constant="20" symbolic="YES" id="lxs-Us-yc7"/>
                 <constraint firstItem="dWq-7S-Qdg" firstAttribute="top" secondItem="P9E-z8-bJb" secondAttribute="top" id="vII-w8-kMA"/>
             </constraints>
