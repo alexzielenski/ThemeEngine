@@ -9,13 +9,13 @@
 {
     //!TODO document this type
     long long _renditionType;
-    double _boundaries[4];
+    CGFloat _boundaries[4];
     CGRect _destinationRect;
     NSEdgeInsets _edgeInsets;
 }
 
 @property(readonly, nonatomic) NSEdgeInsets edgeInsets; // @synthesize edgeInsets=_edgeInsets;
-@property(readonly, nonatomic) struct CGRect destinationRect; // @synthesize destinationRect=_destinationRect;
+@property(readonly, nonatomic) CGRect destinationRect; // @synthesize destinationRect=_destinationRect;
 @property(readonly, nonatomic) long long renditionType; // @synthesize renditionType=_renditionType;
 
 - (CGFloat)positionOfSliceBoundary:(unsigned long long)boundary;

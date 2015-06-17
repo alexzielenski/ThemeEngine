@@ -153,6 +153,105 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
     }
 }
 
+#pragma mark - Layout
+
+- (void)setFrame:(NSRect)frame {
+    [super setFrame:frame];
+    [self setNeedsLayout:YES];
+}
+
+- (void)_repositionStops {
+    [self createLayersForStops:self.gradient.colorStops colors:YES];
+    [self createLayersForStops:self.gradient.opacityStops colors:NO];
+    
+    // Add implicit midpoints
+    NSMutableArray *midpoints = self.gradient.colorMidpoints.mutableCopy ?: [NSMutableArray array];
+    if (self.gradient.colorStops.count > 0) {
+        while (midpoints.count != self.gradient.colorStops.count - 1) {
+            if (midpoints.count < self.gradient.colorStops.count - 1)
+                [midpoints addObject:@0.5];
+            else
+                [midpoints removeLastObject];
+        }
+    } else {
+        midpoints = [NSMutableArray array];
+    }
+    
+    [self createLayersForMidpoints:midpoints colors:YES];
+    
+    midpoints = self.gradient.opacityMidpoints.mutableCopy ?: [NSMutableArray array];
+    if (self.gradient.opacityStops.count > 0)
+        while (midpoints.count != self.gradient.opacityStops.count - 1) {
+            if (midpoints.count < self.gradient.opacityStops.count)
+                [midpoints addObject:@0.5];
+            else
+                [midpoints removeLastObject];
+        } else {
+            midpoints = [NSMutableArray array];
+        }
+    
+    [self createLayersForMidpoints:midpoints colors:NO];
+    
+    [self.gradientLayer setNeedsLayout];
+    [self.gradientLayer setNeedsDisplay];
+}
+
+- (void)viewDidMoveToSuperview {
+    [super viewDidMoveToSuperview];
+    [self.gradientLayer setNeedsLayout];
+    [self.gradientLayer setNeedsDisplay];
+}
+
+- (void)viewDidMoveToWindow {
+    [super viewDidMoveToWindow];
+    [self.gradientLayer setNeedsLayout];
+    [self.gradientLayer setNeedsDisplay];
+}
+
+- (void)layout {
+    [super layout];
+    self.gradientLayer.frame = NSInsetRect(self.bounds,
+                                           kTEGradientEditorStopSize / 2,
+                                           kTEGradientEditorStopSize / 2);
+    
+    [self.gradientLayer setNeedsLayout];
+    [self.gradientLayer setNeedsDisplay];
+}
+
+- (void)layoutSublayersOfLayer:(CALayer *)superLayer {
+    // Reposition stops
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    NSArray *sort = @[ [NSSortDescriptor sortDescriptorWithKey:@"gradientStop.location" ascending:YES] ];
+    [self.colorStopLayers sortUsingDescriptors:sort];
+    [self.opacityStopLayers sortUsingDescriptors:sort];
+    
+    for (TEGradientStopLayer *layer in self.colorStopLayers) {
+        layer.position = CGPointMake(superLayer.bounds.size.width * layer.gradientStop.location, 0);
+    }
+    
+    for (TEGradientStopLayer *layer in self.opacityStopLayers) {
+        layer.position = CGPointMake(superLayer.bounds.size.width * layer.gradientStop.location, superLayer.bounds.size.height);
+    }
+    
+    for (NSUInteger x = 0; x < self.colorMidpointStopLayers.count; x++) {
+        TEGradientStopLayer *layer = self.colorMidpointStopLayers[x];
+        TEGradientStopLayer *before = self.colorStopLayers[x];
+        TEGradientStopLayer *after = self.colorStopLayers[x+1];
+        
+        layer.position = CGPointMake(before.position.x + (after.position.x - before.position.x) * layer.gradientStop.location, 0);
+    }
+    
+    for (NSUInteger x = 0; x < self.opacityMidpointStopLayers.count; x++) {
+        TEGradientStopLayer *layer = self.opacityMidpointStopLayers[x];
+        TEGradientStopLayer *before = self.opacityStopLayers[x];
+        TEGradientStopLayer *after = self.opacityStopLayers[x+1];
+        
+        layer.position = CGPointMake(before.position.x + (after.position.x - before.position.x) * layer.gradientStop.location, superLayer.bounds.size.height);
+    }
+    [CATransaction commit];
+}
+
 #pragma mark - Display
 
 - (TEGradientStopLayer *)layerForStop:(TKGradientStop *)stop {
@@ -234,97 +333,6 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
         layer.gradientStop = stop;
         [layer setNeedsDisplay];
     }
-}
-
-- (void)_repositionStops {
-    [self createLayersForStops:self.gradient.colorStops colors:YES];
-    [self createLayersForStops:self.gradient.opacityStops colors:NO];
-    
-    // Add implicit midpoints
-    NSMutableArray *midpoints = self.gradient.colorMidpoints.mutableCopy ?: [NSMutableArray array];
-    if (self.gradient.colorStops.count > 0) {
-        while (midpoints.count != self.gradient.colorStops.count - 1) {
-            if (midpoints.count < self.gradient.colorStops.count - 1)
-                [midpoints addObject:@0.5];
-            else
-                [midpoints removeLastObject];
-        }
-    } else {
-        midpoints = [NSMutableArray array];
-    }
-    
-    [self createLayersForMidpoints:midpoints colors:YES];
-    
-    midpoints = self.gradient.opacityMidpoints.mutableCopy ?: [NSMutableArray array];
-    if (self.gradient.opacityStops.count > 0)
-        while (midpoints.count != self.gradient.opacityStops.count - 1) {
-            if (midpoints.count < self.gradient.opacityStops.count)
-                [midpoints addObject:@0.5];
-            else
-                [midpoints removeLastObject];
-        } else {
-            midpoints = [NSMutableArray array];
-        }
-    
-    [self createLayersForMidpoints:midpoints colors:NO];
-    
-    [self.gradientLayer setNeedsLayout];
-    [self.gradientLayer setNeedsDisplay];
-}
-
-- (void)viewDidMoveToSuperview {
-    [super viewDidMoveToSuperview];
-    [self.gradientLayer setNeedsLayout];
-    [self.gradientLayer setNeedsDisplay];
-}
-
-- (void)viewDidMoveToWindow {
-    [super viewDidMoveToWindow];
-    [self.gradientLayer setNeedsLayout];
-    [self.gradientLayer setNeedsDisplay];
-}
-
-- (void)layout {
-    [super layout];
-    self.gradientLayer.frame = NSInsetRect(self.bounds,
-                                           kTEGradientEditorStopSize / 2,
-                                           kTEGradientEditorStopSize / 2);
-    
-    [self.gradientLayer setNeedsLayout];
-    [self.gradientLayer setNeedsDisplay];
-}
-- (void)layoutSublayersOfLayer:(CALayer *)superLayer {
-    // Reposition stops
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    NSArray *sort = @[ [NSSortDescriptor sortDescriptorWithKey:@"gradientStop.location" ascending:YES] ];
-    [self.colorStopLayers sortUsingDescriptors:sort];
-    [self.opacityStopLayers sortUsingDescriptors:sort];
-
-    for (TEGradientStopLayer *layer in self.colorStopLayers) {
-        layer.position = CGPointMake(superLayer.bounds.size.width * layer.gradientStop.location, 0);
-    }
-    
-    for (TEGradientStopLayer *layer in self.opacityStopLayers) {
-        layer.position = CGPointMake(superLayer.bounds.size.width * layer.gradientStop.location, superLayer.bounds.size.height);
-    }
-    
-    for (NSUInteger x = 0; x < self.colorMidpointStopLayers.count; x++) {
-        TEGradientStopLayer *layer = self.colorMidpointStopLayers[x];
-        TEGradientStopLayer *before = self.colorStopLayers[x];
-        TEGradientStopLayer *after = self.colorStopLayers[x+1];
-        
-        layer.position = CGPointMake(before.position.x + (after.position.x - before.position.x) * layer.gradientStop.location, 0);
-    }
-    
-    for (NSUInteger x = 0; x < self.opacityMidpointStopLayers.count; x++) {
-        TEGradientStopLayer *layer = self.opacityMidpointStopLayers[x];
-        TEGradientStopLayer *before = self.opacityStopLayers[x];
-        TEGradientStopLayer *after = self.opacityStopLayers[x+1];
-        
-        layer.position = CGPointMake(before.position.x + (after.position.x - before.position.x) * layer.gradientStop.location, superLayer.bounds.size.height);
-    }
-    [CATransaction commit];
 }
 
 - (void)_startObservingStop:(TKGradientStop *)stop {
