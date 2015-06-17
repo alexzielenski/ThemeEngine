@@ -526,5 +526,19 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
     }
 }
 
+// Animate transitions between gradients with displays
+- (id <CAAction>)actionForLayer:(nonnull CALayer *)layer forKey:(nonnull NSString *)event {
+    CATransition *theAnimation=nil;
+    
+    if ([event isEqualToString:@"contents"]) {
+        
+        theAnimation = [[CATransition alloc] init];
+        theAnimation.duration = 0.15;
+        theAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+        theAnimation.type = kCATransitionFade;
+    }
+    return theAnimation;
+}
+
 
 @end
