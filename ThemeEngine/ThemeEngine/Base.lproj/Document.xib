@@ -17,7 +17,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="235" width="1081" height="534"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="600" height="400"/>
             <view key="contentView" id="gIp-Ho-8D9">
                 <rect key="frame" x="0.0" y="0.0" width="1081" height="534"/>
@@ -121,9 +121,9 @@
                         </segments>
                     </segmentedCell>
                 </segmentedControl>
-                <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRn-dy-w1n" customClass="RBLScrollView">
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRn-dy-w1n">
                     <rect key="frame" x="0.0" y="32" width="220" height="444"/>
-                    <clipView key="contentView" drawsBackground="NO" id="Uno-GW-CCf" customClass="RBLClipView">
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Uno-GW-CCf">
                         <rect key="frame" x="0.0" y="0.0" width="220" height="444"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -152,7 +152,7 @@
                                                 <rect key="frame" x="1" y="1" width="217" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField canDrawConcurrently="YES" horizontalHuggingPriority="500" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Z3n-XS-YB0">
+                                                    <textField wantsLayer="YES" canDrawConcurrently="YES" horizontalHuggingPriority="500" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Z3n-XS-YB0">
                                                         <rect key="frame" x="0.0" y="0.0" width="97" height="17"/>
                                                         <animations/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="cwn-mL-FL4">
@@ -316,7 +316,7 @@
                             </connections>
                         </button>
                         <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4dv-Sn-CWt">
-                            <rect key="frame" x="362" y="6" width="96" height="20"/>
+                            <rect key="frame" x="362" y="6" width="96" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="92" id="C1j-Vu-sK4"/>
                             </constraints>
@@ -387,12 +387,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="500" height="353"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <ikImageBrowserView autoresizesSubviews="NO" wantsLayer="YES" canDrawConcurrently="YES" fixedFrame="YES" zoomValue="1.2247449159622192" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IKu-yW-SjP" customClass="TEImageBrowserView">
+                            <ikImageBrowserView autoresizesSubviews="NO" wantsLayer="YES" canDrawConcurrently="YES" fixedFrame="YES" zoomValue="1.0606601238250732" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IKu-yW-SjP" customClass="TEImageBrowserView">
                                 <rect key="frame" x="-132" y="51" width="195" height="112"/>
                                 <animations/>
                                 <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES" subtitled="YES"/>
                                 <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                <size key="cellSize" width="56" height="56"/>
+                                <size key="cellSize" width="53" height="53"/>
                                 <connections>
                                     <binding destination="gHj-GT-QiP" name="selectionIndexes" keyPath="selectionIndexes" id="Hy1-a1-cpO"/>
                                     <outlet property="dataSource" destination="DYE-2D-1ip" id="oKE-hf-lr2"/>
