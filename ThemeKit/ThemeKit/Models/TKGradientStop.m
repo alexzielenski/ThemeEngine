@@ -19,6 +19,7 @@
 - (instancetype)init {
     if ((self = [super init])) {
         self.opacityStop = YES;
+        self.backingStop = (CUIPSDGradientOpacityStop *)[TKClass(CUIPSDGradientOpacityStop) opacityStopWithLocation:0.0 opacity:1.0];
     }
     
     return self;
@@ -62,11 +63,14 @@
 }
 
 - (CGFloat)leadOutOpacity {
-    return ((CUIPSDGradientDoubleOpacityStop *)self.backingStop).leadOutOpacity;
+    if (self.isDoubleStop)
+        return ((CUIPSDGradientDoubleOpacityStop *)self.backingStop).leadOutOpacity;
+    return 1.0;
 }
 
 - (void)setLeadOutOpacity:(CGFloat)leadOutOpacity {
-    [self.backingStop setValue:@(leadOutOpacity) forKey:TKKey(leadOutOpacity)];
+    if (self.isDoubleStop)
+        [self.backingStop setValue:@(leadOutOpacity) forKey:TKKey(leadOutOpacity)];
 }
 
 @end
@@ -75,6 +79,9 @@
 - (instancetype)init {
     if ((self = [super init])) {
         self.colorStop = YES;
+        struct _psdGradientColor color;
+        color.alpha = 1.0;
+        self.backingStop = [[TKClass(CUIPSDGradientColorStop) alloc] initWithLocation:0.0 gradientColor:color];
     }
     
     return self;
@@ -123,13 +130,16 @@
 }
 
 - (NSColor *)leadOutColor {
-    return [NSColor colorWithPSDColor:((CUIPSDGradientDoubleColorStop *)self.backingStop).leadOutColor];
+    if (self.isDoubleStop)
+        return [NSColor colorWithPSDColor:((CUIPSDGradientDoubleColorStop *)self.backingStop).leadOutColor];
+    return nil;
 }
 
 - (void)setLeadOutColor:(NSColor *)leadOutColor {
-    struct _psdGradientColor *original = (struct _psdGradientColor *)TKIvarPointer(self.backingStop, "leadOutColor");
-    if (original != NULL) {
-        [leadOutColor getPSDColor:original];
+    if (self.isDoubleStop) {
+        struct _psdGradientColor *original = (struct _psdGradientColor *)TKIvarPointer(self.backingStop, "leadOutColor");
+        if (original != NULL)
+            [leadOutColor getPSDColor:original];
     }
 }
 
@@ -153,6 +163,14 @@
 - (instancetype)initWithCUIPSDGradientStop:(CUIPSDGradientStop *)stop {
     if ((self = [self init])) {
         self.backingStop = stop;
+    }
+    
+    return self;
+}
+
+- (id)init {
+    if ((self = [super init])) {
+        self.backingStop = [[TKClass(CUIPSDGradientStop) alloc] initWithLocation:0.0];
     }
     
     return self;

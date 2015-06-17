@@ -21,6 +21,10 @@
         (*(__unsafe_unretained TYPE *)TKIvarPointer(OBJECT, #NAME)) \
     _Pragma("clang diagnostic pop")
 
+// http://stackoverflow.com/questions/7792622/manual-retain-with-arc
+#define AntiARCRetain(...) { void *retainedThing = (__bridge_retained void *)__VA_ARGS__; retainedThing = retainedThing; }
+#define AntiARCRelease(...) { void *retainedThing = (__bridge void *) __VA_ARGS__; id unretainedThing = (__bridge_transfer id)retainedThing; unretainedThing = nil; }
+
 extern void *TKIvarPointer(id self, const char *name);
 
 @class TKRendition;

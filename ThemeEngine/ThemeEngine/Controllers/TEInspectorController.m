@@ -42,6 +42,7 @@
                                                                                         metrics:nil
                                                                                           views:NSDictionaryOfVariableBindings(view)]];
     
+    [(NSStackView *)self.contentView addView:self.gradientInspector.view inGravity:NSStackViewGravityTop];
     [(NSStackView *)self.contentView addView:self.attributesInspector.view inGravity:NSStackViewGravityTop];
 }
 

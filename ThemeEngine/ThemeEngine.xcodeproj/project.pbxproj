@@ -19,6 +19,7 @@
 		FA606C191B2C1D2100F24960 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA606C181B2C1D2100F24960 /* Assets.xcassets */; };
 		FA606C1C1B2C1D2100F24960 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA606C1A1B2C1D2100F24960 /* MainMenu.xib */; };
 		FA6E01341B301F1A00209DE2 /* TEDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6E01331B301F1A00209DE2 /* TEDocumentViewController.m */; };
+		FA7EA3E21B30CFC30014393A /* TEGradientInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7EA3E11B30CFC30014393A /* TEGradientInspector.m */; };
 		FA80CDF11B308D41005E5DD2 /* TKBitmapRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA80CDF01B308D41005E5DD2 /* TKBitmapRendition+Pasteboard.m */; };
 		FA80CE0C1B30BD4E005E5DD2 /* TEGradientEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = FA80CE0B1B30BD4E005E5DD2 /* TEGradientEditor.m */; };
 		FA80CE0F1B30BF36005E5DD2 /* TEGradientStopLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA80CE0E1B30BF36005E5DD2 /* TEGradientStopLayer.m */; };
@@ -72,6 +73,8 @@
 		FA606C2B1B2C1D5A00F24960 /* CoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreUI.framework; path = ../../../../../../../System/Library/PrivateFrameworks/CoreUI.framework; sourceTree = "<group>"; };
 		FA6E01321B301F1A00209DE2 /* TEDocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEDocumentViewController.h; path = Controllers/TEDocumentViewController.h; sourceTree = "<group>"; };
 		FA6E01331B301F1A00209DE2 /* TEDocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEDocumentViewController.m; path = Controllers/TEDocumentViewController.m; sourceTree = "<group>"; };
+		FA7EA3E01B30CFC30014393A /* TEGradientInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEGradientInspector.h; path = Controllers/Inspectors/TEGradientInspector.h; sourceTree = "<group>"; };
+		FA7EA3E11B30CFC30014393A /* TEGradientInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEGradientInspector.m; path = Controllers/Inspectors/TEGradientInspector.m; sourceTree = "<group>"; };
 		FA80CDEE1B308AE6005E5DD2 /* ThemeEngine.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = ThemeEngine.profdata; sourceTree = "<group>"; };
 		FA80CDEF1B308D41005E5DD2 /* TKBitmapRendition+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKBitmapRendition+Pasteboard.h"; path = "Categories/Pasteboard/TKBitmapRendition+Pasteboard.h"; sourceTree = "<group>"; };
 		FA80CDF01B308D41005E5DD2 /* TKBitmapRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKBitmapRendition+Pasteboard.m"; path = "Categories/Pasteboard/TKBitmapRendition+Pasteboard.m"; sourceTree = "<group>"; };
@@ -229,6 +232,8 @@
 			children = (
 				FABEAECE1B2F714000B02805 /* TEAttributesInspector.h */,
 				FABEAECF1B2F714000B02805 /* TEAttributesInspector.m */,
+				FA7EA3E01B30CFC30014393A /* TEGradientInspector.h */,
+				FA7EA3E11B30CFC30014393A /* TEGradientInspector.m */,
 			);
 			name = Inspectors;
 			sourceTree = "<group>";
@@ -331,6 +336,7 @@
 				FA80CE0C1B30BD4E005E5DD2 /* TEGradientEditor.m in Sources */,
 				FAA54F6C1B2E212E00EA15F2 /* RBLClipView.m in Sources */,
 				FA21F87D1B2E95710094202A /* TKRendition+Filtering.m in Sources */,
+				FA7EA3E21B30CFC30014393A /* TEGradientInspector.m in Sources */,
 				FABEAECC1B2F70F300B02805 /* TEInspectorDetailController.m in Sources */,
 				FAA54F721B2E3C5900EA15F2 /* NSSplitView+Divider.m in Sources */,
 				FAA54F751B2E4DB700EA15F2 /* TEElementsController.m in Sources */,

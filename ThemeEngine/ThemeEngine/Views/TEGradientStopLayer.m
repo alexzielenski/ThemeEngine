@@ -40,22 +40,22 @@ static void *kTEStopDirtyContext;
     self.shadowOffset = CGSizeMake(0, -2.0);
     
     // Redraw when any of these properties change
-    [self addObserver:self forKeyPath:@"stop" options:0 context:&kTEStopDirtyContext];
-    [self addObserver:self forKeyPath:@"stop.gradientColor" options:0 context:&kTEStopDirtyContext];
-    [self addObserver:self forKeyPath:@"stop.leadOutColor" options:0 context:&kTEStopDirtyContext];
-    [self addObserver:self forKeyPath:@"stop.opacity" options:0 context:&kTEStopDirtyContext];
-    [self addObserver:self forKeyPath:@"stop.leadOutOpacity" options:0 context:&kTEStopDirtyContext];
-    [self addObserver:self forKeyPath:@"stop.location" options:0 context:&kTEStopDirtyContext];
+    [self addObserver:self forKeyPath:@"gradientStop" options:0 context:&kTEStopDirtyContext];
+    [self addObserver:self forKeyPath:@"gradientStop.color" options:0 context:&kTEStopDirtyContext];
+    [self addObserver:self forKeyPath:@"gradientStop.leadOutColor" options:0 context:&kTEStopDirtyContext];
+    [self addObserver:self forKeyPath:@"gradientStop.opacity" options:0 context:&kTEStopDirtyContext];
+    [self addObserver:self forKeyPath:@"gradientStop.leadOutOpacity" options:0 context:&kTEStopDirtyContext];
+    [self addObserver:self forKeyPath:@"gradientStop.location" options:0 context:&kTEStopDirtyContext];
     [self addObserver:self forKeyPath:@"selected" options:0 context:&kTEStopDirtyContext];
 }
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"stop"];
-    [self removeObserver:self forKeyPath:@"stop.gradientColor"];
-    [self removeObserver:self forKeyPath:@"stop.location"];
-    [self removeObserver:self forKeyPath:@"stop.opacity"];
-    [self removeObserver:self forKeyPath:@"stop.leadOutOpacity"];
-    [self removeObserver:self forKeyPath:@"stop.leadOutColor"];
+    [self removeObserver:self forKeyPath:@"gradientStop"];
+    [self removeObserver:self forKeyPath:@"gradientStop.color"];
+    [self removeObserver:self forKeyPath:@"gradientStop.location"];
+    [self removeObserver:self forKeyPath:@"gradientStop.opacity"];
+    [self removeObserver:self forKeyPath:@"gradientStop.leadOutOpacity"];
+    [self removeObserver:self forKeyPath:@"gradientStop.leadOutColor"];
     [self removeObserver:self forKeyPath:@"selected"];
 }
 

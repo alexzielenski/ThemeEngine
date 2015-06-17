@@ -11,7 +11,10 @@
 
 // Specialized gradient class for CoreUI gradients
 // that have bonus features
-@interface TKGradient : NSObject
+@interface TKGradient : NSObject {
+    NSArray<NSNumber *> *_colorMidpoints;
+    NSArray<NSNumber *> *_opacityMidpoints;
+}
 @property (assign, getter=isRadial) BOOL radial;
 @property (assign) CGFloat angle;
 @property (assign, getter=isDithered) BOOL dithered;
@@ -22,8 +25,8 @@
 
 @property (readonly, strong) NSArray<__kindof TKGradientColorStop *> *colorStops;
 @property (readonly, strong) NSArray<__kindof TKGradientOpacityStop *> *opacityStops;
-@property (readonly, strong) NSArray<NSNumber *> *colorMidpoints;
-@property (readonly, strong) NSArray<NSNumber *> *opacityMidpoints;
+@property (nonatomic, strong) NSArray<NSNumber *> *colorMidpoints;
+@property (nonatomic, strong) NSArray<NSNumber *> *opacityMidpoints;
 
 + (instancetype)gradientWithColorStops:(NSArray<__kindof TKGradientColorStop *> *)colorStops
                           opacityStops:(NSArray<__kindof TKGradientOpacityStop *> *)opacityStops
