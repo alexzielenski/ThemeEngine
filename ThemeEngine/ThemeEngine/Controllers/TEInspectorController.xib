@@ -307,7 +307,7 @@
                 <customView horizontalHuggingPriority="251" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Y1K-P5-Lck">
                     <rect key="frame" x="1" y="0.0" width="255" height="32"/>
                     <subviews>
-                        <textField wantsLayer="YES" horizontalHuggingPriority="1" verticalHuggingPriority="750" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="L6L-Ic-uKc">
+                        <textField wantsLayer="YES" horizontalHuggingPriority="1" verticalHuggingPriority="750" horizontalCompressionResistancePriority="249" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L6L-Ic-uKc">
                             <rect key="frame" x="6" y="7" width="231" height="17"/>
                             <animations/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Test" id="C8S-in-0Q0">

@@ -17,7 +17,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="235" width="1081" height="534"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="600" height="400"/>
             <view key="contentView" id="gIp-Ho-8D9">
                 <rect key="frame" x="0.0" y="0.0" width="1081" height="534"/>
@@ -26,9 +26,6 @@
                     <splitView wantsLayer="YES" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NiR-ww-Pjh">
                         <rect key="frame" x="0.0" y="0.0" width="1081" height="534"/>
                         <animations/>
-                        <connections>
-                            <outlet property="delegate" destination="oxw-nq-5sg" id="1Ig-Dp-Aks"/>
-                        </connections>
                     </splitView>
                 </subviews>
                 <constraints>
@@ -317,7 +314,7 @@
                             </connections>
                         </button>
                         <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4dv-Sn-CWt">
-                            <rect key="frame" x="362" y="6" width="96" height="20"/>
+                            <rect key="frame" x="362" y="6" width="96" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="92" id="C1j-Vu-sK4"/>
                             </constraints>
@@ -382,7 +379,7 @@
                     </constraints>
                     <animations/>
                 </customView>
-                <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="72" horizontalPageScroll="10" verticalLineScroll="72" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="g3f-xN-6oz" customClass="RBLScrollView">
+                <scrollView borderType="none" horizontalLineScroll="72" horizontalPageScroll="10" verticalLineScroll="72" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="g3f-xN-6oz" customClass="RBLScrollView">
                     <rect key="frame" x="0.0" y="32" width="500" height="353"/>
                     <clipView key="contentView" wantsLayer="YES" copiesOnScroll="NO" id="iET-hJ-bgY" customClass="RBLClipView">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="353"/>
