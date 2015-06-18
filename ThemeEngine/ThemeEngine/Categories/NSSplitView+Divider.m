@@ -11,7 +11,7 @@
 @implementation NSSplitView (Divider)
 
 - (NSColor *)dividerColor {
-    return [NSColor grayColor];
+    return [NSColor lightGrayColor];
 }
 
 - (BOOL)mouseDownCanMoveWindow {

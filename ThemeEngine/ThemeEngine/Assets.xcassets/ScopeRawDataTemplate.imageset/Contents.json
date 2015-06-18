@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Box 1.png",
+      "filename" : "Screens.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Box 1-1.png",
+      "filename" : "Screens-1.png",
       "scale" : "2x"
     },
     {
