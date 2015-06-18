@@ -10,6 +10,7 @@
 
 #import "TEInspectorDetailController.h"
 #import "TEGradientInspector.h"
+#import "TEBitmapInspector.h"
 
 // representedObject must be an NSArrayController
 // with updated selectionIndexes
@@ -18,4 +19,6 @@
 @property (strong) NSArray *inspectorViewControllers;
 @property (strong) IBOutlet TEInspectorDetailController *gradientInspector;
 @property (strong) IBOutlet TEInspectorDetailController *attributesInspector;
+@property (strong) IBOutlet TEBitmapInspector *bitmapInspector;
+@property IBOutlet NSView *bottomLine;
 @end

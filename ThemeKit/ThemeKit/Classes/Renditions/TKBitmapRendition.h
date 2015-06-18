@@ -12,4 +12,9 @@
     NSBitmapImageRep *_image;
 }
 @property (nonatomic, strong) NSBitmapImageRep *image;
+@property CGFloat opacity;
+@property (copy) NSString *utiType;
+@property TKEXIFOrientation exifOrientation;
+@property CGBlendMode blendMode;
+
 @end

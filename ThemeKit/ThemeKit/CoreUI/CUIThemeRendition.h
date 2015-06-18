@@ -36,9 +36,9 @@
 + (NSData *)filteredCSIDataFromBaseCSIData:(NSData *)csiData;
 + (Class)renditionClassForRenditionType:(CoreThemeType)type andPixelFormat:(unsigned int)format;
 
-@property(nonatomic) int exifOrientation; // @synthesize exifOrientation=_exifOrientation;
-@property(nonatomic) int blendMode; // @synthesize blendMode=_blendMode;
-@property(nonatomic) double opacity; // @synthesize opacity=_opacity;
+@property(nonatomic) TKEXIFOrientation exifOrientation; // @synthesize exifOrientation=_exifOrientation;
+@property(nonatomic) CGBlendMode blendMode; // @synthesize blendMode=_blendMode;
+@property(nonatomic) CGFloat opacity; // @synthesize opacity=_opacity;
 
 - (unsigned short)valueForTokenIdentifier:(TKThemeAttribute)identifier;
 - (CGRect)alphaCroppedRect;

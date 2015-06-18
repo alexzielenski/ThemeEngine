@@ -22,6 +22,11 @@ static NSGradient *selectionGradient = nil;
 - (void)setSegmentStyle:(long long)arg1 forceRecalc:(BOOL)arg2;
 - (NSRect)rectForSegment:(NSInteger)arg1 inFrame:(NSRect)arg2;
 - (void)_configureLabelCell:(id)arg1 forItem:(id)arg2 controlView:(id)arg3 imageState:(unsigned long long)arg4 backgroundStyle:(long long)arg5;
+- (BOOL)_hasItemTooltips;
+- (void)_setNeedsToolTipRecalc:(BOOL)arg1;
+- (BOOL)_needsToolTipRecalc;
+- (BOOL)_proRecalcToolTips;
+- (void)_proSetRecalcToolTips:(BOOL)arg1;
 @end
 
 @implementation TETexturedScope
@@ -37,10 +42,10 @@ static NSGradient *selectionGradient = nil;
                                                        endingColor:[[NSColor grayColor] colorWithAlphaComponent:0.5]];
 }
 
-- (void)drawWithFrame:(NSRect)cellFrame inView:(nonnull NSView *)controlView {
+- (void)_drawBackgroundWithFrame:(struct CGRect)cellFrame inView:(id)arg2 {
     [[NSColor grayColor] set];
     NSRectFill(NSMakeRect(0, 0, cellFrame.size.width, 1.0));
-    
+
     for (NSUInteger segment = 0; segment < self.segmentCount; segment++) {
         NSRect segmentRect = [self rectForSegment:segment inFrame:cellFrame];
 
@@ -63,6 +68,9 @@ static NSGradient *selectionGradient = nil;
         if (segment != 0)
             NSRectFillUsingOperation(NSMakeRect(NSMinX(segmentRect) + 1.0, 0, 1.0, NSHeight(segmentRect)), NSCompositeSourceOver);
     }
+    
+    [self _proRecalcToolTips];
+    
 }
 
 - (NSBackgroundStyle)interiorBackgroundStyleForSegment:(NSInteger)segment {

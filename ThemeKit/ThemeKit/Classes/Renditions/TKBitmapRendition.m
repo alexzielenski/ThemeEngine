@@ -18,6 +18,10 @@
 - (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition key:(CUIRenditionKey *)key {
     if ((self = [super _initWithCUIRendition:rendition key:key])) {
         self.assetPack = rendition.type == CoreThemeTypeAssetPack;
+        self.exifOrientation = rendition.exifOrientation;
+        self.utiType         = rendition.utiType;
+        self.blendMode       = rendition.blendMode;
+        self.opacity         = rendition.opacity;
     }
     
     return self;

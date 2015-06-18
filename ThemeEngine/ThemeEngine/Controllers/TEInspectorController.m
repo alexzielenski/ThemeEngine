@@ -39,6 +39,7 @@ const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSe
     
      self.inspectorViewControllers = @[
                                        self.gradientInspector,
+                                       self.bitmapInspector,
                                        self.attributesInspector
                                        ];
     
@@ -53,9 +54,14 @@ const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSe
     for (NSViewController *vc in self.inspectorViewControllers) {
         [self.contentView addView:vc.view inGravity:NSStackViewGravityTop];
     }
+    [self.contentView addView:self.bottomLine inGravity:NSStackViewGravityTop];
 
     [self addObserver:self forKeyPath:@"representedObject.selection" options:0 context:&kTEInspectorControllerSelectionDidChange];
     [self reevaluateVisibility];
+}
+
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"representedObject.selection" context:&kTEInspectorControllerSelectionDidChange];
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {

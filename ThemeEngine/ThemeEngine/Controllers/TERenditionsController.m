@@ -64,10 +64,6 @@ static NSString *stringKeyForGroupTag(NSInteger tag) {
 const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
 @implementation TERenditionsController
 
-- (void)dealloc {
-    [self.renditionsArrayController removeObserver:self forKeyPath:@"arrangedObjects" context:&REEVALUATEGROUPS];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.currentGroup = -1;
@@ -95,6 +91,12 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
                                         options:0
                                         context:&REEVALUATEGROUPS];
 }
+
+- (void)dealloc {
+    [self.renditionsArrayController removeObserver:self forKeyPath:NSStringFromSelector(@selector(arrangedObjects)) context:&REEVALUATEGROUPS];
+    [self.renditionBrowser unbind:NSContentBinding];
+}
+
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
     if (context == &REEVALUATEGROUPS) {
         if (!self.groupCalculationDisabled)
@@ -151,11 +153,10 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
         
         self.groups = groups;
         
-        self.groupCalculationDisabled = YES;
         [self.renditionBrowser reloadData];
-        self.groupCalculationDisabled = NO;
     } else {
     reset:
+        _currentGroup = -1;
         self.groups = nil;
         self.groupCalculationDisabled = YES;
         self.renditionsArrayController.sortDescriptors = self.originalSortDescriptors;

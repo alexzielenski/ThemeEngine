@@ -21,6 +21,9 @@ const void *kTEDocumentControllerCollapseContext = &kTEDocumentControllerCollaps
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    if (self.splitView.delegate != self)
+        self.splitView.delegate = self;
+    
     self.elementsItem   = [NSSplitViewItem splitViewItemWithViewController:self.elementsController];
     self.renditionsItem = [NSSplitViewItem splitViewItemWithViewController:self.renditionsController];
     self.inspectorItem  = [NSSplitViewItem splitViewItemWithViewController:self.inspectorController];
@@ -42,14 +45,14 @@ const void *kTEDocumentControllerCollapseContext = &kTEDocumentControllerCollaps
     self.renditionsItem.canCollapse = NO;
     self.inspectorItem.canCollapse  = YES;
     
-    [self.elementsItem addObserver:self
-                   forKeyPath:@"collapsed"
-                      options:0
-                      context:&kTEDocumentControllerCollapseContext];
-    [self.inspectorItem addObserver:self
-                    forKeyPath:@"collapsed"
-                       options:0
-                       context:&kTEDocumentControllerCollapseContext];
+    [self addObserver:self
+           forKeyPath:@"elementsItem.collapsed"
+              options:0
+              context:&kTEDocumentControllerCollapseContext];
+    [self addObserver:self
+           forKeyPath:@"inspectorItem.collapsed"
+              options:0
+              context:&kTEDocumentControllerCollapseContext];
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
@@ -57,6 +60,11 @@ const void *kTEDocumentControllerCollapseContext = &kTEDocumentControllerCollaps
         [self.paneControl setSelected:!self.elementsItem.isCollapsed forSegment:0];
         [self.paneControl setSelected:!self.inspectorItem.isCollapsed forSegment:1];
     }
+}
+
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"elementsItem.collapsed"];
+    [self removeObserver:self forKeyPath:@"inspectorItem.collapsed"];
 }
 
 - (NSSplitView *)splitView {
