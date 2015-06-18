@@ -14,6 +14,7 @@
 @property (nonatomic, strong) IBOutlet NSView *inspectorView;
 
 - (NSStackViewVisibilityPriority)visibilityPriorityForInspectedObjects:(NSArray *)objects;
+- (NSStackViewGravity)gravity;
 - (IBAction)toggleHide:(NSButton *)sender;
 
 @end

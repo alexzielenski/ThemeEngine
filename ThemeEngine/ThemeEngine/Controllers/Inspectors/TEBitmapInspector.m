@@ -16,7 +16,8 @@
 @implementation TEBitmapInspector
 
 - (NSStackViewVisibilityPriority)visibilityPriorityForInspectedObjects:(NSArray *)objects {
-    return [[objects valueForKeyPath:@"className"] containsObject:[TKBitmapRendition className]];
+    return [[objects valueForKeyPath:@"className"] containsObject:[TKBitmapRendition className]] ?
+    NSStackViewVisibilityPriorityMustHold : NSStackViewVisibilityPriorityNotVisible;
 }
 
 @end

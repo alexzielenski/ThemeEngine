@@ -1,30 +1,26 @@
 //
-//  TEGradientInspector.m
+//  TEGradientInfoInspector.m
 //  ThemeEngine
 //
-//  Created by Alexander Zielenski on 6/16/15.
+//  Created by Alexander Zielenski on 6/18/15.
 //  Copyright © 2015 Alex Zielenski. All rights reserved.
 //
 
-#import "TEGradientInspector.h"
+#import "TEGradientInfoInspector.h"
 #import <ThemeKit/TKGradientRendition.h>
 
-@interface TEGradientInspector ()
+@interface TEGradientInfoInspector ()
 
 @end
 
-@implementation TEGradientInspector
+@implementation TEGradientInfoInspector
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.gradientEditor bind:@"gradient"
-                     toObject:self
-                  withKeyPath:@"inspectorController.representedObject.selection.gradient"
-                      options:@{ NSRaisesForNotApplicableKeysBindingOption: @(NO) }];
-}
-
-- (void)dealloc {
-    [self.gradientEditor unbind:@"gradient"];
+    [self bind:@"gradients"
+      toObject:self
+   withKeyPath:@"inspectorController.representedObject.selection.gradient"
+       options:@{ NSRaisesForNotApplicableKeysBindingOption: @(NO) }];
 }
 
 - (NSStackViewVisibilityPriority)visibilityPriorityForInspectedObjects:(NSArray *)objects {

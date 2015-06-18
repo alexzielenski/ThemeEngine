@@ -12,6 +12,7 @@
                 <outlet property="bitmapInspector" destination="5zm-Wz-sVp" id="cSb-QB-PuJ"/>
                 <outlet property="bottomLine" destination="jUh-at-fMP" id="qZv-fu-DOT"/>
                 <outlet property="contentView" destination="xp3-9J-lYi" id="pJj-1H-eNO"/>
+                <outlet property="gradientInfoInspector" destination="FKr-Wk-qPc" id="bWb-g3-eVu"/>
                 <outlet property="gradientInspector" destination="Qba-ew-VCW" id="ApF-97-6jj"/>
                 <outlet property="scrollView" destination="jQf-bw-yCc" id="rZj-BM-oMr"/>
                 <outlet property="view" destination="doT-Fm-VU5" id="vvh-as-7Xs"/>
@@ -30,7 +31,7 @@
                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="DUD-Lk-Wi4">
                     <rect key="frame" x="0.0" y="0.0" width="394" height="533"/>
                     <subviews>
-                        <stackView distribution="fillProportionally" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="750" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e0q-D1-uAY">
+                        <stackView distribution="fillProportionally" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="1000" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e0q-D1-uAY">
                             <rect key="frame" x="8" y="316" width="81" height="217"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r7T-SM-gl0">
@@ -139,7 +140,7 @@
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
-                        <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="749" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yfw-r3-yN8">
+                        <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="1" verticalStackHuggingPriority="749" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yfw-r3-yN8">
                             <rect key="frame" x="97" y="316" width="281" height="217"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tqm-PO-KkY">
@@ -361,7 +362,7 @@
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="XkK-dO-3YI">
-                        <rect key="frame" x="214" y="0.0" width="16" height="315"/>
+                        <rect key="frame" x="215" y="0.0" width="15" height="315"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
@@ -821,7 +822,7 @@
                                         <font key="font" metaFont="smallSystem"/>
                                         <menu key="menu" id="ZbK-C3-zaW">
                                             <items>
-                                                <menuItem title="Normal" state="on" tag="1" id="Y2N-UF-83K"/>
+                                                <menuItem title="Normal" tag="1" id="Y2N-UF-83K"/>
                                                 <menuItem title="Rotate 90" tag="6" id="qsh-1E-Lbz"/>
                                                 <menuItem title="Rotate 180" tag="3" id="IXr-eq-KIk"/>
                                                 <menuItem title="Rotate 270" tag="8" id="o6E-cu-YhB"/>
@@ -940,5 +941,146 @@
             <font key="titleFont" metaFont="system"/>
             <point key="canvasLocation" x="-14" y="-290.5"/>
         </box>
+        <viewController title="Gradient Info" nibName="TEInspectorDetailController" id="FKr-Wk-qPc" customClass="TEGradientInfoInspector">
+            <connections>
+                <outlet property="inspectorController" destination="-2" id="mQb-jV-jQO"/>
+                <outlet property="inspectorView" destination="Ogu-w6-qGs" id="Bn8-OE-krj"/>
+            </connections>
+        </viewController>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ogu-w6-qGs">
+            <rect key="frame" x="0.0" y="0.0" width="168" height="109"/>
+            <subviews>
+                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0rY-T2-5T2">
+                    <rect key="frame" x="59" y="92" width="43" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Angle:" id="iwG-2K-RFP">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g38-hD-bfJ">
+                    <rect key="frame" x="57" y="45" width="45" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Radial:" id="PRQ-dl-eLs">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xjB-QZ-tU0">
+                    <rect key="frame" x="108" y="90" width="40" height="19"/>
+                    <animations/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="90°" bezelStyle="round" id="xFN-Mp-QmX">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" negativeFormat="#" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="°" negativeSuffix="°" id="kqU-a3-QIe">
+                            <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="360"/>
+                        </numberFormatter>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="FKr-Wk-qPc" name="value" keyPath="gradients.angle" id="4sE-h3-M3s">
+                            <dictionary key="options">
+                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
+                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IaZ-gn-y01">
+                    <rect key="frame" x="42" y="20" width="60" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Dithered:" id="VYn-7b-GEi">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="8uZ-hq-XbC">
+                    <rect key="frame" x="106" y="16" width="18" height="18"/>
+                    <animations/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" state="on" inset="2" id="0fF-ph-jco">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="FKr-Wk-qPc" name="value" keyPath="gradients.dithered" id="I1u-ds-Km5">
+                            <dictionary key="options">
+                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </button>
+                <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mBj-Ta-kUY">
+                    <rect key="frame" x="18" y="70" width="84" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Smoothness:" id="PMR-PY-Pyh">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="J3I-o1-NYG">
+                    <rect key="frame" x="106" y="42" width="18" height="18"/>
+                    <animations/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="only" state="on" inset="2" id="wvp-R4-vlF">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="FKr-Wk-qPc" name="value" keyPath="gradients.radial" id="kCy-IK-wcp">
+                            <dictionary key="options">
+                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZC1-Lp-dsh">
+                    <rect key="frame" x="108" y="66" width="40" height="19"/>
+                    <animations/>
+                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="100%" bezelStyle="round" id="aro-ju-MgT">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" positiveFormat="#" negativeFormat="#" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" positiveSuffix="%" negativeSuffix="%" id="cJ9-cl-Lbf">
+                            <integer key="multiplier" value="100"/>
+                            <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="1"/>
+                        </numberFormatter>
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="FKr-Wk-qPc" name="value" keyPath="gradients.smoothingCoefficient" id="ZER-4J-Qs6">
+                            <dictionary key="options">
+                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="xjB-QZ-tU0" firstAttribute="leading" secondItem="ZC1-Lp-dsh" secondAttribute="leading" id="0dd-xN-F5d"/>
+                <constraint firstAttribute="bottom" secondItem="IaZ-gn-y01" secondAttribute="bottom" constant="20" symbolic="YES" id="1Hy-W0-mPI"/>
+                <constraint firstItem="xjB-QZ-tU0" firstAttribute="leading" secondItem="0rY-T2-5T2" secondAttribute="trailing" constant="8" id="3tc-1h-swE"/>
+                <constraint firstItem="IaZ-gn-y01" firstAttribute="top" secondItem="g38-hD-bfJ" secondAttribute="bottom" constant="8" symbolic="YES" id="4Xa-yd-wlt"/>
+                <constraint firstItem="g38-hD-bfJ" firstAttribute="top" secondItem="mBj-Ta-kUY" secondAttribute="bottom" constant="8" symbolic="YES" id="6hR-ea-Abj"/>
+                <constraint firstItem="0rY-T2-5T2" firstAttribute="trailing" secondItem="mBj-Ta-kUY" secondAttribute="trailing" id="9Rh-Tz-vcG"/>
+                <constraint firstItem="8uZ-hq-XbC" firstAttribute="top" secondItem="J3I-o1-NYG" secondAttribute="bottom" constant="12" id="AU2-U4-TRw"/>
+                <constraint firstItem="0rY-T2-5T2" firstAttribute="top" secondItem="Ogu-w6-qGs" secondAttribute="top" id="FFu-jB-HET"/>
+                <constraint firstItem="mBj-Ta-kUY" firstAttribute="leading" secondItem="Ogu-w6-qGs" secondAttribute="leading" constant="20" symbolic="YES" id="Lhg-SX-lL6"/>
+                <constraint firstAttribute="trailing" secondItem="ZC1-Lp-dsh" secondAttribute="trailing" constant="20" symbolic="YES" id="MNo-aW-PE8"/>
+                <constraint firstAttribute="trailing" secondItem="xjB-QZ-tU0" secondAttribute="trailing" constant="20" symbolic="YES" id="MmL-hC-3F2"/>
+                <constraint firstItem="J3I-o1-NYG" firstAttribute="leading" secondItem="8uZ-hq-XbC" secondAttribute="leading" id="SvS-Ah-6UO"/>
+                <constraint firstItem="g38-hD-bfJ" firstAttribute="trailing" secondItem="IaZ-gn-y01" secondAttribute="trailing" id="X0U-Wx-API"/>
+                <constraint firstItem="J3I-o1-NYG" firstAttribute="top" secondItem="ZC1-Lp-dsh" secondAttribute="bottom" constant="8" symbolic="YES" id="Z0f-L2-c9r"/>
+                <constraint firstItem="ZC1-Lp-dsh" firstAttribute="leading" secondItem="J3I-o1-NYG" secondAttribute="leading" id="ehw-58-pRn"/>
+                <constraint firstItem="mBj-Ta-kUY" firstAttribute="trailing" secondItem="g38-hD-bfJ" secondAttribute="trailing" id="g8y-6s-SnX"/>
+                <constraint firstItem="ZC1-Lp-dsh" firstAttribute="top" secondItem="xjB-QZ-tU0" secondAttribute="bottom" constant="5" id="oHp-aP-igx"/>
+                <constraint firstItem="xjB-QZ-tU0" firstAttribute="baseline" secondItem="0rY-T2-5T2" secondAttribute="baseline" id="qAS-G3-AKu"/>
+                <constraint firstItem="mBj-Ta-kUY" firstAttribute="top" secondItem="0rY-T2-5T2" secondAttribute="bottom" constant="5" id="xgG-rn-VeU"/>
+            </constraints>
+            <animations/>
+            <point key="canvasLocation" x="-224" y="1052.5"/>
+        </customView>
     </objects>
 </document>

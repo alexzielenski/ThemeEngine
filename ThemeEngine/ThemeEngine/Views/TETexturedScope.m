@@ -43,14 +43,14 @@ static NSGradient *selectionGradient = nil;
 }
 
 - (void)_drawBackgroundWithFrame:(struct CGRect)cellFrame inView:(id)arg2 {
-    [[NSColor grayColor] set];
-    NSRectFill(NSMakeRect(0, 0, cellFrame.size.width, 1.0));
+//    [[NSColor grayColor] set];
+//    NSRectFill(NSMakeRect(0, 0, cellFrame.size.width, 1.0));
 
     for (NSUInteger segment = 0; segment < self.segmentCount; segment++) {
         NSRect segmentRect = [self rectForSegment:segment inFrame:cellFrame];
 
         // draw separators on right side
-        [[NSColor grayColor] set];
+        [[NSColor lightGrayColor] set];
         NSRectFill(NSMakeRect(round(NSMaxX(segmentRect)), 0, 1.0, NSHeight(segmentRect)));
         
         if (segment == self.selectedSegment) {
@@ -84,12 +84,24 @@ static NSGradient *selectionGradient = nil;
     return YES;
 }
 
++ (double)_endCapWidthForStyle:(long long)arg1 controlSize:(unsigned long long)arg2 {
+    return 0;
+}
+
 - (BOOL)_isFlatOnEdge:(unsigned long long)arg1 {
     return YES;
 }
 
 + (BOOL)_isTexturedStyle:(long long)arg1 {
     return YES;
+}
+
+- (struct CGRect)_boundsForCellFrame:(struct CGRect)arg1 {
+    return arg1;
+}
+
+- (struct CGRect)drawingRectForBounds:(struct CGRect)arg1 {
+    return arg1;
 }
 
 @end

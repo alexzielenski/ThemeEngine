@@ -24,6 +24,10 @@
     // Do view setup here.
 }
 
+- (NSStackViewGravity)gravity {
+    return NSStackViewGravityTop;
+}
+
 - (void)toggleHide:(NSButton *)sender {
     if (!self.collapsed)  {
         CGFloat headerDistance = NSMinY(self.view.bounds) - NSMinY(self.headerView.frame);

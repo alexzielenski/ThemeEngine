@@ -39,11 +39,13 @@ const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSe
     
      self.inspectorViewControllers = @[
                                        self.gradientInspector,
+                                       self.gradientInfoInspector,
                                        self.bitmapInspector,
                                        self.attributesInspector
                                        ];
     
     NSView *view = self.contentView;
+    
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
     self.scrollView.documentView = view;
     [self.scrollView.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[view]-0-|"
@@ -51,8 +53,10 @@ const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSe
                                                                                         metrics:nil
                                                                                           views:NSDictionaryOfVariableBindings(view)]];
     
-    for (NSViewController *vc in self.inspectorViewControllers) {
-        [self.contentView addView:vc.view inGravity:NSStackViewGravityTop];
+    self.contentView.distribution = NSStackViewDistributionFill;
+
+    for (TEInspectorDetailController *vc in self.inspectorViewControllers) {
+        [self.contentView addView:vc.view inGravity:vc.gravity];
     }
     [self.contentView addView:self.bottomLine inGravity:NSStackViewGravityTop];
 
