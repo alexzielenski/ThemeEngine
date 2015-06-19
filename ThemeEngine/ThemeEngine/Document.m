@@ -20,7 +20,7 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
 - (instancetype)init {
     if ((self = [super init])) {
         // Add your subclass-specific initialization here.
-        self.assetStorage = [TKAssetStorage assetStorageWithPath:TKCarPathSystemAppearance];
+        self.assetStorage = [TKAssetStorage assetStorageWithPath:TKCarPathAssets];
 
     }
     return self;
@@ -29,7 +29,8 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController {
     [super windowControllerDidLoadNib:aController];
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
-    aController.window.titleVisibility = NSWindowTitleHidden; 
+    aController.window.titleVisibility = NSWindowTitleHidden;
+    aController.window.titlebarAppearsTransparent = YES;
 }
 
 + (BOOL)autosavesInPlace {

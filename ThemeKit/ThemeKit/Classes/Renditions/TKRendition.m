@@ -73,14 +73,14 @@ NSString *md5(NSString *str) {
 
 + (instancetype)renditionWithCSIData:(NSData *)csiData renditionKey:(CUIRenditionKey *)key {
     CUIThemeRendition *rendition = [[TKClass(CUIThemeRendition) alloc] initWithCSIData:csiData forKey:key.keyList];
-    return [TKRendition renditionWithCUIRendition:rendition key:key];
+    return [TKRendition renditionWithCUIRendition:rendition csiData:csiData key:key];
 }
 
-+ (instancetype)renditionWithCUIRendition:(CUIThemeRendition *)rendition key:(CUIRenditionKey *)key {
-    return [[[TKRendition renditionClassForCoreUIRendition:rendition] alloc] _initWithCUIRendition:rendition key:key];
++ (instancetype)renditionWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData key:(CUIRenditionKey *)key {
+    return [[[TKRendition renditionClassForCoreUIRendition:rendition] alloc] _initWithCUIRendition:rendition csiData:csiData key:key];
 }
 
-- (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition key:(CUIRenditionKey *)key {
+- (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData key:(CUIRenditionKey *)key {
     if ((self = [self init])) {
         self.renditionKey  = key;
         self.rendition     = rendition;

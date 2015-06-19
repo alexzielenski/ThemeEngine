@@ -47,26 +47,27 @@ static NSGradient *selectionGradient = nil;
 //    NSRectFill(NSMakeRect(0, 0, cellFrame.size.width, 1.0));
 
     for (NSUInteger segment = 0; segment < self.segmentCount; segment++) {
-        NSRect segmentRect = [self rectForSegment:segment inFrame:cellFrame];
+        NSRect segmentRect = NSIntegralRect([self rectForSegment:segment inFrame:cellFrame]);
 
         // draw separators on right side
-        [[NSColor lightGrayColor] set];
+        [[[NSColor lightGrayColor] colorWithAlphaComponent:0.3] set];
         NSRectFill(NSMakeRect(round(NSMaxX(segmentRect)), 0, 1.0, NSHeight(segmentRect)));
         
         if (segment == self.selectedSegment) {
+            [[[NSColor lightGrayColor] colorWithAlphaComponent:0.3] set];
+            NSRectFill(NSMakeRect(NSMinX(segmentRect) + 1.0, 0.0, segmentRect.size.width - 2.0, 1.0));
+            
             NSRect gradientRect = segmentRect;
             gradientRect.size.width += 1;
             [selectionGradient drawInRect:gradientRect angle:90];
-            
+        
         } else if (segment == [self _indexOfHilightedSegment]) {
+            [[[NSColor lightGrayColor] colorWithAlphaComponent:0.3] set];
+            NSRectFill(NSMakeRect(NSMinX(segmentRect) + 1.0, 0.0, segmentRect.size.width - 2.0, 1.0));
+            
             [[[NSColor blackColor] colorWithAlphaComponent:0.2] set];
             NSRectFillUsingOperation(segmentRect, NSCompositeSourceOver);
         }
-        //
-        [[[NSColor whiteColor] colorWithAlphaComponent:0.1] set];
-        NSRectFillUsingOperation(NSMakeRect(NSMaxX(segmentRect) - 1.0, 0, 1.0, NSHeight(segmentRect)), NSCompositeSourceOver);
-        if (segment != 0)
-            NSRectFillUsingOperation(NSMakeRect(NSMinX(segmentRect) + 1.0, 0, 1.0, NSHeight(segmentRect)), NSCompositeSourceOver);
     }
     
     [self _proRecalcToolTips];

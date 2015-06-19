@@ -24,7 +24,7 @@ const void *kTEDocumentControllerCollapseContext = &kTEDocumentControllerCollaps
     if (self.splitView.delegate != self)
         self.splitView.delegate = self;
     
-    self.elementsItem   = [NSSplitViewItem splitViewItemWithViewController:self.elementsController];
+    self.elementsItem   = [NSSplitViewItem sidebarWithViewController:self.elementsController];
     self.renditionsItem = [NSSplitViewItem splitViewItemWithViewController:self.renditionsController];
     self.inspectorItem  = [NSSplitViewItem splitViewItemWithViewController:self.inspectorController];
 

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		FA092C841B2C1C7600D04F6D /* ThemeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = FA092C831B2C1C7600D04F6D /* ThemeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA514C381B3471DC002CBF5A /* TKLayoutInformation.h in Headers */ = {isa = PBXBuildFile; fileRef = FA514C361B3471DC002CBF5A /* TKLayoutInformation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA514C391B3471DC002CBF5A /* TKLayoutInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA514C371B3471DC002CBF5A /* TKLayoutInformation.m */; };
+		FA514C3D1B3471F3002CBF5A /* TKLayoutInformation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = FA514C3B1B3471F3002CBF5A /* TKLayoutInformation+Private.h */; };
 		FA57E1801B2FEC290032B765 /* TKEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = FA57E17E1B2FEC290032B765 /* TKEffect.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA57E1811B2FEC290032B765 /* TKEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = FA57E17F1B2FEC290032B765 /* TKEffect.m */; };
 		FA57E1831B2FEECA0032B765 /* TKEffect+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = FA57E1821B2FEECA0032B765 /* TKEffect+Private.h */; };
@@ -101,6 +104,9 @@
 		FA092C821B2C1C7600D04F6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA092C831B2C1C7600D04F6D /* ThemeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemeKit.h; sourceTree = "<group>"; };
 		FA4DCE891B2D9C9C00D820FD /* ThemeEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ThemeEngine.xcodeproj; path = ../ThemeEngine/ThemeEngine.xcodeproj; sourceTree = "<group>"; };
+		FA514C361B3471DC002CBF5A /* TKLayoutInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TKLayoutInformation.h; path = Models/TKLayoutInformation.h; sourceTree = "<group>"; };
+		FA514C371B3471DC002CBF5A /* TKLayoutInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKLayoutInformation.m; path = Models/TKLayoutInformation.m; sourceTree = "<group>"; };
+		FA514C3B1B3471F3002CBF5A /* TKLayoutInformation+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKLayoutInformation+Private.h"; path = "Models/TKLayoutInformation+Private.h"; sourceTree = "<group>"; };
 		FA57E17E1B2FEC290032B765 /* TKEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TKEffect.h; path = Models/TKEffect.h; sourceTree = "<group>"; };
 		FA57E17F1B2FEC290032B765 /* TKEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKEffect.m; path = Models/TKEffect.m; sourceTree = "<group>"; };
 		FA57E1821B2FEECA0032B765 /* TKEffect+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKEffect+Private.h"; path = "Models/TKEffect+Private.h"; sourceTree = "<group>"; };
@@ -334,6 +340,9 @@
 				FA57E17E1B2FEC290032B765 /* TKEffect.h */,
 				FA57E1821B2FEECA0032B765 /* TKEffect+Private.h */,
 				FA57E17F1B2FEC290032B765 /* TKEffect.m */,
+				FA514C361B3471DC002CBF5A /* TKLayoutInformation.h */,
+				FA514C3B1B3471F3002CBF5A /* TKLayoutInformation+Private.h */,
+				FA514C371B3471DC002CBF5A /* TKLayoutInformation.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -433,6 +442,7 @@
 				FAA5C06E1B2CD094007DEBA1 /* _CUIThemeEffectRendition.h in Headers */,
 				FA6E012B1B2FFB9800209DE2 /* CUIShapeEffectStack.h in Headers */,
 				FAA5C06D1B2CD094007DEBA1 /* _CUIRawPixelRendition.h in Headers */,
+				FA514C381B3471DC002CBF5A /* TKLayoutInformation.h in Headers */,
 				FAA5C07C1B2CD55D007DEBA1 /* CUIRenditions.h in Headers */,
 				FA606C671B2C9BF200F24960 /* TKColorRendition.h in Headers */,
 				FA606C581B2C35CF00F24960 /* TKRendition+Private.h in Headers */,
@@ -451,6 +461,7 @@
 				FA606C3E1B2C213D00F24960 /* BOM.h in Headers */,
 				FAA5C0691B2CD094007DEBA1 /* _CUIExternalLinkRendition.h in Headers */,
 				FAA5C0861B2CD81B007DEBA1 /* CUIPSDGradientColorStop.h in Headers */,
+				FA514C3D1B3471F3002CBF5A /* TKLayoutInformation+Private.h in Headers */,
 				FAA5C08B1B2CD81B007DEBA1 /* CUIPSDGradientStop.h in Headers */,
 				FA606C361B2C1E1000F24960 /* TKAssetStorage.h in Headers */,
 				FAA54F5B1B2E0F6900EA15F2 /* TKGradient.h in Headers */,
@@ -551,6 +562,7 @@
 				FAA5C05B1B2CCF14007DEBA1 /* TKBitmapRendition.m in Sources */,
 				FAA5C0991B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.m in Sources */,
 				FA57E1811B2FEC290032B765 /* TKEffect.m in Sources */,
+				FA514C391B3471DC002CBF5A /* TKLayoutInformation.m in Sources */,
 				FAA5C0571B2CCF04007DEBA1 /* TKGradientRendition.m in Sources */,
 				FA606C481B2C2ADA00F24960 /* TKMutableAssetStorage.m in Sources */,
 				FA606C771B2C9E5400F24960 /* NSColor+CoreUI.m in Sources */,

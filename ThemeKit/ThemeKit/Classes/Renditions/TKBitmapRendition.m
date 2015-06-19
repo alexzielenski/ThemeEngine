@@ -9,19 +9,26 @@
 #import "TKBitmapRendition.h"
 #import "TKRendition+Private.h"
 #import "TKElement.h"
+#import "TKLayoutInformation+Private.h"
 
 #import <CoreUI/Renditions/CUIRenditions.h>
 
 @implementation TKBitmapRendition
 @dynamic image;
 
-- (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition key:(CUIRenditionKey *)key {
-    if ((self = [super _initWithCUIRendition:rendition key:key])) {
+- (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData  key:(CUIRenditionKey *)key {
+    if ((self = [super _initWithCUIRendition:rendition csiData:(NSData *)csiData key:key])) {
         self.assetPack = rendition.type == CoreThemeTypeAssetPack;
         self.exifOrientation = rendition.exifOrientation;
         self.utiType         = rendition.utiType;
         self.blendMode       = rendition.blendMode;
         self.opacity         = rendition.opacity;
+        
+        if (self.type == CoreThemeTypeSixPart) {
+            self.layoutInformation = [TKLayoutInformation layoutInformationWithCSIData:csiData];
+//            NSLog(@"%@", rendition.sliceInformation);
+        }
+        
     }
     
     return self;

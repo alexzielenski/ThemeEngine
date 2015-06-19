@@ -17,12 +17,14 @@
  MAGIC VALUES
  for csi_info in a list
  
+ defined as CSIInfoMagic
+ 
  0xE903 - 1001: Slice rects, First 4 bytes length, next num slices rects, next a list of the slice rects
  0xEB03 - 1003: Metrics – First 4 length (including num metrics), next 4 num metrics, next a list of metrics (struct of 3 CGSizes)
  0xEC03 - 1004: Composition - First 4 length, second is the blendmode, third is a float for opacity
  0xED03 - 1005: UTI Type, First 4 length, next 4 length of string, then the string
  0xEE03 - 1006: Image Metadata: First 4 length, next 4 EXIF orientation, (UTI type...?)
- 0xF203 - 1010: UNKNOWN. CONTAINS ONE VALUE. I think it's the length of the Internal Link Section, 'INKL'
+ 0xF203 - 1010: Internal Reference – First 4 length, next 4 reference magic 'INKL', next is variable
  
  GRADIENT format documented in TKGradient.h
  SHAPE EFFECT format documented in CUIShapeEffectPreset.h
@@ -71,6 +73,25 @@ struct csiheader {
         unsigned int payloadSize; // size of all the proceeding information listLength + data
     } bitmaps;
 };
+
+typedef NS_ENUM(uint32_t, CSIInfoMagic) {
+    CSIInfoMagicSlices = 1001,
+    CSIInfoMagicMetrics = 1003,
+    CSIInfoMagicComposition = 1004,
+    CSIInfoMagicUTI = 1005,
+    CSIInfoMagicBitmapInfo = 1006,
+    CSIInfoMagicReference = 1010
+};
+
+typedef struct {
+    CGSize imageSize;
+    CGSize edgeBL;
+    CGSize edgeTR;
+} CUIMetrics;
+
+typedef struct {
+    
+} CUISlices;
 
 #pragma mark - Colors
 

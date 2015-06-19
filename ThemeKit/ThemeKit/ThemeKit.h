@@ -31,3 +31,5 @@ FOUNDATION_EXPORT const unsigned char ThemeKitVersionString[];
 
 #import <ThemeKit/TKEffectPreset.h>
 #import <ThemeKit/TKEffect.h>
+
+#import <ThemeKit/TKLayoutInformation.h>

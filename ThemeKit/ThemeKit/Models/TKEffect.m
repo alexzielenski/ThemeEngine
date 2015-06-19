@@ -149,7 +149,10 @@
 }
 
 - (instancetype)initWithEffectTuples:(CUIEffectTuple *)tuples count:(NSUInteger)count {
-    if ((self = [self initWithType:tuples[0].effectType])) {
+    if ((self = [super init])) {
+        self.type = tuples[0].effectType;
+        self.parameters = [NSMutableDictionary dictionary];
+        
         for (NSUInteger x = 0; x < count; x++) {
             CUIEffectTuple tuple = tuples[x];
             switch (tuple.effectParameter) {

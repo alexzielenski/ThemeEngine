@@ -16,4 +16,9 @@
     return browserCell;
 }
 
+- (void)reloadData {
+    [super reloadData];
+    self.enclosingScrollView.contentInsets = self.enclosingScrollView.contentInsets;
+}
+
 @end

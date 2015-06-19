@@ -9,8 +9,11 @@
 /* Begin PBXBuildFile section */
 		FA1E9C691B3346A40097AA41 /* TEBitmapInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1E9C681B3346A40097AA41 /* TEBitmapInspector.m */; };
 		FA21F87D1B2E95710094202A /* TKRendition+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = FA21F87C1B2E95710094202A /* TKRendition+Filtering.m */; };
+		FA43A02C1B34993A0000DB66 /* TEColorInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A02B1B34993A0000DB66 /* TEColorInspector.m */; };
 		FA46BD361B2DA07E00BA9B01 /* ThemeKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA46BD371B2DA08100BA9B01 /* ThemeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */; };
+		FA514C321B346E86002CBF5A /* TESlicePreviewInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA514C311B346E86002CBF5A /* TESlicePreviewInspector.m */; };
+		FA514C351B346EDC002CBF5A /* TESliceImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA514C341B346EDC002CBF5A /* TESliceImageView.m */; };
 		FA59C2C81B2E88E800EF027D /* TERenditionBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA59C2C71B2E88E800EF027D /* TERenditionBrowserCell.m */; };
 		FA59C2CB1B2E893F00EF027D /* TEImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA59C2CA1B2E893F00EF027D /* TEImageBrowserView.m */; };
 		FA606C0E1B2C1D2100F24960 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA606C0D1B2C1D2100F24960 /* AppDelegate.m */; };
@@ -62,7 +65,13 @@
 		FA1E9C681B3346A40097AA41 /* TEBitmapInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEBitmapInspector.m; path = Controllers/Inspectors/TEBitmapInspector.m; sourceTree = "<group>"; };
 		FA21F87B1B2E95710094202A /* TKRendition+Filtering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKRendition+Filtering.h"; path = "Categories/TKRendition+Filtering.h"; sourceTree = "<group>"; };
 		FA21F87C1B2E95710094202A /* TKRendition+Filtering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKRendition+Filtering.m"; path = "Categories/TKRendition+Filtering.m"; sourceTree = "<group>"; };
+		FA43A02A1B34993A0000DB66 /* TEColorInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEColorInspector.h; path = Controllers/Inspectors/TEColorInspector.h; sourceTree = "<group>"; };
+		FA43A02B1B34993A0000DB66 /* TEColorInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEColorInspector.m; path = Controllers/Inspectors/TEColorInspector.m; sourceTree = "<group>"; };
 		FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ThemeKit.framework; path = "/Users/Alex/Library/Developer/Xcode/DerivedData/ThemeEngine-gwwcsfnqaxckjsfbmzrlbqvxnwpn/Build/Products/Debug/ThemeKit.framework"; sourceTree = "<absolute>"; };
+		FA514C301B346E86002CBF5A /* TESlicePreviewInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TESlicePreviewInspector.h; path = Controllers/Inspectors/TESlicePreviewInspector.h; sourceTree = "<group>"; };
+		FA514C311B346E86002CBF5A /* TESlicePreviewInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TESlicePreviewInspector.m; path = Controllers/Inspectors/TESlicePreviewInspector.m; sourceTree = "<group>"; };
+		FA514C331B346EDC002CBF5A /* TESliceImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TESliceImageView.h; path = Views/TESliceImageView.h; sourceTree = "<group>"; };
+		FA514C341B346EDC002CBF5A /* TESliceImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TESliceImageView.m; path = Views/TESliceImageView.m; sourceTree = "<group>"; };
 		FA59C2C61B2E88E800EF027D /* TERenditionBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TERenditionBrowserCell.h; path = Views/TERenditionBrowserCell.h; sourceTree = "<group>"; };
 		FA59C2C71B2E88E800EF027D /* TERenditionBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TERenditionBrowserCell.m; path = Views/TERenditionBrowserCell.m; sourceTree = "<group>"; };
 		FA59C2C91B2E893F00EF027D /* TEImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEImageBrowserView.h; path = Views/TEImageBrowserView.h; sourceTree = "<group>"; };
@@ -240,6 +249,8 @@
 				FA80CE0E1B30BF36005E5DD2 /* TEGradientStopLayer.m */,
 				FAB5EA781B345C630078923F /* TEVariableStackViewItem.h */,
 				FAB5EA791B345C630078923F /* TEVariableStackViewItem.m */,
+				FA514C331B346EDC002CBF5A /* TESliceImageView.h */,
+				FA514C341B346EDC002CBF5A /* TESliceImageView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -259,6 +270,10 @@
 				FACD44CB1B33A58900E75650 /* TEAnimationInspector.m */,
 				FACD44CD1B33B08C00E75650 /* TEEffectsInspector.h */,
 				FACD44CE1B33B08C00E75650 /* TEEffectsInspector.m */,
+				FA514C301B346E86002CBF5A /* TESlicePreviewInspector.h */,
+				FA514C311B346E86002CBF5A /* TESlicePreviewInspector.m */,
+				FA43A02A1B34993A0000DB66 /* TEColorInspector.h */,
+				FA43A02B1B34993A0000DB66 /* TEColorInspector.m */,
 			);
 			name = Inspectors;
 			sourceTree = "<group>";
@@ -372,6 +387,7 @@
 				FAA2B1BE1B2E023900D70473 /* TKRendition+ImageBrowser.m in Sources */,
 				FA80CDF11B308D41005E5DD2 /* TKBitmapRendition+Pasteboard.m in Sources */,
 				FAD3AAD01B3356F10006FA7F /* TEGradientInfoInspector.m in Sources */,
+				FA514C351B346EDC002CBF5A /* TESliceImageView.m in Sources */,
 				FABEAED01B2F714000B02805 /* TEAttributesInspector.m in Sources */,
 				FABEAEC81B2F70ED00B02805 /* TEInspectorController.m in Sources */,
 				FA606C0E1B2C1D2100F24960 /* AppDelegate.m in Sources */,
@@ -379,6 +395,8 @@
 				FAA54F6F1B2E34B300EA15F2 /* TETexturedScope.m in Sources */,
 				FAB5EA7A1B345C630078923F /* TEVariableStackViewItem.m in Sources */,
 				FA6E01341B301F1A00209DE2 /* TEDocumentViewController.m in Sources */,
+				FA43A02C1B34993A0000DB66 /* TEColorInspector.m in Sources */,
+				FA514C321B346E86002CBF5A /* TESlicePreviewInspector.m in Sources */,
 				FAA54F691B2E211F00EA15F2 /* RBLScrollView.m in Sources */,
 				FA59C2CB1B2E893F00EF027D /* TEImageBrowserView.m in Sources */,
 				FAA54F791B2E4DC700EA15F2 /* TERenditionsController.m in Sources */,

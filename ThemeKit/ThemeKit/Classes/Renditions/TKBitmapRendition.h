@@ -7,14 +7,17 @@
 //
 
 #import <ThemeKit/TKRendition.h>
+#import <ThemeKit/TKLayoutInformation.h>
 
 @interface TKBitmapRendition : TKRendition {
     NSBitmapImageRep *_image;
 }
+
 @property (nonatomic, strong) NSBitmapImageRep *image;
 @property CGFloat opacity;
 @property (copy) NSString *utiType;
 @property TKEXIFOrientation exifOrientation;
 @property CGBlendMode blendMode;
+@property (strong) TKLayoutInformation *layoutInformation;
 
 @end

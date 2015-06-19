@@ -11,6 +11,7 @@
                 <outlet property="attributesInspector" destination="tGs-jd-I8J" id="x5G-b2-HFf"/>
                 <outlet property="bitmapInspector" destination="5zm-Wz-sVp" id="cSb-QB-PuJ"/>
                 <outlet property="bottomLine" destination="jUh-at-fMP" id="qZv-fu-DOT"/>
+                <outlet property="colorInspector" destination="pQJ-Zu-6mN" id="jNQ-QE-0Ki"/>
                 <outlet property="contentView" destination="xp3-9J-lYi" id="pJj-1H-eNO"/>
                 <outlet property="effectsInspector" destination="NiE-Zo-ftF" id="1Xv-iq-bqY"/>
                 <outlet property="gradientInfoInspector" destination="FKr-Wk-qPc" id="bWb-g3-eVu"/>
@@ -307,10 +308,10 @@
             <rect key="frame" x="0.0" y="0.0" width="256" height="32"/>
             <subviews>
                 <customView horizontalHuggingPriority="251" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Y1K-P5-Lck">
-                    <rect key="frame" x="1" y="0.0" width="255" height="32"/>
+                    <rect key="frame" x="1" y="-5" width="255" height="37"/>
                     <subviews>
                         <textField wantsLayer="YES" horizontalHuggingPriority="1" verticalHuggingPriority="750" horizontalCompressionResistancePriority="249" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L6L-Ic-uKc">
-                            <rect key="frame" x="6" y="7" width="231" height="17"/>
+                            <rect key="frame" x="6" y="10" width="231" height="17"/>
                             <animations/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Test" id="C8S-in-0Q0">
                                 <font key="font" metaFont="system"/>
@@ -323,7 +324,7 @@
                         </textField>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="32" id="7qL-mZ-Lh7"/>
+                        <constraint firstAttribute="height" constant="37" id="7qL-mZ-Lh7"/>
                         <constraint firstItem="L6L-Ic-uKc" firstAttribute="centerY" secondItem="Y1K-P5-Lck" secondAttribute="centerY" id="HSD-t9-RL3"/>
                         <constraint firstItem="L6L-Ic-uKc" firstAttribute="leading" secondItem="Y1K-P5-Lck" secondAttribute="leading" constant="8" id="Qnm-rN-5yw"/>
                         <constraint firstAttribute="trailing" secondItem="L6L-Ic-uKc" secondAttribute="trailing" constant="20" symbolic="YES" id="hwQ-tU-Sc0"/>
@@ -1237,7 +1238,7 @@
                     </constraints>
                     <animations/>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Psc-UL-Sgi">
-                        <rect key="frame" x="1" y="119" width="223" height="15"/>
+                        <rect key="frame" x="1" y="95" width="224" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
@@ -1854,6 +1855,50 @@
                 </binding>
             </connections>
         </arrayController>
+        <viewController title="Color" nibName="TEInspectorDetailController" id="pQJ-Zu-6mN" customClass="TEColorInspector">
+            <connections>
+                <outlet property="inspectorView" destination="6r1-YK-dpP" id="Wdx-QU-6VW"/>
+            </connections>
+        </viewController>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="6r1-YK-dpP" userLabel="Color">
+            <rect key="frame" x="0.0" y="0.0" width="168" height="43"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yml-Gr-s7Z">
+                    <rect key="frame" x="18" y="23" width="41" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Color:" id="96N-X6-dVZ">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="qZk-cE-ilA">
+                    <rect key="frame" x="65" y="20" width="83" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="23" id="NZR-YV-9gR"/>
+                    </constraints>
+                    <animations/>
+                    <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="representedObject.selection.color" id="cKY-wR-CJb">
+                            <dictionary key="options">
+                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </colorWell>
+            </subviews>
+            <constraints>
+                <constraint firstItem="qZk-cE-ilA" firstAttribute="leading" secondItem="yml-Gr-s7Z" secondAttribute="trailing" constant="8" symbolic="YES" id="4Nw-AO-yaS"/>
+                <constraint firstItem="qZk-cE-ilA" firstAttribute="top" secondItem="6r1-YK-dpP" secondAttribute="top" id="JaK-5D-pus"/>
+                <constraint firstItem="yml-Gr-s7Z" firstAttribute="top" secondItem="6r1-YK-dpP" secondAttribute="top" constant="3" id="NUP-FQ-Ppp"/>
+                <constraint firstAttribute="trailing" secondItem="qZk-cE-ilA" secondAttribute="trailing" constant="20" id="cLq-39-tuM"/>
+                <constraint firstItem="yml-Gr-s7Z" firstAttribute="leading" secondItem="6r1-YK-dpP" secondAttribute="leading" constant="20" symbolic="YES" id="jZB-Id-wnh"/>
+                <constraint firstAttribute="bottom" secondItem="qZk-cE-ilA" secondAttribute="bottom" constant="20" symbolic="YES" id="vbG-pX-aZo"/>
+            </constraints>
+            <animations/>
+            <point key="canvasLocation" x="-456" y="817.5"/>
+        </customView>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>

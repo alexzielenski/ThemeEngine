@@ -70,10 +70,6 @@
 
 #pragma mark - NSTableViewDelegate
 
-- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
-    NSLog(@"%@", aCell);
-}
-
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     TEEffectItem *v = [tableView makeViewWithIdentifier:@"EffectItem" owner:self];
     v.addButton.target = self;

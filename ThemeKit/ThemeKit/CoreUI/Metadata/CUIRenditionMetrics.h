@@ -4,6 +4,14 @@
  *     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2011 by Steve Nygard.
  */
 
+//!The different between this class and slice info is that this class actually defines
+//! the difference between the "content" of a view/controller image and an "edge" for layout
+//! purposes
+
+// This class is unused by everything except CUIInternalLinkRendition
+// so if we want to support classes that aren't internal links we can't use it
+// and instead have to refer to documented metric information in the CSI header
+
 // Not exported
 @interface CUIRenditionMetrics : NSObject
 {

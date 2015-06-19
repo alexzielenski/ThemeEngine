@@ -66,6 +66,7 @@
 - (void)removeOpacityStopsObject:(TKGradientOpacityStop *)object;
 - (void)removeOpacityMidpointsObject:(NSNumber *)object;
 
+// Purely for KVC compliance
 - (void)insertObject:(TKGradientColorStop *)object inColorStopsAtIndex:(NSUInteger)index;
 - (void)insertObject:(NSNumber *)object inColorMidpointsAtIndex:(NSUInteger)index;
 - (void)insertObject:(TKGradientOpacityStop *)object inOpacityStopsAtIndex:(NSUInteger)index;
