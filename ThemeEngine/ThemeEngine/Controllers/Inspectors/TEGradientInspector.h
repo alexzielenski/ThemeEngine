@@ -11,6 +11,6 @@
 
 @interface TEGradientInspector : TEInspectorDetailController
 // for programmatic binding
-@property IBOutlet NSViewController *inspectorController;
+@property (weak) IBOutlet NSViewController *inspectorController;
 @property IBOutlet TEGradientEditor *gradientEditor;
 @end

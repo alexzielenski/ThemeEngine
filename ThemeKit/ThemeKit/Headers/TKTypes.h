@@ -156,23 +156,25 @@ typedef NS_ENUM(uint16_t, TKThemeAttribute) {
 };
 
 typedef NS_ENUM(uint32_t, CUIEffectType) {
-    CUIEffectTypeColorFill      = 'Colr',
-    CUIEffectTypeOutputOpacity  = 'Fade',
-    CUIEffectTypeShapeOpacity   = 'SOpc',
-    CUIEffectTypeBevelAndEmboss = 'Embs',
-    CUIEffectTypeDropShadow     = 'Drop',
-    CUIEffectTypeInnerGlow      = 'iGlw',
-    CUIEffectTypeOuterGlow      = 'oGlw',
-    CUIEffectTypeExtraShadow    = 'Xtra',
-    CUIEffectTypeInnerShadow    = 'inSh',
-    CUIEffectTypeGradientFill   = 'Grad'
+    // Comments include mandatory values
+    // though there are optional ones, some of which are included in (parenthesis)
+    CUIEffectTypeColorFill      = 'Colr', // color, opacity (blend mode)
+    CUIEffectTypeOutputOpacity  = 'Fade', // opacity
+    CUIEffectTypeShapeOpacity   = 'SOpc', // opacity
+    CUIEffectTypeBevelAndEmboss = 'Embs', // color, coolr2, opacity, opacity 2, blur radius, soften
+    CUIEffectTypeDropShadow     = 'Drop', // color, opacity, blur radius, offset, angle (spread)
+    CUIEffectTypeInnerGlow      = 'iGlw', // color, opacity, blur radius (blend mode)
+    CUIEffectTypeOuterGlow      = 'oGlw', // color, opacity, blur radius (spread)
+    CUIEffectTypeExtraShadow    = 'Xtra', // color, opacity, blur radius, offset, angle (spread)
+    CUIEffectTypeInnerShadow    = 'inSh', // color, opacity, blur radius, offset, angle (spread, blend mode)
+    CUIEffectTypeGradientFill   = 'Grad' // color, color2, opacity
 };
 
 typedef NS_ENUM(unsigned int, CUIEffectParameter) {
     CUIEffectParameterColor      = 0, // rgb
     CUIEffectParameterColor2     = 1, // rgb
     CUIEffectParameterOpacity    = 2, // float
-    CUIEffectParameterOpacity2   = 3, // float
+    CUIEffectParameterOpacity2   = 3, // float, "Shadow Opacity"
     CUIEffectParameterBlurRadius = 4, // int
     CUIEffectParameterOffset     = 5, // int
     CUIEffectParameterAngle      = 6, // int

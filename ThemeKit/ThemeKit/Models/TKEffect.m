@@ -16,7 +16,7 @@
 @end
 
 @implementation TKEffect
-@dynamic colorValue, color2Value, offsetValue, opacity2Value, opacityValue, blendModeValue, blurRadiusValue, angleValue, softenValue, spreadValue;
+@dynamic colorValue, color2Value, offsetValue, opacity2Value, opacityValue, blendModeValue, blurRadiusValue, angleValue, softenValue, spreadValue, typeString;
 
 #pragma mark - Initialization
 
@@ -263,6 +263,10 @@
 }
 
 #pragma mark - Convenience Properties
+
+- (NSString *)typeString {
+    return CUIEffectTypeToString(self.type);
+}
 
 - (NSColor *)colorValue {
     return [self colorForParameter:CUIEffectParameterColor];

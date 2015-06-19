@@ -11,6 +11,7 @@
 
 @interface TKEffect : NSObject <NSCopying>
 @property (readonly, assign) CUIEffectType type;
+@property (readonly) NSString *typeString;
 
 + (instancetype)effectWithType:(CUIEffectType)type;
 - (instancetype)initWithType:(CUIEffectType)type;

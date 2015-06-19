@@ -40,6 +40,7 @@ const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSe
      self.inspectorViewControllers = @[
                                        self.gradientInspector,
                                        self.gradientInfoInspector,
+                                       self.effectsInspector,
                                        self.bitmapInspector,
                                        self.attributesInspector
                                        ];

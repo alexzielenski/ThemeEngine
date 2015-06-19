@@ -10,6 +10,6 @@
 
 @interface TEGradientInfoInspector : TEInspectorDetailController
 @property NSArray *gradients;
-@property IBOutlet NSViewController *inspectorController;
+@property (weak) IBOutlet NSViewController *inspectorController;
 
 @end

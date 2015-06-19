@@ -270,7 +270,7 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="3S4-16-oLu">
                     <rect key="frame" x="0.0" y="0.0" width="500" height="32"/>
                     <subviews>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="350" translatesAutoresizingMaskIntoConstraints="NO" id="TJn-WL-X6h">
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TJn-WL-X6h">
                             <rect key="frame" x="6" y="8" width="65" height="17"/>
                             <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Group By:" id="Knh-cc-V98">
