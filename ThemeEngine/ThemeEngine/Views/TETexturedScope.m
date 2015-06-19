@@ -14,7 +14,12 @@ static NSGradient *selectionGradient = nil;
 @interface TETexturedCell : NSSegmentedCell
 @end
 
+@interface NSView (Private)
+- (void)_viewDidChangeAppearance:(id)arg1;
+@end
+
 @interface NSSegmentedCell (Private)
+
 - (long long)_applicableSegmentedCellStyle;
 - (long long)_indexOfHilightedSegment;
 - (void)_updateNSSegmentItemViewFramesForCellFrame:(NSRect)arg1;
@@ -35,12 +40,19 @@ static NSGradient *selectionGradient = nil;
     return [TETexturedCell class];
 }
 
-@end
-@implementation TETexturedCell
 + (void)initialize {
     selectionGradient =  [[NSGradient alloc] initWithStartingColor:[[NSColor blackColor] colorWithAlphaComponent:0.5]
                                                        endingColor:[[NSColor grayColor] colorWithAlphaComponent:0.5]];
 }
+
+- (void)_viewDidChangeAppearance:(id)arg1 {
+    [super _viewDidChangeAppearance:arg1];
+    selectionGradient =  [[NSGradient alloc] initWithStartingColor:[[NSColor controlTextColor] colorWithAlphaComponent:0.5]
+                                                       endingColor:[[NSColor disabledControlTextColor] colorWithAlphaComponent:0.5]];
+}
+
+@end
+@implementation TETexturedCell
 
 - (void)_drawBackgroundWithFrame:(struct CGRect)cellFrame inView:(id)arg2 {
 //    [[NSColor grayColor] set];
@@ -54,24 +66,15 @@ static NSGradient *selectionGradient = nil;
         NSRectFill(NSMakeRect(round(NSMaxX(segmentRect)), 0, 1.0, NSHeight(segmentRect)));
         
         if (segment == self.selectedSegment) {
-            [[[NSColor lightGrayColor] colorWithAlphaComponent:0.3] set];
-            NSRectFill(NSMakeRect(NSMinX(segmentRect) + 1.0, 0.0, segmentRect.size.width - 2.0, 1.0));
-            
             NSRect gradientRect = segmentRect;
             gradientRect.size.width += 1;
             [selectionGradient drawInRect:gradientRect angle:90];
         
         } else if (segment == [self _indexOfHilightedSegment]) {
-            [[[NSColor lightGrayColor] colorWithAlphaComponent:0.3] set];
-            NSRectFill(NSMakeRect(NSMinX(segmentRect) + 1.0, 0.0, segmentRect.size.width - 2.0, 1.0));
-            
             [[[NSColor blackColor] colorWithAlphaComponent:0.2] set];
             NSRectFillUsingOperation(segmentRect, NSCompositeSourceOver);
         }
     }
-    
-    [self _proRecalcToolTips];
-    
 }
 
 - (NSBackgroundStyle)interiorBackgroundStyleForSegment:(NSInteger)segment {

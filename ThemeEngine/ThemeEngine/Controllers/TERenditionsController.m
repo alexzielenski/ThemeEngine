@@ -130,6 +130,7 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
             goto reset;
         }
         
+        
         // Loop through every element
         // Test to see if this current item is different from the last unique one we found
         // if so, create the group
@@ -144,8 +145,7 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
                 [groups addObject:@{
                                     IKImageBrowserGroupStyleKey: @(IKGroupDisclosureStyle),
                                     IKImageBrowserGroupTitleKey: [objects[x - 1] valueForKeyPath:stringKeyForGroupTag(currentGroup)],
-                                    IKImageBrowserGroupRangeKey: [NSValue valueWithRange:NSMakeRange(lastIdx, x - lastIdx)]
-                                    }];
+                                    IKImageBrowserGroupRangeKey: [NSValue valueWithRange:NSMakeRange(lastIdx, x - lastIdx)]                                    }];
                 lastObject = value;
                 lastIdx = x;
             }

@@ -315,7 +315,7 @@
                             <animations/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Test" id="C8S-in-0Q0">
                                 <font key="font" metaFont="system"/>
-                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                             <connections>
@@ -346,7 +346,7 @@
             <subviews>
                 <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQf-bw-yCc">
                     <rect key="frame" x="0.0" y="32" width="230" height="315"/>
-                    <clipView key="contentView" id="9mG-yc-jS0" customClass="TEFlippedClipView">
+                    <clipView key="contentView" copiesOnScroll="NO" id="9mG-yc-jS0" customClass="TEFlippedClipView">
                         <rect key="frame" x="0.0" y="0.0" width="230" height="315"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -356,6 +356,7 @@
                             </view>
                         </subviews>
                         <animations/>
+                        <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <animations/>
                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="B98-qN-lrd">
@@ -364,7 +365,7 @@
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="XkK-dO-3YI">
-                        <rect key="frame" x="214" y="0.0" width="16" height="315"/>
+                        <rect key="frame" x="215" y="0.0" width="15" height="315"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>

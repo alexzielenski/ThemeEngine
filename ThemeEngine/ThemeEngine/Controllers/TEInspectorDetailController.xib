@@ -22,34 +22,34 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="xDA-wj-PZD" userLabel="Header View">
                     <rect key="frame" x="0.0" y="0.0" width="341" height="26"/>
                     <subviews>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="600" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pqw-8m-blB">
-                            <rect key="frame" x="6" y="6" width="165" height="14"/>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="600" translatesAutoresizingMaskIntoConstraints="NO" id="Pqw-8m-blB">
+                            <rect key="frame" x="6" y="6" width="164" height="14"/>
                             <animations/>
                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Disclosure Panel Description" usesSingleLineMode="YES" id="KGU-Qv-BpA">
                                 <font key="font" metaFont="smallSystemBold"/>
-                                <color key="textColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                             <connections>
                                 <binding destination="-2" name="value" keyPath="title" id="3OQ-X6-2K7"/>
                             </connections>
                         </textField>
-                        <button verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="fqp-hh-KfH">
-                            <rect key="frame" x="289" y="3" width="48" height="19"/>
+                        <button wantsLayer="YES" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="fqp-hh-KfH">
+                            <rect key="frame" x="289" y="6" width="48" height="14"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="48" id="Kah-8f-WST"/>
                             </constraints>
                             <animations/>
-                            <buttonCell key="cell" type="recessed" title="Hide" bezelStyle="recessed" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nuR-W6-5Fn">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
-                                <font key="font" metaFont="systemBold" size="10"/>
+                            <buttonCell key="cell" type="inline" title="Hide" bezelStyle="inline" alignment="center" imageScaling="proportionallyDown" inset="2" id="nuR-W6-5Fn">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="smallSystemBold"/>
                             </buttonCell>
                             <connections>
                                 <action selector="toggleHide:" target="-2" id="IhR-1f-leo"/>
                             </connections>
                         </button>
-                        <box verticalHuggingPriority="750" misplaced="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="eUS-cV-h6T">
-                            <rect key="frame" x="0.0" y="-2" width="341" height="30"/>
+                        <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="eUS-cV-h6T">
+                            <rect key="frame" x="0.0" y="23" width="341" height="5"/>
                             <animations/>
                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

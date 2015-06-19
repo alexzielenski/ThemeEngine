@@ -46,7 +46,7 @@
                 [slices addObject:[NSValue valueWithRect:NSMakeRect(sliceInts.x, sliceInts.y, sliceInts.w, sliceInts.h)]];
             }
             
-            NSLog(@"%@", slices);
+//            NSLog(@"%@", slices);
             
         }
         
