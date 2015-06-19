@@ -23,6 +23,10 @@
        options:@{ NSRaisesForNotApplicableKeysBindingOption: @(NO) }];
 }
 
+- (void)dealloc {
+    [self unbind:@"gradients"];
+}
+
 - (NSStackViewVisibilityPriority)visibilityPriorityForInspectedObjects:(NSArray *)objects {
     if (objects.count != 1) {
         return NSStackViewVisibilityPriorityNotVisible;

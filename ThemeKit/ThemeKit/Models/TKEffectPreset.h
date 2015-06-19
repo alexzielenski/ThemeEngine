@@ -13,6 +13,8 @@
 @property CGFloat scaleFactor;
 + (instancetype)effectPreset;
 
+- (TKEffect *)effectWithType:(CUIEffectType)type;
+
 - (void)addEffect:(TKEffect *)effect;
 - (void)insertEffect:(TKEffect *)effect atIndex:(NSUInteger)index;
 

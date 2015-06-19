@@ -88,6 +88,12 @@
 
 #pragma mark - Managing Effects
 
+- (TKEffect *)effectWithType:(CUIEffectType)type {
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"type == %ld", type];
+    NSArray *filtered = [self.effects filteredArrayUsingPredicate:pred];
+    return filtered.firstObject;
+}
+
 - (void)addEffect:(TKEffect *)effect {
     [self insertEffect:effect atIndex:self.effects.count];
 }

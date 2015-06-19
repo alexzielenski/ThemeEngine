@@ -9,6 +9,9 @@
 #import "TEEffectsInspector.h"
 #import <ThemeKit/TKEffectRendition.h>
 
+@implementation TEEffectItem
+@end
+
 @interface TEEffectsInspector ()
 
 @end
@@ -23,7 +26,7 @@
       toObject:self.inspectorController
    withKeyPath:@"representedObject.selection.effectPreset"
        options:@{ NSRaisesForNotApplicableKeysBindingOption: @(NO) }];
-    ((NSStackView *)self.inspectorView).detachesHiddenViews = YES;
+//    ((NSStackView *)self.inspectorView).detachesHiddenViews = YES;
     
     [self bind:@"currentEffect"
       toObject:self.effectsController
@@ -51,9 +54,43 @@
     return [super keyPathsForValuesAffectingValueForKey:key];
 }
 
+
+- (IBAction)addEffect:(NSPopUpButton *)sender {
+    TKEffect *effect = [TKEffect effectWithType:(CUIEffectType)sender.selectedTag];
+    [self.preset insertEffect:effect atIndex:sender.tag+1];
+}
+
+- (IBAction)removeEffect:(NSButton *)sender {
+    if (self.preset.effects.count > 1) {
+        NSInteger row = sender.tag;
+        [self.preset removeEffectAtIndex:row];
+    }
+    
+}
+
+#pragma mark - NSTableViewDelegate
+
+- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
+    NSLog(@"%@", aCell);
+}
+
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    TEEffectItem *v = [tableView makeViewWithIdentifier:@"EffectItem" owner:self];
+    v.addButton.target = self;
+    v.addButton.action = @selector(addEffect:);
+    v.addButton.tag = row;
+    
+    v.removeButton.target = self;
+    v.removeButton.tag = row;
+    v.removeButton.action = @selector(removeEffect:);
+    
+    return v;
+}
+
 #pragma mark - Properties
 
 - (BOOL)canEditAngle {
+    [self.view.enclosingScrollView tile];
     switch (self.currentEffect.type) {
         case CUIEffectTypeInnerShadow:
         case CUIEffectTypeDropShadow:

@@ -127,6 +127,22 @@
     if ((self = [super init])) {
         self.type = type;
         self.parameters = [NSMutableDictionary dictionary];
+        
+        // add required params
+        NSArray *required = [CUIShapeEffectPreset requiredEffectParametersForEffectType:type];
+        for (NSNumber *num in required) {
+            switch (num.unsignedIntegerValue) {
+                case CUIEffectParameterColor:
+                case CUIEffectParameterColor2:
+                    [self setColor:[NSColor blackColor]
+                      forParameter:(CUIEffectParameter)num.unsignedIntegerValue];
+                    break;
+                default:
+                    [self setNumber:@(0)
+                       forParameter:(CUIEffectParameter)num.unsignedIntegerValue];
+                    break;
+            }
+        }        
     }
     
     return self;

@@ -1093,7 +1093,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" rowSizeStyle="automatic" viewBased="YES" floatsGroupRows="NO" id="htU-Qk-fhs">
-                                <rect key="frame" x="0.0" y="0.0" width="224" height="110"/>
+                                <rect key="frame" x="0.0" y="0.0" width="224" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <animations/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -1111,9 +1111,9 @@
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
-                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="Xh0-p0-ycD">
+                                            <tableCellView identifier="EffectItem" id="Xh0-p0-ycD" customClass="TEEffectItem">
                                                 <rect key="frame" x="1" y="1" width="221" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -1138,15 +1138,48 @@
                                                         <animations/>
                                                         <popUpButtonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" altersStateOfSelectedItem="NO" id="Nqq-1l-Pgd">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
+                                                            <font key="font" metaFont="menu"/>
                                                             <menu key="menu" id="DCx-8Y-dg2">
                                                                 <items>
                                                                     <menuItem image="NSAddTemplate" hidden="YES" id="pNL-kp-ulm"/>
-                                                                    <menuItem title="Item 2" id="Tpo-3Q-N15"/>
-                                                                    <menuItem title="Item 3" id="0iA-iT-9PZ"/>
+                                                                    <menuItem title="Color Fill" tag="1131375730" id="xPE-za-2Ud">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Gradient FIll" tag="1198678372" id="1Qu-0F-d4w">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Bevel and Emboss" tag="1164796531" id="RdG-dh-4Ji">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem isSeparatorItem="YES" id="Agv-Zi-f8L"/>
+                                                                    <menuItem title="Drop Shadow" tag="1148350320" id="Hpz-do-iaZ">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Extra Shadow" tag="1484026465" id="y6F-QA-vof">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Inner Shadow" tag="1768837992" id="ZMd-8A-9Ne">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Outer Glow" tag="1866951799" id="mvW-5q-Dv6">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Inner Glow" tag="1766288503" id="mBh-6x-SfW">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem isSeparatorItem="YES" id="91G-b6-ow5"/>
+                                                                    <menuItem title="Shape Opacity" tag="1397715043" id="KHw-c4-pZi">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
+                                                                    <menuItem title="Output Opacity" tag="1180787813" id="cYX-op-IIl">
+                                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    </menuItem>
                                                                 </items>
                                                             </menu>
                                                         </popUpButtonCell>
+                                                        <connections>
+                                                            <action selector="addEffect:" target="NiE-Zo-ftF" id="hRO-Xi-Xab"/>
+                                                        </connections>
                                                     </popUpButton>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CNe-gC-zwU">
                                                         <rect key="frame" x="166" y="-1" width="21" height="19"/>
@@ -1156,9 +1189,12 @@
                                                         </constraints>
                                                         <animations/>
                                                         <buttonCell key="cell" type="recessed" bezelStyle="recessed" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="nhc-fx-iLr">
-                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <behavior key="behavior" lightByContents="YES"/>
                                                             <font key="font" metaFont="systemBold" size="12"/>
                                                         </buttonCell>
+                                                        <connections>
+                                                            <action selector="removeEffect:" target="NiE-Zo-ftF" id="7HY-mu-eGE"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -1173,6 +1209,8 @@
                                                 </constraints>
                                                 <animations/>
                                                 <connections>
+                                                    <outlet property="addButton" destination="8vz-yb-FWL" id="z39-NE-YDe"/>
+                                                    <outlet property="removeButton" destination="CNe-gC-zwU" id="mGU-jc-J4y"/>
                                                     <outlet property="textField" destination="1em-MU-SVR" id="LpA-uQ-jQd"/>
                                                 </connections>
                                             </tableCellView>
@@ -1186,6 +1224,8 @@
                                         </dictionary>
                                     </binding>
                                     <binding destination="PHN-lK-2dS" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="GRF-O7-zV3" id="9Or-4n-7Qf"/>
+                                    <outlet property="dataSource" destination="NiE-Zo-ftF" id="ZRn-NZ-Q55"/>
+                                    <outlet property="delegate" destination="NiE-Zo-ftF" id="6pt-id-2FH"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -1207,11 +1247,14 @@
                         <animations/>
                     </scroller>
                 </scrollView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="bt5-sA-VKd" userLabel="Color 1">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="bt5-sA-VKd" userLabel="Color 1" customClass="TEVariableStackViewItem">
                     <rect key="frame" x="20" y="290" width="226" height="22"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dev-sy-VXg">
                             <rect key="frame" x="-2" y="3" width="81" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="77" id="W6d-Yn-MI7"/>
+                            </constraints>
                             <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Color:" id="AbW-JU-6BY">
                                 <font key="font" metaFont="system"/>
@@ -1226,6 +1269,9 @@
                             </constraints>
                             <animations/>
                             <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.colorValue" id="Am1-00-iMi"/>
+                            </connections>
                         </colorWell>
                     </subviews>
                     <constraints>
@@ -1246,11 +1292,14 @@
                         </binding>
                     </connections>
                 </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="eud-En-IT3" userLabel="Color 2">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="eud-En-IT3" userLabel="Color 2" customClass="TEVariableStackViewItem">
                     <rect key="frame" x="20" y="260" width="226" height="22"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RPF-6T-Siy">
                             <rect key="frame" x="-2" y="3" width="81" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="77" id="ny2-qS-V6u"/>
+                            </constraints>
                             <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Color 2:" id="1eO-8E-IdN">
                                 <font key="font" metaFont="system"/>
@@ -1265,6 +1314,9 @@
                             </constraints>
                             <animations/>
                             <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.color2Value" id="HX0-Dv-WCG"/>
+                            </connections>
                         </colorWell>
                     </subviews>
                     <constraints>
@@ -1285,11 +1337,14 @@
                         </binding>
                     </connections>
                 </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="CBI-E5-s95" userLabel="Opacity 1">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="CBI-E5-s95" userLabel="Opacity 1" customClass="TEVariableStackViewItem">
                     <rect key="frame" x="20" y="230" width="226" height="22"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lBk-9m-wKO">
                             <rect key="frame" x="-2" y="3" width="81" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="77" id="8oD-OI-HSK"/>
+                            </constraints>
                             <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Opacity:" id="amC-Y9-ml9">
                                 <font key="font" metaFont="system"/>
@@ -1310,6 +1365,9 @@
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.opacityValue" id="zTa-8c-KlM"/>
+                            </connections>
                         </textField>
                     </subviews>
                     <constraints>
@@ -1330,11 +1388,14 @@
                         </binding>
                     </connections>
                 </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Zf6-l7-9Ia" userLabel="Opacity 2">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Zf6-l7-9Ia" userLabel="Opacity 2" customClass="TEVariableStackViewItem">
                     <rect key="frame" x="20" y="200" width="226" height="22"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f3D-Vw-iYA">
                             <rect key="frame" x="-2" y="3" width="81" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="77" id="2A5-Ff-bDH"/>
+                            </constraints>
                             <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Opacity 2:" id="r1M-cT-Ra6">
                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="uny-eB-fKI">
@@ -1356,6 +1417,9 @@
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.opacity2Value" id="F7G-OX-KBE"/>
+                            </connections>
                         </textField>
                     </subviews>
                     <constraints>
@@ -1376,11 +1440,14 @@
                         </binding>
                     </connections>
                 </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="7XV-Vb-ROt" userLabel="Blur Radius">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="7XV-Vb-ROt" userLabel="Blur Radius" customClass="TEVariableStackViewItem">
                     <rect key="frame" x="20" y="170" width="226" height="22"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cQD-WZ-ylx">
                             <rect key="frame" x="-2" y="3" width="81" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="77" id="acm-Us-FDb"/>
+                            </constraints>
                             <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Blur Radius:" id="z6D-67-C1P">
                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="o4B-DB-W8m">
@@ -1405,6 +1472,9 @@
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.blurRadiusValue" id="28m-Vb-3Jt"/>
+                            </connections>
                         </textField>
                     </subviews>
                     <constraints>
@@ -1425,11 +1495,14 @@
                         </binding>
                     </connections>
                 </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="amo-9H-FSe" userLabel="Offset">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="amo-9H-FSe" userLabel="Offset" customClass="TEVariableStackViewItem">
                     <rect key="frame" x="20" y="140" width="226" height="22"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gas-1c-9as">
                             <rect key="frame" x="-2" y="3" width="81" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="77" id="bKP-Ut-anI"/>
+                            </constraints>
                             <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Offset:" id="PS8-tp-Nfq">
                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="a6r-G6-XYd">
@@ -1454,6 +1527,9 @@
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.offsetValue" id="zGq-ef-h1U"/>
+                            </connections>
                         </textField>
                     </subviews>
                     <constraints>
@@ -1474,11 +1550,14 @@
                         </binding>
                     </connections>
                 </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="eJH-pO-dCF" userLabel="Angle">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="eJH-pO-dCF" userLabel="Angle" customClass="TEVariableStackViewItem">
                     <rect key="frame" x="20" y="110" width="226" height="22"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ckk-1J-Hgl">
                             <rect key="frame" x="-2" y="3" width="81" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="77" id="zs7-oR-ck4"/>
+                            </constraints>
                             <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Angle:" id="yYN-Wj-JSo">
                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="nX5-v0-UM2">
@@ -1504,6 +1583,9 @@
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.angleValue" id="kB3-wE-V1e"/>
+                            </connections>
                         </textField>
                     </subviews>
                     <constraints>
@@ -1524,11 +1606,14 @@
                         </binding>
                     </connections>
                 </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="jeM-Oc-Wcw" userLabel="Blend Mode">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="jeM-Oc-Wcw" userLabel="Blend Mode" customClass="TEVariableStackViewItem">
                     <rect key="frame" x="20" y="80" width="226" height="22"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AQr-Ic-AsZ">
                             <rect key="frame" x="-2" y="3" width="81" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="77" id="K7e-vP-Cvq"/>
+                            </constraints>
                             <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Blend Mode:" id="l2V-W3-8pl">
                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="dgD-1D-3R3">
@@ -1576,6 +1661,9 @@
                                     </items>
                                 </menu>
                             </popUpButtonCell>
+                            <connections>
+                                <binding destination="NiE-Zo-ftF" name="selectedIndex" keyPath="currentEffect.blendModeValue" id="u9c-no-qo8"/>
+                            </connections>
                         </popUpButton>
                     </subviews>
                     <constraints>
@@ -1596,11 +1684,14 @@
                         </binding>
                     </connections>
                 </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Bez-p2-JGj" userLabel="Soften">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Bez-p2-JGj" userLabel="Soften" customClass="TEVariableStackViewItem">
                     <rect key="frame" x="20" y="50" width="226" height="22"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Weu-Oe-uox">
                             <rect key="frame" x="-2" y="3" width="81" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="77" id="JNL-VK-Zck"/>
+                            </constraints>
                             <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Soften:" id="wrz-S5-hce">
                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="i3v-fR-fFE">
@@ -1625,6 +1716,9 @@
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.softenValue" id="a4W-zF-xI2"/>
+                            </connections>
                         </textField>
                     </subviews>
                     <constraints>
@@ -1645,11 +1739,14 @@
                         </binding>
                     </connections>
                 </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="llT-Cy-7jj" userLabel="Spread">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="llT-Cy-7jj" userLabel="Spread" customClass="TEVariableStackViewItem">
                     <rect key="frame" x="20" y="20" width="226" height="22"/>
                     <subviews>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1yq-QA-vGJ">
                             <rect key="frame" x="-2" y="3" width="81" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="77" id="9FF-GD-5LZ"/>
+                            </constraints>
                             <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Spread:" id="fCQ-8c-DSz">
                                 <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="rwL-XF-UYz">
@@ -1674,6 +1771,9 @@
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.spreadValue" id="qHE-2P-6M1"/>
+                            </connections>
                         </textField>
                     </subviews>
                     <constraints>
@@ -1739,12 +1839,13 @@
         </stackView>
         <viewController title="Effect" nibName="TEInspectorDetailController" id="NiE-Zo-ftF" customClass="TEEffectsInspector">
             <connections>
+                <outlet property="effectList" destination="htU-Qk-fhs" id="UXP-Hw-jGR"/>
                 <outlet property="effectsController" destination="PHN-lK-2dS" id="Tiv-V4-J7U"/>
                 <outlet property="inspectorController" destination="-2" id="o4U-AV-nUS"/>
                 <outlet property="inspectorView" destination="ZXV-ic-XHC" id="kpj-CW-kqG"/>
             </connections>
         </viewController>
-        <arrayController objectClassName="NSMutableArray" preservesSelection="NO" selectsInsertedObjects="NO" avoidsEmptySelection="NO" clearsFilterPredicateOnInsertion="NO" id="PHN-lK-2dS" userLabel="Effects Controller">
+        <arrayController objectClassName="NSMutableArray" preservesSelection="NO" avoidsEmptySelection="NO" clearsFilterPredicateOnInsertion="NO" id="PHN-lK-2dS" userLabel="Effects Controller">
             <connections>
                 <binding destination="NiE-Zo-ftF" name="contentArray" keyPath="preset.effects" id="6m5-hS-yo9">
                     <dictionary key="options">
