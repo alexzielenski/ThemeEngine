@@ -12,6 +12,8 @@
 
 @interface TKGradient ()
 
+// The gradient renderer
+- (void)resetShaders;
 + (instancetype)gradientWithCUIGradient:(CUIThemeGradient *)gradient angle:(CGFloat)angle style:(CUIGradientStyle)style;
 - (instancetype)initWithCUIGradient:(CUIThemeGradient *)gradient angle:(CGFloat)angle style:(CUIGradientStyle)style;
 

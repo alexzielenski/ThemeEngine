@@ -73,6 +73,9 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
 
 - (void)noteStopChanged:(TKGradientStop *)stop {
     [self setNeedsLayout:YES];
+    self.gradient.colorMidpoints = [self.colorMidpointStopLayers valueForKeyPath:@"gradientStop.location"];
+    self.gradient.opacityMidpoints = [self.opacityMidpointStopLayers valueForKeyPath:@"gradientStop.location"];
+    
     [self.gradientLayer setNeedsLayout];
     [self.gradientLayer setNeedsDisplay];
 }
@@ -472,9 +475,6 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
             // otherwise drag anywhere
             self.draggedLayer.gradientStop.location = MAX(MIN(viewPoint.x / self.bounds.size.width, 1), 0);
         }
-        
-        self.gradient.colorMidpoints = [self.colorMidpointStopLayers valueForKeyPath:@"gradientStop.location"];
-        self.gradient.opacityMidpoints = [self.opacityMidpointStopLayers valueForKeyPath:@"gradientStop.location"];
     }
 }
 

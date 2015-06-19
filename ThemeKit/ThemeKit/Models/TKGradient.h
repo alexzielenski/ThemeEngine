@@ -76,9 +76,6 @@
 - (void)removeObjectFromOpacityStopsAtIndex:(NSUInteger)index;
 - (void)removeObjectFromOpacityMidpointsAtIndex:(NSUInteger)index;
 
-// The gradient renderer
-- (void)resetShaders;
-
 // Radial gradients assume a relative center position in the middle of the rectangle
 - (void)drawInRect:(CGRect)rect;
 - (void)drawInRect:(CGRect)rect relativeCenterPosition:(CGPoint)relativeCenterPosition;

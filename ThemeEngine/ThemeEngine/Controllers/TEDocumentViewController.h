@@ -16,6 +16,6 @@
 @property IBOutlet TERenditionsController *renditionsController;
 @property IBOutlet TEInspectorController *inspectorController;
 @property IBOutlet NSSegmentedControl *paneControl;
-
+@property IBOutlet NSSplitView *splitView;
 - (IBAction)sidebarToggle:(NSSegmentedControl *)sender;
 @end

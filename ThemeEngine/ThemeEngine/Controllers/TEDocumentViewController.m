@@ -17,7 +17,7 @@
 const void *kTEDocumentControllerCollapseContext = &kTEDocumentControllerCollapseContext;
 
 @implementation TEDocumentViewController
-
+@dynamic splitView;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -65,10 +65,6 @@ const void *kTEDocumentControllerCollapseContext = &kTEDocumentControllerCollaps
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"elementsItem.collapsed"];
     [self removeObserver:self forKeyPath:@"inspectorItem.collapsed"];
-}
-
-- (NSSplitView *)splitView {
-    return (NSSplitView *)self.view;
 }
 
 - (IBAction)sidebarToggle:(NSSegmentedControl *)sender {
