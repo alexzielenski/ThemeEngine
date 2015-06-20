@@ -160,15 +160,6 @@ static NSMutableDictionary *bezelAttributes;
 
 }
 
-- (void)setClickableArea:(struct CGRect)arg1 target:(id)arg2 selector:(SEL)arg3 info:(id)arg4 {
-    [super setClickableArea:arg1 target:arg2 selector:arg3 info:arg4];
-    
-//    CALayer *layer = [CALayer layer];
-//    layer.frame = arg1;
-//    layer.backgroundColor = [[NSColor redColor] CGColor];
-//    [self.layer addSublayer:layer];
-}
-
 - (void)_viewDidChangeAppearance:(id)arg1 {
     NSBundle *bndl = [NSBundle bundleForClass:[IKImageBrowserCell class]];
     if (!self.lightIndicators) {

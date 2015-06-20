@@ -137,7 +137,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c8z-Ga-kEQ" customClass="TETexturedScope">
-                    <rect key="frame" x="0.0" y="-1" width="220" height="34"/>
+                    <rect key="frame" x="0.0" y="-1" width="41" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="33" id="9Qz-QX-4lp"/>
                     </constraints>
@@ -249,7 +249,6 @@
                 <constraint firstItem="c8z-Ga-kEQ" firstAttribute="leading" secondItem="sLY-B1-CfY" secondAttribute="leading" id="aen-KS-j7d"/>
                 <constraint firstItem="NRn-dy-w1n" firstAttribute="top" secondItem="sLY-B1-CfY" secondAttribute="top" id="nu3-cW-sqE"/>
                 <constraint firstItem="c8z-Ga-kEQ" firstAttribute="top" secondItem="NRn-dy-w1n" secondAttribute="bottom" constant="1" id="skr-AJ-2IU"/>
-                <constraint firstAttribute="trailing" secondItem="c8z-Ga-kEQ" secondAttribute="trailing" id="wAA-Zp-Ttb"/>
             </constraints>
             <animations/>
             <point key="canvasLocation" x="921" y="415"/>

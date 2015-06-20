@@ -55,9 +55,10 @@ static NSGradient *selectionGradient = nil;
 @implementation TETexturedCell
 
 - (void)_drawBackgroundWithFrame:(struct CGRect)cellFrame inView:(id)arg2 {
-//    [[NSColor grayColor] set];
-//    NSRectFill(NSMakeRect(0, 0, cellFrame.size.width, 1.0));
-
+    // draw last separator
+    [[[NSColor lightGrayColor] colorWithAlphaComponent:0.3] set];
+    NSRectFill(NSMakeRect(round(NSMaxX(cellFrame)) - 1.0, 0, 1.0, NSHeight(cellFrame)));
+    
     for (NSUInteger segment = 0; segment < self.segmentCount; segment++) {
         NSRect segmentRect = NSIntegralRect([self rectForSegment:segment inFrame:cellFrame]);
 
@@ -67,14 +68,16 @@ static NSGradient *selectionGradient = nil;
         
         if (segment == self.selectedSegment) {
             NSRect gradientRect = segmentRect;
-            gradientRect.size.width += 1;
             [selectionGradient drawInRect:gradientRect angle:90];
         
         } else if (segment == [self _indexOfHilightedSegment]) {
             [[[NSColor blackColor] colorWithAlphaComponent:0.2] set];
-            NSRectFillUsingOperation(segmentRect, NSCompositeSourceOver);
+            NSRect highlightRect = segmentRect;
+            highlightRect.size.width += 1;
+            NSRectFillUsingOperation(highlightRect, NSCompositeSourceOver);
         }
     }
+
 }
 
 - (NSBackgroundStyle)interiorBackgroundStyleForSegment:(NSInteger)segment {

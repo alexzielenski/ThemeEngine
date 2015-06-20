@@ -157,7 +157,6 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
         [self.renditionBrowser reloadData];
     } else {
     reset:
-        _currentGroup = -1;
         self.groups = nil;
         self.groupCalculationDisabled = YES;
         self.renditionsArrayController.sortDescriptors = self.originalSortDescriptors;
