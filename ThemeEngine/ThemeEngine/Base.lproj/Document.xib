@@ -25,7 +25,7 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ihA-x2-DCO">
-                        <rect key="frame" x="0.0" y="29" width="800" height="5"/>
+                        <rect key="frame" x="0.0" y="31" width="800" height="5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="S3b-AQ-iOb"/>
                         </constraints>
@@ -38,15 +38,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="800" height="562"/>
                         <animations/>
                     </splitView>
-                    <visualEffectView misplaced="YES" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="zXa-D4-a8C">
+                    <visualEffectView blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="zXa-D4-a8C">
+                        <rect key="frame" x="0.0" y="562" width="800" height="38"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="38" id="v4i-z9-M0A"/>
                         </constraints>
                         <animations/>
                     </visualEffectView>
-                    <visualEffectView misplaced="YES" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Qtm-dp-aWo">
+                    <visualEffectView blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Qtm-dp-aWo">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="33"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="31" id="k4f-bm-7QK"/>
+                            <constraint firstAttribute="height" constant="33" id="k4f-bm-7QK"/>
                         </constraints>
                         <animations/>
                     </visualEffectView>
@@ -135,9 +137,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c8z-Ga-kEQ" customClass="TETexturedScope">
-                    <rect key="frame" x="0.0" y="-1" width="220" height="33"/>
+                    <rect key="frame" x="0.0" y="-1" width="220" height="34"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="32" id="9Qz-QX-4lp"/>
+                        <constraint firstAttribute="height" constant="33" id="9Qz-QX-4lp"/>
                     </constraints>
                     <animations/>
                     <segmentedCell key="cell" controlSize="small" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="Bd9-tf-NkP" customClass="TETexturedCell">
@@ -155,13 +157,13 @@
                     </segmentedCell>
                 </segmentedControl>
                 <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="NRn-dy-w1n">
-                    <rect key="frame" x="0.0" y="32" width="220" height="444"/>
+                    <rect key="frame" x="0.0" y="34" width="220" height="442"/>
                     <clipView key="contentView" wantsLayer="YES" drawsBackground="NO" copiesOnScroll="NO" id="Uno-GW-CCf">
-                        <rect key="frame" x="0.0" y="0.0" width="220" height="444"/>
+                        <rect key="frame" x="0.0" y="0.0" width="220" height="442"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView wantsLayer="YES" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" typeSelect="NO" rowSizeStyle="automatic" viewBased="YES" id="EjI-pH-Pgo">
-                                <rect key="frame" x="0.0" y="0.0" width="220" height="444"/>
+                                <rect key="frame" x="0.0" y="0.0" width="220" height="442"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <animations/>
                                 <size key="intercellSpacing" width="3" height="2"/>
@@ -234,7 +236,7 @@
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="yyx-E8-mP0">
-                        <rect key="frame" x="204" y="0.0" width="16" height="444"/>
+                        <rect key="frame" x="204" y="0.0" width="16" height="442"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
@@ -246,7 +248,7 @@
                 <constraint firstAttribute="trailing" secondItem="NRn-dy-w1n" secondAttribute="trailing" id="AcW-QS-3u3"/>
                 <constraint firstItem="c8z-Ga-kEQ" firstAttribute="leading" secondItem="sLY-B1-CfY" secondAttribute="leading" id="aen-KS-j7d"/>
                 <constraint firstItem="NRn-dy-w1n" firstAttribute="top" secondItem="sLY-B1-CfY" secondAttribute="top" id="nu3-cW-sqE"/>
-                <constraint firstItem="c8z-Ga-kEQ" firstAttribute="top" secondItem="NRn-dy-w1n" secondAttribute="bottom" id="skr-AJ-2IU"/>
+                <constraint firstItem="c8z-Ga-kEQ" firstAttribute="top" secondItem="NRn-dy-w1n" secondAttribute="bottom" constant="1" id="skr-AJ-2IU"/>
                 <constraint firstAttribute="trailing" secondItem="c8z-Ga-kEQ" secondAttribute="trailing" id="wAA-Zp-Ttb"/>
             </constraints>
             <animations/>
@@ -283,7 +285,7 @@
         <viewController id="DYE-2D-1ip" customClass="TERenditionsController">
             <connections>
                 <outlet property="inspectorController" destination="Xgf-gV-tGD" id="usG-yO-xo6"/>
-                <outlet property="renditionBrowser" destination="IKu-yW-SjP" id="048-h7-TOs"/>
+                <outlet property="renditionBrowser" destination="jO5-zD-5zv" id="X3a-gd-hve"/>
                 <outlet property="renditionsArrayController" destination="gHj-GT-QiP" id="BE8-nr-RT0"/>
                 <outlet property="view" destination="Rnm-PR-BwK" id="snh-47-4c7"/>
                 <outlet property="zoomSlider" destination="4dv-Sn-CWt" id="tlL-nf-JLJ"/>
@@ -357,9 +359,9 @@
                                 <constraint firstAttribute="width" constant="92" id="C1j-Vu-sK4"/>
                             </constraints>
                             <animations/>
-                            <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="0.80000000000000004" doubleValue="0.40000000000000002" tickMarkPosition="above" sliderType="linear" id="uXd-mE-mW7"/>
+                            <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.5" maxValue="2" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="uXd-mE-mW7"/>
                             <connections>
-                                <binding destination="DYE-2D-1ip" name="value" keyPath="renditionBrowser.zoomValue" id="gp0-bR-tkF"/>
+                                <binding destination="DYE-2D-1ip" name="value" keyPath="renditionBrowser.zoomValue" id="2QX-fR-fwu"/>
                             </connections>
                         </slider>
                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6I9-Ub-ITu">
@@ -417,55 +419,48 @@
                     </constraints>
                     <animations/>
                 </customView>
-                <scrollView borderType="none" horizontalLineScroll="64" horizontalPageScroll="10" verticalLineScroll="64" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="allowed" translatesAutoresizingMaskIntoConstraints="NO" id="g3f-xN-6oz" customClass="RBLScrollView">
-                    <rect key="frame" x="0.0" y="32" width="500" height="353"/>
-                    <clipView key="contentView" autoresizesSubviews="NO" wantsLayer="YES" copiesOnScroll="NO" id="iET-hJ-bgY" customClass="RBLClipView">
-                        <rect key="frame" x="0.0" y="0.0" width="500" height="353"/>
+                <scrollView borderType="none" horizontalLineScroll="123.33333587646484" horizontalPageScroll="10" verticalLineScroll="120" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pdx-KY-fpJ">
+                    <rect key="frame" x="0.0" y="34" width="500" height="351"/>
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="rFo-oN-24K">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="351"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <ikImageBrowserView wantsLayer="YES" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IKu-yW-SjP" customClass="TEImageBrowserView">
-                                <rect key="frame" x="0.0" y="0.0" width="500" height="333"/>
+                            <ikImageBrowserView autoresizesSubviews="NO" fixedFrame="YES" zoomValue="0.81649661064147949" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jO5-zD-5zv" customClass="TEImageBrowserView">
+                                <rect key="frame" x="0.0" y="163" width="290" height="188"/>
                                 <animations/>
                                 <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES" subtitled="YES"/>
                                 <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                <size key="cellSize" width="44" height="44"/>
+                                <size key="cellSize" width="100" height="100"/>
                                 <connections>
-                                    <binding destination="gHj-GT-QiP" name="selectionIndexes" keyPath="selectionIndexes" id="Hy1-a1-cpO"/>
-                                    <outlet property="dataSource" destination="DYE-2D-1ip" id="oKE-hf-lr2"/>
-                                    <outlet property="delegate" destination="DYE-2D-1ip" id="osQ-rU-yyp"/>
+                                    <binding destination="gHj-GT-QiP" name="selectionIndexes" keyPath="selectionIndexes" id="iTZ-uq-u8l"/>
+                                    <outlet property="dataSource" destination="DYE-2D-1ip" id="Zoa-vf-nr6"/>
+                                    <outlet property="delegate" destination="DYE-2D-1ip" id="jZ2-R3-zBG"/>
                                 </connections>
                             </ikImageBrowserView>
                         </subviews>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="IKu-yW-SjP" secondAttribute="bottom" id="4mY-5y-Wlc"/>
-                            <constraint firstAttribute="trailing" secondItem="IKu-yW-SjP" secondAttribute="trailing" id="InQ-kx-m3C"/>
-                            <constraint firstItem="IKu-yW-SjP" firstAttribute="top" secondItem="iET-hJ-bgY" secondAttribute="top" constant="20" symbolic="YES" id="Rxn-sS-A9A"/>
-                            <constraint firstItem="IKu-yW-SjP" firstAttribute="leading" secondItem="iET-hJ-bgY" secondAttribute="leading" id="d4k-qE-MKp"/>
-                        </constraints>
                         <animations/>
-                        <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <animations/>
-                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" canDrawConcurrently="YES" verticalHuggingPriority="750" horizontal="YES" id="BBG-5Y-oxW">
-                        <rect key="frame" x="-100" y="-100" width="452" height="16"/>
+                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="WwH-aB-u3H">
+                        <rect key="frame" x="0.0" y="335" width="500" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" canDrawConcurrently="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="xiD-WG-w4i">
-                        <rect key="frame" x="484" y="0.0" width="16" height="353"/>
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="c83-w5-G1C">
+                        <rect key="frame" x="484" y="0.0" width="16" height="351"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
                 </scrollView>
             </subviews>
             <constraints>
+                <constraint firstItem="Pdx-KY-fpJ" firstAttribute="top" secondItem="Rnm-PR-BwK" secondAttribute="top" id="5Cg-1e-0lU"/>
+                <constraint firstAttribute="trailing" secondItem="Pdx-KY-fpJ" secondAttribute="trailing" id="FU6-Gh-DVe"/>
                 <constraint firstAttribute="trailing" secondItem="3S4-16-oLu" secondAttribute="trailing" id="GNC-zF-YSu"/>
-                <constraint firstAttribute="trailing" secondItem="g3f-xN-6oz" secondAttribute="trailing" id="HEc-3d-RaO"/>
-                <constraint firstItem="3S4-16-oLu" firstAttribute="top" secondItem="g3f-xN-6oz" secondAttribute="bottom" id="UFJ-UH-kfW"/>
                 <constraint firstAttribute="bottom" secondItem="3S4-16-oLu" secondAttribute="bottom" id="dbM-Le-ZHU"/>
-                <constraint firstItem="g3f-xN-6oz" firstAttribute="leading" secondItem="Rnm-PR-BwK" secondAttribute="leading" id="euP-va-TVd"/>
-                <constraint firstItem="g3f-xN-6oz" firstAttribute="top" secondItem="Rnm-PR-BwK" secondAttribute="top" id="gkv-8A-mbp"/>
+                <constraint firstItem="Pdx-KY-fpJ" firstAttribute="leading" secondItem="Rnm-PR-BwK" secondAttribute="leading" id="eeW-uD-DwU"/>
                 <constraint firstItem="3S4-16-oLu" firstAttribute="leading" secondItem="Rnm-PR-BwK" secondAttribute="leading" id="jLh-s9-dty"/>
+                <constraint firstItem="3S4-16-oLu" firstAttribute="top" secondItem="Pdx-KY-fpJ" secondAttribute="bottom" constant="2" id="xPS-yt-rfa"/>
             </constraints>
             <animations/>
             <point key="canvasLocation" x="781" y="894.5"/>
