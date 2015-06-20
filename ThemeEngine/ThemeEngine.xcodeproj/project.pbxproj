@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA030C781B351FA7009471DF /* TERenditionGroupHeaderLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA030C771B351FA7009471DF /* TERenditionGroupHeaderLayer.m */; };
+		FA030C7A1B35235B009471DF /* Opee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA030C791B35235B009471DF /* Opee.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FA1E9C691B3346A40097AA41 /* TEBitmapInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1E9C681B3346A40097AA41 /* TEBitmapInspector.m */; };
 		FA21F87D1B2E95710094202A /* TKRendition+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = FA21F87C1B2E95710094202A /* TKRendition+Filtering.m */; };
 		FA43A02C1B34993A0000DB66 /* TEColorInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A02B1B34993A0000DB66 /* TEColorInspector.m */; };
@@ -61,6 +63,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FA030C761B351FA7009471DF /* TERenditionGroupHeaderLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TERenditionGroupHeaderLayer.h; path = Views/TERenditionGroupHeaderLayer.h; sourceTree = "<group>"; };
+		FA030C771B351FA7009471DF /* TERenditionGroupHeaderLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TERenditionGroupHeaderLayer.m; path = Views/TERenditionGroupHeaderLayer.m; sourceTree = "<group>"; };
+		FA030C791B35235B009471DF /* Opee.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Opee.framework; path = ../../../../../../../Library/Frameworks/Opee.framework; sourceTree = "<group>"; };
 		FA1E9C671B3346A40097AA41 /* TEBitmapInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEBitmapInspector.h; path = Controllers/Inspectors/TEBitmapInspector.h; sourceTree = "<group>"; };
 		FA1E9C681B3346A40097AA41 /* TEBitmapInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEBitmapInspector.m; path = Controllers/Inspectors/TEBitmapInspector.m; sourceTree = "<group>"; };
 		FA21F87B1B2E95710094202A /* TKRendition+Filtering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKRendition+Filtering.h"; path = "Categories/TKRendition+Filtering.h"; sourceTree = "<group>"; };
@@ -136,6 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA030C7A1B35235B009471DF /* Opee.framework in Frameworks */,
 				FA81475D1B2D95D100881F36 /* Quartz.framework in Frameworks */,
 				FA46BD371B2DA08100BA9B01 /* ThemeKit.framework in Frameworks */,
 			);
@@ -154,6 +160,7 @@
 		FA606C001B2C1D2000F24960 = {
 			isa = PBXGroup;
 			children = (
+				FA030C791B35235B009471DF /* Opee.framework */,
 				FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */,
 				FA81475C1B2D95D100881F36 /* Quartz.framework */,
 				FA606C2B1B2C1D5A00F24960 /* CoreUI.framework */,
@@ -251,6 +258,8 @@
 				FAB5EA791B345C630078923F /* TEVariableStackViewItem.m */,
 				FA514C331B346EDC002CBF5A /* TESliceImageView.h */,
 				FA514C341B346EDC002CBF5A /* TESliceImageView.m */,
+				FA030C761B351FA7009471DF /* TERenditionGroupHeaderLayer.h */,
+				FA030C771B351FA7009471DF /* TERenditionGroupHeaderLayer.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -391,6 +400,7 @@
 				FABEAED01B2F714000B02805 /* TEAttributesInspector.m in Sources */,
 				FABEAEC81B2F70ED00B02805 /* TEInspectorController.m in Sources */,
 				FA606C0E1B2C1D2100F24960 /* AppDelegate.m in Sources */,
+				FA030C781B351FA7009471DF /* TERenditionGroupHeaderLayer.m in Sources */,
 				FA80CE0F1B30BF36005E5DD2 /* TEGradientStopLayer.m in Sources */,
 				FAA54F6F1B2E34B300EA15F2 /* TETexturedScope.m in Sources */,
 				FAB5EA7A1B345C630078923F /* TEVariableStackViewItem.m in Sources */,
@@ -514,6 +524,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = ThemeEngine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -533,6 +544,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = ThemeEngine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

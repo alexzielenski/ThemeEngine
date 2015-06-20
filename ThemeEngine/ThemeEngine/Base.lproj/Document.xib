@@ -359,7 +359,7 @@
                                 <constraint firstAttribute="width" constant="92" id="C1j-Vu-sK4"/>
                             </constraints>
                             <animations/>
-                            <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.5" maxValue="2" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="uXd-mE-mW7"/>
+                            <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.40000000000000002" maxValue="0.80000000000000004" doubleValue="0.80000000000000004" tickMarkPosition="above" sliderType="linear" id="uXd-mE-mW7"/>
                             <connections>
                                 <binding destination="DYE-2D-1ip" name="value" keyPath="renditionBrowser.zoomValue" id="2QX-fR-fwu"/>
                             </connections>
