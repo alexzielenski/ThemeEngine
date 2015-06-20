@@ -14,6 +14,7 @@
 #import "TEGradientInfoInspector.h"
 #import "TEEffectsInspector.h"
 #import "TEColorInspector.h"
+#import "TESlicePreviewInspector.h"
 
 // representedObject must be an NSArrayController
 // with updated selectionIndexes
@@ -27,6 +28,7 @@
 @property (weak) IBOutlet TEGradientInfoInspector *gradientInfoInspector;
 @property (weak) IBOutlet TEEffectsInspector *effectsInspector;
 @property (weak) IBOutlet TEColorInspector *colorInspector;
+@property (weak) IBOutlet TESlicePreviewInspector *sliceInspector;
 
 @property IBOutlet NSView *bottomLine;
 @end

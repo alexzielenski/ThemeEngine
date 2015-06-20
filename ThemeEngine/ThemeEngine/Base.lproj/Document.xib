@@ -130,7 +130,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
             </connections>
-            <point key="canvasLocation" x="1504" y="779"/>
+            <point key="canvasLocation" x="1498" y="477"/>
         </window>
         <customView wantsLayer="YES" id="sLY-B1-CfY">
             <rect key="frame" x="0.0" y="0.0" width="220" height="476"/>

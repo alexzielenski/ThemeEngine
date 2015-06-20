@@ -13,8 +13,7 @@
 @property (readonly, nonatomic) CoreThemeType layoutType;
 
 // Slices
-@property NSEdgeInsets sliceInsets;
-@property NSRect destinationRect;
+@property NSArray *sliceRects;
 
 // Metrics
 @property NSEdgeInsets edgeInsets;

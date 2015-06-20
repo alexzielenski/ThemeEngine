@@ -7,8 +7,24 @@
 //
 
 #import <ThemeKit/TKBitmapRendition.h>
-#import <Quartz/Quartz.h>
+@import Cocoa;
 
-@interface TESliceImageView : IKImageView
+@interface TESliceImageView : NSView
+@property (nonatomic, strong) NSBitmapImageRep *image;
+@property (nonatomic, strong) NSArray *sliceRects;
+// We support displaying
+// CoreThemeTypeOnePart
+// CoreThemeTypeThreePartHorizontal
+// CoreThemeTypeThreePartVertical
+// CoreThemeTypeNinePart
+@property (nonatomic) CoreThemeType renditionType;
 
+@property (nonatomic) NSEdgeInsets sliceInsets; // for slicing
+@property (nonatomic) NSEdgeInsets edgeInsets; // for metrics
+
+// KVO slicing handles
+@property CGFloat leftHandlePosition;
+@property CGFloat rightHandlePosition;
+@property CGFloat topHandlePosition;
+@property CGFloat bottomHandlePosition;
 @end

@@ -17,6 +17,7 @@
                 <outlet property="gradientInfoInspector" destination="FKr-Wk-qPc" id="bWb-g3-eVu"/>
                 <outlet property="gradientInspector" destination="Qba-ew-VCW" id="ApF-97-6jj"/>
                 <outlet property="scrollView" destination="jQf-bw-yCc" id="rZj-BM-oMr"/>
+                <outlet property="sliceInspector" destination="l3p-vo-mxo" id="UhS-eU-RRp"/>
                 <outlet property="view" destination="doT-Fm-VU5" id="vvh-as-7Xs"/>
             </connections>
         </customObject>
@@ -1898,6 +1899,87 @@
             </constraints>
             <animations/>
             <point key="canvasLocation" x="-456" y="817.5"/>
+        </customView>
+        <viewController title="Slicing" nibName="TEInspectorDetailController" id="l3p-vo-mxo" customClass="TESlicePreviewInspector">
+            <connections>
+                <outlet property="inspectorView" destination="V5v-78-xXT" id="tFs-29-Lyi"/>
+            </connections>
+        </viewController>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="V5v-78-xXT" userLabel="Slices">
+            <rect key="frame" x="0.0" y="0.0" width="206" height="272"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="1" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Glz-Vi-vth">
+                    <rect key="frame" x="20" y="75" width="166" height="177"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="128" id="A2u-dC-0wt"/>
+                        <constraint firstAttribute="height" constant="177" id="B03-p9-NjI"/>
+                    </constraints>
+                    <animations/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" id="BXA-el-ubk"/>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="representedObject.selection.previewImage" id="jEc-gd-V9g">
+                            <dictionary key="options">
+                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zPA-iz-I6o">
+                    <rect key="frame" x="18" y="48" width="113" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Bottom Left Inset:" id="GEH-iu-Vbo">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RuN-gv-hCh">
+                    <rect key="frame" x="137" y="45" width="49" height="22"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="6Rh-Dg-LZe">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3fe-Tr-GPe">
+                    <rect key="frame" x="137" y="17" width="49" height="22"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="yRT-eN-NZ2">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kX6-dY-T0Q">
+                    <rect key="frame" x="31" y="20" width="100" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Top Right Inset:" id="dFm-fx-9Hg">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="RuN-gv-hCh" firstAttribute="baseline" secondItem="zPA-iz-I6o" secondAttribute="baseline" constant="1" id="HSP-fb-QgZ"/>
+                <constraint firstItem="RuN-gv-hCh" firstAttribute="top" secondItem="Glz-Vi-vth" secondAttribute="bottom" constant="8" symbolic="YES" id="Ork-X4-R04"/>
+                <constraint firstItem="3fe-Tr-GPe" firstAttribute="trailing" secondItem="RuN-gv-hCh" secondAttribute="trailing" id="UVc-Vp-BM5"/>
+                <constraint firstAttribute="trailing" secondItem="Glz-Vi-vth" secondAttribute="trailing" constant="20" symbolic="YES" id="Wuo-rt-qr5"/>
+                <constraint firstItem="zPA-iz-I6o" firstAttribute="leading" secondItem="V5v-78-xXT" secondAttribute="leading" constant="20" symbolic="YES" id="Y92-wr-lfQ"/>
+                <constraint firstAttribute="trailing" secondItem="RuN-gv-hCh" secondAttribute="trailing" constant="20" symbolic="YES" id="aOr-cx-Hxy"/>
+                <constraint firstItem="RuN-gv-hCh" firstAttribute="leading" secondItem="3fe-Tr-GPe" secondAttribute="leading" id="dV1-hT-44w"/>
+                <constraint firstItem="3fe-Tr-GPe" firstAttribute="leading" secondItem="kX6-dY-T0Q" secondAttribute="trailing" constant="8" symbolic="YES" id="g13-Xh-Dgf"/>
+                <constraint firstItem="Glz-Vi-vth" firstAttribute="top" secondItem="V5v-78-xXT" secondAttribute="top" constant="20" symbolic="YES" id="hT0-NO-ngk"/>
+                <constraint firstItem="kX6-dY-T0Q" firstAttribute="top" secondItem="zPA-iz-I6o" secondAttribute="bottom" constant="11" id="jlC-nP-zXp"/>
+                <constraint firstItem="3fe-Tr-GPe" firstAttribute="top" secondItem="RuN-gv-hCh" secondAttribute="bottom" constant="6" id="lmw-YC-Hje"/>
+                <constraint firstAttribute="bottom" secondItem="kX6-dY-T0Q" secondAttribute="bottom" constant="20" id="nCY-n7-nhl"/>
+                <constraint firstItem="Glz-Vi-vth" firstAttribute="leading" secondItem="V5v-78-xXT" secondAttribute="leading" constant="20" symbolic="YES" id="p7Z-WA-L2n"/>
+                <constraint firstItem="kX6-dY-T0Q" firstAttribute="trailing" secondItem="zPA-iz-I6o" secondAttribute="trailing" id="qRm-uW-HiQ"/>
+                <constraint firstItem="3fe-Tr-GPe" firstAttribute="baseline" secondItem="kX6-dY-T0Q" secondAttribute="baseline" constant="1" id="wHT-sx-ct1"/>
+            </constraints>
+            <animations/>
+            <point key="canvasLocation" x="-409" y="543"/>
         </customView>
     </objects>
     <resources>

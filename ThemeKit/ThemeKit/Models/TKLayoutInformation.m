@@ -18,10 +18,11 @@
 
 - (instancetype)initWithCSIData:(NSData *)csiData {
     if ((self = [self init])) {
-        
         unsigned infoLength = 0;
         [csiData getBytes:&infoLength range:NSMakeRange(offsetof(struct csiheader, infolistLength), sizeof(infoLength))];
         
+        
+        // Parse CSI data for slice information
         unsigned sliceMagic = CSIInfoMagicSlices;
         NSRange sliceMagicLocation = [csiData rangeOfData:[NSData dataWithBytes:&sliceMagic
                                                                          length:sizeof(sliceMagic)]
@@ -46,9 +47,11 @@
                 [slices addObject:[NSValue valueWithRect:NSMakeRect(sliceInts.x, sliceInts.y, sliceInts.w, sliceInts.h)]];
             }
             
-//            NSLog(@"%@", slices);
-            
+            self.sliceRects = slices;
         }
+        
+        
+        // Get metric information
         
         
     }
