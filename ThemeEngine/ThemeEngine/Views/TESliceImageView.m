@@ -158,27 +158,29 @@ static const CGFloat sliceSpaceWidth = 2.0;
 }
 
 - (void)_generateInsetsFromSlices {
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
     if (self.renditionType == CoreThemeTypeThreePartVertical && self.sliceRects.count == 3) {
         CGRect topRect = [self.sliceRects[0] rectValue];
         CGRect bottomRect = [self.sliceRects[2] rectValue];
         
-        self.sliceInsets = NSEdgeInsetsMake(topRect.size.height, 0, bottomRect.size.height, 0);
+        _sliceInsets = NSEdgeInsetsMake(topRect.size.height, 0, bottomRect.size.height, 0);
         
     } else if (self.renditionType == CoreThemeTypeNinePart && self.sliceRects.count == 9) {
         CGRect topLeftRect = [self.sliceRects[0] rectValue];
         CGRect bottomRightRect = [self.sliceRects[8] rectValue];
         
-        self.sliceInsets = NSEdgeInsetsMake(topLeftRect.size.height, topLeftRect.size.width,
-                                            bottomRightRect.size.height, bottomRightRect.size.width);
+        _sliceInsets = NSEdgeInsetsMake(topLeftRect.size.height, topLeftRect.size.width,
+                                        bottomRightRect.size.height, bottomRightRect.size.width);
         
     } else if (self.renditionType == CoreThemeTypeThreePartHorizontal && self.sliceRects.count == 3) {
         CGRect leftRect = [self.sliceRects[0] rectValue];
         CGRect rightRect = [self.sliceRects[2] rectValue];
         
-        self.sliceInsets = NSEdgeInsetsMake(0, leftRect.size.width, 0, rightRect.size.width);
+        _sliceInsets = NSEdgeInsetsMake(0, leftRect.size.width, 0, rightRect.size.width);
     }
+    
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    [self _repositionHandles];
     [CATransaction commit];
 }
 
