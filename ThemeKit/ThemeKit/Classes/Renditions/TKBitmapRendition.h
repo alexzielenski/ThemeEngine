@@ -19,5 +19,4 @@
 @property TKEXIFOrientation exifOrientation;
 @property CGBlendMode blendMode;
 @property (strong) TKLayoutInformation *layoutInformation;
-
 @end

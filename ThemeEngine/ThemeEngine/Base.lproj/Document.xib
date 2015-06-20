@@ -188,7 +188,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField wantsLayer="YES" canDrawConcurrently="YES" horizontalHuggingPriority="500" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Z3n-XS-YB0">
-                                                        <rect key="frame" x="0.0" y="0.0" width="97" height="17"/>
+                                                        <rect key="frame" x="10" y="0.0" width="97" height="17"/>
                                                         <animations/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="cwn-mL-FL4">
                                                             <font key="font" metaFont="system"/>
@@ -201,7 +201,7 @@
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="Z3n-XS-YB0" firstAttribute="leading" secondItem="WxJ-nJ-2Ma" secondAttribute="leading" constant="2" id="Dwj-tY-1Pt"/>
+                                                    <constraint firstItem="Z3n-XS-YB0" firstAttribute="leading" secondItem="WxJ-nJ-2Ma" secondAttribute="leading" constant="12" id="Dwj-tY-1Pt"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Z3n-XS-YB0" secondAttribute="trailing" constant="2" id="RVj-QR-Orn"/>
                                                     <constraint firstItem="Z3n-XS-YB0" firstAttribute="centerY" secondItem="WxJ-nJ-2Ma" secondAttribute="centerY" id="jez-oX-Ryc"/>
                                                 </constraints>
@@ -446,7 +446,7 @@
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="c83-w5-G1C">
-                        <rect key="frame" x="484" y="0.0" width="16" height="351"/>
+                        <rect key="frame" x="485" y="0.0" width="15" height="351"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>

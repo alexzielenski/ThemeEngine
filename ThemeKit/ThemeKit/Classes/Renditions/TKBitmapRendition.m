@@ -24,11 +24,7 @@
         self.blendMode       = rendition.blendMode;
         self.opacity         = rendition.opacity;
         
-        if (self.type == CoreThemeTypeSixPart) {
-            self.layoutInformation = [TKLayoutInformation layoutInformationWithCSIData:csiData];
-//            NSLog(@"%@", rendition.sliceInformation);
-        }
-        
+        self.layoutInformation = [TKLayoutInformation layoutInformationWithCSIData:csiData];
     }
     
     return self;

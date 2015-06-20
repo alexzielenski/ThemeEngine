@@ -7,7 +7,9 @@
 //
 
 #import "TEInspectorDetailController.h"
-
+#import "TESliceImageView.h"
+@class TEInspectorController;
 @interface TESlicePreviewInspector : TEInspectorDetailController
-
+@property (strong) IBOutlet TESliceImageView *sliceImageView;
+@property (weak) IBOutlet TEInspectorController *inspectorController;
 @end

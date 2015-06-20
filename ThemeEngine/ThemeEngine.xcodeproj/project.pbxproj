@@ -10,6 +10,7 @@
 		FA030C7A1B35235B009471DF /* Opee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA030C791B35235B009471DF /* Opee.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FA1E9C691B3346A40097AA41 /* TEBitmapInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1E9C681B3346A40097AA41 /* TEBitmapInspector.m */; };
 		FA21F87D1B2E95710094202A /* TKRendition+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = FA21F87C1B2E95710094202A /* TKRendition+Filtering.m */; };
+		FA2F00BA1B360B6700998329 /* TECenteredClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2F00B91B360B6700998329 /* TECenteredClipView.m */; };
 		FA43A02C1B34993A0000DB66 /* TEColorInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A02B1B34993A0000DB66 /* TEColorInspector.m */; };
 		FA46BD361B2DA07E00BA9B01 /* ThemeKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA46BD371B2DA08100BA9B01 /* ThemeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */; };
@@ -67,6 +68,8 @@
 		FA1E9C681B3346A40097AA41 /* TEBitmapInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEBitmapInspector.m; path = Controllers/Inspectors/TEBitmapInspector.m; sourceTree = "<group>"; };
 		FA21F87B1B2E95710094202A /* TKRendition+Filtering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKRendition+Filtering.h"; path = "Categories/TKRendition+Filtering.h"; sourceTree = "<group>"; };
 		FA21F87C1B2E95710094202A /* TKRendition+Filtering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKRendition+Filtering.m"; path = "Categories/TKRendition+Filtering.m"; sourceTree = "<group>"; };
+		FA2F00B81B360B6700998329 /* TECenteredClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TECenteredClipView.h; path = Views/TECenteredClipView.h; sourceTree = "<group>"; };
+		FA2F00B91B360B6700998329 /* TECenteredClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TECenteredClipView.m; path = Views/TECenteredClipView.m; sourceTree = "<group>"; };
 		FA43A02A1B34993A0000DB66 /* TEColorInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEColorInspector.h; path = Controllers/Inspectors/TEColorInspector.h; sourceTree = "<group>"; };
 		FA43A02B1B34993A0000DB66 /* TEColorInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEColorInspector.m; path = Controllers/Inspectors/TEColorInspector.m; sourceTree = "<group>"; };
 		FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ThemeKit.framework; path = "/Users/Alex/Library/Developer/Xcode/DerivedData/ThemeEngine-gwwcsfnqaxckjsfbmzrlbqvxnwpn/Build/Products/Debug/ThemeKit.framework"; sourceTree = "<absolute>"; };
@@ -255,6 +258,8 @@
 				FAB5EA791B345C630078923F /* TEVariableStackViewItem.m */,
 				FA514C331B346EDC002CBF5A /* TESliceImageView.h */,
 				FA514C341B346EDC002CBF5A /* TESliceImageView.m */,
+				FA2F00B81B360B6700998329 /* TECenteredClipView.h */,
+				FA2F00B91B360B6700998329 /* TECenteredClipView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -404,6 +409,7 @@
 				FAA54F691B2E211F00EA15F2 /* RBLScrollView.m in Sources */,
 				FA59C2CB1B2E893F00EF027D /* TEImageBrowserView.m in Sources */,
 				FAA54F791B2E4DC700EA15F2 /* TERenditionsController.m in Sources */,
+				FA2F00BA1B360B6700998329 /* TECenteredClipView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
