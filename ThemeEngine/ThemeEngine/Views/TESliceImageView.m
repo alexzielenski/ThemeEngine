@@ -25,6 +25,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
 - (void)_toggleDisplay;
 - (void)addHandleWithName:(NSString *)name vertical:(BOOL)vertical right:(BOOL)right;
 - (void)_repositionHandles;
+- (void)_generateSliceRectsFromInsets;
 @end
 
 @implementation TESliceImageView
@@ -115,10 +116,70 @@ static const CGFloat sliceSpaceWidth = 2.0;
     [self.layer addSublayer:handle];
 }
 
-- (void)setFrame:(NSRect)frame {
-    [super setFrame:frame];
-    [self.layer setNeedsDisplay];
-    [self.layer displayIfNeeded];
+#pragma mark - Logistics
+
+- (void)_generateSliceRectsFromInsets {
+    NSEdgeInsets insets = self.sliceInsets;
+    NSSize imageSize = NSMakeSize(self.image.pixelsWide, self.image.pixelsHigh);
+    
+    if (self.renditionType == CoreThemeTypeThreePartHorizontal) {
+        NSRect left = NSMakeRect(0, 0, insets.left, imageSize.height);
+        NSRect middle = NSMakeRect(insets.left, 0, imageSize.width - insets.left - insets.right, imageSize.height);
+        NSRect right = NSMakeRect(imageSize.width - insets.right, 0, insets.right, imageSize.height);
+        
+        self.sliceRects = @[ [NSValue valueWithRect:left], [NSValue valueWithRect:middle], [NSValue valueWithRect:right] ];
+    } else if (self.renditionType == CoreThemeTypeThreePartVertical) {
+        NSRect top = NSMakeRect(0, imageSize.height - insets.top, imageSize.width, insets.top);
+        NSRect middle = NSMakeRect(0, insets.bottom, imageSize.width, imageSize.height - insets.top - insets.bottom);
+        NSRect bottom = NSMakeRect(0, 0, imageSize.width, insets.bottom);
+        
+        self.sliceRects = @[ [NSValue valueWithRect:top], [NSValue valueWithRect:middle], [NSValue valueWithRect:bottom] ];
+    } else if (self.renditionType == CoreThemeTypeNinePart) {
+        NSRect topLeft = NSMakeRect(0, imageSize.height - insets.top, insets.left, insets.top);
+        NSRect topEdge = NSMakeRect(insets.left, topLeft.origin.y, imageSize.width - insets.left - insets.right, self.edgeInsets.top);
+        NSRect topRight = NSMakeRect(imageSize.width - insets.right, topLeft.origin.y, insets.right, insets.top);
+        NSRect leftEdge = NSMakeRect(0, insets.bottom, insets.left, imageSize.height - insets.top - insets.bottom);
+        NSRect center = NSMakeRect(insets.left, insets.bottom, imageSize.width - insets.left - insets.right, imageSize.height - insets.top - insets.bottom);
+        NSRect rightEdge = NSMakeRect(imageSize.width - insets.right, insets.bottom, insets.right, imageSize.height - insets.top - insets.bottom);
+        NSRect bottomLeft = NSMakeRect(0, 0, insets.left, self.edgeInsets.bottom);
+        NSRect bottomEdge = NSMakeRect(insets.left, 0, imageSize.width - insets.left - insets.right, insets.bottom);
+        NSRect bottomRight = NSMakeRect(imageSize.width - insets.right, 0, insets.right, insets.bottom);
+        
+        self.sliceRects = @[ [NSValue valueWithRect:topLeft],
+                             [NSValue valueWithRect:topEdge],
+                             [NSValue valueWithRect:topRight],
+                             [NSValue valueWithRect:leftEdge],
+                             [NSValue valueWithRect:center],
+                             [NSValue valueWithRect:rightEdge],
+                             [NSValue valueWithRect:bottomLeft],
+                             [NSValue valueWithRect:bottomEdge],
+                             [NSValue valueWithRect:bottomRight]];
+    }
+}
+
+- (void)_generateInsetsFromSlices {
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    if (self.renditionType == CoreThemeTypeThreePartVertical && self.sliceRects.count == 3) {
+        CGRect topRect = [self.sliceRects[0] rectValue];
+        CGRect bottomRect = [self.sliceRects[2] rectValue];
+        
+        self.sliceInsets = NSEdgeInsetsMake(topRect.size.height, 0, bottomRect.size.height, 0);
+        
+    } else if (self.renditionType == CoreThemeTypeNinePart && self.sliceRects.count == 9) {
+        CGRect topLeftRect = [self.sliceRects[0] rectValue];
+        CGRect bottomRightRect = [self.sliceRects[8] rectValue];
+        
+        self.sliceInsets = NSEdgeInsetsMake(topLeftRect.size.height, topLeftRect.size.width,
+                                            bottomRightRect.size.height, bottomRightRect.size.width);
+        
+    } else if (self.renditionType == CoreThemeTypeThreePartHorizontal && self.sliceRects.count == 3) {
+        CGRect leftRect = [self.sliceRects[0] rectValue];
+        CGRect rightRect = [self.sliceRects[2] rectValue];
+        
+        self.sliceInsets = NSEdgeInsetsMake(0, leftRect.size.width, 0, rightRect.size.width);
+    }
+    [CATransaction commit];
 }
 
 #pragma mark - Mouse Actions
@@ -180,7 +241,8 @@ static const CGFloat sliceSpaceWidth = 2.0;
         insets.bottom = MAX(0, MIN(self.image.pixelsHigh - insets.top, insets.bottom));
     }
     
-    self.sliceInsets = insets;
+    _sliceInsets = insets;
+    [self _repositionHandles];
     
     [CATransaction commit];
     
@@ -192,8 +254,6 @@ static const CGFloat sliceSpaceWidth = 2.0;
 - (void)mouseUp:(NSEvent *)event {
     if (!self.dragHandle)
         return;
-    
-//    [self _generateSlicesFromInsets];
     
     self.dragHandle = nil;
     self.dragPoint = CGPointZero;
@@ -248,31 +308,6 @@ static const CGFloat sliceSpaceWidth = 2.0;
     }
     
     self.frame = frame;
-}
-
-- (void)_generateInsetsFromSlices {
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
-    if (self.renditionType == CoreThemeTypeThreePartVertical && self.sliceRects.count == 3) {
-        CGRect topRect = [self.sliceRects[0] rectValue];
-        CGRect bottomRect = [self.sliceRects[2] rectValue];
-        
-        self.sliceInsets = NSEdgeInsetsMake(topRect.size.height, 0, bottomRect.size.height, 0);
-        
-    } else if (self.renditionType == CoreThemeTypeNinePart && self.sliceRects.count == 9) {
-        CGRect topLeftRect = [self.sliceRects[0] rectValue];
-        CGRect bottomRightRect = [self.sliceRects[8] rectValue];
-        
-        self.sliceInsets = NSEdgeInsetsMake(topLeftRect.size.height, topLeftRect.size.width,
-                                            bottomRightRect.size.height, bottomRightRect.size.width);
-        
-    } else if (self.renditionType == CoreThemeTypeThreePartHorizontal && self.sliceRects.count == 3) {
-        CGRect leftRect = [self.sliceRects[0] rectValue];
-        CGRect rightRect = [self.sliceRects[2] rectValue];
-        
-        self.sliceInsets = NSEdgeInsetsMake(0, leftRect.size.width, 0, rightRect.size.width);
-    }
-    [CATransaction commit];
 }
 
 - (void)drawLayer:(nonnull CALayer *)layer inContext:(nonnull CGContextRef)ctx {
@@ -451,6 +486,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
 - (void)setLeftHandlePosition:(CGFloat)leftHandlePosition {
     _sliceInsets.left = leftHandlePosition;
     [self _repositionHandles];
+    [self _generateSliceRectsFromInsets];
 }
 
 - (CGFloat)topHandlePosition {
@@ -460,6 +496,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
 - (void)setTopHandlePosition:(CGFloat)topHandlePosition {
     _sliceInsets.top = topHandlePosition;
     [self _repositionHandles];
+    [self _generateSliceRectsFromInsets];
 }
 
 - (CGFloat)rightHandlePosition {
@@ -469,6 +506,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
 - (void)setRightHandlePosition:(CGFloat)rightHandlePosition {
     _sliceInsets.right = rightHandlePosition;
     [self _repositionHandles];
+    [self _generateSliceRectsFromInsets];
 }
 
 - (CGFloat)bottomHandlePosition {
@@ -478,11 +516,13 @@ static const CGFloat sliceSpaceWidth = 2.0;
 - (void)setBottomHandlePosition:(CGFloat)bottomHandlePosition {
     _sliceInsets.bottom = bottomHandlePosition;
     [self _repositionHandles];
+    [self _generateSliceRectsFromInsets];
 }
 
 - (void)setSliceInsets:(NSEdgeInsets)edgeInsets {
     _sliceInsets = edgeInsets;
     [self _repositionHandles];
+    [self _generateSliceRectsFromInsets];
 }
 
 #pragma mark - KVO
