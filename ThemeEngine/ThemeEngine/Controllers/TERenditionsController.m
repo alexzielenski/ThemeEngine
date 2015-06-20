@@ -8,7 +8,6 @@
 
 #import "TERenditionsController.h"
 #import <ThemeKit/TKRendition.h>
-#import "TERenditionGroupHeaderLayer.h"
 
 static NSString *keyForGroupTag(NSInteger tag) {
     switch (tag) {
@@ -143,14 +142,10 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
 
             if (![value isEqualTo:lastObject]) {
                 // new unique object, commit the last one to the array
-                TERenditionGroupHeaderLayer *headerLayer = [TERenditionGroupHeaderLayer layer];
-                headerLayer.textLayer.string = [objects[x - 1] valueForKeyPath:stringKeyForGroupTag(currentGroup)];
-                headerLayer.badgeTextLayer.string = [NSString stringWithFormat:@"%ld", x - lastIdx];
                 [groups addObject:@{
                                     IKImageBrowserGroupStyleKey: @(IKGroupDisclosureStyle),
                                     IKImageBrowserGroupTitleKey: [objects[x - 1] valueForKeyPath:stringKeyForGroupTag(currentGroup)],
                                     IKImageBrowserGroupRangeKey: [NSValue valueWithRange:NSMakeRange(lastIdx, x - lastIdx)],
-//                                    IKImageBrowserGroupHeaderLayer: headerLayer
                                     }];
                 lastObject = value;
                 lastIdx = x;
