@@ -16,6 +16,11 @@ static const CGFloat sliceSpaceWidth = 2.0;
 @property (strong) CALayer *topHandle;
 @property (strong) CALayer *bottomHandle;
 @property (strong) CALayer *rightHandle;
+
+@property (weak) CALayer *dragHandle;
+@property NSEdgeInsets dragInsets;
+@property NSPoint dragPoint;
+
 - (void)_initialize;
 - (void)_toggleDisplay;
 - (void)addHandleWithName:(NSString *)name vertical:(BOOL)vertical right:(BOOL)right;
@@ -78,6 +83,14 @@ static const CGFloat sliceSpaceWidth = 2.0;
     [self addHandleWithName:@"bottomHandle" vertical:NO right:YES];
 }
 
+- (void)updateTrackingAreas {
+    for (NSInteger x = self.trackingAreas.count - 1; x >= 0; x--) {
+        [self removeTrackingArea:self.trackingAreas[x]];
+    }
+    
+    [self addTrackingArea:[[NSTrackingArea alloc] initWithRect:self.bounds options:NSTrackingActiveInActiveApp | NSTrackingMouseMoved owner:self userInfo:nil]];
+}
+
 - (void)addHandleWithName:(NSString *)name vertical:(BOOL)vertical right:(BOOL)right {
     CALayer *handle         = [CALayer layer];
 
@@ -106,6 +119,84 @@ static const CGFloat sliceSpaceWidth = 2.0;
     [super setFrame:frame];
     [self.layer setNeedsDisplay];
     [self.layer displayIfNeeded];
+}
+
+#pragma mark - Mouse Actions
+
+- (void)mouseMoved:(NSEvent *)event {
+    NSPoint windowPoint = event.locationInWindow;
+    NSPoint viewPoint = [self convertPoint:windowPoint fromView:nil];
+    CALayer *handle = [self.layer hitTest:viewPoint];
+    
+    if (handle == self.leftHandle || handle == self.rightHandle) {
+        [[NSCursor resizeLeftRightCursor] push];
+    } else if (handle == self.topHandle || handle == self.bottomHandle) {
+        [[NSCursor resizeUpDownCursor] push];
+    } else {
+        [NSCursor pop];
+    }
+}
+
+- (void)mouseDown:(NSEvent *)event {
+    NSPoint windowPoint = event.locationInWindow;
+    NSPoint viewPoint = [self convertPoint:windowPoint fromView:nil];
+    CALayer *handle = [self.layer hitTest:viewPoint];
+    if (handle == self.layer)
+        return;
+    
+    self.dragHandle = handle;
+    self.dragInsets = self.sliceInsets;
+    self.dragPoint = viewPoint;
+}
+
+- (void)mouseDragged:(NSEvent *)event {
+    if (!self.dragHandle)
+        return;
+//    self.sliceInsets = self.dragInsets;
+//    return;
+    NSPoint windowPoint = event.locationInWindow;
+    NSPoint viewPoint = [self convertPoint:windowPoint fromView:nil];
+    
+    viewPoint.x = MAX(NSMinX(self.layer.frame), MIN(NSMaxX(self.layer.frame), viewPoint.x));
+    viewPoint.y = MAX(NSMinY(self.layer.frame), MIN(NSMaxY(self.layer.frame), viewPoint.y));
+    
+    CGPoint delta = CGPointMake(viewPoint.x - self.dragPoint.x, viewPoint.y - self.dragPoint.y);
+    
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    
+    NSEdgeInsets insets = self.dragInsets;
+    if (self.dragHandle == self.leftHandle) {
+        insets.left += delta.x;
+        insets.left = MAX(0, MIN(self.image.pixelsWide - insets.right, insets.left));
+    } else if (self.dragHandle == self.rightHandle) {
+        insets.right -= delta.x;
+        insets.right = MAX(0, MIN(self.image.pixelsWide - insets.left, insets.right));
+    } else if (self.dragHandle == self.topHandle) {
+        insets.top += delta.y;
+        insets.top = MAX(0, MIN(self.image.pixelsHigh - insets.bottom, insets.top));
+    } else if (self.dragHandle == self.bottomHandle) {
+        insets.bottom -= delta.y;
+        insets.bottom = MAX(0, MIN(self.image.pixelsHigh - insets.top, insets.bottom));
+    }
+    
+    self.sliceInsets = insets;
+    
+    [CATransaction commit];
+    
+    self.dragInsets = insets;
+    self.dragPoint = viewPoint;
+    [self.layer setNeedsDisplay];
+}
+
+- (void)mouseUp:(NSEvent *)event {
+    if (!self.dragHandle)
+        return;
+    
+//    [self _generateSlicesFromInsets];
+    
+    self.dragHandle = nil;
+    self.dragPoint = CGPointZero;
 }
 
 #pragma mark - Display
@@ -304,19 +395,19 @@ static const CGFloat sliceSpaceWidth = 2.0;
 
 - (void)_repositionHandles {
     CGPoint pos                = self.leftHandle.position;
-    pos.x                      = self.leftHandlePosition;
+    pos.x                      = _sliceInsets.left;
     self.leftHandle.position   = pos;
     
     pos                        = self.topHandle.position;
-    pos.y                      = self.topHandlePosition;
+    pos.y                      = _sliceInsets.top;
     self.topHandle.position    = pos;
     
     pos                        = self.rightHandle.position;
-    pos.x                      = CGRectGetMaxX(self.layer.bounds) - self.rightHandlePosition - sliceSpaceWidth;
+    pos.x                      = CGRectGetMaxX(self.layer.bounds) - _sliceInsets.right - sliceSpaceWidth;
     self.rightHandle.position  = pos;
     
     pos                        = self.bottomHandle.position;
-    pos.y                      = CGRectGetMaxY(self.layer.bounds) - self.bottomHandlePosition - sliceSpaceWidth;
+    pos.y                      = CGRectGetMaxY(self.layer.bounds) - _sliceInsets.bottom - sliceSpaceWidth;
     self.bottomHandle.position = pos;
 }
 
@@ -395,7 +486,6 @@ static const CGFloat sliceSpaceWidth = 2.0;
 }
 
 #pragma mark - KVO
-
 
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     if ([key hasSuffix:@"HandlePosition"]) {
