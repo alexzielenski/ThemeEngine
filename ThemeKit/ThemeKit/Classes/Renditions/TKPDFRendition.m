@@ -24,24 +24,10 @@ static const void *TKPDFRenditionRawDataChangedContext = &TKPDFRenditionRawDataC
         
         *pdf = NULL;
         self.utiType = (__bridge_transfer NSString *)kUTTypePDF;
-        [self addObserver:self
-               forKeyPath:@"rawData"
-                  options:0
-                  context:&TKPDFRenditionRawDataChangedContext];
-        self.rawData = self.rawData;
     }
     return self;
 }
 
-- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
-    if (context == &TKPDFRenditionRawDataChangedContext) {
-        self.pdf = [NSPDFImageRep imageRepWithData:self.rawData];
-    }
-}
-
-- (void)dealloc {
-    [self removeObserver:self forKeyPath:@"rawData" context:&TKPDFRenditionRawDataChangedContext];
-}
 
 - (void)computePreviewImageIfNecessary {
     if (self._previewImage)
@@ -54,6 +40,18 @@ static const void *TKPDFRenditionRawDataChangedContext = &TKPDFRenditionRawDataC
     } else {
         [super computePreviewImageIfNecessary];
     }
+}
+
+- (NSData *)rawData {
+    return self.pdf.PDFRepresentation;
+}
+
+- (void)setRawData:(NSData *)rawData {
+    self.pdf = [NSPDFImageRep imageRepWithData:rawData];
+}
+
++ (NSSet *)keyPathsForValuesAffectingRawData {
+    return [NSSet setWithObject:@"pdf"];
 }
 
 @end

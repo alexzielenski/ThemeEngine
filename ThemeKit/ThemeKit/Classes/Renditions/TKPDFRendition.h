@@ -9,5 +9,5 @@
 #import <ThemeKit/TKRawDataRendition.h>
 
 @interface TKPDFRendition : TKRawDataRendition
-@property (strong) NSPDFImageRep *pdf;
+@property (nonatomic, strong) NSPDFImageRep *pdf;
 @end
