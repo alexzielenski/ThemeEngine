@@ -16,7 +16,6 @@
 
 @class TEInspectorController;
 @interface TEEffectsInspector : TEInspectorDetailController
-@property (weak) IBOutlet TEInspectorController *inspectorController;
 @property (weak) IBOutlet NSArrayController *effectsController;
 @property (weak) IBOutlet NSTableView *effectList;
 @property TKEffect *currentEffect;

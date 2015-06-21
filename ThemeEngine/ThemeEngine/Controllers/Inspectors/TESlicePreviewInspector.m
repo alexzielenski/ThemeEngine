@@ -22,8 +22,8 @@
     [super viewDidLoad];
     // Do view setup here.
     [self bind:@"rendition"
-      toObject:self.inspectorController
-   withKeyPath:@"representedObject.selection.self"
+      toObject:self
+   withKeyPath:@"inspector.contentController.selection.self"
        options:nil];
 }
 

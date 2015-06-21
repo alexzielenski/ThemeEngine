@@ -10,7 +10,5 @@
 #import "TEGradientEditor.h"
 
 @interface TEGradientInspector : TEInspectorDetailController
-// for programmatic binding
-@property (weak) IBOutlet NSViewController *inspectorController;
-@property IBOutlet TEGradientEditor *gradientEditor;
+@property (weak) IBOutlet TEGradientEditor *gradientEditor;
 @end

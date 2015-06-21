@@ -84,7 +84,11 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
                     withKeyPath:@"arrangedObjects"
                         options:nil];
     self.renditionBrowser.canControlQuickLookPanel = YES;
-    self.inspectorController.representedObject = self.renditionsArrayController;
+    
+    [self.inspectorController bind:@"representedObject"
+                          toObject:self.renditionsArrayController
+                       withKeyPath:@"selectedObjects"
+                           options:nil];
     
     [self.renditionsArrayController addObserver:self
                                      forKeyPath:NSStringFromSelector(@selector(arrangedObjects))
@@ -93,6 +97,7 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
 }
 
 - (void)dealloc {
+    [self.inspectorController unbind:@"representedObject"];
     [self.renditionsArrayController removeObserver:self forKeyPath:NSStringFromSelector(@selector(arrangedObjects)) context:&REEVALUATEGROUPS];
     [self.renditionBrowser unbind:NSContentBinding];
 }

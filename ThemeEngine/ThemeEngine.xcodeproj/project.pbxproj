@@ -37,6 +37,7 @@
 		FAA54F721B2E3C5900EA15F2 /* NSSplitView+Divider.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA54F711B2E3C5900EA15F2 /* NSSplitView+Divider.m */; };
 		FAA54F751B2E4DB700EA15F2 /* TEElementsController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA54F741B2E4DB700EA15F2 /* TEElementsController.m */; };
 		FAA54F791B2E4DC700EA15F2 /* TERenditionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA54F771B2E4DC700EA15F2 /* TERenditionsController.m */; };
+		FAA5F76A1B36616200F01121 /* TEAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5F7691B36616200F01121 /* TEAnimationView.m */; };
 		FAB5EA7A1B345C630078923F /* TEVariableStackViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EA791B345C630078923F /* TEVariableStackViewItem.m */; };
 		FABEAEC51B2F70C200B02805 /* TEInspectorController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABEAEC41B2F70C200B02805 /* TEInspectorController.xib */; };
 		FABEAEC81B2F70ED00B02805 /* TEInspectorController.m in Sources */ = {isa = PBXBuildFile; fileRef = FABEAEC71B2F70ED00B02805 /* TEInspectorController.m */; };
@@ -120,6 +121,8 @@
 		FAA54F741B2E4DB700EA15F2 /* TEElementsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEElementsController.m; path = Controllers/TEElementsController.m; sourceTree = "<group>"; };
 		FAA54F761B2E4DC700EA15F2 /* TERenditionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TERenditionsController.h; path = Controllers/TERenditionsController.h; sourceTree = "<group>"; };
 		FAA54F771B2E4DC700EA15F2 /* TERenditionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TERenditionsController.m; path = Controllers/TERenditionsController.m; sourceTree = "<group>"; };
+		FAA5F7681B36616200F01121 /* TEAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEAnimationView.h; path = Views/TEAnimationView.h; sourceTree = "<group>"; };
+		FAA5F7691B36616200F01121 /* TEAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEAnimationView.m; path = Views/TEAnimationView.m; sourceTree = "<group>"; };
 		FAB5EA781B345C630078923F /* TEVariableStackViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEVariableStackViewItem.h; path = Controllers/Inspectors/TEVariableStackViewItem.h; sourceTree = "<group>"; };
 		FAB5EA791B345C630078923F /* TEVariableStackViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEVariableStackViewItem.m; path = Controllers/Inspectors/TEVariableStackViewItem.m; sourceTree = "<group>"; };
 		FABEAEC41B2F70C200B02805 /* TEInspectorController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TEInspectorController.xib; path = Controllers/TEInspectorController.xib; sourceTree = "<group>"; };
@@ -270,6 +273,8 @@
 				FA2F00B91B360B6700998329 /* TECenteredClipView.m */,
 				FAEA99871B36587D00EEA486 /* TEBackgroundColorView.h */,
 				FAEA99881B36587D00EEA486 /* TEBackgroundColorView.m */,
+				FAA5F7681B36616200F01121 /* TEAnimationView.h */,
+				FAA5F7691B36616200F01121 /* TEAnimationView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -407,6 +412,7 @@
 				FAA2B1BE1B2E023900D70473 /* TKRendition+ImageBrowser.m in Sources */,
 				FA80CDF11B308D41005E5DD2 /* TKBitmapRendition+Pasteboard.m in Sources */,
 				FAD3AAD01B3356F10006FA7F /* TEGradientInfoInspector.m in Sources */,
+				FAA5F76A1B36616200F01121 /* TEAnimationView.m in Sources */,
 				FA514C351B346EDC002CBF5A /* TESliceImageView.m in Sources */,
 				FABEAED01B2F714000B02805 /* TEAttributesInspector.m in Sources */,
 				FABEAEC81B2F70ED00B02805 /* TEInspectorController.m in Sources */,

@@ -19,7 +19,7 @@
     [super viewDidLoad];
     [self bind:@"gradients"
       toObject:self
-   withKeyPath:@"inspectorController.representedObject.selection.gradient"
+   withKeyPath:@"inspector.contentController.selection.gradient"
        options:@{ NSRaisesForNotApplicableKeysBindingOption: @(NO) }];
 }
 

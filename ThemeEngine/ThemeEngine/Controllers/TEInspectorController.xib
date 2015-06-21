@@ -8,10 +8,12 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TEInspectorController">
             <connections>
+                <outlet property="animationInspector" destination="ZQg-et-ePs" id="Fgl-f4-Hj7"/>
                 <outlet property="attributesInspector" destination="tGs-jd-I8J" id="x5G-b2-HFf"/>
                 <outlet property="bitmapInspector" destination="5zm-Wz-sVp" id="cSb-QB-PuJ"/>
                 <outlet property="bottomLine" destination="jUh-at-fMP" id="qZv-fu-DOT"/>
                 <outlet property="colorInspector" destination="pQJ-Zu-6mN" id="jNQ-QE-0Ki"/>
+                <outlet property="contentController" destination="q91-f5-6u3" id="54z-jx-oey"/>
                 <outlet property="contentView" destination="xp3-9J-lYi" id="pJj-1H-eNO"/>
                 <outlet property="effectsInspector" destination="NiE-Zo-ftF" id="1Xv-iq-bqY"/>
                 <outlet property="gradientInfoInspector" destination="FKr-Wk-qPc" id="bWb-g3-eVu"/>
@@ -23,6 +25,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <arrayController id="q91-f5-6u3">
+            <connections>
+                <binding destination="-2" name="contentArray" keyPath="representedObject" id="bJo-Ct-r2q"/>
+            </connections>
+        </arrayController>
         <viewController title="Attributes" nibName="TEInspectorDetailController" id="tGs-jd-I8J" customClass="TEAttributesInspector">
             <connections>
                 <outlet property="inspectorView" destination="Ag6-As-gsU" id="NqQ-jf-lEr"/>
@@ -155,7 +162,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="representedObject.selection.typeString" id="Ogm-7P-qYc">
+                                        <binding destination="q91-f5-6u3" name="value" keyPath="selection.typeString" id="Xib-Me-09f">
                                             <dictionary key="options">
                                                 <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                             </dictionary>
@@ -171,7 +178,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="representedObject.selection.stateString" id="rai-UV-dg8"/>
+                                        <binding destination="q91-f5-6u3" name="value" keyPath="selection.stateString" id="IOC-Uk-Vt5"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MXZ-2c-z1g">
@@ -183,7 +190,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="representedObject.selection.scaleString" id="xxC-Dq-3hF"/>
+                                        <binding destination="q91-f5-6u3" name="value" keyPath="selection.scaleString" id="Q6p-E2-dK3"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="igB-qY-pbx">
@@ -195,7 +202,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="representedObject.selection.layerString" id="wdk-kJ-0Zl"/>
+                                        <binding destination="q91-f5-6u3" name="value" keyPath="selection.layerString" id="NWr-6C-TKG"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xCs-ZP-xeu">
@@ -207,7 +214,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="representedObject.selection.idiomString" id="rha-nM-lAV"/>
+                                        <binding destination="q91-f5-6u3" name="value" keyPath="selection.idiomString" id="Jp7-3x-Fmu"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wwS-WM-EdR">
@@ -219,7 +226,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="representedObject.selection.sizeString" id="Odi-cO-LOd"/>
+                                        <binding destination="q91-f5-6u3" name="value" keyPath="selection.sizeString" id="joF-Pz-z3G"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XnW-xt-aZ7">
@@ -231,7 +238,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="representedObject.selection.valueString" id="APk-pI-iUO"/>
+                                        <binding destination="q91-f5-6u3" name="value" keyPath="selection.valueString" id="eFt-LV-B1f"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18J-fH-S1j">
@@ -243,7 +250,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="representedObject.selection.presentationStateString" id="x0o-N5-mqW"/>
+                                        <binding destination="q91-f5-6u3" name="value" keyPath="selection.presentationStateString" id="71o-L7-K9A"/>
                                     </connections>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X19-6g-cKv">
@@ -255,7 +262,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="representedObject.selection.directionString" id="Obq-Cb-52n"/>
+                                        <binding destination="q91-f5-6u3" name="value" keyPath="selection.directionString" id="SnN-c0-95J"/>
                                     </connections>
                                 </textField>
                             </subviews>
@@ -320,7 +327,12 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                             <connections>
-                                <binding destination="-2" name="value" keyPath="representedObject.selection.name" id="LrJ-HU-aFw"/>
+                                <binding destination="q91-f5-6u3" name="value" keyPath="selection.name" id="48P-Pu-esW">
+                                    <dictionary key="options">
+                                        <string key="NSMultipleValuesPlaceholder">Multiple Values</string>
+                                        <string key="NSNoSelectionPlaceholder">No Selection</string>
+                                    </dictionary>
+                                </binding>
                             </connections>
                         </textField>
                     </subviews>
@@ -366,7 +378,7 @@
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="XkK-dO-3YI">
-                        <rect key="frame" x="214" y="0.0" width="16" height="314"/>
+                        <rect key="frame" x="215" y="0.0" width="15" height="314"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
@@ -381,17 +393,17 @@
             <animations/>
             <point key="canvasLocation" x="71" y="299.5"/>
         </customView>
-        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P9E-z8-bJb" userLabel="Gradient Editor">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="182"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="P9E-z8-bJb" userLabel="Gradient Editor">
+            <rect key="frame" x="0.0" y="0.0" width="481" height="182"/>
             <subviews>
-                <customView horizontalHuggingPriority="600" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dWq-7S-Qdg" customClass="TEGradientEditor">
-                    <rect key="frame" x="20" y="122" width="440" height="60"/>
+                <customView horizontalHuggingPriority="600" translatesAutoresizingMaskIntoConstraints="NO" id="dWq-7S-Qdg" customClass="TEGradientEditor">
+                    <rect key="frame" x="20" y="122" width="441" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="iyr-ra-0jv"/>
                     </constraints>
                     <animations/>
                 </customView>
-                <stackView distribution="fillProportionally" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="5xu-7L-sQr">
+                <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="5xu-7L-sQr">
                     <rect key="frame" x="0.0" y="20" width="481" height="94"/>
                     <subviews>
                         <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="2" horizontalStackHuggingPriority="760" verticalStackHuggingPriority="760" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BGZ-ka-gyK">
@@ -726,7 +738,6 @@
         <viewController title="Gradient" nibName="TEInspectorDetailController" id="Qba-ew-VCW" customClass="TEGradientInspector">
             <connections>
                 <outlet property="gradientEditor" destination="dWq-7S-Qdg" id="GAc-ii-BJB"/>
-                <outlet property="inspectorController" destination="-2" id="WQK-W5-Wcm"/>
                 <outlet property="inspectorView" destination="P9E-z8-bJb" id="U8e-I0-8KS"/>
             </connections>
         </viewController>
@@ -807,7 +818,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="representedObject.selection.utiType" id="O9W-PK-D5s">
+                                        <binding destination="q91-f5-6u3" name="value" keyPath="selection.utiType" id="WTF-uj-C3L">
                                             <dictionary key="options">
                                                 <string key="NSMultipleValuesPlaceholder">Multiple Selection</string>
                                                 <string key="NSNoSelectionPlaceholder">No Selection</string>
@@ -821,12 +832,12 @@
                                 <popUpButton horizontalHuggingPriority="249" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mmD-Ph-puP">
                                     <rect key="frame" x="-3" y="48" width="220" height="22"/>
                                     <animations/>
-                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="xpn-Qs-8ee">
+                                    <popUpButtonCell key="cell" type="push" title="Normal" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="Y2N-UF-83K" id="xpn-Qs-8ee">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="smallSystem"/>
                                         <menu key="menu" id="ZbK-C3-zaW">
                                             <items>
-                                                <menuItem title="Normal" tag="1" id="Y2N-UF-83K"/>
+                                                <menuItem title="Normal" state="on" tag="1" id="Y2N-UF-83K"/>
                                                 <menuItem title="Rotate 90" tag="6" id="qsh-1E-Lbz"/>
                                                 <menuItem title="Rotate 180" tag="3" id="IXr-eq-KIk"/>
                                                 <menuItem title="Rotate 270" tag="8" id="o6E-cu-YhB"/>
@@ -838,20 +849,27 @@
                                             </items>
                                         </menu>
                                     </popUpButtonCell>
+                                    <connections>
+                                        <binding destination="q91-f5-6u3" name="selectedTag" keyPath="selection.exifOrientation" id="Z9d-38-I19">
+                                            <dictionary key="options">
+                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
                                 </popUpButton>
                                 <popUpButton horizontalHuggingPriority="249" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P2R-Jz-qgb">
                                     <rect key="frame" x="-3" y="23" width="220" height="22"/>
                                     <animations/>
-                                    <popUpButtonCell key="cell" type="push" title="Normal" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="vkk-o3-s1d" id="aiw-hB-UCt">
+                                    <popUpButtonCell key="cell" type="push" title="Darken" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="bsD-jG-OKV" id="aiw-hB-UCt">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="smallSystem"/>
                                         <menu key="menu" id="YwH-ef-usr">
                                             <items>
-                                                <menuItem title="Normal" state="on" id="vkk-o3-s1d"/>
+                                                <menuItem title="Normal" id="vkk-o3-s1d"/>
                                                 <menuItem title="Multiply" id="rGH-q0-u7T"/>
                                                 <menuItem title="Screen" id="ACW-n1-NCX"/>
                                                 <menuItem title="Overlay" id="BAn-Ym-rCw"/>
-                                                <menuItem title="Darken" id="bsD-jG-OKV"/>
+                                                <menuItem title="Darken" state="on" id="bsD-jG-OKV"/>
                                                 <menuItem title="Lighten" id="u8c-6m-8DZ"/>
                                                 <menuItem isSeparatorItem="YES" id="gFS-JC-Ldr"/>
                                                 <menuItem title="Color Dodge" id="mFj-Vr-kH4"/>
@@ -869,7 +887,7 @@
                                         </menu>
                                     </popUpButtonCell>
                                     <connections>
-                                        <binding destination="-2" name="selectedIndex" keyPath="representedObject.selection.blendMode" id="4go-Sd-wlM">
+                                        <binding destination="q91-f5-6u3" name="selectedIndex" keyPath="selection.blendMode" id="N9L-AI-ywX">
                                             <dictionary key="options">
                                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                             </dictionary>
@@ -889,12 +907,8 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="-2" name="value" keyPath="representedObject.selection.opacity" id="WVY-Gc-rpP">
+                                        <binding destination="q91-f5-6u3" name="value" keyPath="selection.opacity" id="em9-Ym-qa8">
                                             <dictionary key="options">
-                                                <string key="NSMultipleValuesPlaceholder">Multiple</string>
-                                                <string key="NSNoSelectionPlaceholder">No Selection</string>
-                                                <string key="NSNotApplicablePlaceholder">Opacity</string>
-                                                <string key="NSNullPlaceholder">Opacity</string>
                                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                             </dictionary>
                                         </binding>
@@ -947,7 +961,6 @@
         </box>
         <viewController title="Gradient Info" nibName="TEInspectorDetailController" id="FKr-Wk-qPc" customClass="TEGradientInfoInspector">
             <connections>
-                <outlet property="inspectorController" destination="-2" id="mQb-jV-jQO"/>
                 <outlet property="inspectorView" destination="Ogu-w6-qGs" id="Bn8-OE-krj"/>
             </connections>
         </viewController>
@@ -1799,18 +1812,6 @@
             </subviews>
             <animations/>
             <edgeInsets key="edgeInsets" left="20" right="20" top="0.0" bottom="20"/>
-            <constraints>
-                <constraint firstItem="AQr-Ic-AsZ" firstAttribute="width" secondItem="Dev-sy-VXg" secondAttribute="width" id="83v-md-99g"/>
-                <constraint firstItem="gas-1c-9as" firstAttribute="width" secondItem="Dev-sy-VXg" secondAttribute="width" id="B05-ga-8KY"/>
-                <constraint firstItem="Ckk-1J-Hgl" firstAttribute="width" secondItem="Dev-sy-VXg" secondAttribute="width" id="D6s-DG-dLw"/>
-                <constraint firstItem="RPF-6T-Siy" firstAttribute="width" secondItem="Dev-sy-VXg" secondAttribute="width" id="DDj-go-23f"/>
-                <constraint firstItem="1yq-QA-vGJ" firstAttribute="width" secondItem="Dev-sy-VXg" secondAttribute="width" id="J0q-AN-l1p"/>
-                <constraint firstItem="f3D-Vw-iYA" firstAttribute="width" secondItem="Dev-sy-VXg" secondAttribute="width" id="Q03-mq-Rs4"/>
-                <constraint firstItem="lBk-9m-wKO" firstAttribute="width" secondItem="Dev-sy-VXg" secondAttribute="width" id="VW7-tU-pRT"/>
-                <constraint firstItem="6HY-FP-tcv" firstAttribute="width" secondItem="bt5-sA-VKd" secondAttribute="width" id="mJy-CQ-3j3"/>
-                <constraint firstItem="cQD-WZ-ylx" firstAttribute="width" secondItem="Dev-sy-VXg" secondAttribute="width" id="qib-hQ-KFP"/>
-                <constraint firstItem="Weu-Oe-uox" firstAttribute="width" secondItem="Dev-sy-VXg" secondAttribute="width" id="tgt-tb-Rrq"/>
-            </constraints>
             <visibilityPriorities>
                 <integer value="1000"/>
                 <integer value="1000"/>
@@ -1843,7 +1844,6 @@
             <connections>
                 <outlet property="effectList" destination="htU-Qk-fhs" id="UXP-Hw-jGR"/>
                 <outlet property="effectsController" destination="PHN-lK-2dS" id="Tiv-V4-J7U"/>
-                <outlet property="inspectorController" destination="-2" id="o4U-AV-nUS"/>
                 <outlet property="inspectorView" destination="ZXV-ic-XHC" id="kpj-CW-kqG"/>
             </connections>
         </viewController>
@@ -1881,7 +1881,7 @@
                     <animations/>
                     <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="representedObject.selection.color" id="cKY-wR-CJb">
+                        <binding destination="q91-f5-6u3" name="value" keyPath="selection.color" id="PeG-5g-Cy1">
                             <dictionary key="options">
                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                             </dictionary>
@@ -1902,7 +1902,6 @@
         </customView>
         <viewController title="Slicing" nibName="TEInspectorDetailController" id="l3p-vo-mxo" customClass="TESlicePreviewInspector">
             <connections>
-                <outlet property="inspectorController" destination="-2" id="RMR-qy-yIg"/>
                 <outlet property="inspectorView" destination="V5v-78-xXT" id="tFs-29-Lyi"/>
                 <outlet property="sliceImageView" destination="gBY-Rb-Qsf" id="AOr-za-9dc"/>
             </connections>
@@ -2255,6 +2254,58 @@
             </constraints>
             <animations/>
             <point key="canvasLocation" x="-409" y="649.5"/>
+        </customView>
+        <viewController title="Animation" nibName="TEInspectorDetailController" id="ZQg-et-ePs" customClass="TEAnimationInspector">
+            <connections>
+                <outlet property="inspectorView" destination="UNz-91-FPx" id="ci9-Nh-kZC"/>
+            </connections>
+        </viewController>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="UNz-91-FPx" userLabel="Animation">
+            <rect key="frame" x="0.0" y="0.0" width="238" height="187"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="9ef-J6-Gci">
+                    <rect key="frame" x="20" y="47" width="198" height="140"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="140" id="3SL-ru-ZXt"/>
+                    </constraints>
+                    <animations/>
+                </customView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fyb-gc-I2D">
+                    <rect key="frame" x="18" y="20" width="86" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Frame Width:" id="GZN-9w-UxK">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zaA-hg-VVj">
+                    <rect key="frame" x="110" y="17" width="108" height="22"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="0px" bezelStyle="round" id="f3Z-ua-oV5">
+                        <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" positiveSuffix="px" id="VXO-Xn-5df">
+                            <integer key="roundingIncrement" value="1"/>
+                            <real key="minimum" value="0.0"/>
+                        </numberFormatter>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Fyb-gc-I2D" secondAttribute="bottom" constant="20" symbolic="YES" id="29G-eQ-9bv"/>
+                <constraint firstItem="Fyb-gc-I2D" firstAttribute="leading" secondItem="UNz-91-FPx" secondAttribute="leading" constant="20" symbolic="YES" id="LWg-Lo-HbZ"/>
+                <constraint firstItem="zaA-hg-VVj" firstAttribute="leading" secondItem="Fyb-gc-I2D" secondAttribute="trailing" constant="8" symbolic="YES" id="ML1-dd-ubY"/>
+                <constraint firstAttribute="trailing" secondItem="9ef-J6-Gci" secondAttribute="trailing" constant="20" symbolic="YES" id="aj0-sA-Vtv"/>
+                <constraint firstItem="9ef-J6-Gci" firstAttribute="top" secondItem="UNz-91-FPx" secondAttribute="top" id="fAy-bn-qim"/>
+                <constraint firstItem="zaA-hg-VVj" firstAttribute="top" secondItem="9ef-J6-Gci" secondAttribute="bottom" constant="8" symbolic="YES" id="i5Y-5j-l1j"/>
+                <constraint firstItem="Fyb-gc-I2D" firstAttribute="baseline" secondItem="zaA-hg-VVj" secondAttribute="baseline" id="liI-yo-Rr3"/>
+                <constraint firstItem="9ef-J6-Gci" firstAttribute="leading" secondItem="UNz-91-FPx" secondAttribute="leading" constant="20" symbolic="YES" id="phg-e0-hb8"/>
+                <constraint firstAttribute="trailing" secondItem="zaA-hg-VVj" secondAttribute="trailing" constant="20" symbolic="YES" id="xCS-On-DGp"/>
+            </constraints>
+            <animations/>
+            <point key="canvasLocation" x="162" y="681.5"/>
         </customView>
     </objects>
     <resources>

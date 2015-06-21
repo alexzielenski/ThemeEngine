@@ -22,8 +22,8 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="xDA-wj-PZD" userLabel="Header View">
                     <rect key="frame" x="0.0" y="0.0" width="341" height="26"/>
                     <subviews>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="600" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pqw-8m-blB">
-                            <rect key="frame" x="6" y="6" width="164" height="14"/>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="600" translatesAutoresizingMaskIntoConstraints="NO" id="Pqw-8m-blB">
+                            <rect key="frame" x="6" y="6" width="165" height="14"/>
                             <animations/>
                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Disclosure Panel Description" usesSingleLineMode="YES" id="KGU-Qv-BpA">
                                 <font key="font" metaFont="smallSystemBold"/>

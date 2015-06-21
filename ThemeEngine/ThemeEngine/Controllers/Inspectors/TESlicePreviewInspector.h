@@ -10,8 +10,7 @@
 #import "TESliceImageView.h"
 @class TEInspectorController;
 @interface TESlicePreviewInspector : TEInspectorDetailController
-@property (strong) IBOutlet TESliceImageView *sliceImageView;
-@property (weak) IBOutlet TEInspectorController *inspectorController;
+@property (weak) IBOutlet TESliceImageView *sliceImageView;
 
 @property (readonly) BOOL canChangeLeftEdge;
 @property (readonly) BOOL canChangeTopEdge;

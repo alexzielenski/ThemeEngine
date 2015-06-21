@@ -15,12 +15,14 @@
 #import "TEEffectsInspector.h"
 #import "TEColorInspector.h"
 #import "TESlicePreviewInspector.h"
+#import "TEAnimationInspector.h"
 
 // representedObject must be an NSArrayController
 // with updated selectionIndexes
 @interface TEInspectorController : NSViewController
 @property IBOutlet NSStackView *contentView;
 @property (strong) NSArray *inspectorViewControllers;
+@property (weak) IBOutlet NSArrayController *contentController;
 
 @property (weak) IBOutlet TEInspectorDetailController *gradientInspector;
 @property (weak) IBOutlet TEInspectorDetailController *attributesInspector;
@@ -29,6 +31,7 @@
 @property (weak) IBOutlet TEEffectsInspector *effectsInspector;
 @property (weak) IBOutlet TEColorInspector *colorInspector;
 @property (weak) IBOutlet TESlicePreviewInspector *sliceInspector;
+@property (weak) IBOutlet TEAnimationInspector *animationInspector;
 
 @property IBOutlet NSView *bottomLine;
 @end

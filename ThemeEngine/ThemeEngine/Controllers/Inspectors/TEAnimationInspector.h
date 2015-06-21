@@ -7,7 +7,8 @@
 //
 
 #import "TEInspectorDetailController.h"
+#import "TEAnimationView.h"
 
 @interface TEAnimationInspector : TEInspectorDetailController
-
+@property (weak) IBOutlet TEAnimationView *animationView;
 @end

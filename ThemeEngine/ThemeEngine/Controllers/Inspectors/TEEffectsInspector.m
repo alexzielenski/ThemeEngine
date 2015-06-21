@@ -23,10 +23,9 @@
     [super viewDidLoad];
     // Do view setup here.
     [self bind:@"preset"
-      toObject:self.inspectorController
-   withKeyPath:@"representedObject.selection.effectPreset"
+      toObject:self
+   withKeyPath:@"inspector.contentController.selection.effectPreset"
        options:@{ NSRaisesForNotApplicableKeysBindingOption: @(NO) }];
-//    ((NSStackView *)self.inspectorView).detachesHiddenViews = YES;
     
     [self bind:@"currentEffect"
       toObject:self.effectsController

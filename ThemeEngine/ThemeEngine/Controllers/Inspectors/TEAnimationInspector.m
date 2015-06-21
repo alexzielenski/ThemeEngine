@@ -21,8 +21,15 @@
 }
 
 - (NSStackViewVisibilityPriority)visibilityPriorityForInspectedObjects:(NSArray *)objects {
+    if (objects.count != 1)
+        return NSStackViewVisibilityPriorityNotVisible;
     
-    return [[objects valueForKey:@"className"] containsObject:[TKBitmapRendition className]];
+    TKBitmapRendition *rendition = objects[0];
+    if ([rendition isKindOfClass:[TKBitmapRendition class]]) {
+        return rendition.type == CoreThemeTypeAnimation;
+    }
+    
+    return NSStackViewVisibilityPriorityNotVisible;
 }
 
 

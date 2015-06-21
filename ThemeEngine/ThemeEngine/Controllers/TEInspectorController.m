@@ -38,6 +38,7 @@ const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSe
     [super viewDidLoad];
     
      self.inspectorViewControllers = @[
+                                       self.animationInspector,
                                        self.sliceInspector,
                                        self.colorInspector,
                                        self.gradientInspector,
@@ -59,16 +60,17 @@ const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSe
     self.contentView.distribution = NSStackViewDistributionFill;
 
     for (TEInspectorDetailController *vc in self.inspectorViewControllers) {
+        vc.inspector = self;
         [self.contentView addView:vc.view inGravity:vc.gravity];
     }
     [self.contentView addView:self.bottomLine inGravity:NSStackViewGravityTop];
 
-    [self addObserver:self forKeyPath:@"representedObject.selection" options:0 context:&kTEInspectorControllerSelectionDidChange];
+    [self addObserver:self forKeyPath:@"representedObject" options:0 context:&kTEInspectorControllerSelectionDidChange];
     [self reevaluateVisibility];
 }
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"representedObject.selection" context:&kTEInspectorControllerSelectionDidChange];
+    [self removeObserver:self forKeyPath:@"representedObject" context:&kTEInspectorControllerSelectionDidChange];
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
@@ -82,7 +84,7 @@ const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSe
 
 - (void)reevaluateVisibility {
     for (TEInspectorDetailController *vc in self.inspectorViewControllers) {
-        NSStackViewVisibilityPriority vp = [vc visibilityPriorityForInspectedObjects:[self valueForKeyPath:@"representedObject.selectedObjects"]];
+        NSStackViewVisibilityPriority vp = [vc visibilityPriorityForInspectedObjects:[self valueForKeyPath:@"representedObject"]];
         [self.contentView setVisibilityPriority:vp
                                         forView:vc.view];
     }
