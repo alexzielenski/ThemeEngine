@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSBitmapImageRep *image;
 @property (nonatomic, strong) NSArray *sliceRects;
 @property BOOL hideHandles;
+@property (nonatomic) BOOL drawsChecker;
 
 // We support displaying
 // CoreThemeTypeOnePart

@@ -366,7 +366,7 @@
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="XkK-dO-3YI">
-                        <rect key="frame" x="214" y="0.0" width="16" height="314"/>
+                        <rect key="frame" x="215" y="0.0" width="15" height="314"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
@@ -741,7 +741,7 @@
                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="1" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="2ow-B1-tnv">
                     <rect key="frame" x="0.0" y="0.0" width="323" height="115"/>
                     <subviews>
-                        <stackView distribution="fillProportionally" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="751" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IW6-68-M7Y">
+                        <stackView distribution="fillEqually" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="751" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IW6-68-M7Y">
                             <rect key="frame" x="8" y="23" width="77" height="92"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x83-Zr-lcw">
@@ -1908,16 +1908,16 @@
             </connections>
         </viewController>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="V5v-78-xXT" userLabel="Slices">
-            <rect key="frame" x="0.0" y="0.0" width="206" height="359"/>
+            <rect key="frame" x="0.0" y="0.0" width="206" height="362"/>
             <subviews>
                 <scrollView wantsLayer="YES" canDrawConcurrently="YES" autohidesScrollers="YES" horizontalLineScroll="5" horizontalPageScroll="10" verticalLineScroll="5" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="8" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXf-ZR-kcc">
-                    <rect key="frame" x="20" y="162" width="166" height="197"/>
+                    <rect key="frame" x="20" y="165" width="166" height="197"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="8Hq-X0-EdL" customClass="TECenteredClipView">
                         <rect key="frame" x="1" y="1" width="164" height="195"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView canDrawConcurrently="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gBY-Rb-Qsf" customClass="TESliceImageView">
-                                <rect key="frame" x="79" y="160" width="145" height="19"/>
+                                <rect key="frame" x="120" y="199" width="184" height="47"/>
                                 <animations/>
                             </customView>
                         </subviews>
@@ -1928,49 +1928,64 @@
                         <constraint firstAttribute="height" constant="197" id="5sO-mh-JId"/>
                     </constraints>
                     <animations/>
-                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="MNa-JG-gbJ">
+                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="MNa-JG-gbJ">
                         <rect key="frame" x="1" y="180" width="164" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="zDr-Zh-Xoc">
-                        <rect key="frame" x="141" y="1" width="16" height="195"/>
+                        <rect key="frame" x="149" y="1" width="16" height="195"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
                 </scrollView>
-                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3lr-YH-1Tr">
-                    <rect key="frame" x="19" y="137" width="92" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="17" id="Cbf-K6-rYU"/>
-                    </constraints>
-                    <animations/>
-                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.5" maxValue="8" doubleValue="1" tickMarkPosition="below" sliderType="linear" id="Oza-9b-uMO"/>
-                    <connections>
-                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.enclosingScrollView.magnification" id="Qqs-pU-PXZ"/>
-                    </connections>
-                </slider>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="80d-rY-TvN">
-                    <rect key="frame" x="114" y="137" width="73" height="18"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="68" id="Q6p-3W-CMC"/>
-                    </constraints>
-                    <animations/>
-                    <buttonCell key="cell" type="check" title="Handles" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="MHY-g7-6y9">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.hideHandles" id="CPv-Dj-b1K">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">NSNegateBoolean</string>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </button>
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Djd-sW-m7F">
-                    <rect key="frame" x="21" y="20" width="164" height="112"/>
+                    <rect key="frame" x="20" y="20" width="166" height="145"/>
                     <subviews>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="eid-Ko-ubg" userLabel="Slice Control">
+                            <rect key="frame" x="0.0" y="120" width="165" height="17"/>
+                            <subviews>
+                                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dh2-9T-4BK">
+                                    <rect key="frame" x="-2" y="-2" width="93" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="17" id="BkM-qk-iqV"/>
+                                    </constraints>
+                                    <animations/>
+                                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.5" maxValue="8" doubleValue="1" tickMarkPosition="below" sliderType="linear" id="haS-IX-LyS"/>
+                                    <connections>
+                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.enclosingScrollView.magnification" id="dos-Fq-NoY"/>
+                                    </connections>
+                                </slider>
+                                <button translatesAutoresizingMaskIntoConstraints="NO" id="nDy-em-QaU">
+                                    <rect key="frame" x="94" y="-1" width="73" height="18"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="Uho-uU-8hK"/>
+                                        <constraint firstAttribute="width" constant="68" id="kad-gb-Jzm"/>
+                                    </constraints>
+                                    <animations/>
+                                    <buttonCell key="cell" type="check" title="Handles" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="uvr-oj-1T4">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.hideHandles" id="SWg-oF-pkw">
+                                            <dictionary key="options">
+                                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="nDy-em-QaU" firstAttribute="leading" secondItem="dh2-9T-4BK" secondAttribute="trailing" constant="8" symbolic="YES" id="5RO-tf-MjQ"/>
+                                <constraint firstAttribute="height" constant="17" id="HCF-Fy-Ag0"/>
+                                <constraint firstItem="dh2-9T-4BK" firstAttribute="centerY" secondItem="eid-Ko-ubg" secondAttribute="centerY" id="VI3-Xt-OKA"/>
+                                <constraint firstItem="dh2-9T-4BK" firstAttribute="leading" secondItem="eid-Ko-ubg" secondAttribute="leading" id="bh6-SK-kv9"/>
+                                <constraint firstItem="nDy-em-QaU" firstAttribute="baseline" secondItem="dh2-9T-4BK" secondAttribute="baseline" constant="-1" id="le9-yQ-PQ2"/>
+                                <constraint firstAttribute="trailing" secondItem="nDy-em-QaU" secondAttribute="trailing" id="t3U-sZ-QTm"/>
+                            </constraints>
+                            <animations/>
+                        </customView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="ANm-dp-VbX" userLabel="Left" customClass="TEVariableStackViewItem">
                             <rect key="frame" x="0.0" y="90" width="156" height="22"/>
                             <subviews>
@@ -1978,6 +1993,7 @@
                                     <rect key="frame" x="-2" y="3" width="85" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="81" id="SoI-zt-qn5"/>
+                                        <constraint firstAttribute="height" constant="17" id="cdu-6a-eqn"/>
                                     </constraints>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Left Edge:" id="LRV-Ic-pyW">
@@ -2032,6 +2048,7 @@
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="haD-dE-AR5">
                                     <rect key="frame" x="-2" y="3" width="85" height="17"/>
                                     <constraints>
+                                        <constraint firstAttribute="height" constant="17" id="E9f-AC-RjY"/>
                                         <constraint firstAttribute="width" constant="81" id="mar-fz-bb2"/>
                                     </constraints>
                                     <animations/>
@@ -2087,6 +2104,7 @@
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iXF-Ke-EXq">
                                     <rect key="frame" x="-2" y="3" width="85" height="17"/>
                                     <constraints>
+                                        <constraint firstAttribute="height" constant="17" id="Wxp-h8-Th6"/>
                                         <constraint firstAttribute="width" constant="81" id="Z9D-yL-EFF"/>
                                     </constraints>
                                     <animations/>
@@ -2142,6 +2160,7 @@
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dJK-a8-Elp">
                                     <rect key="frame" x="-2" y="3" width="85" height="17"/>
                                     <constraints>
+                                        <constraint firstAttribute="height" constant="17" id="MiU-ZC-pkw"/>
                                         <constraint firstAttribute="width" constant="81" id="aFD-Va-Ms6"/>
                                     </constraints>
                                     <animations/>
@@ -2193,12 +2212,9 @@
                         </customView>
                     </subviews>
                     <animations/>
-                    <constraints>
-                        <constraint firstItem="haD-dE-AR5" firstAttribute="width" secondItem="h50-rn-eYn" secondAttribute="width" id="2VK-7N-x33"/>
-                        <constraint firstItem="dJK-a8-Elp" firstAttribute="width" secondItem="h50-rn-eYn" secondAttribute="width" id="EII-jB-8UN"/>
-                        <constraint firstItem="iXF-Ke-EXq" firstAttribute="width" secondItem="h50-rn-eYn" secondAttribute="width" id="htO-Hp-rJ9"/>
-                    </constraints>
+                    <edgeInsets key="edgeInsets" left="0.0" right="0.0" top="8" bottom="0.0"/>
                     <visibilityPriorities>
+                        <integer value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
                         <integer value="1000"/>
@@ -2209,21 +2225,17 @@
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
                         <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
                     </customSpacing>
                 </stackView>
             </subviews>
             <constraints>
-                <constraint firstItem="80d-rY-TvN" firstAttribute="baseline" secondItem="3lr-YH-1Tr" secondAttribute="baseline" id="4wf-LT-KuH"/>
-                <constraint firstItem="Djd-sW-m7F" firstAttribute="leading" secondItem="3lr-YH-1Tr" secondAttribute="leading" id="55d-Av-EBk"/>
-                <constraint firstItem="Djd-sW-m7F" firstAttribute="top" secondItem="80d-rY-TvN" secondAttribute="bottom" constant="8" symbolic="YES" id="7jX-R9-0CA"/>
+                <constraint firstItem="Djd-sW-m7F" firstAttribute="leading" secondItem="V5v-78-xXT" secondAttribute="leading" constant="20" symbolic="YES" id="9y0-aj-HcB"/>
                 <constraint firstAttribute="trailing" secondItem="KXf-ZR-kcc" secondAttribute="trailing" constant="20" symbolic="YES" id="EvF-wf-3iH"/>
-                <constraint firstItem="80d-rY-TvN" firstAttribute="leading" secondItem="3lr-YH-1Tr" secondAttribute="trailing" constant="8" symbolic="YES" id="Gv9-k2-w59"/>
-                <constraint firstItem="Djd-sW-m7F" firstAttribute="trailing" secondItem="80d-rY-TvN" secondAttribute="trailing" id="MaT-6p-aWL"/>
+                <constraint firstItem="Djd-sW-m7F" firstAttribute="top" secondItem="KXf-ZR-kcc" secondAttribute="bottom" id="IiS-rw-SwK"/>
+                <constraint firstAttribute="trailing" secondItem="Djd-sW-m7F" secondAttribute="trailing" constant="20" symbolic="YES" id="QtV-8I-gub"/>
                 <constraint firstItem="KXf-ZR-kcc" firstAttribute="leading" secondItem="V5v-78-xXT" secondAttribute="leading" constant="20" symbolic="YES" id="SME-iJ-mZ5"/>
-                <constraint firstItem="3lr-YH-1Tr" firstAttribute="leading" secondItem="8Hq-X0-EdL" secondAttribute="leading" id="TVX-Eu-bz5"/>
-                <constraint firstItem="3lr-YH-1Tr" firstAttribute="top" secondItem="8Hq-X0-EdL" secondAttribute="bottom" constant="7" id="YgT-zJ-DMQ"/>
                 <constraint firstItem="KXf-ZR-kcc" firstAttribute="top" secondItem="V5v-78-xXT" secondAttribute="top" id="isi-oq-WMo"/>
-                <constraint firstItem="80d-rY-TvN" firstAttribute="trailing" secondItem="8Hq-X0-EdL" secondAttribute="trailing" id="nHf-Cg-CrI"/>
                 <constraint firstAttribute="bottom" secondItem="Djd-sW-m7F" secondAttribute="bottom" constant="20" symbolic="YES" id="yoL-4G-sLP"/>
             </constraints>
             <animations/>

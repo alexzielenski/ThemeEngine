@@ -46,6 +46,7 @@
 		FACD44CC1B33A58900E75650 /* TEAnimationInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FACD44CB1B33A58900E75650 /* TEAnimationInspector.m */; };
 		FACD44CF1B33B08C00E75650 /* TEEffectsInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FACD44CE1B33B08C00E75650 /* TEEffectsInspector.m */; };
 		FAD3AAD01B3356F10006FA7F /* TEGradientInfoInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD3AACF1B3356F10006FA7F /* TEGradientInfoInspector.m */; };
+		FAEA99861B36469A00EEA486 /* NSColor+TE.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEA99851B36469A00EEA486 /* NSColor+TE.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -134,6 +135,8 @@
 		FACD44CE1B33B08C00E75650 /* TEEffectsInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEEffectsInspector.m; path = Controllers/Inspectors/TEEffectsInspector.m; sourceTree = "<group>"; };
 		FAD3AACE1B3356F10006FA7F /* TEGradientInfoInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEGradientInfoInspector.h; path = Controllers/Inspectors/TEGradientInfoInspector.h; sourceTree = "<group>"; };
 		FAD3AACF1B3356F10006FA7F /* TEGradientInfoInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEGradientInfoInspector.m; path = Controllers/Inspectors/TEGradientInfoInspector.m; sourceTree = "<group>"; };
+		FAEA99841B36469A00EEA486 /* NSColor+TE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+TE.h"; sourceTree = "<group>"; };
+		FAEA99851B36469A00EEA486 /* NSColor+TE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+TE.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +188,8 @@
 				FA606C0D1B2C1D2100F24960 /* AppDelegate.m */,
 				FA606C121B2C1D2100F24960 /* Document.h */,
 				FA606C131B2C1D2100F24960 /* Document.m */,
+				FAEA99841B36469A00EEA486 /* NSColor+TE.h */,
+				FAEA99851B36469A00EEA486 /* NSColor+TE.m */,
 				FABEAED21B2F714A00B02805 /* Controllers */,
 				FABEAED11B2F714400B02805 /* Inspectors */,
 				FAA54F581B2E0B7800EA15F2 /* Views */,
@@ -247,11 +252,11 @@
 				FAA54F6D1B2E34B300EA15F2 /* TETexturedScope.h */,
 				FAA54F6E1B2E34B300EA15F2 /* TETexturedScope.m */,
 				FA80CE0A1B30BD4E005E5DD2 /* TEGradientEditor.h */,
+				FA80CE0B1B30BD4E005E5DD2 /* TEGradientEditor.m */,
 				FA59C2C61B2E88E800EF027D /* TERenditionBrowserCell.h */,
 				FA59C2C71B2E88E800EF027D /* TERenditionBrowserCell.m */,
 				FA59C2C91B2E893F00EF027D /* TEImageBrowserView.h */,
 				FA59C2CA1B2E893F00EF027D /* TEImageBrowserView.m */,
-				FA80CE0B1B30BD4E005E5DD2 /* TEGradientEditor.m */,
 				FA80CE0D1B30BF36005E5DD2 /* TEGradientStopLayer.h */,
 				FA80CE0E1B30BF36005E5DD2 /* TEGradientStopLayer.m */,
 				FAB5EA781B345C630078923F /* TEVariableStackViewItem.h */,
@@ -399,6 +404,7 @@
 				FA514C351B346EDC002CBF5A /* TESliceImageView.m in Sources */,
 				FABEAED01B2F714000B02805 /* TEAttributesInspector.m in Sources */,
 				FABEAEC81B2F70ED00B02805 /* TEInspectorController.m in Sources */,
+				FAEA99861B36469A00EEA486 /* NSColor+TE.m in Sources */,
 				FA606C0E1B2C1D2100F24960 /* AppDelegate.m in Sources */,
 				FA80CE0F1B30BF36005E5DD2 /* TEGradientStopLayer.m in Sources */,
 				FAA54F6F1B2E34B300EA15F2 /* TETexturedScope.m in Sources */,

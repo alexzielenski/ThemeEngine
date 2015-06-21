@@ -7,6 +7,8 @@
 //
 
 #import "TESliceImageView.h"
+#import "NSColor+TE.h"
+
 @import QuartzCore.CATransaction;
 
 static NSEdgeInsets TEIntegralInsets(NSEdgeInsets insets) {
@@ -65,7 +67,8 @@ static const CGFloat sliceSpaceWidth = 2.0;
 
 - (void)viewDidMoveToSuperview {
     [super viewDidMoveToSuperview];
-    
+    self.drawsChecker = self.drawsChecker;
+
     self.layer.frame = self.bounds;
     self.image = [[NSBitmapImageRep alloc] initWithCGImage:[[NSImage imageNamed:@"NSApplicationIcon"] CGImageForProposedRect:NULL context:nil hints:nil]];
     self.renditionType = CoreThemeTypeOnePart;
@@ -83,12 +86,12 @@ static const CGFloat sliceSpaceWidth = 2.0;
     self.layer          = [CALayer layer];
     self.layer.delegate = self;
     self.wantsLayer     = YES;
-    
+    self.drawsChecker = YES;
     self.handleLayer = [CALayer layer];
     self.handleLayer.frame = self.layer.bounds;
     self.handleLayer.autoresizingMask = kCALayerMaxXMargin | kCALayerMaxYMargin | kCALayerMinXMargin | kCALayerMinYMargin | kCALayerWidthSizable | kCALayerHeightSizable;
     [self.layer addSublayer:self.handleLayer];
-
+    
     [self addHandleWithName:@"leftHandle" vertical:YES right:NO];
     [self addHandleWithName:@"rightHandle" vertical:YES right:YES];
     [self addHandleWithName:@"topHandle" vertical:NO right:NO];
@@ -548,12 +551,23 @@ static const CGFloat sliceSpaceWidth = 2.0;
     [self _generateSliceRectsFromInsets];
 }
 
+#pragma mark - Appearance Properties
+
 - (BOOL)hideHandles {
     return self.handleLayer.hidden;
 }
 
 - (void)setHideHandles:(BOOL)hideHandles {
     self.handleLayer.hidden = hideHandles;
+}
+
+- (void)setDrawsChecker:(BOOL)drawsChecker {
+    _drawsChecker = drawsChecker;
+    if (_drawsChecker) {
+        self.enclosingScrollView.backgroundColor = [NSColor checkerPattern];
+    } else {
+        self.enclosingScrollView.backgroundColor = [NSColor whiteColor];
+    }
 }
 
 #pragma mark - KVO

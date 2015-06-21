@@ -8,6 +8,7 @@
 
 #import "TEGradientEditor.h"
 #import "TEGradientStopLayer.h"
+#import "NSColor+TE.h"
 
 @interface TEGradientEditor ()
 @property (strong) CALayer *gradientLayer;
@@ -92,25 +93,9 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
     self.layer      = [CALayer layer];
     self.wantsLayer = YES;
     
-    NSImage *checkerImage = [NSImage imageWithSize:NSMakeSize(22, 22)
-                                           flipped:YES
-                                    drawingHandler:^BOOL(NSRect dstRect) {
-                                        CGFloat size = dstRect.size.width / 2;
-                                        [[NSColor lightGrayColor] set];
-                                        NSRectFill(NSMakeRect(0, 0, size, size));
-                                        NSRectFill(NSMakeRect(size, size, size, size));
-                                        
-                                        [[NSColor whiteColor] set];
-                                        NSRectFill(NSMakeRect(size, 0, size, size));
-                                        NSRectFill(NSMakeRect(0, size, size, size));
-                                        
-                                        return YES;
-                                    }];
-    
-    
     self.gradientLayer                  = [CALayer layer];
     self.gradientLayer.cornerRadius     = 8.0;
-    self.gradientLayer.backgroundColor  = [[NSColor colorWithPatternImage:checkerImage] CGColor];
+    self.gradientLayer.backgroundColor  = [[NSColor checkerPattern] CGColor];
     self.gradientLayer.delegate         = self;
     self.gradientLayer.frame            = self.layer.bounds;
     self.gradientLayer.autoresizingMask = kCALayerNotSizable;
