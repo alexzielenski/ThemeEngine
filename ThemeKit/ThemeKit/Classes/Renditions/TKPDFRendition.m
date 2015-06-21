@@ -21,6 +21,7 @@
             CGPDFDocumentRelease(*pdf);
         
         *pdf = NULL;
+        self.utiType = (__bridge_transfer NSString *)kUTTypePDF;
         
     }
     return self;
