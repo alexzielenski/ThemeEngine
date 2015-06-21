@@ -8,6 +8,7 @@
 
 #import "TEAnimationInspector.h"
 #import <ThemeKit/TKBitmapRendition.h>
+#import "NSColor+TE.h"
 
 @interface TEAnimationInspector ()
 @property TKLayoutInformation *layoutInformation;
@@ -29,6 +30,10 @@
                     toObject:self
                  withKeyPath:@"inspector.contentController.selection.image"
                      options:@{ NSRaisesForNotApplicableKeysBindingOption: @NO }];
+    self.animationView.layer.backgroundColor = [[NSColor checkerPattern] CGColor];
+    self.animationView.layer.masksToBounds = YES;
+    self.animationView.layer.borderWidth = 2.0;
+    self.animationView.layer.borderColor = [[NSColor grayColor] CGColor];
     
     [self bind:@"layoutInformation"
       toObject:self

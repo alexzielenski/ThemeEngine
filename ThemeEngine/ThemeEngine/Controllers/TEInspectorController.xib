@@ -2262,17 +2262,17 @@
             </connections>
         </viewController>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="UNz-91-FPx" userLabel="Animation">
-            <rect key="frame" x="0.0" y="0.0" width="238" height="187"/>
+            <rect key="frame" x="0.0" y="0.0" width="238" height="212"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="9ef-J6-Gci" customClass="TEAnimationView">
-                    <rect key="frame" x="20" y="47" width="198" height="140"/>
+                    <rect key="frame" x="20" y="72" width="198" height="140"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="140" id="3SL-ru-ZXt"/>
                     </constraints>
                     <animations/>
                 </customView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Fyb-gc-I2D">
-                    <rect key="frame" x="18" y="20" width="86" height="17"/>
+                    <rect key="frame" x="18" y="45" width="86" height="17"/>
                     <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Frame Width:" id="GZN-9w-UxK">
                         <font key="font" metaFont="system"/>
@@ -2281,7 +2281,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zaA-hg-VVj">
-                    <rect key="frame" x="110" y="17" width="108" height="22"/>
+                    <rect key="frame" x="110" y="42" width="108" height="22"/>
                     <animations/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="0px" bezelStyle="round" id="f3Z-ua-oV5">
                         <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" positiveSuffix="px" id="VXO-Xn-5df">
@@ -2296,20 +2296,66 @@
                         <binding destination="ZQg-et-ePs" name="value" keyPath="frameWidth" id="Lqd-cw-d65"/>
                     </connections>
                 </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CEC-00-IoN">
+                    <rect key="frame" x="18" y="20" width="86" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="FPS:" id="Cdf-j4-kbj">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0BF-gw-iQO">
+                    <rect key="frame" x="110" y="17" width="87" height="22"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="23" bezelStyle="round" id="RyI-Ai-NJi">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" usesGroupingSeparator="NO" lenient="YES" groupingSize="0" minimumIntegerDigits="0" maximumIntegerDigits="2000000000" id="uDZ-Lc-4HC">
+                            <real key="minimum" value="0.0"/>
+                            <real key="maximum" value="60"/>
+                        </numberFormatter>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="ZQg-et-ePs" name="value" keyPath="animationView.framesPerSecond" id="6hh-BL-mRA"/>
+                    </connections>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u3O-Jf-afz">
+                    <rect key="frame" x="202" y="15" width="19" height="27"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="6Gs-j7-rTh"/>
+                        <constraint firstAttribute="width" constant="13" id="kW0-Sf-Ise"/>
+                    </constraints>
+                    <animations/>
+                    <stepperCell key="cell" continuous="YES" alignment="left" maxValue="60" doubleValue="23" id="PNc-Vs-u6n"/>
+                    <connections>
+                        <binding destination="ZQg-et-ePs" name="value" keyPath="animationView.framesPerSecond" id="caU-oM-kn1"/>
+                    </connections>
+                </stepper>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Fyb-gc-I2D" secondAttribute="bottom" constant="20" symbolic="YES" id="29G-eQ-9bv"/>
+                <constraint firstItem="0BF-gw-iQO" firstAttribute="baseline" secondItem="u3O-Jf-afz" secondAttribute="baseline" constant="-5" id="3hS-7I-rnx"/>
+                <constraint firstItem="CEC-00-IoN" firstAttribute="width" secondItem="Fyb-gc-I2D" secondAttribute="width" id="6ez-2w-fg5"/>
+                <constraint firstAttribute="bottom" secondItem="CEC-00-IoN" secondAttribute="bottom" constant="20" symbolic="YES" id="98a-hf-cbG"/>
                 <constraint firstItem="Fyb-gc-I2D" firstAttribute="leading" secondItem="UNz-91-FPx" secondAttribute="leading" constant="20" symbolic="YES" id="LWg-Lo-HbZ"/>
                 <constraint firstItem="zaA-hg-VVj" firstAttribute="leading" secondItem="Fyb-gc-I2D" secondAttribute="trailing" constant="8" symbolic="YES" id="ML1-dd-ubY"/>
+                <constraint firstItem="u3O-Jf-afz" firstAttribute="trailing" secondItem="zaA-hg-VVj" secondAttribute="trailing" id="SQL-Mj-8WA"/>
+                <constraint firstItem="0BF-gw-iQO" firstAttribute="baseline" secondItem="CEC-00-IoN" secondAttribute="baseline" id="TuR-AD-hbA"/>
+                <constraint firstItem="0BF-gw-iQO" firstAttribute="leading" secondItem="CEC-00-IoN" secondAttribute="trailing" constant="8" id="UAk-hk-wyv"/>
                 <constraint firstAttribute="trailing" secondItem="9ef-J6-Gci" secondAttribute="trailing" constant="20" symbolic="YES" id="aj0-sA-Vtv"/>
+                <constraint firstAttribute="trailing" secondItem="u3O-Jf-afz" secondAttribute="trailing" constant="20" symbolic="YES" id="dTO-0f-I81"/>
                 <constraint firstItem="9ef-J6-Gci" firstAttribute="top" secondItem="UNz-91-FPx" secondAttribute="top" id="fAy-bn-qim"/>
+                <constraint firstItem="CEC-00-IoN" firstAttribute="top" secondItem="Fyb-gc-I2D" secondAttribute="bottom" constant="8" symbolic="YES" id="gPX-r9-xfu"/>
                 <constraint firstItem="zaA-hg-VVj" firstAttribute="top" secondItem="9ef-J6-Gci" secondAttribute="bottom" constant="8" symbolic="YES" id="i5Y-5j-l1j"/>
                 <constraint firstItem="Fyb-gc-I2D" firstAttribute="baseline" secondItem="zaA-hg-VVj" secondAttribute="baseline" id="liI-yo-Rr3"/>
+                <constraint firstItem="CEC-00-IoN" firstAttribute="leading" secondItem="Fyb-gc-I2D" secondAttribute="leading" id="meB-Mf-8S9"/>
                 <constraint firstItem="9ef-J6-Gci" firstAttribute="leading" secondItem="UNz-91-FPx" secondAttribute="leading" constant="20" symbolic="YES" id="phg-e0-hb8"/>
+                <constraint firstItem="u3O-Jf-afz" firstAttribute="leading" secondItem="0BF-gw-iQO" secondAttribute="trailing" constant="8" symbolic="YES" id="vr2-uX-Czq"/>
                 <constraint firstAttribute="trailing" secondItem="zaA-hg-VVj" secondAttribute="trailing" constant="20" symbolic="YES" id="xCS-On-DGp"/>
             </constraints>
             <animations/>
-            <point key="canvasLocation" x="162" y="681.5"/>
+            <point key="canvasLocation" x="162" y="705"/>
         </customView>
     </objects>
     <resources>

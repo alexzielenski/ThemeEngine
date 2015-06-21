@@ -90,20 +90,23 @@
     self.layer.bounds = self.bounds;
     self.layer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable | kCALayerMinXMargin | kCALayerMinYMargin;
     self.layer.delegate = self;
+    self.framesPerSecond = 23;
     
     self.spriteLayer = (TESpriteLayer *)self.layer;
     
     [self addObserver:self forKeyPath:@"image" options:0 context:nil];
     [self addObserver:self forKeyPath:@"frameWidth" options:0 context:nil];
+    [self addObserver:self forKeyPath:@"framesPerSecond" options:0 context:nil];
 }
 
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"image"];
     [self removeObserver:self forKeyPath:@"frameWidth"];
+    [self removeObserver:self forKeyPath:@"framesPerSecond"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"image"] || [keyPath isEqualToString:@"frameWidth"]) {
+    if ([keyPath isEqualToString:@"image"] || [keyPath isEqualToString:@"frameWidth"] || [keyPath isEqualToString:@"framesPerSecond"]) {
         self.spriteLayer.contents = (__bridge id)self.image.CGImage;
         self.spriteLayer.frameCount = self.image.pixelsWide / self.frameWidth;
         [self _invalidateAnimation];
@@ -117,7 +120,7 @@
     anim.fromValue    = @(1);
     anim.toValue      = @(self.spriteLayer.frameCount + 1);
     anim.byValue      = @(1);
-    anim.duration     = (CGFloat)self.spriteLayer.frameCount / 23.0;
+    anim.duration     = (CGFloat)self.spriteLayer.frameCount / self.framesPerSecond;
     anim.repeatCount  = self.spriteLayer.frameCount == 1 ? 0 : HUGE_VALF; // just keep repeating it
     anim.autoreverses = NO; // do 1, 2, 3, 4, 5, 1, 2, 3, 4, 5
     anim.removedOnCompletion = self.spriteLayer.frameCount == 1;
