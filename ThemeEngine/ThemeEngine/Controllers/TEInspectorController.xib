@@ -2257,13 +2257,14 @@
         </customView>
         <viewController title="Animation" nibName="TEInspectorDetailController" id="ZQg-et-ePs" customClass="TEAnimationInspector">
             <connections>
+                <outlet property="animationView" destination="9ef-J6-Gci" id="Qp6-CS-0VN"/>
                 <outlet property="inspectorView" destination="UNz-91-FPx" id="ci9-Nh-kZC"/>
             </connections>
         </viewController>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="UNz-91-FPx" userLabel="Animation">
             <rect key="frame" x="0.0" y="0.0" width="238" height="187"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="9ef-J6-Gci">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="9ef-J6-Gci" customClass="TEAnimationView">
                     <rect key="frame" x="20" y="47" width="198" height="140"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="140" id="3SL-ru-ZXt"/>
@@ -2291,6 +2292,9 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <binding destination="ZQg-et-ePs" name="value" keyPath="frameWidth" id="Lqd-cw-d65"/>
+                    </connections>
                 </textField>
             </subviews>
             <constraints>

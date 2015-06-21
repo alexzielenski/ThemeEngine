@@ -11,4 +11,5 @@
 
 @interface TEAnimationInspector : TEInspectorDetailController
 @property (weak) IBOutlet TEAnimationView *animationView;
+@property CGFloat frameWidth;
 @end
