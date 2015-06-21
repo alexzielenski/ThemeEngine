@@ -11,6 +11,32 @@ NSString *const TERawDataPasteboardType = @"com.alexzielenski.themekit.rendition
 
 @implementation TKRawDataRendition (Pasteboard)
 
+- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
+    
+    return [[super writableTypesForPasteboard:pasteboard] arrayByAddingObjectsFromArray:
+            @[
+              self.mainDataType
+              ]];
+}
+
+- (NSString *)mainDataType {
+    return self.utiType;
+}
+
+- (NSString *)mainDataExtension {
+   if ([self.mainDataType isEqualToString:TKUTITypeCoreAnimationArchive])
+       return @"caar";
+    return @"";
+}
+
+- (id)pasteboardPropertyListForType:(nonnull NSString *)type {
+    if ([type isEqualToString:self.mainDataType]) {
+        return self.rawData;
+    }
+    
+    return [super pasteboardPropertyListForType:type];
+}
+
 + (NSString *)pasteboardType {
     return TERawDataPasteboardType;
 }

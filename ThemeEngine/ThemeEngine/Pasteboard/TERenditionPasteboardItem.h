@@ -14,6 +14,8 @@ extern NSURL *TERenditionTemporaryPasteboardLocation;
 @protocol TERenditionPasteboardItem <NSObject, NSPasteboardWriting>
 // For TKRendition to implement
 + (NSString *)pasteboardType;
+- (NSString *)mainDataType;
+- (NSString *)mainDataExtension;
 
 @optional
 - (NSURL *)temporaryURL;

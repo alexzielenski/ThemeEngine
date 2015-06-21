@@ -20,7 +20,6 @@
     if ((self = [super _initWithCUIRendition:rendition csiData:(NSData *)csiData key:key])) {
         self.assetPack = rendition.type == CoreThemeTypeAssetPack;
         self.exifOrientation = rendition.exifOrientation;
-        self.utiType         = rendition.utiType;
         self.blendMode       = rendition.blendMode;
         self.opacity         = rendition.opacity;
         

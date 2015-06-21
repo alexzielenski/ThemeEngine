@@ -26,12 +26,24 @@ NSURL *TERenditionTemporaryPasteboardLocation;
     return nil;
 }
 
+- (NSString *)mainDataType {
+    return (__bridge NSString *)kUTTypePNG;
+}
+
+- (NSString *)mainDataExtension {
+    return (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)self.mainDataType,
+                                                                         kUTTagClassFilenameExtension);
+}
+
 - (NSURL *)temporaryURL {
-    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@_%@_%lu.png", self.name, self.renditionHash, self.changeCount]
+    NSString *sanitizedName = [[[self.name stringByReplacingOccurrencesOfString:@":" withString:@""]
+                               stringByReplacingOccurrencesOfString:@"/" withString:@""] stringByDeletingPathExtension];
+    
+    NSURL *url = [NSURL fileURLWithPath:[[NSString stringWithFormat:@"%@_%@_%lu", sanitizedName, self.renditionHash, self.changeCount] stringByAppendingPathExtension:self.mainDataExtension]
                           relativeToURL:TERenditionTemporaryPasteboardLocation];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
-        NSData *pngData = [self pasteboardPropertyListForType:(__bridge NSString *)kUTTypePNG];
+        NSData *pngData = [self pasteboardPropertyListForType:self.mainDataType];
         [pngData writeToURL:url atomically:NO];
     }
     

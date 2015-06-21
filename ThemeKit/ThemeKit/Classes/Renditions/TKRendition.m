@@ -85,6 +85,7 @@ NSString *md5(NSString *str) {
         self.renditionKey  = key;
         self.rendition     = rendition;
         self.name          = self.rendition.name;
+        self.utiType       = rendition.utiType;
     }
     
     return self;

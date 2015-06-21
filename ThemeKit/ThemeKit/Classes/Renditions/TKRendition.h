@@ -22,6 +22,8 @@
 @property (readonly, getter=isDirty) BOOL dirty;
 @property (nonatomic, readonly, getter=isAssetPack) BOOL assetPack;
 
+@property (copy) NSString *utiType;
+
 @property (readonly) CoreThemeSize size;
 @property (readonly) CoreThemeValue value;
 @property (readonly) CoreThemeState state;
