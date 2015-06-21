@@ -8,6 +8,7 @@
 
 #import "TERenditionsController.h"
 #import <ThemeKit/TKRendition.h>
+#import "TERenditionsController+Dragging.h"
 
 static NSString *keyForGroupTag(NSInteger tag) {
     switch (tag) {
@@ -94,6 +95,7 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
                                      forKeyPath:NSStringFromSelector(@selector(arrangedObjects))
                                         options:0
                                         context:&REEVALUATEGROUPS];
+    [self bootstrapDragAndDrop];
 }
 
 - (void)dealloc {
@@ -266,11 +268,6 @@ static NSString *sanitizeToken(NSString *token) {
 
 - (NSDictionary *)imageBrowser:(IKImageBrowserView *)aBrowser groupAtIndex:(NSUInteger)index {
     return self.groups[index];
-}
-
-- (NSUInteger)imageBrowser:(IKImageBrowserView *)aBrowser writeItemsAtIndexes:(NSIndexSet *)itemIndexes toPasteboard:(NSPasteboard *)pasteboard {
-    NSLog(@"write");
-    return 0;
 }
 
 @end

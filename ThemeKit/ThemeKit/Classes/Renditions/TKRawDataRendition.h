@@ -9,5 +9,5 @@
 #import <ThemeKit/TKRendition.h>
 
 @interface TKRawDataRendition : TKRendition
-
+@property (strong) NSData *rawData;
 @end

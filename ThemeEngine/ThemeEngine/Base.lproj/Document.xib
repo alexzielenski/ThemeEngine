@@ -434,6 +434,7 @@
                                     <binding destination="gHj-GT-QiP" name="selectionIndexes" keyPath="selectionIndexes" id="iTZ-uq-u8l"/>
                                     <outlet property="dataSource" destination="DYE-2D-1ip" id="Zoa-vf-nr6"/>
                                     <outlet property="delegate" destination="DYE-2D-1ip" id="jZ2-R3-zBG"/>
+                                    <outlet property="dragDestinationDelegate" destination="DYE-2D-1ip" id="Ce6-4G-xGs"/>
                                 </connections>
                             </ikImageBrowserView>
                         </subviews>

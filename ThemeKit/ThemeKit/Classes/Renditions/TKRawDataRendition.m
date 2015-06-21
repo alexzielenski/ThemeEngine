@@ -20,11 +20,46 @@ static NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation
 
 @implementation TKRawDataRendition
 @dynamic rootLayer;
+
+- (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData key:(CUIRenditionKey *)key {
+    if ((self = [super _initWithCUIRendition:rendition csiData:csiData key:key])) {
+        unsigned int listOffset = offsetof(struct csiheader, infolistLength);
+        unsigned int listLength = 0;
+        [csiData getBytes:&listLength range:NSMakeRange(listOffset, sizeof(listLength))];
+        listOffset += listLength + sizeof(unsigned int) * 4;
+        
+        unsigned int type = 0;
+        [csiData getBytes:&type range:NSMakeRange(listOffset, sizeof(type))];
+        
+        listOffset += 8;
+        unsigned int dataLength = 0;
+        [csiData getBytes:&dataLength range:NSMakeRange(listOffset, sizeof(dataLength))];
+        
+        listOffset += sizeof(dataLength);
+        self.rawData = [csiData subdataWithRange:NSMakeRange(listOffset, dataLength)];
+        
+
+        // release raw data off of rendition to save ram...
+        if ([rendition isKindOfClass:[TKClass(_CUIRawDataRendition) class]]) {
+            CFDataRef *dataBytes = (CFDataRef *)TKIvarPointer(self.rendition, "_dataBytes");
+            
+            // use __bridge_transfer to transfer ownership to ARC so it releases it at the end
+            // of this scope
+            NSData *oldData = (__bridge_transfer NSData *)*dataBytes;
+            // set the variable to NULL
+            *dataBytes = NULL;
+            (void)oldData;
+            
+        }
+    }
+    
+    return self;
+}
+
 - (void)computePreviewImageIfNecessary {
     if (self._previewImage)
         return;
     
-//    NSLog(@"%@, %@, %d", self.rendition.utiType, TKUTITypeCoreAnimationArchive, [self.rendition.utiType isEqualToString:TKUTITypeCoreAnimationArchive]);
     if ([self.rendition.utiType isEqualToString:TKUTITypeCoreAnimationArchive]) {
         __weak CALayer *layer = self.rootLayer;
         
@@ -45,7 +80,7 @@ static NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation
 - (CALayer *)rootLayer {
     if (!_rootLayer ||
         [self.rendition.utiType isEqualToString:TKUTITypeCoreAnimationArchive]) {
-        NSDictionary *archive = [NSKeyedUnarchiver unarchiveObjectWithData:self.rendition.data];
+        NSDictionary *archive = [NSKeyedUnarchiver unarchiveObjectWithData:self.rawData];
         _rootLayer = [archive objectForKey:@"rootLayer"];
         _rootLayer.geometryFlipped = [[archive objectForKey:@"geometryFlipped"] boolValue];
     }

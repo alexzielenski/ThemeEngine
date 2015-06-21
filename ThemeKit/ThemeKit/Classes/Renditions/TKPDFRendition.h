@@ -6,8 +6,8 @@
 //  Copyright © 2015 Alex Zielenski. All rights reserved.
 //
 
-#import <ThemeKit/TKRendition.h>
+#import <ThemeKit/TKRawDataRendition.h>
 
-@interface TKPDFRendition : TKRendition
+@interface TKPDFRendition : TKRawDataRendition
 
 @end

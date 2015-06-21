@@ -8,12 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		FA030C7A1B35235B009471DF /* Opee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA030C791B35235B009471DF /* Opee.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		FA092CED1B36822D0064DBC4 /* TERenditionsController+Dragging.m in Sources */ = {isa = PBXBuildFile; fileRef = FA092CEC1B36822D0064DBC4 /* TERenditionsController+Dragging.m */; };
 		FA1E9C691B3346A40097AA41 /* TEBitmapInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1E9C681B3346A40097AA41 /* TEBitmapInspector.m */; };
 		FA21F87D1B2E95710094202A /* TKRendition+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = FA21F87C1B2E95710094202A /* TKRendition+Filtering.m */; };
 		FA2F00BA1B360B6700998329 /* TECenteredClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2F00B91B360B6700998329 /* TECenteredClipView.m */; };
 		FA43A02C1B34993A0000DB66 /* TEColorInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A02B1B34993A0000DB66 /* TEColorInspector.m */; };
 		FA46BD361B2DA07E00BA9B01 /* ThemeKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA46BD371B2DA08100BA9B01 /* ThemeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */; };
+		FA4D11A41B3683A800175D14 /* TKBitmapRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D11A31B3683A800175D14 /* TKBitmapRendition+Pasteboard.m */; };
+		FA4D11A91B3755E800175D14 /* TKRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D11A81B3755E800175D14 /* TKRendition+Pasteboard.m */; };
+		FA4D11AC1B37585400175D14 /* TKEffectRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D11AB1B37585400175D14 /* TKEffectRendition+Pasteboard.m */; };
 		FA514C321B346E86002CBF5A /* TESlicePreviewInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA514C311B346E86002CBF5A /* TESlicePreviewInspector.m */; };
 		FA514C351B346EDC002CBF5A /* TESliceImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA514C341B346EDC002CBF5A /* TESliceImageView.m */; };
 		FA59C2C81B2E88E800EF027D /* TERenditionBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA59C2C71B2E88E800EF027D /* TERenditionBrowserCell.m */; };
@@ -39,6 +43,10 @@
 		FAA54F791B2E4DC700EA15F2 /* TERenditionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA54F771B2E4DC700EA15F2 /* TERenditionsController.m */; };
 		FAA5F76A1B36616200F01121 /* TEAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5F7691B36616200F01121 /* TEAnimationView.m */; };
 		FAB5EA7A1B345C630078923F /* TEVariableStackViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB5EA791B345C630078923F /* TEVariableStackViewItem.m */; };
+		FAB6EB7C1B375A8C00D914F4 /* TKColorRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB6EB7B1B375A8C00D914F4 /* TKColorRendition+Pasteboard.m */; };
+		FAB6EB7F1B375A9C00D914F4 /* TKGradientRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB6EB7E1B375A9C00D914F4 /* TKGradientRendition+Pasteboard.m */; };
+		FAB6EB821B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB6EB811B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.m */; };
+		FAB6EB851B375AC800D914F4 /* TKPDFRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB6EB841B375AC800D914F4 /* TKPDFRendition+Pasteboard.m */; };
 		FABEAEC51B2F70C200B02805 /* TEInspectorController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABEAEC41B2F70C200B02805 /* TEInspectorController.xib */; };
 		FABEAEC81B2F70ED00B02805 /* TEInspectorController.m in Sources */ = {isa = PBXBuildFile; fileRef = FABEAEC71B2F70ED00B02805 /* TEInspectorController.m */; };
 		FABEAECC1B2F70F300B02805 /* TEInspectorDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = FABEAECA1B2F70F300B02805 /* TEInspectorDetailController.m */; };
@@ -67,6 +75,8 @@
 
 /* Begin PBXFileReference section */
 		FA030C791B35235B009471DF /* Opee.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Opee.framework; path = ../../../../../../../Library/Frameworks/Opee.framework; sourceTree = "<group>"; };
+		FA092CEB1B36822D0064DBC4 /* TERenditionsController+Dragging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TERenditionsController+Dragging.h"; path = "Controllers/TERenditionsController+Dragging.h"; sourceTree = "<group>"; };
+		FA092CEC1B36822D0064DBC4 /* TERenditionsController+Dragging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TERenditionsController+Dragging.m"; path = "Controllers/TERenditionsController+Dragging.m"; sourceTree = "<group>"; };
 		FA1E9C671B3346A40097AA41 /* TEBitmapInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEBitmapInspector.h; path = Controllers/Inspectors/TEBitmapInspector.h; sourceTree = "<group>"; };
 		FA1E9C681B3346A40097AA41 /* TEBitmapInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEBitmapInspector.m; path = Controllers/Inspectors/TEBitmapInspector.m; sourceTree = "<group>"; };
 		FA21F87B1B2E95710094202A /* TKRendition+Filtering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKRendition+Filtering.h"; path = "Categories/TKRendition+Filtering.h"; sourceTree = "<group>"; };
@@ -76,6 +86,13 @@
 		FA43A02A1B34993A0000DB66 /* TEColorInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEColorInspector.h; path = Controllers/Inspectors/TEColorInspector.h; sourceTree = "<group>"; };
 		FA43A02B1B34993A0000DB66 /* TEColorInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEColorInspector.m; path = Controllers/Inspectors/TEColorInspector.m; sourceTree = "<group>"; };
 		FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ThemeKit.framework; path = "/Users/Alex/Library/Developer/Xcode/DerivedData/ThemeEngine-gwwcsfnqaxckjsfbmzrlbqvxnwpn/Build/Products/Debug/ThemeKit.framework"; sourceTree = "<absolute>"; };
+		FA4D11A21B3683A800175D14 /* TKBitmapRendition+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKBitmapRendition+Pasteboard.h"; path = "Pasteboard/TKBitmapRendition+Pasteboard.h"; sourceTree = "<group>"; };
+		FA4D11A31B3683A800175D14 /* TKBitmapRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKBitmapRendition+Pasteboard.m"; path = "Pasteboard/TKBitmapRendition+Pasteboard.m"; sourceTree = "<group>"; };
+		FA4D11A61B3684A500175D14 /* TERenditionPasteboardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TERenditionPasteboardItem.h; path = Pasteboard/TERenditionPasteboardItem.h; sourceTree = "<group>"; };
+		FA4D11A71B3755E800175D14 /* TKRendition+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKRendition+Pasteboard.h"; path = "Pasteboard/TKRendition+Pasteboard.h"; sourceTree = "<group>"; };
+		FA4D11A81B3755E800175D14 /* TKRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKRendition+Pasteboard.m"; path = "Pasteboard/TKRendition+Pasteboard.m"; sourceTree = "<group>"; };
+		FA4D11AA1B37585400175D14 /* TKEffectRendition+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKEffectRendition+Pasteboard.h"; path = "Pasteboard/TKEffectRendition+Pasteboard.h"; sourceTree = "<group>"; };
+		FA4D11AB1B37585400175D14 /* TKEffectRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKEffectRendition+Pasteboard.m"; path = "Pasteboard/TKEffectRendition+Pasteboard.m"; sourceTree = "<group>"; };
 		FA514C301B346E86002CBF5A /* TESlicePreviewInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TESlicePreviewInspector.h; path = Controllers/Inspectors/TESlicePreviewInspector.h; sourceTree = "<group>"; };
 		FA514C311B346E86002CBF5A /* TESlicePreviewInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TESlicePreviewInspector.m; path = Controllers/Inspectors/TESlicePreviewInspector.m; sourceTree = "<group>"; };
 		FA514C331B346EDC002CBF5A /* TESliceImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TESliceImageView.h; path = Views/TESliceImageView.h; sourceTree = "<group>"; };
@@ -125,6 +142,14 @@
 		FAA5F7691B36616200F01121 /* TEAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEAnimationView.m; path = Views/TEAnimationView.m; sourceTree = "<group>"; };
 		FAB5EA781B345C630078923F /* TEVariableStackViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEVariableStackViewItem.h; path = Controllers/Inspectors/TEVariableStackViewItem.h; sourceTree = "<group>"; };
 		FAB5EA791B345C630078923F /* TEVariableStackViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEVariableStackViewItem.m; path = Controllers/Inspectors/TEVariableStackViewItem.m; sourceTree = "<group>"; };
+		FAB6EB7A1B375A8C00D914F4 /* TKColorRendition+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKColorRendition+Pasteboard.h"; path = "Pasteboard/TKColorRendition+Pasteboard.h"; sourceTree = "<group>"; };
+		FAB6EB7B1B375A8C00D914F4 /* TKColorRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKColorRendition+Pasteboard.m"; path = "Pasteboard/TKColorRendition+Pasteboard.m"; sourceTree = "<group>"; };
+		FAB6EB7D1B375A9C00D914F4 /* TKGradientRendition+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKGradientRendition+Pasteboard.h"; path = "Pasteboard/TKGradientRendition+Pasteboard.h"; sourceTree = "<group>"; };
+		FAB6EB7E1B375A9C00D914F4 /* TKGradientRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKGradientRendition+Pasteboard.m"; path = "Pasteboard/TKGradientRendition+Pasteboard.m"; sourceTree = "<group>"; };
+		FAB6EB801B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKRawDataRendition+Pasteboard.h"; path = "Pasteboard/TKRawDataRendition+Pasteboard.h"; sourceTree = "<group>"; };
+		FAB6EB811B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKRawDataRendition+Pasteboard.m"; path = "Pasteboard/TKRawDataRendition+Pasteboard.m"; sourceTree = "<group>"; };
+		FAB6EB831B375AC800D914F4 /* TKPDFRendition+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKPDFRendition+Pasteboard.h"; path = "Pasteboard/TKPDFRendition+Pasteboard.h"; sourceTree = "<group>"; };
+		FAB6EB841B375AC800D914F4 /* TKPDFRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKPDFRendition+Pasteboard.m"; path = "Pasteboard/TKPDFRendition+Pasteboard.m"; sourceTree = "<group>"; };
 		FABEAEC41B2F70C200B02805 /* TEInspectorController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TEInspectorController.xib; path = Controllers/TEInspectorController.xib; sourceTree = "<group>"; };
 		FABEAEC61B2F70ED00B02805 /* TEInspectorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEInspectorController.h; path = Controllers/TEInspectorController.h; sourceTree = "<group>"; };
 		FABEAEC71B2F70ED00B02805 /* TEInspectorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEInspectorController.m; path = Controllers/TEInspectorController.m; sourceTree = "<group>"; };
@@ -166,6 +191,28 @@
 			name = External;
 			sourceTree = "<group>";
 		};
+		FA4D11A51B3683AC00175D14 /* Pasteboard */ = {
+			isa = PBXGroup;
+			children = (
+				FA4D11A61B3684A500175D14 /* TERenditionPasteboardItem.h */,
+				FA4D11A71B3755E800175D14 /* TKRendition+Pasteboard.h */,
+				FA4D11A81B3755E800175D14 /* TKRendition+Pasteboard.m */,
+				FA4D11A21B3683A800175D14 /* TKBitmapRendition+Pasteboard.h */,
+				FA4D11A31B3683A800175D14 /* TKBitmapRendition+Pasteboard.m */,
+				FA4D11AA1B37585400175D14 /* TKEffectRendition+Pasteboard.h */,
+				FA4D11AB1B37585400175D14 /* TKEffectRendition+Pasteboard.m */,
+				FAB6EB7A1B375A8C00D914F4 /* TKColorRendition+Pasteboard.h */,
+				FAB6EB7B1B375A8C00D914F4 /* TKColorRendition+Pasteboard.m */,
+				FAB6EB7D1B375A9C00D914F4 /* TKGradientRendition+Pasteboard.h */,
+				FAB6EB7E1B375A9C00D914F4 /* TKGradientRendition+Pasteboard.m */,
+				FAB6EB801B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.h */,
+				FAB6EB811B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.m */,
+				FAB6EB831B375AC800D914F4 /* TKPDFRendition+Pasteboard.h */,
+				FAB6EB841B375AC800D914F4 /* TKPDFRendition+Pasteboard.m */,
+			);
+			name = Pasteboard;
+			sourceTree = "<group>";
+		};
 		FA606C001B2C1D2000F24960 = {
 			isa = PBXGroup;
 			children = (
@@ -194,9 +241,11 @@
 				FA606C0D1B2C1D2100F24960 /* AppDelegate.m */,
 				FA606C121B2C1D2100F24960 /* Document.h */,
 				FA606C131B2C1D2100F24960 /* Document.m */,
-				FAEA99841B36469A00EEA486 /* NSColor+TE.h */,
-				FAEA99851B36469A00EEA486 /* NSColor+TE.m */,
+				FA606C151B2C1D2100F24960 /* Document.xib */,
+				FABEAEC41B2F70C200B02805 /* TEInspectorController.xib */,
+				FABEAECB1B2F70F300B02805 /* TEInspectorDetailController.xib */,
 				FABEAED21B2F714A00B02805 /* Controllers */,
+				FA4D11A51B3683AC00175D14 /* Pasteboard */,
 				FABEAED11B2F714400B02805 /* Inspectors */,
 				FAA54F581B2E0B7800EA15F2 /* Views */,
 				FAA2B1BF1B2E023C00D70473 /* Categories */,
@@ -237,6 +286,8 @@
 		FAA2B1BF1B2E023C00D70473 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				FAEA99841B36469A00EEA486 /* NSColor+TE.h */,
+				FAEA99851B36469A00EEA486 /* NSColor+TE.m */,
 				FAA54F701B2E3C5900EA15F2 /* NSSplitView+Divider.h */,
 				FAA54F711B2E3C5900EA15F2 /* NSSplitView+Divider.m */,
 				FAA2B1BC1B2E023900D70473 /* TKRendition+ImageBrowser.h */,
@@ -311,13 +362,12 @@
 				FAA54F741B2E4DB700EA15F2 /* TEElementsController.m */,
 				FAA54F761B2E4DC700EA15F2 /* TERenditionsController.h */,
 				FAA54F771B2E4DC700EA15F2 /* TERenditionsController.m */,
-				FA606C151B2C1D2100F24960 /* Document.xib */,
+				FA092CEB1B36822D0064DBC4 /* TERenditionsController+Dragging.h */,
+				FA092CEC1B36822D0064DBC4 /* TERenditionsController+Dragging.m */,
 				FABEAEC61B2F70ED00B02805 /* TEInspectorController.h */,
 				FABEAEC71B2F70ED00B02805 /* TEInspectorController.m */,
-				FABEAEC41B2F70C200B02805 /* TEInspectorController.xib */,
 				FABEAEC91B2F70F300B02805 /* TEInspectorDetailController.h */,
 				FABEAECA1B2F70F300B02805 /* TEInspectorDetailController.m */,
-				FABEAECB1B2F70F300B02805 /* TEInspectorDetailController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -396,15 +446,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA606C141B2C1D2100F24960 /* Document.m in Sources */,
+				FAB6EB821B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.m in Sources */,
 				FA59C2C81B2E88E800EF027D /* TERenditionBrowserCell.m in Sources */,
 				FA80CE0C1B30BD4E005E5DD2 /* TEGradientEditor.m in Sources */,
 				FAA54F6C1B2E212E00EA15F2 /* RBLClipView.m in Sources */,
+				FAB6EB7C1B375A8C00D914F4 /* TKColorRendition+Pasteboard.m in Sources */,
+				FAB6EB7F1B375A9C00D914F4 /* TKGradientRendition+Pasteboard.m in Sources */,
 				FA21F87D1B2E95710094202A /* TKRendition+Filtering.m in Sources */,
 				FAEA99891B36587D00EEA486 /* TEBackgroundColorView.m in Sources */,
 				FA7EA3E21B30CFC30014393A /* TEGradientInspector.m in Sources */,
 				FABEAECC1B2F70F300B02805 /* TEInspectorDetailController.m in Sources */,
 				FA1E9C691B3346A40097AA41 /* TEBitmapInspector.m in Sources */,
 				FAA54F721B2E3C5900EA15F2 /* NSSplitView+Divider.m in Sources */,
+				FA4D11A91B3755E800175D14 /* TKRendition+Pasteboard.m in Sources */,
+				FA4D11A41B3683A800175D14 /* TKBitmapRendition+Pasteboard.m in Sources */,
 				FACD44CC1B33A58900E75650 /* TEAnimationInspector.m in Sources */,
 				FAA54F751B2E4DB700EA15F2 /* TEElementsController.m in Sources */,
 				FA606C111B2C1D2100F24960 /* main.m in Sources */,
@@ -415,6 +470,7 @@
 				FAA5F76A1B36616200F01121 /* TEAnimationView.m in Sources */,
 				FA514C351B346EDC002CBF5A /* TESliceImageView.m in Sources */,
 				FABEAED01B2F714000B02805 /* TEAttributesInspector.m in Sources */,
+				FA092CED1B36822D0064DBC4 /* TERenditionsController+Dragging.m in Sources */,
 				FABEAEC81B2F70ED00B02805 /* TEInspectorController.m in Sources */,
 				FAEA99861B36469A00EEA486 /* NSColor+TE.m in Sources */,
 				FA606C0E1B2C1D2100F24960 /* AppDelegate.m in Sources */,
@@ -424,10 +480,12 @@
 				FA6E01341B301F1A00209DE2 /* TEDocumentViewController.m in Sources */,
 				FA43A02C1B34993A0000DB66 /* TEColorInspector.m in Sources */,
 				FA514C321B346E86002CBF5A /* TESlicePreviewInspector.m in Sources */,
+				FAB6EB851B375AC800D914F4 /* TKPDFRendition+Pasteboard.m in Sources */,
 				FAA54F691B2E211F00EA15F2 /* RBLScrollView.m in Sources */,
 				FA59C2CB1B2E893F00EF027D /* TEImageBrowserView.m in Sources */,
 				FAA54F791B2E4DC700EA15F2 /* TERenditionsController.m in Sources */,
 				FA2F00BA1B360B6700998329 /* TECenteredClipView.m in Sources */,
+				FA4D11AC1B37585400175D14 /* TKEffectRendition+Pasteboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

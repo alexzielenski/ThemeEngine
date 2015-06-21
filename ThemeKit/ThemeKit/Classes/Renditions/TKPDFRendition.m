@@ -10,7 +10,6 @@
 #import "TKRendition+Private.h"
 
 @interface TKPDFRendition ()
-@property (strong) NSData *rawData;
 @end
 
 @implementation TKPDFRendition
@@ -22,21 +21,6 @@
             CGPDFDocumentRelease(*pdf);
         
         *pdf = NULL;
-        
-        unsigned int listOffset = offsetof(struct csiheader, infolistLength);
-        unsigned int listLength = 0;
-        [csiData getBytes:&listLength range:NSMakeRange(listOffset, sizeof(listLength))];
-        listOffset += listLength + sizeof(unsigned int) * 4;
-        
-        unsigned int type = 0;
-        [csiData getBytes:&type range:NSMakeRange(listOffset, sizeof(type))];
-
-        listOffset += 8;
-        unsigned int dataLength = 0;
-        [csiData getBytes:&dataLength range:NSMakeRange(listOffset, sizeof(dataLength))];
-        
-        listOffset += sizeof(dataLength);
-        self.rawData = [csiData subdataWithRange:NSMakeRange(listOffset, dataLength)];
         
     }
     return self;
