@@ -126,6 +126,11 @@
     anim.removedOnCompletion = self.spriteLayer.frameCount == 1;
     anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     [self.spriteLayer addAnimation:anim forKey:@"sampleIndex"]; // start
+    
+    NSRect frame = self.frame;
+    frame.size.width = self.frameWidth;
+    frame.size.height = self.image.pixelsHigh;
+    self.frame = frame;
 }
 
 - (id <CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event {

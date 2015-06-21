@@ -8,8 +8,11 @@
 
 #import "TEInspectorDetailController.h"
 #import "TEAnimationView.h"
+#import "TEBackgroundColorView.h"
 
 @interface TEAnimationInspector : TEInspectorDetailController
 @property (weak) IBOutlet TEAnimationView *animationView;
+@property (weak) IBOutlet TEBackgroundColorView *backgroundView;
 @property CGFloat frameWidth;
+@property (nonatomic) BOOL drawsChecker;
 @end

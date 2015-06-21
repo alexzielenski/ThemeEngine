@@ -17,7 +17,6 @@
 @implementation TEAnimationInspector
 @dynamic frameWidth;
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -30,16 +29,23 @@
                     toObject:self
                  withKeyPath:@"inspector.contentController.selection.image"
                      options:@{ NSRaisesForNotApplicableKeysBindingOption: @NO }];
-    self.animationView.layer.backgroundColor = [[NSColor checkerPattern] CGColor];
-    self.animationView.layer.masksToBounds = YES;
-    self.animationView.layer.borderWidth = 2.0;
-    self.animationView.layer.borderColor = [[NSColor grayColor] CGColor];
     
     [self bind:@"layoutInformation"
       toObject:self
    withKeyPath:@"inspector.contentController.selection.layoutInformation"
        options:@{ NSRaisesForNotApplicableKeysBindingOption: @NO }];
-    
+    self.drawsChecker = YES;
+}
+
+- (void)setDrawsChecker:(BOOL)drawsChecker {
+    _drawsChecker = drawsChecker;
+    if (drawsChecker) {
+        self.animationView.enclosingScrollView.drawsBackground = NO;
+        self.backgroundView.backgroundColor = [NSColor checkerPattern];
+    } else {
+        self.animationView.enclosingScrollView.drawsBackground = YES;
+        self.backgroundView.backgroundColor = nil;
+    }
 }
 
 + (NSSet *)keyPathsForValuesAffectingFrameWidth {
