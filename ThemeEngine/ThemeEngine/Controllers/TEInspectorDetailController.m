@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
+    self.headerView.canDrawSubviewsIntoLayer = YES;
 }
 
 - (NSStackViewGravity)gravity {
