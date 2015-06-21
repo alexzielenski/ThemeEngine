@@ -29,4 +29,8 @@
     return [self.stackView visibilityPriorityForView:self] == NSStackViewVisibilityPriorityNotVisible;
 }
 
+- (BOOL)canDrawSubviewsIntoLayer {
+    return YES;
+}
+
 @end

@@ -15,6 +15,11 @@
 
 @implementation TEBitmapInspector
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.inspectorView.canDrawSubviewsIntoLayer = YES;
+}
+
 - (NSStackViewVisibilityPriority)visibilityPriorityForInspectedObjects:(NSArray *)objects {
     return [[objects valueForKeyPath:@"className"] containsObject:[TKBitmapRendition className]] ?
     NSStackViewVisibilityPriorityMustHold : NSStackViewVisibilityPriorityNotVisible;
