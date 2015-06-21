@@ -7,22 +7,34 @@
 //
 
 #import "TERenditionsController+Dragging.h"
+#import "TKRendition+Pasteboard.h"
 
-#import "TKBitmapRendition+Pasteboard.h"
+@implementation TERenditionsController (Dragging)
 
-@implementation TERenditionsController (Dragging) 
+- (IBAction)paste:(id)sender {
+}
 
 - (void)bootstrapDragAndDrop {
     [self.renditionBrowser registerForDraggedTypes:@[ (__bridge NSString *)kUTTypeFileURL,
                                                       (__bridge NSString *)kUTTypeImage,
                                                       (__bridge NSString *)kUTTypePNG,
                                                       (__bridge NSString *)kUTTypeTIFF,
-                                                      (__bridge NSString *)kUTTypeJPEG
+                                                      (__bridge NSString *)kUTTypeJPEG,
+                                                      
+                                                      // TKRendition classes
+                                                      TKBitmapRendition.pasteboardType,
+                                                      TKEffectRendition.pasteboardType,
+                                                      TKColorRendition.pasteboardType,
+                                                      TKGradientRendition.pasteboardType,
+                                                      TKRawDataRendition.pasteboardType,
+                                                      TKPDFRendition.pasteboardType
                                                       ]];
 }
 
 
 - (NSUInteger)imageBrowser:(IKImageBrowserView *)aBrowser writeItemsAtIndexes:(NSIndexSet *)itemIndexes toPasteboard:(NSPasteboard *)pasteboard {
+    NSLog(@"copied!");
+    
     [pasteboard clearContents];
     [pasteboard writeObjects:[self.renditionsArrayController.arrangedObjects objectsAtIndexes:itemIndexes]];
     return itemIndexes.count;

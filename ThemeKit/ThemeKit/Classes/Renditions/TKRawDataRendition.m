@@ -10,7 +10,7 @@
 #import "TKRendition+Private.h"
 @import QuartzCore.CATransaction;
 
-static NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archive";
+NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archive";
 
 @interface TKRawDataRendition () {
     CALayer *_rootLayer;

@@ -7,6 +7,7 @@
 //
 
 #import <ThemeKit/TKRendition.h>
+extern NSString *const TKUTITypeCoreAnimationArchive;
 
 @interface TKRawDataRendition : TKRendition
 @property (strong) NSData *rawData;
