@@ -12,4 +12,9 @@
 @interface TESlicePreviewInspector : TEInspectorDetailController
 @property (strong) IBOutlet TESliceImageView *sliceImageView;
 @property (weak) IBOutlet TEInspectorController *inspectorController;
+
+@property (readonly) BOOL canChangeLeftEdge;
+@property (readonly) BOOL canChangeTopEdge;
+@property (readonly) BOOL canChangeRightEdge;
+@property (readonly) BOOL canChangeBottomEdge;
 @end

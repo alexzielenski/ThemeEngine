@@ -189,13 +189,14 @@ static NSMutableDictionary *bezelAttributes;
     
     if ([[[NSAppearance currentAppearance] name] isEqualToString:NSAppearanceNameVibrantDark]) {
         [self setValue:[NSColor windowBackgroundColor] forKey:IKImageBrowserBackgroundColorKey];
+        self.enclosingScrollView.backgroundColor = [NSColor windowBackgroundColor];
         [self setValue:@{ NSForegroundColorAttributeName: [NSColor controlTextColor] } forKey:IKImageBrowserCellsTitleAttributesKey];
         self.currentIndicators = self.lightIndicators;
         self.selectionColor = [NSColor selectedMenuItemColor];
         
     } else {
         self.selectionColor = [NSColor selectedControlColor];
-        
+        self.enclosingScrollView.backgroundColor = [NSColor whiteColor];
         [self setValue:[NSColor whiteColor] forKey:IKImageBrowserBackgroundColorKey];
 
         // .737255, 0.705882, 0.643137, 0.870588

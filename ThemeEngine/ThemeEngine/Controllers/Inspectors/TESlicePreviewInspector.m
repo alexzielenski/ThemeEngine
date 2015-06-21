@@ -15,7 +15,9 @@
 @end
 
 @implementation TESlicePreviewInspector
+@dynamic canChangeBottomEdge, canChangeLeftEdge, canChangeRightEdge, canChangeTopEdge;
 @dynamic layoutInformation;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
@@ -23,12 +25,6 @@
       toObject:self.inspectorController
    withKeyPath:@"representedObject.selection.self"
        options:nil];
-//    
-//    [self bind:@"layoutInformation"
-//      toObject:self
-//   withKeyPath:@"rendition.layoutInformation"
-//       options:@{ NSRaisesForNotApplicableKeysBindingOption: @(NO) }];
-
 }
 
 - (void)viewDidAppear {
@@ -92,4 +88,31 @@
     return [NSSet setWithObject:@"rendition.layoutInformation"];
 }
 
+#pragma mark - Hiding Editors
+
+- (BOOL)canChangeLeftEdge {
+    return self.rendition.type == CoreThemeTypeNinePart ||
+    self.rendition.type == CoreThemeTypeThreePartHorizontal;
+}
+
+- (BOOL)canChangeTopEdge {
+    return self.rendition.type == CoreThemeTypeNinePart ||
+    self.rendition.type == CoreThemeTypeThreePartVertical;
+}
+
+- (BOOL)canChangeRightEdge {
+    return self.canChangeLeftEdge;
+}
+
+- (BOOL)canChangeBottomEdge {
+    return self.canChangeTopEdge;
+}
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    if ([key hasPrefix:@"canChange"]) {
+        return [NSSet setWithObject:@"rendition.type"];
+    }
+    
+    return [super keyPathsForValuesAffectingValueForKey:key];
+}
 @end

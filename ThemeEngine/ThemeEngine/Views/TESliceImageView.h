@@ -12,6 +12,8 @@
 @interface TESliceImageView : NSView
 @property (nonatomic, strong) NSBitmapImageRep *image;
 @property (nonatomic, strong) NSArray *sliceRects;
+@property BOOL hideHandles;
+
 // We support displaying
 // CoreThemeTypeOnePart
 // CoreThemeTypeThreePartHorizontal

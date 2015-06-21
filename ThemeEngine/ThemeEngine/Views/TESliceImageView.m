@@ -9,6 +9,10 @@
 #import "TESliceImageView.h"
 @import QuartzCore.CATransaction;
 
+static NSEdgeInsets TEIntegralInsets(NSEdgeInsets insets) {
+    return NSEdgeInsetsMake(round(insets.top), round(insets.left), round(insets.bottom), round(insets.right));
+}
+
 static const CGFloat sliceSpaceWidth = 2.0;
 
 @interface TESliceImageView ()
@@ -16,6 +20,8 @@ static const CGFloat sliceSpaceWidth = 2.0;
 @property (strong) CALayer *topHandle;
 @property (strong) CALayer *bottomHandle;
 @property (strong) CALayer *rightHandle;
+
+@property (strong) CALayer *handleLayer;
 
 @property (weak) CALayer *dragHandle;
 @property NSEdgeInsets dragInsets;
@@ -29,7 +35,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
 @end
 
 @implementation TESliceImageView
-@dynamic leftHandlePosition, topHandlePosition, bottomHandlePosition, rightHandlePosition;
+@dynamic leftHandlePosition, topHandlePosition, bottomHandlePosition, rightHandlePosition, hideHandles;
 
 #pragma mark - Initialization
 
@@ -77,6 +83,11 @@ static const CGFloat sliceSpaceWidth = 2.0;
     self.layer          = [CALayer layer];
     self.layer.delegate = self;
     self.wantsLayer     = YES;
+    
+    self.handleLayer = [CALayer layer];
+    self.handleLayer.frame = self.layer.bounds;
+    self.handleLayer.autoresizingMask = kCALayerMaxXMargin | kCALayerMaxYMargin | kCALayerMinXMargin | kCALayerMinYMargin | kCALayerWidthSizable | kCALayerHeightSizable;
+    [self.layer addSublayer:self.handleLayer];
 
     [self addHandleWithName:@"leftHandle" vertical:YES right:NO];
     [self addHandleWithName:@"rightHandle" vertical:YES right:YES];
@@ -113,7 +124,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
     }
     
     [self setValue:handle forKey:name];
-    [self.layer addSublayer:handle];
+    [self.handleLayer addSublayer:handle];
 }
 
 #pragma mark - Logistics
@@ -162,20 +173,20 @@ static const CGFloat sliceSpaceWidth = 2.0;
         CGRect topRect = [self.sliceRects[0] rectValue];
         CGRect bottomRect = [self.sliceRects[2] rectValue];
         
-        _sliceInsets = NSEdgeInsetsMake(topRect.size.height, 0, bottomRect.size.height, 0);
+        _sliceInsets = TEIntegralInsets(NSEdgeInsetsMake(topRect.size.height, 0, bottomRect.size.height, 0));
         
     } else if (self.renditionType == CoreThemeTypeNinePart && self.sliceRects.count == 9) {
         CGRect topLeftRect = [self.sliceRects[0] rectValue];
         CGRect bottomRightRect = [self.sliceRects[8] rectValue];
         
-        _sliceInsets = NSEdgeInsetsMake(topLeftRect.size.height, topLeftRect.size.width,
-                                        bottomRightRect.size.height, bottomRightRect.size.width);
+        _sliceInsets = TEIntegralInsets(NSEdgeInsetsMake(topLeftRect.size.height, topLeftRect.size.width,
+                                        bottomRightRect.size.height, bottomRightRect.size.width));
         
     } else if (self.renditionType == CoreThemeTypeThreePartHorizontal && self.sliceRects.count == 3) {
         CGRect leftRect = [self.sliceRects[0] rectValue];
         CGRect rightRect = [self.sliceRects[2] rectValue];
         
-        _sliceInsets = NSEdgeInsetsMake(0, leftRect.size.width, 0, rightRect.size.width);
+        _sliceInsets = TEIntegralInsets(NSEdgeInsetsMake(0, leftRect.size.width, 0, rightRect.size.width));
     }
     
     [CATransaction begin];
@@ -215,14 +226,13 @@ static const CGFloat sliceSpaceWidth = 2.0;
 - (void)mouseDragged:(NSEvent *)event {
     if (!self.dragHandle)
         return;
-//    self.sliceInsets = self.dragInsets;
-//    return;
+
     NSPoint windowPoint = event.locationInWindow;
     NSPoint viewPoint = [self convertPoint:windowPoint fromView:nil];
     
     viewPoint.x = MAX(NSMinX(self.layer.frame), MIN(NSMaxX(self.layer.frame), viewPoint.x));
     viewPoint.y = MAX(NSMinY(self.layer.frame), MIN(NSMaxY(self.layer.frame), viewPoint.y));
-    
+
     CGPoint delta = CGPointMake(viewPoint.x - self.dragPoint.x, viewPoint.y - self.dragPoint.y);
     
     [CATransaction begin];
@@ -232,30 +242,36 @@ static const CGFloat sliceSpaceWidth = 2.0;
     if (self.dragHandle == self.leftHandle) {
         insets.left += delta.x;
         insets.left = MAX(0, MIN(self.image.pixelsWide - insets.right, insets.left));
+        
     } else if (self.dragHandle == self.rightHandle) {
         insets.right -= delta.x;
         insets.right = MAX(0, MIN(self.image.pixelsWide - insets.left, insets.right));
+        
     } else if (self.dragHandle == self.topHandle) {
         insets.top += delta.y;
         insets.top = MAX(0, MIN(self.image.pixelsHigh - insets.bottom, insets.top));
+        
     } else if (self.dragHandle == self.bottomHandle) {
         insets.bottom -= delta.y;
         insets.bottom = MAX(0, MIN(self.image.pixelsHigh - insets.top, insets.bottom));
+        
     }
     
-    _sliceInsets = insets;
+    _sliceInsets = TEIntegralInsets(insets);
     [self _repositionHandles];
     
     [CATransaction commit];
     
     self.dragInsets = insets;
     self.dragPoint = viewPoint;
-    [self.layer setNeedsDisplay];
 }
 
 - (void)mouseUp:(NSEvent *)event {
     if (!self.dragHandle)
         return;
+    
+    NSEdgeInsets insets = _sliceInsets;
+    self.sliceInsets = TEIntegralInsets(insets);
     
     self.dragHandle = nil;
     self.dragPoint = CGPointZero;
@@ -404,6 +420,8 @@ static const CGFloat sliceSpaceWidth = 2.0;
     // reposition the handles to keep in sync with the frame
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
+    self.handleLayer.frame = self.layer.bounds;
+    
     if (layer == self.layer) {
         CGRect frame            = self.leftHandle.frame;
         frame.size.height       = self.bounds.size.height;
@@ -432,20 +450,22 @@ static const CGFloat sliceSpaceWidth = 2.0;
 
 - (void)_repositionHandles {
     CGPoint pos                = self.leftHandle.position;
-    pos.x                      = _sliceInsets.left;
+    pos.x                      = round(_sliceInsets.left);
     self.leftHandle.position   = pos;
     
     pos                        = self.topHandle.position;
-    pos.y                      = _sliceInsets.top;
+    pos.y                      = round(_sliceInsets.top);
     self.topHandle.position    = pos;
     
     pos                        = self.rightHandle.position;
-    pos.x                      = CGRectGetMaxX(self.layer.bounds) - _sliceInsets.right - sliceSpaceWidth;
+    pos.x                      = round(CGRectGetMaxX(self.layer.bounds) - _sliceInsets.right - sliceSpaceWidth);
     self.rightHandle.position  = pos;
     
     pos                        = self.bottomHandle.position;
-    pos.y                      = CGRectGetMaxY(self.layer.bounds) - _sliceInsets.bottom - sliceSpaceWidth;
+    pos.y                      = round(CGRectGetMaxY(self.layer.bounds) - _sliceInsets.bottom - sliceSpaceWidth);
     self.bottomHandle.position = pos;
+    
+    [self.layer setNeedsDisplay];
 }
 
 - (void)setRenditionType:(CoreThemeType)renditionType {
@@ -475,18 +495,19 @@ static const CGFloat sliceSpaceWidth = 2.0;
 }
 
 - (void)setEdgeInsets:(NSEdgeInsets)edgeInsets {
-    _edgeInsets = edgeInsets;
+    _edgeInsets = TEIntegralInsets(edgeInsets);
     [self.layer setNeedsDisplay];
 }
 
 #pragma mark - Properties
 
+//!TODO: Don't accept insets which are invalid, i.e. left inset extends past the right
 - (CGFloat)leftHandlePosition {
     return self.sliceInsets.left;
 }
 
 - (void)setLeftHandlePosition:(CGFloat)leftHandlePosition {
-    _sliceInsets.left = leftHandlePosition;
+    _sliceInsets.left = round(leftHandlePosition);
     [self _repositionHandles];
     [self _generateSliceRectsFromInsets];
 }
@@ -496,7 +517,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
 }
 
 - (void)setTopHandlePosition:(CGFloat)topHandlePosition {
-    _sliceInsets.top = topHandlePosition;
+    _sliceInsets.top = round(topHandlePosition);
     [self _repositionHandles];
     [self _generateSliceRectsFromInsets];
 }
@@ -506,7 +527,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
 }
 
 - (void)setRightHandlePosition:(CGFloat)rightHandlePosition {
-    _sliceInsets.right = rightHandlePosition;
+    _sliceInsets.right = round(rightHandlePosition);
     [self _repositionHandles];
     [self _generateSliceRectsFromInsets];
 }
@@ -516,24 +537,36 @@ static const CGFloat sliceSpaceWidth = 2.0;
 }
 
 - (void)setBottomHandlePosition:(CGFloat)bottomHandlePosition {
-    _sliceInsets.bottom = bottomHandlePosition;
+    _sliceInsets.bottom = round(bottomHandlePosition);
     [self _repositionHandles];
     [self _generateSliceRectsFromInsets];
 }
 
 - (void)setSliceInsets:(NSEdgeInsets)edgeInsets {
-    _sliceInsets = edgeInsets;
+    _sliceInsets = TEIntegralInsets(edgeInsets);
     [self _repositionHandles];
     [self _generateSliceRectsFromInsets];
+}
+
+- (BOOL)hideHandles {
+    return self.handleLayer.hidden;
+}
+
+- (void)setHideHandles:(BOOL)hideHandles {
+    self.handleLayer.hidden = hideHandles;
 }
 
 #pragma mark - KVO
 
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     if ([key hasSuffix:@"HandlePosition"]) {
-        return [NSSet setWithObject:@"sliceInsets"];
+        return [NSSet setWithObjects:@"sliceInsets", @"sliceRects", nil];
     }
     return [super keyPathsForValuesAffectingValueForKey:key];
+}
+
++ (NSSet *)keyPathsForValuesAffectingHideHandles {
+    return [NSSet setWithObject:@"handleLayer.hidden"];
 }
 
 @end

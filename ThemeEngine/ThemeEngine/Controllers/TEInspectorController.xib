@@ -1908,52 +1908,16 @@
             </connections>
         </viewController>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="V5v-78-xXT" userLabel="Slices">
-            <rect key="frame" x="0.0" y="0.0" width="206" height="307"/>
+            <rect key="frame" x="0.0" y="0.0" width="206" height="359"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zPA-iz-I6o">
-                    <rect key="frame" x="18" y="83" width="113" height="17"/>
-                    <animations/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Bottom Left Inset:" id="GEH-iu-Vbo">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RuN-gv-hCh">
-                    <rect key="frame" x="137" y="80" width="49" height="22"/>
-                    <animations/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="6Rh-Dg-LZe">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3fe-Tr-GPe">
-                    <rect key="frame" x="137" y="52" width="49" height="22"/>
-                    <animations/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="yRT-eN-NZ2">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kX6-dY-T0Q">
-                    <rect key="frame" x="31" y="55" width="100" height="17"/>
-                    <animations/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Top Right Inset:" id="dFm-fx-9Hg">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <scrollView wantsLayer="YES" canDrawConcurrently="YES" autohidesScrollers="YES" horizontalLineScroll="5" horizontalPageScroll="10" verticalLineScroll="5" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="8" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXf-ZR-kcc">
-                    <rect key="frame" x="20" y="110" width="166" height="197"/>
+                    <rect key="frame" x="20" y="162" width="166" height="197"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="8Hq-X0-EdL" customClass="TECenteredClipView">
                         <rect key="frame" x="1" y="1" width="164" height="195"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView canDrawConcurrently="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gBY-Rb-Qsf" customClass="TESliceImageView">
-                                <rect key="frame" x="-191" y="-202" width="60" height="45"/>
+                                <rect key="frame" x="79" y="160" width="145" height="19"/>
                                 <animations/>
                             </customView>
                         </subviews>
@@ -1965,47 +1929,305 @@
                     </constraints>
                     <animations/>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="MNa-JG-gbJ">
-                        <rect key="frame" x="0.0" y="181" width="166" height="16"/>
+                        <rect key="frame" x="1" y="180" width="164" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="zDr-Zh-Xoc">
-                        <rect key="frame" x="151" y="0.0" width="15" height="197"/>
+                        <rect key="frame" x="141" y="1" width="16" height="195"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
                 </scrollView>
                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3lr-YH-1Tr">
-                    <rect key="frame" x="18" y="19" width="170" height="27"/>
+                    <rect key="frame" x="19" y="137" width="92" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="Cbf-K6-rYU"/>
+                    </constraints>
                     <animations/>
-                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.5" maxValue="8" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="16" sliderType="linear" id="Oza-9b-uMO"/>
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.5" maxValue="8" doubleValue="1" tickMarkPosition="below" sliderType="linear" id="Oza-9b-uMO"/>
                     <connections>
                         <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.enclosingScrollView.magnification" id="Qqs-pU-PXZ"/>
                     </connections>
                 </slider>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="80d-rY-TvN">
+                    <rect key="frame" x="114" y="137" width="73" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="68" id="Q6p-3W-CMC"/>
+                    </constraints>
+                    <animations/>
+                    <buttonCell key="cell" type="check" title="Handles" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="MHY-g7-6y9">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.hideHandles" id="CPv-Dj-b1K">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </button>
+                <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Djd-sW-m7F">
+                    <rect key="frame" x="21" y="20" width="164" height="112"/>
+                    <subviews>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="ANm-dp-VbX" userLabel="Left" customClass="TEVariableStackViewItem">
+                            <rect key="frame" x="0.0" y="90" width="156" height="22"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h50-rn-eYn">
+                                    <rect key="frame" x="-2" y="3" width="85" height="17"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="81" id="SoI-zt-qn5"/>
+                                    </constraints>
+                                    <animations/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Left Edge:" id="LRV-Ic-pyW">
+                                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="zHt-yf-BjB">
+                                            <integer key="multiplier" value="100"/>
+                                            <real key="minimum" value="0.0"/>
+                                            <real key="maximum" value="1"/>
+                                        </numberFormatter>
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ncm-JT-WaH">
+                                    <rect key="frame" x="89" y="0.0" width="67" height="22"/>
+                                    <animations/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="0px" bezelStyle="round" id="QBH-4U-pGy">
+                                        <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" positiveSuffix="px" id="jJp-YC-HSF">
+                                            <integer key="roundingIncrement" value="1"/>
+                                            <real key="minimum" value="0.0"/>
+                                        </numberFormatter>
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.leftHandlePosition" id="9qX-Bd-GxO"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22" id="3eB-22-NrN"/>
+                                <constraint firstItem="h50-rn-eYn" firstAttribute="centerY" secondItem="ANm-dp-VbX" secondAttribute="centerY" id="Qmz-HN-amq"/>
+                                <constraint firstItem="Ncm-JT-WaH" firstAttribute="leading" secondItem="h50-rn-eYn" secondAttribute="trailing" constant="8" symbolic="YES" id="fVG-rC-cDM"/>
+                                <constraint firstAttribute="bottom" secondItem="Ncm-JT-WaH" secondAttribute="bottom" id="grg-I9-ZRV"/>
+                                <constraint firstItem="h50-rn-eYn" firstAttribute="leading" secondItem="ANm-dp-VbX" secondAttribute="leading" id="nVF-CQ-dfW"/>
+                                <constraint firstItem="Ncm-JT-WaH" firstAttribute="top" secondItem="ANm-dp-VbX" secondAttribute="top" id="oNH-j9-eMa"/>
+                                <constraint firstAttribute="trailing" secondItem="Ncm-JT-WaH" secondAttribute="trailing" id="uYo-7U-lqf"/>
+                            </constraints>
+                            <animations/>
+                            <connections>
+                                <binding destination="l3p-vo-mxo" name="hidden" keyPath="canChangeLeftEdge" id="zpF-Lu-mFJ">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="3os-fy-kMA" userLabel="Top" customClass="TEVariableStackViewItem">
+                            <rect key="frame" x="0.0" y="60" width="156" height="22"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="haD-dE-AR5">
+                                    <rect key="frame" x="-2" y="3" width="85" height="17"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="81" id="mar-fz-bb2"/>
+                                    </constraints>
+                                    <animations/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Top Edge:" id="ty9-0c-lu0">
+                                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="iBW-q8-44r">
+                                            <integer key="multiplier" value="100"/>
+                                            <real key="minimum" value="0.0"/>
+                                            <real key="maximum" value="1"/>
+                                        </numberFormatter>
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cIv-H2-zSG">
+                                    <rect key="frame" x="89" y="0.0" width="67" height="22"/>
+                                    <animations/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="0px" bezelStyle="round" id="Yo2-MD-909">
+                                        <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" positiveSuffix="px" id="j7c-QF-At8">
+                                            <integer key="roundingIncrement" value="1"/>
+                                            <real key="minimum" value="0.0"/>
+                                        </numberFormatter>
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.topHandlePosition" id="iWb-po-p7h"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="haD-dE-AR5" firstAttribute="leading" secondItem="3os-fy-kMA" secondAttribute="leading" id="GWu-hy-Rpb"/>
+                                <constraint firstAttribute="bottom" secondItem="cIv-H2-zSG" secondAttribute="bottom" id="Jf0-wT-ShQ"/>
+                                <constraint firstAttribute="height" constant="22" id="Mmg-1C-jtM"/>
+                                <constraint firstAttribute="trailing" secondItem="cIv-H2-zSG" secondAttribute="trailing" id="SgV-XX-XBK"/>
+                                <constraint firstItem="haD-dE-AR5" firstAttribute="centerY" secondItem="3os-fy-kMA" secondAttribute="centerY" id="VyF-SX-vJp"/>
+                                <constraint firstItem="cIv-H2-zSG" firstAttribute="top" secondItem="3os-fy-kMA" secondAttribute="top" id="YIa-6v-0tc"/>
+                                <constraint firstItem="cIv-H2-zSG" firstAttribute="leading" secondItem="haD-dE-AR5" secondAttribute="trailing" constant="8" symbolic="YES" id="Ygh-IH-jlD"/>
+                            </constraints>
+                            <animations/>
+                            <connections>
+                                <binding destination="l3p-vo-mxo" name="hidden" keyPath="canChangeTopEdge" id="eRk-tM-Kc4">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Xl4-YB-hJo" userLabel="Right" customClass="TEVariableStackViewItem">
+                            <rect key="frame" x="0.0" y="30" width="156" height="22"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iXF-Ke-EXq">
+                                    <rect key="frame" x="-2" y="3" width="85" height="17"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="81" id="Z9D-yL-EFF"/>
+                                    </constraints>
+                                    <animations/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Right Edge:" id="lF7-3Q-SJm">
+                                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="9bA-ej-9OZ">
+                                            <integer key="multiplier" value="100"/>
+                                            <real key="minimum" value="0.0"/>
+                                            <real key="maximum" value="1"/>
+                                        </numberFormatter>
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hqZ-tD-ty1">
+                                    <rect key="frame" x="89" y="0.0" width="67" height="22"/>
+                                    <animations/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="0px" bezelStyle="round" id="5oF-Cg-S5e">
+                                        <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" positiveSuffix="px" id="DDH-aZ-EeK">
+                                            <integer key="roundingIncrement" value="1"/>
+                                            <real key="minimum" value="0.0"/>
+                                        </numberFormatter>
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.rightHandlePosition" id="C1g-ov-tcB"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="hqZ-tD-ty1" secondAttribute="trailing" id="7mC-Xc-c5S"/>
+                                <constraint firstItem="hqZ-tD-ty1" firstAttribute="leading" secondItem="iXF-Ke-EXq" secondAttribute="trailing" constant="8" symbolic="YES" id="Jl3-HF-VT2"/>
+                                <constraint firstItem="iXF-Ke-EXq" firstAttribute="centerY" secondItem="Xl4-YB-hJo" secondAttribute="centerY" id="LGl-bR-sXs"/>
+                                <constraint firstItem="iXF-Ke-EXq" firstAttribute="leading" secondItem="Xl4-YB-hJo" secondAttribute="leading" id="W3V-Zm-IuB"/>
+                                <constraint firstAttribute="bottom" secondItem="hqZ-tD-ty1" secondAttribute="bottom" id="Xav-9v-8cR"/>
+                                <constraint firstAttribute="height" constant="22" id="Yul-Sc-3eJ"/>
+                                <constraint firstItem="hqZ-tD-ty1" firstAttribute="top" secondItem="Xl4-YB-hJo" secondAttribute="top" id="cts-ny-1fO"/>
+                            </constraints>
+                            <animations/>
+                            <connections>
+                                <binding destination="l3p-vo-mxo" name="hidden" keyPath="canChangeRightEdge" id="GYk-Xg-nEg">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="HX7-xQ-NXR" userLabel="Bottom" customClass="TEVariableStackViewItem">
+                            <rect key="frame" x="0.0" y="0.0" width="156" height="22"/>
+                            <subviews>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dJK-a8-Elp">
+                                    <rect key="frame" x="-2" y="3" width="85" height="17"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="81" id="aFD-Va-Ms6"/>
+                                    </constraints>
+                                    <animations/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Bottom Edge:" id="YF2-bL-Ss8">
+                                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" lenient="YES" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="ueb-rV-P7h">
+                                            <integer key="multiplier" value="100"/>
+                                            <real key="minimum" value="0.0"/>
+                                            <real key="maximum" value="1"/>
+                                        </numberFormatter>
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="elY-k0-hSy">
+                                    <rect key="frame" x="89" y="0.0" width="67" height="22"/>
+                                    <animations/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="0px" bezelStyle="round" id="zB9-2x-jQx">
+                                        <numberFormatter key="formatter" formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" positiveSuffix="px" id="v76-sn-U1t">
+                                            <integer key="roundingIncrement" value="1"/>
+                                            <real key="minimum" value="0.0"/>
+                                        </numberFormatter>
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.bottomHandlePosition" id="2o1-r8-JzW"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="elY-k0-hSy" secondAttribute="bottom" id="2wA-0w-PZw"/>
+                                <constraint firstAttribute="height" constant="22" id="IdP-0u-3C5"/>
+                                <constraint firstItem="elY-k0-hSy" firstAttribute="top" secondItem="HX7-xQ-NXR" secondAttribute="top" id="NLZ-kI-ITQ"/>
+                                <constraint firstItem="elY-k0-hSy" firstAttribute="leading" secondItem="dJK-a8-Elp" secondAttribute="trailing" constant="8" symbolic="YES" id="NXe-91-BiL"/>
+                                <constraint firstItem="dJK-a8-Elp" firstAttribute="leading" secondItem="HX7-xQ-NXR" secondAttribute="leading" id="Op7-zM-QSf"/>
+                                <constraint firstItem="dJK-a8-Elp" firstAttribute="centerY" secondItem="HX7-xQ-NXR" secondAttribute="centerY" id="hbn-vx-vMa"/>
+                                <constraint firstAttribute="trailing" secondItem="elY-k0-hSy" secondAttribute="trailing" id="lei-6u-caq"/>
+                            </constraints>
+                            <animations/>
+                            <connections>
+                                <binding destination="l3p-vo-mxo" name="hidden" keyPath="canChangeBottomEdge" id="RAh-Gz-ErF">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </customView>
+                    </subviews>
+                    <animations/>
+                    <constraints>
+                        <constraint firstItem="haD-dE-AR5" firstAttribute="width" secondItem="h50-rn-eYn" secondAttribute="width" id="2VK-7N-x33"/>
+                        <constraint firstItem="dJK-a8-Elp" firstAttribute="width" secondItem="h50-rn-eYn" secondAttribute="width" id="EII-jB-8UN"/>
+                        <constraint firstItem="iXF-Ke-EXq" firstAttribute="width" secondItem="h50-rn-eYn" secondAttribute="width" id="htO-Hp-rJ9"/>
+                    </constraints>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
             </subviews>
             <constraints>
+                <constraint firstItem="80d-rY-TvN" firstAttribute="baseline" secondItem="3lr-YH-1Tr" secondAttribute="baseline" id="4wf-LT-KuH"/>
+                <constraint firstItem="Djd-sW-m7F" firstAttribute="leading" secondItem="3lr-YH-1Tr" secondAttribute="leading" id="55d-Av-EBk"/>
+                <constraint firstItem="Djd-sW-m7F" firstAttribute="top" secondItem="80d-rY-TvN" secondAttribute="bottom" constant="8" symbolic="YES" id="7jX-R9-0CA"/>
                 <constraint firstAttribute="trailing" secondItem="KXf-ZR-kcc" secondAttribute="trailing" constant="20" symbolic="YES" id="EvF-wf-3iH"/>
-                <constraint firstItem="RuN-gv-hCh" firstAttribute="baseline" secondItem="zPA-iz-I6o" secondAttribute="baseline" constant="1" id="HSP-fb-QgZ"/>
-                <constraint firstItem="3lr-YH-1Tr" firstAttribute="leading" secondItem="V5v-78-xXT" secondAttribute="leading" constant="20" symbolic="YES" id="KOD-J8-E8g"/>
+                <constraint firstItem="80d-rY-TvN" firstAttribute="leading" secondItem="3lr-YH-1Tr" secondAttribute="trailing" constant="8" symbolic="YES" id="Gv9-k2-w59"/>
+                <constraint firstItem="Djd-sW-m7F" firstAttribute="trailing" secondItem="80d-rY-TvN" secondAttribute="trailing" id="MaT-6p-aWL"/>
                 <constraint firstItem="KXf-ZR-kcc" firstAttribute="leading" secondItem="V5v-78-xXT" secondAttribute="leading" constant="20" symbolic="YES" id="SME-iJ-mZ5"/>
-                <constraint firstItem="3fe-Tr-GPe" firstAttribute="trailing" secondItem="RuN-gv-hCh" secondAttribute="trailing" id="UVc-Vp-BM5"/>
-                <constraint firstItem="3lr-YH-1Tr" firstAttribute="top" secondItem="3fe-Tr-GPe" secondAttribute="bottom" constant="8" symbolic="YES" id="V9o-vP-Lep"/>
-                <constraint firstItem="3lr-YH-1Tr" firstAttribute="trailing" secondItem="3fe-Tr-GPe" secondAttribute="trailing" id="Vgu-TV-Aif"/>
-                <constraint firstItem="zPA-iz-I6o" firstAttribute="leading" secondItem="V5v-78-xXT" secondAttribute="leading" constant="20" symbolic="YES" id="Y92-wr-lfQ"/>
-                <constraint firstAttribute="trailing" secondItem="RuN-gv-hCh" secondAttribute="trailing" constant="20" symbolic="YES" id="aOr-cx-Hxy"/>
-                <constraint firstItem="RuN-gv-hCh" firstAttribute="leading" secondItem="3fe-Tr-GPe" secondAttribute="leading" id="dV1-hT-44w"/>
-                <constraint firstItem="3fe-Tr-GPe" firstAttribute="leading" secondItem="kX6-dY-T0Q" secondAttribute="trailing" constant="8" symbolic="YES" id="g13-Xh-Dgf"/>
-                <constraint firstAttribute="bottom" secondItem="3lr-YH-1Tr" secondAttribute="bottom" constant="20" symbolic="YES" id="gkX-Xi-kuK"/>
+                <constraint firstItem="3lr-YH-1Tr" firstAttribute="leading" secondItem="8Hq-X0-EdL" secondAttribute="leading" id="TVX-Eu-bz5"/>
+                <constraint firstItem="3lr-YH-1Tr" firstAttribute="top" secondItem="8Hq-X0-EdL" secondAttribute="bottom" constant="7" id="YgT-zJ-DMQ"/>
                 <constraint firstItem="KXf-ZR-kcc" firstAttribute="top" secondItem="V5v-78-xXT" secondAttribute="top" id="isi-oq-WMo"/>
-                <constraint firstItem="kX6-dY-T0Q" firstAttribute="top" secondItem="zPA-iz-I6o" secondAttribute="bottom" constant="11" id="jlC-nP-zXp"/>
-                <constraint firstItem="3fe-Tr-GPe" firstAttribute="top" secondItem="RuN-gv-hCh" secondAttribute="bottom" constant="6" id="lmw-YC-Hje"/>
-                <constraint firstItem="kX6-dY-T0Q" firstAttribute="trailing" secondItem="zPA-iz-I6o" secondAttribute="trailing" id="qRm-uW-HiQ"/>
-                <constraint firstItem="3fe-Tr-GPe" firstAttribute="baseline" secondItem="kX6-dY-T0Q" secondAttribute="baseline" constant="1" id="wHT-sx-ct1"/>
-                <constraint firstItem="RuN-gv-hCh" firstAttribute="top" secondItem="KXf-ZR-kcc" secondAttribute="bottom" constant="8" symbolic="YES" id="wMR-JH-zXk"/>
+                <constraint firstItem="80d-rY-TvN" firstAttribute="trailing" secondItem="8Hq-X0-EdL" secondAttribute="trailing" id="nHf-Cg-CrI"/>
+                <constraint firstAttribute="bottom" secondItem="Djd-sW-m7F" secondAttribute="bottom" constant="20" symbolic="YES" id="yoL-4G-sLP"/>
             </constraints>
             <animations/>
-            <point key="canvasLocation" x="-409" y="553.5"/>
+            <point key="canvasLocation" x="-409" y="649.5"/>
         </customView>
     </objects>
     <resources>
