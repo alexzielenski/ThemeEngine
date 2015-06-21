@@ -12,6 +12,8 @@
 @interface TKPDFRendition ()
 @end
 
+static const void *TKPDFRenditionRawDataChangedContext = &TKPDFRenditionRawDataChangedContext;
+
 @implementation TKPDFRendition
 
 - (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData key:(CUIRenditionKey *)key {
@@ -22,9 +24,23 @@
         
         *pdf = NULL;
         self.utiType = (__bridge_transfer NSString *)kUTTypePDF;
-        
+        [self addObserver:self
+               forKeyPath:@"rawData"
+                  options:0
+                  context:&TKPDFRenditionRawDataChangedContext];
+        self.rawData = self.rawData;
     }
     return self;
+}
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
+    if (context == &TKPDFRenditionRawDataChangedContext) {
+        self.pdf = [NSPDFImageRep imageRepWithData:self.rawData];
+    }
+}
+
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"rawData" context:&TKPDFRenditionRawDataChangedContext];
 }
 
 - (void)computePreviewImageIfNecessary {
@@ -32,9 +48,8 @@
         return;
     
     if (self.rawData) {
-        NSPDFImageRep *rep  = [[NSPDFImageRep alloc] initWithData:self.rawData];
         self._previewImage = [[NSImage alloc] init];
-        [self._previewImage addRepresentation:rep];
+        [self._previewImage addRepresentation:self.pdf];
         
     } else {
         [super computePreviewImageIfNecessary];
