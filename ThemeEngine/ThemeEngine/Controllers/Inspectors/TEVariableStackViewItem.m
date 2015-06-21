@@ -18,9 +18,11 @@
 }
 
 - (void)setHidden:(BOOL)hidden {
-    [self.stackView setVisibilityPriority:hidden ? NSStackViewVisibilityPriorityNotVisible :
-     NSStackViewVisibilityPriorityMustHold
-                                  forView:self];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.stackView setVisibilityPriority:hidden ? NSStackViewVisibilityPriorityNotVisible :
+         NSStackViewVisibilityPriorityMustHold
+                                      forView:self];
+    });
 }
 
 - (BOOL)isHidden {

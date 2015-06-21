@@ -7,9 +7,11 @@
 //
 
 #import <ThemeKit/TKBitmapRendition.h>
+#import "TEBackgroundColorView.h"
 @import Cocoa;
 
 @interface TESliceImageView : NSView
+@property (nonatomic, strong) IBOutlet TEBackgroundColorView *backgroundView;
 @property (nonatomic, strong) NSBitmapImageRep *image;
 @property (nonatomic, strong) NSArray *sliceRects;
 @property BOOL hideHandles;

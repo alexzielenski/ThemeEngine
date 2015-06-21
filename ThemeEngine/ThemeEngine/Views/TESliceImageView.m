@@ -65,9 +65,13 @@ static const CGFloat sliceSpaceWidth = 2.0;
     return self;
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.drawsChecker = self.drawsChecker;
+}
+
 - (void)viewDidMoveToSuperview {
     [super viewDidMoveToSuperview];
-    self.drawsChecker = self.drawsChecker;
 
     self.layer.frame = self.bounds;
     self.image = [[NSBitmapImageRep alloc] initWithCGImage:[[NSImage imageNamed:@"NSApplicationIcon"] CGImageForProposedRect:NULL context:nil hints:nil]];
@@ -80,6 +84,8 @@ static const CGFloat sliceSpaceWidth = 2.0;
     
     [self.layer setNeedsDisplay];
     [self.layer setNeedsLayout];
+    self.drawsChecker = self.drawsChecker;
+
 }
 
 - (void)_initialize {
@@ -564,9 +570,11 @@ static const CGFloat sliceSpaceWidth = 2.0;
 - (void)setDrawsChecker:(BOOL)drawsChecker {
     _drawsChecker = drawsChecker;
     if (_drawsChecker) {
-        self.enclosingScrollView.backgroundColor = [NSColor checkerPattern];
+        self.enclosingScrollView.drawsBackground = NO;
+        self.backgroundView.backgroundColor = [NSColor checkerPattern];
     } else {
-        self.enclosingScrollView.backgroundColor = [NSColor whiteColor];
+        self.enclosingScrollView.drawsBackground = YES;
+        self.backgroundView.backgroundColor = nil;
     }
 }
 
