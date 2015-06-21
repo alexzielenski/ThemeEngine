@@ -15,5 +15,16 @@ NSString *const TEPDFPasteboardType = @"com.alexzielenski.themekit.rendition.pdf
     return TEPDFPasteboardType;
 }
 
+- (NSString *)mainDataType {
+    return (__bridge NSString *)kUTTypePDF;
+}
+
+- (id)pasteboardPropertyListForType:(nonnull NSString *)type {
+    if (IS(kUTTypePDF)) {
+        return self.rawData;
+    }
+    
+    return [super pasteboardPropertyListForType:type];
+}
 
 @end

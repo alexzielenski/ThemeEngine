@@ -22,7 +22,7 @@
 }
 
 - (BOOL)isRawData {
-    return [self isKindOfClass:[TKRawDataRendition class]];
+    return [self isMemberOfClass:[TKRawDataRendition class]];
 }
 
 - (BOOL)isBitmap {

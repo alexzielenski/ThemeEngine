@@ -20,7 +20,7 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
 - (instancetype)init {
     if ((self = [super init])) {
         // Add your subclass-specific initialization here.
-        self.assetStorage = [TKAssetStorage assetStorageWithPath:TKCarPathSystemAppearance];
+        self.assetStorage = [TKAssetStorage assetStorageWithPath:TKCarPathAssets];
 
     }
     return self;

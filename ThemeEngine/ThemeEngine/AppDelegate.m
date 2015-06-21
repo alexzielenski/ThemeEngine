@@ -20,7 +20,7 @@
     [self bind:@"darkMode"
       toObject:[NSUserDefaultsController sharedUserDefaultsController]
    withKeyPath:@"values.darkMode"
-       options:nil];
+       options:nil];    
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

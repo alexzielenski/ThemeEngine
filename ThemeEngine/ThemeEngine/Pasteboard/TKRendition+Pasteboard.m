@@ -41,7 +41,7 @@ NSURL *TERenditionTemporaryPasteboardLocation;
     
     NSURL *url = [NSURL fileURLWithPath:[[NSString stringWithFormat:@"%@_%@_%lu", sanitizedName, self.renditionHash, self.changeCount] stringByAppendingPathExtension:self.mainDataExtension]
                           relativeToURL:TERenditionTemporaryPasteboardLocation];
-    
+        
     if (![[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
         NSData *pngData = [self pasteboardPropertyListForType:self.mainDataType];
         [pngData writeToURL:url atomically:NO];

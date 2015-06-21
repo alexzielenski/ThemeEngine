@@ -26,7 +26,7 @@ NSString *const TERawDataPasteboardType = @"com.alexzielenski.themekit.rendition
 - (NSString *)mainDataExtension {
    if ([self.mainDataType isEqualToString:TKUTITypeCoreAnimationArchive])
        return @"caar";
-    return @"";
+    return [super mainDataExtension];
 }
 
 - (id)pasteboardPropertyListForType:(nonnull NSString *)type {
