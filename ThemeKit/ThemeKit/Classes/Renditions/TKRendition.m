@@ -83,6 +83,14 @@ NSString *md5(NSString *str) {
         self.rendition     = rendition;
         self.name          = self.rendition.name;
         self.utiType       = rendition.utiType;
+        
+        //TOOD: Find out if this impacts our ability to save
+        CFDataRef *data  =TKIvarPointer(self.rendition, "_srcData");
+        if (data != NULL) {
+            if (*data != NULL)
+                CFRelease(*data);
+            *data = NULL;
+        }
     }
     
     return self;

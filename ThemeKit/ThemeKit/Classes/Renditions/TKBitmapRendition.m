@@ -64,6 +64,17 @@
                 CGImageRelease(*ptr);
                 *ptr = NULL;
             }
+
+            // This is on CUIThemePixelRendition
+            //!TODO: Circumvent the default unslicedImage implementation
+            //! so that we can reliably throw out unused Apple data.
+            //! and save ram
+//            CGImageRef *image = TKIvarPointer(self.rendition, "unslicedImage");
+//            if (image != NULL) {
+//                if (*image != NULL)
+//                    CGImageRelease(*image);
+//                *image = NULL;
+//            }
         }
     }
     return _image;
