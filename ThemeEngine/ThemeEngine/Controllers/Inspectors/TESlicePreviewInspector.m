@@ -70,7 +70,7 @@ static const void *kTESlicePreviewSlicesUpdatedContext = &kTESlicePreviewSlicesU
 }
 
 - (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
-    if (context == &kTESlicePreviewSlicesUpdatedContext) {
+    if (context == &kTESlicePreviewSlicesUpdatedContext && [self.rendition isKindOfClass:[TKBitmapRendition class]]) {
         self.rendition.layoutInformation.sliceRects = self.sliceImageView.sliceRects;
     }
 }
