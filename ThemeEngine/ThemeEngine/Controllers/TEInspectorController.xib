@@ -485,6 +485,7 @@
                                                         <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                     </dictionary>
                                                 </binding>
+                                                <outlet property="nextKeyView" destination="QDY-eD-oha" id="8vW-1f-5M3"/>
                                             </connections>
                                         </textField>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QDY-eD-oha">
@@ -521,6 +522,7 @@
                                                         <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                     </dictionary>
                                                 </binding>
+                                                <outlet property="nextKeyView" destination="cox-Np-1yZ" id="gcK-xq-kBj"/>
                                             </connections>
                                         </textField>
                                         <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="cox-Np-1yZ">
@@ -546,6 +548,7 @@
                                                         <integer key="NSNullPlaceholder" value="0"/>
                                                     </dictionary>
                                                 </binding>
+                                                <outlet property="nextKeyView" destination="7L7-iW-yeg" id="DL5-46-fNO"/>
                                             </connections>
                                         </colorWell>
                                     </subviews>
@@ -630,6 +633,7 @@
                                             </buttonCell>
                                             <connections>
                                                 <binding destination="Qba-ew-VCW" name="value" keyPath="gradientEditor.selectedStop.doubleStop" id="5RZ-5b-oao"/>
+                                                <outlet property="nextKeyView" destination="XUc-CU-pEr" id="iy1-IA-2RE"/>
                                             </connections>
                                         </button>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XUc-CU-pEr">
@@ -667,6 +671,7 @@
                                                         <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                     </dictionary>
                                                 </binding>
+                                                <outlet property="nextKeyView" destination="zQQ-EA-dKk" id="3aL-4d-xtV"/>
                                             </connections>
                                         </textField>
                                         <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="zQQ-EA-dKk">
@@ -684,6 +689,7 @@
                                                         <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                     </dictionary>
                                                 </binding>
+                                                <outlet property="nextKeyView" destination="DgU-cD-UnN" id="bFq-c5-2kZ"/>
                                             </connections>
                                         </colorWell>
                                     </subviews>
@@ -833,6 +839,7 @@
                                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                             </dictionary>
                                         </binding>
+                                        <outlet property="nextKeyView" destination="mmD-Ph-puP" id="0f7-WN-aEw"/>
                                     </connections>
                                 </textField>
                                 <popUpButton horizontalHuggingPriority="249" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mmD-Ph-puP">
@@ -861,6 +868,7 @@
                                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                             </dictionary>
                                         </binding>
+                                        <outlet property="nextKeyView" destination="P2R-Jz-qgb" id="ab6-BA-cGO"/>
                                     </connections>
                                 </popUpButton>
                                 <popUpButton horizontalHuggingPriority="249" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P2R-Jz-qgb">
@@ -898,6 +906,7 @@
                                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                             </dictionary>
                                         </binding>
+                                        <outlet property="nextKeyView" destination="0Jc-3M-VuI" id="fsL-Jy-q9h"/>
                                     </connections>
                                 </popUpButton>
                                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Jc-3M-VuI">
@@ -918,6 +927,7 @@
                                                 <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                             </dictionary>
                                         </binding>
+                                        <outlet property="nextKeyView" destination="M4J-Dh-clS" id="2xP-Gf-Rcw"/>
                                     </connections>
                                 </textField>
                             </subviews>
@@ -934,6 +944,9 @@
                                 <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
+                            <connections>
+                                <outlet property="nextKeyView" destination="P2R-Jz-qgb" id="FJA-y4-msF"/>
+                            </connections>
                         </stackView>
                     </subviews>
                     <animations/>
@@ -1149,6 +1162,7 @@
                                                         </textFieldCell>
                                                         <connections>
                                                             <binding destination="Xh0-p0-ycD" name="value" keyPath="objectValue.typeString" id="6AN-Px-rjR"/>
+                                                            <outlet property="nextKeyView" destination="CNe-gC-zwU" id="y9p-cW-Tib"/>
                                                         </connections>
                                                     </textField>
                                                     <popUpButton translatesAutoresizingMaskIntoConstraints="NO" id="8vz-yb-FWL">
@@ -1216,6 +1230,7 @@
                                                         </buttonCell>
                                                         <connections>
                                                             <action selector="removeEffect:" target="NiE-Zo-ftF" id="7HY-mu-eGE"/>
+                                                            <outlet property="nextKeyView" destination="8vz-yb-FWL" id="46T-QL-pAc"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1231,6 +1246,7 @@
                                                 <animations/>
                                                 <connections>
                                                     <outlet property="addButton" destination="8vz-yb-FWL" id="z39-NE-YDe"/>
+                                                    <outlet property="nextKeyView" destination="1em-MU-SVR" id="qhl-vR-4pI"/>
                                                     <outlet property="removeButton" destination="CNe-gC-zwU" id="mGU-jc-J4y"/>
                                                     <outlet property="textField" destination="1em-MU-SVR" id="LpA-uQ-jQd"/>
                                                 </connections>
@@ -1267,6 +1283,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
+                    <connections>
+                        <outlet property="nextKeyView" destination="8lV-yn-2DY" id="Zj1-QT-Tcl"/>
+                    </connections>
                 </scrollView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="bt5-sA-VKd" userLabel="Color 1" customClass="TEVariableStackViewItem">
                     <rect key="frame" x="20" y="290" width="226" height="22"/>
@@ -1292,6 +1311,7 @@
                             <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.colorValue" id="Am1-00-iMi"/>
+                                <outlet property="nextKeyView" destination="e71-y0-4zL" id="pkz-xB-jSa"/>
                             </connections>
                         </colorWell>
                     </subviews>
@@ -1337,6 +1357,7 @@
                             <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.color2Value" id="HX0-Dv-WCG"/>
+                                <outlet property="nextKeyView" destination="YrS-9A-Xvc" id="94f-3i-ogc"/>
                             </connections>
                         </colorWell>
                     </subviews>
@@ -1388,6 +1409,7 @@
                             </textFieldCell>
                             <connections>
                                 <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.opacityValue" id="zTa-8c-KlM"/>
+                                <outlet property="nextKeyView" destination="IXG-me-QOK" id="xlu-Tx-MU0"/>
                             </connections>
                         </textField>
                     </subviews>
@@ -1440,6 +1462,7 @@
                             </textFieldCell>
                             <connections>
                                 <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.opacity2Value" id="F7G-OX-KBE"/>
+                                <outlet property="nextKeyView" destination="ALm-W7-roR" id="m0c-yQ-yVZ"/>
                             </connections>
                         </textField>
                     </subviews>
@@ -1495,6 +1518,7 @@
                             </textFieldCell>
                             <connections>
                                 <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.blurRadiusValue" id="28m-Vb-3Jt"/>
+                                <outlet property="nextKeyView" destination="3qk-Ly-s6u" id="yzC-IW-7yv"/>
                             </connections>
                         </textField>
                     </subviews>
@@ -1550,6 +1574,7 @@
                             </textFieldCell>
                             <connections>
                                 <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.offsetValue" id="zGq-ef-h1U"/>
+                                <outlet property="nextKeyView" destination="vHh-gA-upX" id="DxO-cL-Lzb"/>
                             </connections>
                         </textField>
                     </subviews>
@@ -1606,6 +1631,7 @@
                             </textFieldCell>
                             <connections>
                                 <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.angleValue" id="kB3-wE-V1e"/>
+                                <outlet property="nextKeyView" destination="z7v-kf-zXT" id="mf8-pU-f0J"/>
                             </connections>
                         </textField>
                     </subviews>
@@ -1684,6 +1710,7 @@
                             </popUpButtonCell>
                             <connections>
                                 <binding destination="NiE-Zo-ftF" name="selectedIndex" keyPath="currentEffect.blendModeValue" id="u9c-no-qo8"/>
+                                <outlet property="nextKeyView" destination="tac-FE-BVq" id="5OK-Q6-1TK"/>
                             </connections>
                         </popUpButton>
                     </subviews>
@@ -1739,6 +1766,7 @@
                             </textFieldCell>
                             <connections>
                                 <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.softenValue" id="a4W-zF-xI2"/>
+                                <outlet property="nextKeyView" destination="NBv-5t-VfL" id="tqX-eH-Nof"/>
                             </connections>
                         </textField>
                     </subviews>
@@ -1794,6 +1822,7 @@
                             </textFieldCell>
                             <connections>
                                 <binding destination="NiE-Zo-ftF" name="value" keyPath="currentEffect.spreadValue" id="qHE-2P-6M1"/>
+                                <outlet property="nextKeyView" destination="htU-Qk-fhs" id="n6d-1z-rmH"/>
                             </connections>
                         </textField>
                     </subviews>
@@ -1949,6 +1978,9 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <animations/>
                             </scroller>
+                            <connections>
+                                <outlet property="nextKeyView" destination="dh2-9T-4BK" id="VLX-KB-Ujk"/>
+                            </connections>
                         </scrollView>
                     </subviews>
                     <constraints>
@@ -1962,7 +1994,7 @@
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Djd-sW-m7F">
                     <rect key="frame" x="20" y="20" width="166" height="145"/>
                     <subviews>
-                        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eid-Ko-ubg" userLabel="Slice Control">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="eid-Ko-ubg" userLabel="Slice Control">
                             <rect key="frame" x="0.0" y="120" width="165" height="17"/>
                             <subviews>
                                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dh2-9T-4BK">
@@ -1974,6 +2006,7 @@
                                     <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.5" maxValue="8" doubleValue="1" tickMarkPosition="below" sliderType="linear" id="haS-IX-LyS"/>
                                     <connections>
                                         <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.enclosingScrollView.magnification" id="dos-Fq-NoY"/>
+                                        <outlet property="nextKeyView" destination="nDy-em-QaU" id="Kud-Mm-1yO"/>
                                     </connections>
                                 </slider>
                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="nDy-em-QaU">
@@ -1993,6 +2026,7 @@
                                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                                             </dictionary>
                                         </binding>
+                                        <outlet property="nextKeyView" destination="Ncm-JT-WaH" id="Lck-l7-Tcj"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -2006,7 +2040,7 @@
                             </constraints>
                             <animations/>
                         </customView>
-                        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ANm-dp-VbX" userLabel="Left" customClass="TEVariableStackViewItem">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="ANm-dp-VbX" userLabel="Left" customClass="TEVariableStackViewItem">
                             <rect key="frame" x="0.0" y="90" width="156" height="22"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h50-rn-eYn">
@@ -2041,6 +2075,7 @@
                                     </textFieldCell>
                                     <connections>
                                         <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.leftHandlePosition" id="9qX-Bd-GxO"/>
+                                        <outlet property="nextKeyView" destination="cIv-H2-zSG" id="K5W-lO-naH"/>
                                     </connections>
                                 </textField>
                             </subviews>
@@ -2062,7 +2097,7 @@
                                 </binding>
                             </connections>
                         </customView>
-                        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3os-fy-kMA" userLabel="Top" customClass="TEVariableStackViewItem">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="3os-fy-kMA" userLabel="Top" customClass="TEVariableStackViewItem">
                             <rect key="frame" x="0.0" y="60" width="156" height="22"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="haD-dE-AR5">
@@ -2097,6 +2132,7 @@
                                     </textFieldCell>
                                     <connections>
                                         <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.topHandlePosition" id="iWb-po-p7h"/>
+                                        <outlet property="nextKeyView" destination="hqZ-tD-ty1" id="a6W-w6-QkA"/>
                                     </connections>
                                 </textField>
                             </subviews>
@@ -2118,7 +2154,7 @@
                                 </binding>
                             </connections>
                         </customView>
-                        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xl4-YB-hJo" userLabel="Right" customClass="TEVariableStackViewItem">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Xl4-YB-hJo" userLabel="Right" customClass="TEVariableStackViewItem">
                             <rect key="frame" x="0.0" y="30" width="156" height="22"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iXF-Ke-EXq">
@@ -2153,6 +2189,7 @@
                                     </textFieldCell>
                                     <connections>
                                         <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.rightHandlePosition" id="C1g-ov-tcB"/>
+                                        <outlet property="nextKeyView" destination="elY-k0-hSy" id="qk4-N0-NHq"/>
                                     </connections>
                                 </textField>
                             </subviews>
@@ -2174,7 +2211,7 @@
                                 </binding>
                             </connections>
                         </customView>
-                        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HX7-xQ-NXR" userLabel="Bottom" customClass="TEVariableStackViewItem">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="HX7-xQ-NXR" userLabel="Bottom" customClass="TEVariableStackViewItem">
                             <rect key="frame" x="0.0" y="0.0" width="156" height="22"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dJK-a8-Elp">
@@ -2209,6 +2246,7 @@
                                     </textFieldCell>
                                     <connections>
                                         <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.bottomHandlePosition" id="2o1-r8-JzW"/>
+                                        <outlet property="nextKeyView" destination="KXf-ZR-kcc" id="NFf-ER-PwU"/>
                                     </connections>
                                 </textField>
                             </subviews>
@@ -2259,7 +2297,7 @@
                 <constraint firstAttribute="bottom" secondItem="Djd-sW-m7F" secondAttribute="bottom" constant="20" symbolic="YES" id="yoL-4G-sLP"/>
             </constraints>
             <animations/>
-            <point key="canvasLocation" x="-409" y="649.5"/>
+            <point key="canvasLocation" x="-122" y="989"/>
         </customView>
         <viewController title="Animation" nibName="TEInspectorDetailController" id="ZQg-et-ePs" customClass="TEAnimationInspector">
             <connections>
