@@ -66,6 +66,11 @@ static const void *kTESlicePreviewSlicesUpdatedContext = &kTESlicePreviewSlicesU
 }
 
 - (void)dealloc {
+    [self unbind:@"rendition"];
+    [self.sliceImageView unbind:@"image"];
+    [self.sliceImageView unbind:@"renditionType"];
+    [self.sliceImageView unbind:@"sliceRects"];
+    [self.sliceImageView removeObserver:self forKeyPath:@"sliceRects" context:&kTESlicePreviewSlicesUpdatedContext];
     [self.sliceImageView removeObserver:self forKeyPath:@"sliceRects" context:&kTESlicePreviewSlicesUpdatedContext];
 }
 

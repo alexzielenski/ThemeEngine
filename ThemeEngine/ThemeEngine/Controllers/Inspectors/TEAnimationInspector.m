@@ -37,6 +37,12 @@
     self.drawsChecker = YES;
 }
 
+- (void)dealloc {
+    [self.animationView unbind:@"frameWidth"];
+    [self.animationView unbind:@"image"];
+    [self unbind:@"layoutInformation"];
+}
+
 - (void)setDrawsChecker:(BOOL)drawsChecker {
     _drawsChecker = drawsChecker;
     if (drawsChecker) {

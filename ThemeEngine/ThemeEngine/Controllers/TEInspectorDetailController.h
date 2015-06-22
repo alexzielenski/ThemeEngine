@@ -10,7 +10,7 @@
 
 @class TEInspectorController;
 @interface TEInspectorDetailController : NSViewController
-@property (weak) TEInspectorController *inspector;
+@property (strong) TEInspectorController *inspector;
 @property (nonatomic, strong) IBOutlet NSView *inspectorView;
 
 - (NSStackViewVisibilityPriority)visibilityPriorityForInspectedObjects:(NSArray *)objects;

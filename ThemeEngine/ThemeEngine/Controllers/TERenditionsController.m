@@ -105,6 +105,8 @@ static const void *PREVIEWIMAGECHANGED = &PREVIEWIMAGECHANGED;
 }
 
 - (void)dealloc {
+    [self removeObserver:self
+              forKeyPath:@"renditionsArrayController.arrangedObjects.previewImage"];
     [self.inspectorController unbind:@"representedObject"];
     [self.renditionsArrayController removeObserver:self forKeyPath:NSStringFromSelector(@selector(arrangedObjects)) context:&REEVALUATEGROUPS];
     [self.renditionBrowser unbind:NSContentBinding];

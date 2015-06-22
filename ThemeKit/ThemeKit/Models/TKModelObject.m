@@ -87,6 +87,19 @@ static const void *TKModelObjectCollectionContext = &TKModelObjectCollectionCont
     
     properties = [self.class collectionProperties];
     for (NSString *key in properties.allKeys) {
+        
+        NSArray *registration = properties[key];
+        NSDictionary *props = registration.lastObject;
+        
+        id collection = [self valueForKeyPath:key];
+        
+        for (id object in collection) {
+            [self evaluateProperties:props
+                           forObject:object
+                          unregister:YES
+                          collection:YES];
+        }
+        
         [self removeObserver:self
                   forKeyPath:key
                      context:&TKModelObjectCollectionContext];
@@ -144,8 +157,6 @@ static const void *TKModelObjectCollectionContext = &TKModelObjectCollectionCont
             if (object == self)
                 [self.undoManager setActionName:[self.class undoProperties][keyPath]];
             else {
-                NSLog(@"%@", change);
-
                 // Context for collection types are the dictionary
                 // for their associated keypath-Action registration
 //                NSDictionary *strs = (__bridge NSDictionary *)context;
@@ -155,8 +166,6 @@ static const void *TKModelObjectCollectionContext = &TKModelObjectCollectionCont
         
     } else if (context == &TKModelObjectCollectionContext) {
         NSArray *registration = [self.class collectionProperties][keyPath];
-        NSLog(@"%@", change);
-        NSLog(@"%@", registration);
         
         NSIndexSet *indices = change[NSKeyValueChangeIndexesKey];
         

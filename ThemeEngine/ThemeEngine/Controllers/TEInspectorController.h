@@ -22,7 +22,7 @@
 @interface TEInspectorController : NSViewController
 @property IBOutlet NSStackView *contentView;
 @property (strong) NSArray *inspectorViewControllers;
-@property (weak) IBOutlet NSArrayController *contentController;
+@property (strong) IBOutlet NSArrayController *contentController;
 
 @property (weak) IBOutlet TEInspectorDetailController *gradientInspector;
 @property (weak) IBOutlet TEInspectorDetailController *attributesInspector;
