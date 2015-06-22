@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8121.17" systemVersion="15A178w" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <development version="6300" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8121.17"/>
         <plugIn identifier="com.apple.imagekit.ibplugin" version="8121.17"/>
     </dependencies>
@@ -18,12 +17,30 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <rect key="contentRect" x="133" y="235" width="800" height="600"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
             <value key="minSize" type="size" width="600" height="400"/>
-            <view key="contentView" wantsLayer="YES" id="gIp-Ho-8D9">
+            <view key="contentView" id="gIp-Ho-8D9">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
+                    <visualEffectView blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="zXa-D4-a8C">
+                        <rect key="frame" x="0.0" y="562" width="800" height="38"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="38" id="v4i-z9-M0A"/>
+                        </constraints>
+                        <animations/>
+                    </visualEffectView>
+                    <visualEffectView wantsLayer="YES" blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Qtm-dp-aWo">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="33"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="k4f-bm-7QK"/>
+                        </constraints>
+                        <animations/>
+                    </visualEffectView>
+                    <splitView wantsLayer="YES" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f8p-Vm-djD">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="562"/>
+                        <animations/>
+                    </splitView>
                     <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ihA-x2-DCO">
                         <rect key="frame" x="0.0" y="31" width="800" height="5"/>
                         <constraints>
@@ -34,24 +51,6 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
                     </box>
-                    <splitView wantsLayer="YES" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f8p-Vm-djD">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="562"/>
-                        <animations/>
-                    </splitView>
-                    <visualEffectView blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="zXa-D4-a8C">
-                        <rect key="frame" x="0.0" y="562" width="800" height="38"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="38" id="v4i-z9-M0A"/>
-                        </constraints>
-                        <animations/>
-                    </visualEffectView>
-                    <visualEffectView blendingMode="behindWindow" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="Qtm-dp-aWo">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="33"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="33" id="k4f-bm-7QK"/>
-                        </constraints>
-                        <animations/>
-                    </visualEffectView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Qtm-dp-aWo" firstAttribute="leading" secondItem="gIp-Ho-8D9" secondAttribute="leading" id="2vo-iO-NwL"/>
@@ -136,7 +135,7 @@
             <rect key="frame" x="0.0" y="0.0" width="220" height="476"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c8z-Ga-kEQ" customClass="TETexturedScope">
+                <segmentedControl wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c8z-Ga-kEQ" customClass="TETexturedScope">
                     <rect key="frame" x="0.0" y="-1" width="41" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="33" id="9Qz-QX-4lp"/>
@@ -304,11 +303,45 @@
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="Rnm-PR-BwK">
             <rect key="frame" x="0.0" y="0.0" width="500" height="385"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="3S4-16-oLu">
+                <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="123.33333587646484" horizontalPageScroll="10" verticalLineScroll="120" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pdx-KY-fpJ" customClass="RBLScrollView">
+                    <rect key="frame" x="0.0" y="34" width="500" height="351"/>
+                    <clipView key="contentView" copiesOnScroll="NO" id="rFo-oN-24K" customClass="RBLClipView">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="351"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <ikImageBrowserView autoresizesSubviews="NO" fixedFrame="YES" zoomValue="0.81649661064147949" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jO5-zD-5zv" customClass="TEImageBrowserView">
+                                <rect key="frame" x="0.0" y="163" width="290" height="188"/>
+                                <animations/>
+                                <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES" subtitled="YES"/>
+                                <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
+                                <size key="cellSize" width="100" height="100"/>
+                                <connections>
+                                    <binding destination="gHj-GT-QiP" name="selectionIndexes" keyPath="selectionIndexes" id="iTZ-uq-u8l"/>
+                                    <outlet property="dataSource" destination="DYE-2D-1ip" id="Zoa-vf-nr6"/>
+                                    <outlet property="delegate" destination="DYE-2D-1ip" id="jZ2-R3-zBG"/>
+                                    <outlet property="dragDestinationDelegate" destination="DYE-2D-1ip" id="Ce6-4G-xGs"/>
+                                </connections>
+                            </ikImageBrowserView>
+                        </subviews>
+                        <animations/>
+                    </clipView>
+                    <animations/>
+                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="WwH-aB-u3H">
+                        <rect key="frame" x="0.0" y="335" width="500" height="16"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </scroller>
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="c83-w5-G1C">
+                        <rect key="frame" x="485" y="0.0" width="15" height="351"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </scroller>
+                </scrollView>
+                <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3S4-16-oLu">
                     <rect key="frame" x="0.0" y="0.0" width="500" height="32"/>
                     <subviews>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TJn-WL-X6h">
-                            <rect key="frame" x="6" y="8" width="65" height="17"/>
+                        <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TJn-WL-X6h">
+                            <rect key="frame" x="6" y="7" width="65" height="17"/>
                             <animations/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Group By:" id="Knh-cc-V98">
                                 <font key="font" metaFont="system"/>
@@ -321,7 +354,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textFieldCell>
                         </textField>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YXj-cd-YIj">
+                        <button wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YXj-cd-YIj">
                             <rect key="frame" x="344" y="11" width="12" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="4ea-J6-6Wi"/>
@@ -336,7 +369,7 @@
                                 <action selector="zoomAnchorPressed:" target="DYE-2D-1ip" id="Y94-Hw-ZcJ"/>
                             </connections>
                         </button>
-                        <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-jj-xg3">
+                        <button wantsLayer="YES" verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-jj-xg3">
                             <rect key="frame" x="464" y="9" width="16" height="16"/>
                             <animations/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SliderAnchorTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="Rr4-tC-JlR">
@@ -352,8 +385,8 @@
                                 <action selector="zoomAnchorPressed:" target="DYE-2D-1ip" id="Voy-yP-pJL"/>
                             </connections>
                         </button>
-                        <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4dv-Sn-CWt">
-                            <rect key="frame" x="362" y="6" width="96" height="21"/>
+                        <slider wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4dv-Sn-CWt">
+                            <rect key="frame" x="362" y="6" width="96" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="92" id="C1j-Vu-sK4"/>
                             </constraints>
@@ -363,8 +396,8 @@
                                 <binding destination="DYE-2D-1ip" name="value" keyPath="renditionBrowser.zoomValue" id="2QX-fR-fwu"/>
                             </connections>
                         </slider>
-                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6I9-Ub-ITu">
-                            <rect key="frame" x="77" y="3" width="75" height="25"/>
+                        <popUpButton wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6I9-Ub-ITu">
+                            <rect key="frame" x="77" y="2" width="75" height="25"/>
                             <animations/>
                             <popUpButtonCell key="cell" type="roundTextured" title="None" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" tag="-1" imageScaling="proportionallyDown" inset="2" selectedItem="jAY-ot-j7L" id="B8s-Le-ZsR">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -418,40 +451,6 @@
                     </constraints>
                     <animations/>
                 </customView>
-                <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="123.33333587646484" horizontalPageScroll="10" verticalLineScroll="120" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pdx-KY-fpJ" customClass="RBLScrollView">
-                    <rect key="frame" x="0.0" y="34" width="500" height="351"/>
-                    <clipView key="contentView" copiesOnScroll="NO" id="rFo-oN-24K" customClass="RBLClipView">
-                        <rect key="frame" x="0.0" y="0.0" width="500" height="351"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <ikImageBrowserView autoresizesSubviews="NO" fixedFrame="YES" zoomValue="0.81649661064147949" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jO5-zD-5zv" customClass="TEImageBrowserView">
-                                <rect key="frame" x="0.0" y="163" width="290" height="188"/>
-                                <animations/>
-                                <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES" subtitled="YES"/>
-                                <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                <size key="cellSize" width="100" height="100"/>
-                                <connections>
-                                    <binding destination="gHj-GT-QiP" name="selectionIndexes" keyPath="selectionIndexes" id="iTZ-uq-u8l"/>
-                                    <outlet property="dataSource" destination="DYE-2D-1ip" id="Zoa-vf-nr6"/>
-                                    <outlet property="delegate" destination="DYE-2D-1ip" id="jZ2-R3-zBG"/>
-                                    <outlet property="dragDestinationDelegate" destination="DYE-2D-1ip" id="Ce6-4G-xGs"/>
-                                </connections>
-                            </ikImageBrowserView>
-                        </subviews>
-                        <animations/>
-                    </clipView>
-                    <animations/>
-                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="WwH-aB-u3H">
-                        <rect key="frame" x="0.0" y="335" width="500" height="16"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
-                    </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="c83-w5-G1C">
-                        <rect key="frame" x="485" y="0.0" width="15" height="351"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
-                    </scroller>
-                </scrollView>
             </subviews>
             <constraints>
                 <constraint firstItem="Pdx-KY-fpJ" firstAttribute="top" secondItem="Rnm-PR-BwK" secondAttribute="top" id="5Cg-1e-0lU"/>
