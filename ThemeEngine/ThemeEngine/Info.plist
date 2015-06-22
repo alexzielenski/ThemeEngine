@@ -51,5 +51,7 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>OPBlacklisted</key>
+	<true/>
 </dict>
 </plist>

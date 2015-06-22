@@ -57,6 +57,13 @@
         if (unsliced != NULL) {
             _image = [[NSBitmapImageRep alloc] initWithCGImage:unsliced];
             self._previewImage = nil;
+            
+            // remove backing image after we're done with it
+            CGImageRef *ptr = TKIvarPointer(self.rendition, "_unslicedImage");
+            if (ptr != NULL && *ptr != NULL) {
+                CGImageRelease(*ptr);
+                *ptr = NULL;
+            }
         }
     }
     return _image;

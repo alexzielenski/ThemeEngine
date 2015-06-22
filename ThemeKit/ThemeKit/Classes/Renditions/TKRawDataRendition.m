@@ -45,11 +45,9 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
             
             // use __bridge_transfer to transfer ownership to ARC so it releases it at the end
             // of this scope
-            NSData *oldData = (__bridge_transfer NSData *)*dataBytes;
+            CFRelease(*dataBytes);
             // set the variable to NULL
             *dataBytes = NULL;
-            (void)oldData;
-            
         }
     }
     
