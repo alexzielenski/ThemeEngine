@@ -45,7 +45,6 @@
 		FAB6EB7C1B375A8C00D914F4 /* TKColorRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB6EB7B1B375A8C00D914F4 /* TKColorRendition+Pasteboard.m */; };
 		FAB6EB7F1B375A9C00D914F4 /* TKGradientRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB6EB7E1B375A9C00D914F4 /* TKGradientRendition+Pasteboard.m */; };
 		FAB6EB821B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB6EB811B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.m */; };
-		FAB6EB851B375AC800D914F4 /* TKPDFRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB6EB841B375AC800D914F4 /* TKPDFRendition+Pasteboard.m */; };
 		FABEAEC51B2F70C200B02805 /* TEInspectorController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABEAEC41B2F70C200B02805 /* TEInspectorController.xib */; };
 		FABEAEC81B2F70ED00B02805 /* TEInspectorController.m in Sources */ = {isa = PBXBuildFile; fileRef = FABEAEC71B2F70ED00B02805 /* TEInspectorController.m */; };
 		FABEAECC1B2F70F300B02805 /* TEInspectorDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = FABEAECA1B2F70F300B02805 /* TEInspectorDetailController.m */; };
@@ -148,8 +147,6 @@
 		FAB6EB7E1B375A9C00D914F4 /* TKGradientRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKGradientRendition+Pasteboard.m"; path = "Pasteboard/TKGradientRendition+Pasteboard.m"; sourceTree = "<group>"; };
 		FAB6EB801B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKRawDataRendition+Pasteboard.h"; path = "Pasteboard/TKRawDataRendition+Pasteboard.h"; sourceTree = "<group>"; };
 		FAB6EB811B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKRawDataRendition+Pasteboard.m"; path = "Pasteboard/TKRawDataRendition+Pasteboard.m"; sourceTree = "<group>"; };
-		FAB6EB831B375AC800D914F4 /* TKPDFRendition+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKPDFRendition+Pasteboard.h"; path = "Pasteboard/TKPDFRendition+Pasteboard.h"; sourceTree = "<group>"; };
-		FAB6EB841B375AC800D914F4 /* TKPDFRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKPDFRendition+Pasteboard.m"; path = "Pasteboard/TKPDFRendition+Pasteboard.m"; sourceTree = "<group>"; };
 		FABEAEC41B2F70C200B02805 /* TEInspectorController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TEInspectorController.xib; path = Controllers/TEInspectorController.xib; sourceTree = "<group>"; };
 		FABEAEC61B2F70ED00B02805 /* TEInspectorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEInspectorController.h; path = Controllers/TEInspectorController.h; sourceTree = "<group>"; };
 		FABEAEC71B2F70ED00B02805 /* TEInspectorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEInspectorController.m; path = Controllers/TEInspectorController.m; sourceTree = "<group>"; };
@@ -210,8 +207,6 @@
 				FAB6EB7E1B375A9C00D914F4 /* TKGradientRendition+Pasteboard.m */,
 				FAB6EB801B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.h */,
 				FAB6EB811B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.m */,
-				FAB6EB831B375AC800D914F4 /* TKPDFRendition+Pasteboard.h */,
-				FAB6EB841B375AC800D914F4 /* TKPDFRendition+Pasteboard.m */,
 				FAC2D3761B37B3FE0015BF7F /* TKEffectPreset+Pasteboard.h */,
 				FAC2D3771B37B3FE0015BF7F /* TKEffectPreset+Pasteboard.m */,
 				FAC2D3791B37B8840015BF7F /* NSColor+Pasteboard.h */,
@@ -488,7 +483,6 @@
 				FA6E01341B301F1A00209DE2 /* TEDocumentViewController.m in Sources */,
 				FA43A02C1B34993A0000DB66 /* TEColorInspector.m in Sources */,
 				FA514C321B346E86002CBF5A /* TESlicePreviewInspector.m in Sources */,
-				FAB6EB851B375AC800D914F4 /* TKPDFRendition+Pasteboard.m in Sources */,
 				FAA54F691B2E211F00EA15F2 /* RBLScrollView.m in Sources */,
 				FA59C2CB1B2E893F00EF027D /* TEImageBrowserView.m in Sources */,
 				FAA54F791B2E4DC700EA15F2 /* TERenditionsController.m in Sources */,

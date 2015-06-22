@@ -48,7 +48,11 @@ NSString *const TERawDataPasteboardType = @"com.alexzielenski.themekit.rendition
 - (BOOL)readFromPasteboardItem:(NSPasteboardItem *)item {
     NSString *available = [item availableTypeFromArray:@[ TERawDataPasteboardType, self.mainDataType ]];
     if (available != nil) {
-        self.rawData = [item pasteboardPropertyListForType:available];
+        NSData *data = [item dataForType:available];
+        if (data) {
+            self.rawData = data;
+            return YES;
+        }
     }
     
     return NO;
