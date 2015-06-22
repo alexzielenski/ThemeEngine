@@ -93,4 +93,9 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
     self._previewImage = nil;
 }
 
+- (void)setRawData:(NSData *)rawData {
+    _rawData = rawData;
+    self._previewImage = nil;
+}
+
 @end

@@ -38,11 +38,20 @@ NSString *const TERawDataPasteboardType = @"com.alexzielenski.themekit.rendition
 }
 
 - (id)pasteboardPropertyListForType:(nonnull NSString *)type {
-    if ([type isEqualToString:self.mainDataType]) {
+    if ([type isEqualToString:self.mainDataType] || [type isEqualToString:TERawDataPasteboardType]) {
         return self.rawData;
     }
     
     return [super pasteboardPropertyListForType:type];
+}
+
+- (BOOL)readFromPasteboardItem:(NSPasteboardItem *)item {
+    NSString *available = [item availableTypeFromArray:@[ TERawDataPasteboardType, self.mainDataType ]];
+    if (available != nil) {
+        self.rawData = [item pasteboardPropertyListForType:available];
+    }
+    
+    return NO;
 }
 
 + (NSString *)pasteboardType {

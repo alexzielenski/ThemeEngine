@@ -10,5 +10,5 @@
 extern NSString *const TKUTITypeCoreAnimationArchive;
 
 @interface TKRawDataRendition : TKRendition
-@property (strong) NSData *rawData;
+@property (nonatomic, strong) NSData *rawData;
 @end
