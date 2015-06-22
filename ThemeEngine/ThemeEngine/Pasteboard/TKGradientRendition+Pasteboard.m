@@ -15,5 +15,14 @@ NSString *const TEGradientPasteboardType = @"com.alexzielenski.themekit.renditio
     return TEGradientPasteboardType;
 }
 
+- (BOOL)readFromPasteboardItem:(NSPasteboardItem *)item {
+    if ([item availableTypeFromArray:@[ TEGradientPasteboardType ]] != nil) {
+        
+        
+        return YES;
+    }
+    
+    return NO;
+}
 
 @end

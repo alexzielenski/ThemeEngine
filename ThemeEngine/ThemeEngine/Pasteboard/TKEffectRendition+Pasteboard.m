@@ -19,7 +19,7 @@ NSString *const TEEffectPasteboardType = @"com.alexzielenski.themekit.rendition.
 
 - (id)pasteboardPropertyListForType:(NSString *)type {
     if ([type isEqualToString:TEEffectPasteboardType]) {
-        return [self.effectPreset pasteboardPropertyListForType:TKEffectPresetPasteboardType];
+        return [self.effectPreset pasteboardPropertyListForType:TKEffectPresetPBoardType];
     }
     
     return [super pasteboardPropertyListForType:type];
@@ -28,7 +28,7 @@ NSString *const TEEffectPasteboardType = @"com.alexzielenski.themekit.rendition.
 - (BOOL)readFromPasteboardItem:(NSPasteboardItem *)item {
     if ([[item availableTypeFromArray:@[ TEEffectPasteboardType ]] isEqualToString:TEEffectPasteboardType]) {
         TKEffectPreset *preset = [[TKEffectPreset alloc] initWithPasteboardPropertyList:[item propertyListForType:TEEffectPasteboardType]
-                                                                                 ofType:TKEffectPresetPasteboardType];
+                                                                                 ofType:TKEffectPresetPBoardType];
         if (preset) {
             self.effectPreset = preset;
             return YES;

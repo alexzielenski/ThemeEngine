@@ -8,7 +8,7 @@
 
 #import <ThemeKit/ThemeKit.h>
 
-extern NSString *const TKEffectPresetPasteboardType;
+extern NSString *const TKEffectPresetPBoardType;
 
 @interface TKEffectPreset (Pasteboard) <NSPasteboardReading, NSPasteboardWriting>
 

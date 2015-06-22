@@ -12,22 +12,22 @@
 static NSString *const kTypeKey       = @"Type";
 static NSString *const kParametersKey = @"Parameters";
 
-NSString *const TKEffectPresetPasteboardType = @"com.alexzielenski.themekit.models.effectpreset";
+NSString *const TKEffectPresetPBoardType = @"com.alexzielenski.themekit.model.effectpreset";
 
 @implementation TKEffectPreset (Pasteboard)
 
 #pragma mark - NSPasteboardReading
 
 + (instancetype)effectWrapperFromPasteboard:(NSPasteboard *)pasteboard {
-    if ([pasteboard canReadItemWithDataConformingToTypes:@[ TKEffectPresetPasteboardType ]])
-        return [[self alloc] initWithPasteboardPropertyList:[pasteboard propertyListForType:TKEffectPresetPasteboardType]
-                                                     ofType:TKEffectPresetPasteboardType];
+    if ([pasteboard canReadItemWithDataConformingToTypes:@[ TKEffectPresetPBoardType ]])
+        return [[self alloc] initWithPasteboardPropertyList:[pasteboard propertyListForType:TKEffectPresetPBoardType]
+                                                     ofType:TKEffectPresetPBoardType];
     return nil;
 }
 
 - (id)initWithPasteboardPropertyList:(NSArray *)propertyList
                               ofType:(NSString *)type {
-    if (![type isEqualToString:TKEffectPresetPasteboardType] ||
+    if (![type isEqualToString:TKEffectPresetPBoardType] ||
         !propertyList) {
         return nil;
     }
@@ -56,7 +56,7 @@ NSString *const TKEffectPresetPasteboardType = @"com.alexzielenski.themekit.mode
 }
 
 + (NSArray *)readableTypesForPasteboard:(NSPasteboard *)pasteboard {
-    return @[ TKEffectPresetPasteboardType ];
+    return @[ TKEffectPresetPBoardType ];
 }
 
 + (NSPasteboardReadingOptions)readingOptionsForType:(NSString *)type
@@ -67,7 +67,7 @@ NSString *const TKEffectPresetPasteboardType = @"com.alexzielenski.themekit.mode
 #pragma mark - NSPasteboardWriting
 
 - (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
-    return @[ TKEffectPresetPasteboardType ];
+    return @[ TKEffectPresetPBoardType ];
 }
 
 - (NSPasteboardWritingOptions)writingOptionsForType:(NSString *)type
@@ -76,6 +76,9 @@ NSString *const TKEffectPresetPasteboardType = @"com.alexzielenski.themekit.mode
 }
 
 - (id)pasteboardPropertyListForType:(NSString *)type {
+    if (![type isEqualToString:TKEffectPresetPBoardType])
+        return nil;
+    
     NSMutableArray *property = [NSMutableArray array];
     
     for (NSUInteger x = 0; x < self.effects.count; x++) {
