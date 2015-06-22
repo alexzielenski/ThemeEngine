@@ -420,7 +420,7 @@
                 </customView>
                 <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="123.33333587646484" horizontalPageScroll="10" verticalLineScroll="120" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pdx-KY-fpJ" customClass="RBLScrollView">
                     <rect key="frame" x="0.0" y="34" width="500" height="351"/>
-                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="rFo-oN-24K" customClass="RBLClipView">
+                    <clipView key="contentView" copiesOnScroll="NO" id="rFo-oN-24K" customClass="RBLClipView">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="351"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -447,7 +447,7 @@
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="c83-w5-G1C">
-                        <rect key="frame" x="484" y="0.0" width="16" height="351"/>
+                        <rect key="frame" x="485" y="0.0" width="15" height="351"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
