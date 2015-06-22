@@ -52,6 +52,8 @@
 		FABEAECC1B2F70F300B02805 /* TEInspectorDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = FABEAECA1B2F70F300B02805 /* TEInspectorDetailController.m */; };
 		FABEAECD1B2F70F300B02805 /* TEInspectorDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FABEAECB1B2F70F300B02805 /* TEInspectorDetailController.xib */; };
 		FABEAED01B2F714000B02805 /* TEAttributesInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FABEAECF1B2F714000B02805 /* TEAttributesInspector.m */; };
+		FAC2D3781B37B3FE0015BF7F /* TKEffectPreset+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2D3771B37B3FE0015BF7F /* TKEffectPreset+Pasteboard.m */; };
+		FAC2D37B1B37B8840015BF7F /* NSColor+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2D37A1B37B8840015BF7F /* NSColor+Pasteboard.m */; };
 		FACD44CC1B33A58900E75650 /* TEAnimationInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FACD44CB1B33A58900E75650 /* TEAnimationInspector.m */; };
 		FACD44CF1B33B08C00E75650 /* TEEffectsInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FACD44CE1B33B08C00E75650 /* TEEffectsInspector.m */; };
 		FAD3AAD01B3356F10006FA7F /* TEGradientInfoInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD3AACF1B3356F10006FA7F /* TEGradientInfoInspector.m */; };
@@ -158,6 +160,10 @@
 		FABEAECB1B2F70F300B02805 /* TEInspectorDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TEInspectorDetailController.xib; path = Controllers/TEInspectorDetailController.xib; sourceTree = "<group>"; };
 		FABEAECE1B2F714000B02805 /* TEAttributesInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEAttributesInspector.h; path = Controllers/Inspectors/TEAttributesInspector.h; sourceTree = "<group>"; };
 		FABEAECF1B2F714000B02805 /* TEAttributesInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEAttributesInspector.m; path = Controllers/Inspectors/TEAttributesInspector.m; sourceTree = "<group>"; };
+		FAC2D3761B37B3FE0015BF7F /* TKEffectPreset+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKEffectPreset+Pasteboard.h"; path = "Pasteboard/TKEffectPreset+Pasteboard.h"; sourceTree = "<group>"; };
+		FAC2D3771B37B3FE0015BF7F /* TKEffectPreset+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKEffectPreset+Pasteboard.m"; path = "Pasteboard/TKEffectPreset+Pasteboard.m"; sourceTree = "<group>"; };
+		FAC2D3791B37B8840015BF7F /* NSColor+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+Pasteboard.h"; path = "Pasteboard/NSColor+Pasteboard.h"; sourceTree = "<group>"; };
+		FAC2D37A1B37B8840015BF7F /* NSColor+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+Pasteboard.m"; path = "Pasteboard/NSColor+Pasteboard.m"; sourceTree = "<group>"; };
 		FACD44CA1B33A58900E75650 /* TEAnimationInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEAnimationInspector.h; path = Controllers/Inspectors/TEAnimationInspector.h; sourceTree = "<group>"; };
 		FACD44CB1B33A58900E75650 /* TEAnimationInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEAnimationInspector.m; path = Controllers/Inspectors/TEAnimationInspector.m; sourceTree = "<group>"; };
 		FACD44CD1B33B08C00E75650 /* TEEffectsInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEEffectsInspector.h; path = Controllers/Inspectors/TEEffectsInspector.h; sourceTree = "<group>"; };
@@ -209,6 +215,10 @@
 				FAB6EB811B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.m */,
 				FAB6EB831B375AC800D914F4 /* TKPDFRendition+Pasteboard.h */,
 				FAB6EB841B375AC800D914F4 /* TKPDFRendition+Pasteboard.m */,
+				FAC2D3761B37B3FE0015BF7F /* TKEffectPreset+Pasteboard.h */,
+				FAC2D3771B37B3FE0015BF7F /* TKEffectPreset+Pasteboard.m */,
+				FAC2D3791B37B8840015BF7F /* NSColor+Pasteboard.h */,
+				FAC2D37A1B37B8840015BF7F /* NSColor+Pasteboard.m */,
 			);
 			name = Pasteboard;
 			sourceTree = "<group>";
@@ -456,11 +466,13 @@
 				FAEA99891B36587D00EEA486 /* TEBackgroundColorView.m in Sources */,
 				FA7EA3E21B30CFC30014393A /* TEGradientInspector.m in Sources */,
 				FABEAECC1B2F70F300B02805 /* TEInspectorDetailController.m in Sources */,
+				FAC2D3781B37B3FE0015BF7F /* TKEffectPreset+Pasteboard.m in Sources */,
 				FA1E9C691B3346A40097AA41 /* TEBitmapInspector.m in Sources */,
 				FAA54F721B2E3C5900EA15F2 /* NSSplitView+Divider.m in Sources */,
 				FA4D11A91B3755E800175D14 /* TKRendition+Pasteboard.m in Sources */,
 				FA4D11A41B3683A800175D14 /* TKBitmapRendition+Pasteboard.m in Sources */,
 				FACD44CC1B33A58900E75650 /* TEAnimationInspector.m in Sources */,
+				FAC2D37B1B37B8840015BF7F /* NSColor+Pasteboard.m in Sources */,
 				FAA54F751B2E4DB700EA15F2 /* TEElementsController.m in Sources */,
 				FA606C111B2C1D2100F24960 /* main.m in Sources */,
 				FACD44CF1B33B08C00E75650 /* TEEffectsInspector.m in Sources */,

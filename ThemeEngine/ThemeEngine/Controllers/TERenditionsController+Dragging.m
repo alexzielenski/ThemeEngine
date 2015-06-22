@@ -21,10 +21,11 @@
         NSUInteger itemIndex = idx % count;
         TKRendition <TERenditionPasteboardItem> *rendition =
         [self.renditionsArrayController.arrangedObjects objectAtIndex:idx];
-        
         success &= [rendition readFromPasteboardItem:items[itemIndex]];
         *stop = !success;
     }];
+    
+//    [self.renditionBrowser reloadData];
     
     return success;
 }

@@ -9,7 +9,7 @@
 #import "TKRendition+Pasteboard.h"
 NSURL *TERenditionTemporaryPasteboardLocation;
 
-NSString *TERenditionHashPBType = @"com.alexzielenski.themeengine.rendiion.hash";
+NSString *TERenditionHashPBType = @"com.alexzielenski.themeengine.rendition.hash";
 
 @implementation TKRendition (Pasteboard)
 + (void)load {
@@ -78,6 +78,7 @@ NSString *TERenditionHashPBType = @"com.alexzielenski.themeengine.rendiion.hash"
 - (id)pasteboardPropertyListForType:(nonnull NSString *)type {
     if (IS(kUTTypeFileURL) || [type isEqualToString:@"com.apple.finder.node"]) {
         return [self.temporaryURL.absoluteURL pasteboardPropertyListForType:type];
+        
     } else if (IS(kUTTypePNG)) {
         [self.previewImage lockFocus];
         NSBitmapImageRep *snapshot = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0,
@@ -86,10 +87,13 @@ NSString *TERenditionHashPBType = @"com.alexzielenski.themeengine.rendiion.hash"
         [self.previewImage unlockFocus];
         
         return [snapshot representationUsingType:NSPNGFileType properties:@{}];
+        
     } else if (IS(kUTTypeTIFF) || IS(kUTTypeImage)) {
         return [self.previewImage TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1.0];
+        
     } else if ([type isEqualToString: TERenditionHashPBType]) {
         return self.renditionHash;
+        
     }
     
     return nil;
