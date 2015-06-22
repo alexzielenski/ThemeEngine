@@ -14,7 +14,7 @@
     static NSColor *pattern = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSImage *checkerImage = [NSImage imageWithSize:NSMakeSize(22, 22)
+        NSImage *checkerImage = [NSImage imageWithSize:NSMakeSize(11, 11)
                                                flipped:YES
                                         drawingHandler:^BOOL(NSRect dstRect) {
                                             CGFloat size = dstRect.size.width / 2;
