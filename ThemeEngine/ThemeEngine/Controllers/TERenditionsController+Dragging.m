@@ -29,6 +29,7 @@
                                                       TKRawDataRendition.pasteboardType,
                                                       TKPDFRendition.pasteboardType
                                                       ]];
+    self.renditionBrowser.allowsDroppingOnItems = YES;
 }
 
 
@@ -43,11 +44,36 @@
 #pragma mark - NSDraggingDestination
 
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender {
-    return NSDragOperationCopy;
+    // Don't allow users to drop in between cells
+    if (self.renditionBrowser.dropOperation != IKImageBrowserDropOn)
+        return NSDragOperationNone;
+    
+    // Ensure the drop target is valid
+    NSUInteger idx = self.renditionBrowser.indexAtLocationOfDroppedItem;
+    TKRendition <TERenditionPasteboardItem> *rendition = self.renditionsArrayController.arrangedObjects[idx];
+    if (rendition) {
+        NSPasteboard *pb = [sender draggingPasteboard];
+        NSArray *types = rendition.readableTypes;
+        NSString *type = [rendition.class pasteboardType];
+        
+        if ([sender draggingSource] != self.renditionBrowser) {
+            // Make sure the item we are hovering over can handle the pasteboard content
+            if ([pb availableTypeFromArray:types] != nil) {
+                return NSDragOperationCopy;
+            }
+        } else if ([pb availableTypeFromArray:@[ type ] ] != nil) {
+            // If this is a drop from within-app, make sure the type matches EXACTLY
+            return NSDragOperationCopy;
+        }
+
+    }
+    
+    
+    return NSDragOperationNone;
 }
 
 - (NSDragOperation)draggingUpdated:(id<NSDraggingInfo>)sender {
-    return NSDragOperationCopy;
+    return [self draggingEntered:sender];
 }
 
 - (BOOL)prepareForDragOperation:(id<NSDraggingInfo>)sender {

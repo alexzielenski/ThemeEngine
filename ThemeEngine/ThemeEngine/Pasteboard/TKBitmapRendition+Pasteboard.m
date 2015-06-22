@@ -17,6 +17,11 @@ NSString *const TEBitmapPasteboardType = @"com.alexzielenski.themekit.rendition.
     return TEBitmapPasteboardType;
 }
 
+- (NSArray *)readableTypes {
+    return [[super readableTypes] arrayByAddingObjectsFromArray:
+            [self writableTypesForPasteboard:[NSPasteboard generalPasteboard]]];
+}
+
 - (id)pasteboardPropertyListForType:(NSString *)type {
     if (IS(kUTTypePNG) || IS(kUTTypeImage)) {
         return [self.image representationUsingType:NSPNGFileType properties:@{}];

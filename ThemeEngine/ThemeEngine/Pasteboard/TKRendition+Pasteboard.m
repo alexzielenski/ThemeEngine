@@ -9,6 +9,8 @@
 #import "TKRendition+Pasteboard.h"
 NSURL *TERenditionTemporaryPasteboardLocation;
 
+NSString *TERenditionHashPBType = @"com.alexzielenski.themeengine.rendiion.hash";
+
 @implementation TKRendition (Pasteboard)
 + (void)load {
     TERenditionTemporaryPasteboardLocation = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@/Drags", NSTemporaryDirectory(), NSBundle.mainBundle.bundleIdentifier]
@@ -24,6 +26,10 @@ NSURL *TERenditionTemporaryPasteboardLocation;
 
 + (NSString *)pasteboardType {
     return nil;
+}
+
+- (NSArray *)readableTypes {
+    return @[ self.class.pasteboardType ];
 }
 
 - (NSString *)mainDataType {
@@ -56,6 +62,7 @@ NSURL *TERenditionTemporaryPasteboardLocation;
              (__bridge NSString *)kUTTypeFileURL,
              (__bridge NSString *)kUTTypeImage,
              (__bridge NSString *)kUTTypeTIFF,
+             TERenditionHashPBType,
              [self.class pasteboardType]
              ];
 }
@@ -77,6 +84,8 @@ NSURL *TERenditionTemporaryPasteboardLocation;
         return [snapshot representationUsingType:NSPNGFileType properties:@{}];
     } else if (IS(kUTTypeTIFF) || IS(kUTTypeImage)) {
         return [self.previewImage TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1.0];
+    } else if ([type isEqualToString: TERenditionHashPBType]) {
+        return self.renditionHash;
     }
     
     return nil;

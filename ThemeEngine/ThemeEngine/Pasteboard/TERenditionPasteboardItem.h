@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 extern NSURL *TERenditionTemporaryPasteboardLocation;
+extern NSString *TERenditionHashPBType;
 
 #define IS(TYPE) [type isEqualToString:(__bridge NSString *)TYPE]
 @protocol TERenditionPasteboardItem <NSObject, NSPasteboardWriting>
@@ -16,6 +17,8 @@ extern NSURL *TERenditionTemporaryPasteboardLocation;
 + (NSString *)pasteboardType;
 - (NSString *)mainDataType;
 - (NSString *)mainDataExtension;
+
+- (NSArray *)readableTypes;
 
 @optional
 - (NSURL *)temporaryURL;
