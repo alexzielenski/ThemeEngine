@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <ThemeKit/TKTypes.h>
 
-@interface TKLayoutInformation : NSObject
-@property (readonly, nonatomic) CoreThemeType layoutType;
-
+@interface TKLayoutInformation : NSObject <NSCoding>
 // Slices
 @property NSArray *sliceRects;
 

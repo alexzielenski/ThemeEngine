@@ -103,6 +103,44 @@
     return self;
 }
 
+- (id)initWithCoder:(nonnull NSCoder *)coder {
+    NSArray *colorStops       = [coder decodeObjectForKey:TKKey(colorStops)];
+    NSArray *colorMidpoitns   = [coder decodeObjectForKey:TKKey(colorMidpoints)];
+    NSArray *opacityStops     = [coder decodeObjectForKey:TKKey(opacityStops)];
+    NSArray *opacityMidpoints = [coder decodeObjectForKey:TKKey(opacityMidpoints)];
+    CGFloat angle             = [coder decodeDoubleForKey:TKKey(angle)];
+    CGFloat smoothing         = [coder decodeDoubleForKey:TKKey(smoothingCoefficient)];
+    CGFloat fill              = [coder decodeDoubleForKey:TKKey(fillCoefficient)];
+    BOOL dithered             = [coder decodeBoolForKey:TKKey(isDithered)];
+    BOOL radial               = [coder decodeBoolForKey:TKKey(isRadial)];
+    
+    if ((self = [self initWithColorStops:colorStops
+                            opacityStops:opacityStops
+                  colorMidPointLocations:colorMidpoitns
+                opacityMidPointLocations:opacityMidpoints
+                                  radial:radial
+                                   angle:angle
+                    smoothingCoefficient:smoothing
+                         fillCoefficient:fill])) {
+        self.dithered = dithered;
+    }
+    
+    return self;
+    
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+    [coder encodeObject:self.colorStops forKey:TKKey(colorStops)];
+    [coder encodeObject:self.colorMidpoints forKey:TKKey(colorMidpoints)];
+    [coder encodeObject:self.opacityStops forKey:TKKey(opacityStops)];
+    [coder encodeObject:self.opacityMidpoints forKey:TKKey(opacityMidpoints)];
+    [coder encodeDouble:self.angle forKey:TKKey(angle)];
+    [coder encodeBool:self.isRadial forKey:TKKey(isRadial)];
+    [coder encodeDouble:self.fillCoefficient forKey:TKKey(fillCoefficient)];
+    [coder encodeDouble:self.smoothingCoefficient forKey:TKKey(smoothingCoefficient)];
+    [coder encodeBool:self.isDithered forKey:TKKey(isDithered)];
+}
+
 - (void)resetShaders {
     CGFunctionRef *shader = &TKIvar(self.gradient, CGFunctionRef, colorShader);
     if (shader != NULL && *shader != NULL) {

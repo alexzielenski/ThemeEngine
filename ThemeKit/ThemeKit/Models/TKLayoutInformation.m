@@ -59,4 +59,20 @@
     return self;
 }
 
+- (instancetype)initWithCoder:(nonnull NSCoder *)coder {
+    if ((self = [self init])) {
+        [self setValue:[coder decodeObjectForKey:TKKey(imageSize)] forKey:TKKey(imageSize)];
+        [self setValue:[coder decodeObjectForKey:TKKey(sliceRects)] forKey:TKKey(sliceRects)];
+        [self setValue:[coder decodeObjectForKey:TKKey(edgeInsets)] forKey:TKKey(edgeInsets)];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+    [coder encodeObject:[NSValue valueWithSize:self.imageSize] forKey:TKKey(imageSize)];
+    [coder encodeObject:self.sliceRects forKey:TKKey(sliceRects)];
+    [coder encodeObject:[NSValue valueWithEdgeInsets:self.edgeInsets] forKey:TKKey(edgeInsets)];
+}
+
 @end

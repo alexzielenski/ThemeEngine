@@ -14,4 +14,5 @@
 
 @interface TERenditionsController (Dragging) <NSDraggingDestination>
 - (void)bootstrapDragAndDrop;
+- (BOOL)pasteFromPasteboard:(NSPasteboard *)pb toIndices:(NSIndexSet *)indices;
 @end

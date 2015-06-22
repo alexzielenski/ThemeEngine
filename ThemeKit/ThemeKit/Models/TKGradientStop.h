@@ -10,7 +10,7 @@
 @class TKGradientColorStop;
 @class TKGradientOpacityStop;
 
-@interface TKGradientStop : NSObject
+@interface TKGradientStop : NSObject <NSCoding>
 @property (readonly, getter=isColorStop) BOOL colorStop;
 @property (readonly, getter=isOpacityStop) BOOL opacityStop;
 @property (nonatomic, assign, getter=isDoubleStop) BOOL doubleStop;

@@ -189,6 +189,26 @@
     return self;
 }
 
+- (id)initWithCoder:(nonnull NSCoder *)coder {
+    if ((self = [self init])) {
+        [self setValue:[coder decodeObjectForKey:TKKey(color)] forKey:TKKey(color)];
+        [self setValue:[coder decodeObjectForKey:TKKey(leadOutColor)] forKey:TKKey(leadOutColor)];
+        [self setValue:[coder decodeObjectForKey:TKKey(leadOutOpacity)] forKey:TKKey(leadOutOpacity)];
+        [self setValue:[coder decodeObjectForKey:TKKey(opacity)] forKey:TKKey(opacity)];
+        [self setValue:[coder decodeObjectForKey:TKKey(location)] forKey:TKKey(location)];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+    [coder encodeObject:self.color forKey:TKKey(color)];
+    [coder encodeObject:self.leadOutColor forKey:TKKey(leadOutColor)];
+    [coder encodeObject:@(self.leadOutOpacity) forKey:TKKey(leadOutOpacity)];
+    [coder encodeObject:@(self.opacity) forKey:TKKey(opacity)];
+    [coder encodeObject:@(self.location) forKey:TKKey(location)];
+}
+
 + (TKGradientColorStop *)colorStopWithLocation:(CGFloat)location color:(NSColor *)color {
     TKGradientColorStop *stop = [[TKGradientColorStop alloc] init];
     stop.color = color;

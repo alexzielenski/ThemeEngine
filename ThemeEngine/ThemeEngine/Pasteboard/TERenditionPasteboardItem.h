@@ -19,6 +19,7 @@ extern NSString *TERenditionHashPBType;
 - (NSString *)mainDataExtension;
 
 - (NSArray *)readableTypes;
+- (BOOL)readFromPasteboardItem:(NSPasteboardItem *)item;
 
 @optional
 - (NSURL *)temporaryURL;

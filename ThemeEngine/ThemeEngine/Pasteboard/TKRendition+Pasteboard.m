@@ -28,6 +28,10 @@ NSString *TERenditionHashPBType = @"com.alexzielenski.themeengine.rendiion.hash"
     return nil;
 }
 
+- (BOOL)readFromPasteboardItem:(NSPasteboardItem *)item {
+    return NO;
+}
+
 - (NSArray *)readableTypes {
     return @[ self.class.pasteboardType ];
 }

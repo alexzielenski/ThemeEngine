@@ -22,7 +22,8 @@ NSString *const TERawDataPasteboardType = @"com.alexzielenski.themekit.rendition
 - (NSArray *)readableTypes {
     return [[super readableTypes] arrayByAddingObjectsFromArray:@[
                                                                   self.mainDataType,
-                                                                  (__bridge NSString *)kUTTypeFileURL
+                                                                  (__bridge NSString *)kUTTypeFileURL,
+                                                                  (__bridge NSString *)kUTTypeURL
                                                                   ]];
 }
 

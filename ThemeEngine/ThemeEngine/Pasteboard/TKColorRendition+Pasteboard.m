@@ -15,8 +15,23 @@ NSString *const TEColorPasteboardType = @"com.alexzielenski.themekit.rendition.c
     return TEColorPasteboardType;
 }
 
+- (NSArray *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
+    return [[super writableTypesForPasteboard:pasteboard] arrayByAddingObjectsFromArray:
+  @[
+    NSPasteboardTypeColor
+    ]];
+}
+
+- (NSArray *)readableTypes {
+    return [[super readableTypes] arrayByAddingObjectsFromArray:
+  @[
+    NSPasteboardTypeColor
+    ]];
+}
+
 - (id)pasteboardPropertyListForType:(nonnull NSString *)type {
-    if ([type isEqualToString:TEColorPasteboardType]) {
+    if ([type isEqualToString:TEColorPasteboardType] ||
+        [type isEqualToString:NSPasteboardTypeColor]) {
         // For colors we simply take our HSB and put it in a dict
         return [self.color pasteboardPropertyListForType:NSPasteboardTypeColor];
     }
