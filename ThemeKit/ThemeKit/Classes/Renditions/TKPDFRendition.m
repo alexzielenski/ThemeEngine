@@ -37,6 +37,7 @@ static const void *TKPDFRenditionRawDataChangedContext = &TKPDFRenditionRawDataC
         self._previewImage = [[NSImage alloc] init];
         [self._previewImage addRepresentation:self.pdf];
         
+        
     } else {
         [super computePreviewImageIfNecessary];
     }

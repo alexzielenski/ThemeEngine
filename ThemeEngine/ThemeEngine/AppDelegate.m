@@ -12,6 +12,11 @@
 
 @end
 
+// Prefs:
+// 1. Draw Checkers
+// 2. Humanize Names (Experimental)
+// 3. Always hide inspectors
+
 @implementation AppDelegate
 @dynamic darkMode;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {

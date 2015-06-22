@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.inspectorView.canDrawSubviewsIntoLayer = YES;
+    self.inspectorView.canDrawSubviewsIntoLayer = NO;
 }
 
 - (NSStackViewVisibilityPriority)visibilityPriorityForInspectedObjects:(NSArray *)objects {

@@ -41,11 +41,11 @@
                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="DUD-Lk-Wi4">
                     <rect key="frame" x="0.0" y="0.0" width="394" height="533"/>
                     <subviews>
-                        <stackView distribution="fillProportionally" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="1000" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e0q-D1-uAY">
+                        <stackView distribution="fill" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="e0q-D1-uAY">
                             <rect key="frame" x="8" y="316" width="81" height="217"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r7T-SM-gl0">
-                                    <rect key="frame" x="-2" y="200" width="85" height="17"/>
+                                    <rect key="frame" x="45" y="200" width="38" height="17"/>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Type:" id="Iyz-7L-mQ1">
                                         <font key="font" metaFont="system"/>
@@ -54,7 +54,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BhZ-eC-3Ck">
-                                    <rect key="frame" x="-2" y="175" width="85" height="17"/>
+                                    <rect key="frame" x="43" y="175" width="40" height="17"/>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="State:" id="sPR-q8-8dr">
                                         <font key="font" metaFont="system"/>
@@ -63,7 +63,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w47-Ol-MGe">
-                                    <rect key="frame" x="-2" y="150" width="85" height="17"/>
+                                    <rect key="frame" x="42" y="150" width="41" height="17"/>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Scale:" id="yGh-AG-vCg">
                                         <font key="font" metaFont="system"/>
@@ -72,7 +72,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QE2-71-QKw">
-                                    <rect key="frame" x="-2" y="125" width="85" height="17"/>
+                                    <rect key="frame" x="42" y="125" width="41" height="17"/>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Layer:" id="YfA-L2-bov">
                                         <font key="font" metaFont="system"/>
@@ -81,7 +81,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1v6-3C-We3">
-                                    <rect key="frame" x="-2" y="100" width="85" height="17"/>
+                                    <rect key="frame" x="41" y="100" width="42" height="17"/>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Idiom:" id="C2H-6D-nHK">
                                         <font key="font" metaFont="system"/>
@@ -90,7 +90,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fey-5F-91J">
-                                    <rect key="frame" x="-2" y="75" width="85" height="17"/>
+                                    <rect key="frame" x="49" y="75" width="34" height="17"/>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Size:" id="c3Z-d4-dUl">
                                         <font key="font" metaFont="system"/>
@@ -99,7 +99,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kJX-0V-CNu">
-                                    <rect key="frame" x="-2" y="50" width="85" height="17"/>
+                                    <rect key="frame" x="41" y="50" width="42" height="17"/>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Value:" id="uXf-Qi-ydg">
                                         <font key="font" metaFont="system"/>
@@ -117,7 +117,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bbi-9M-NXw">
-                                    <rect key="frame" x="-2" y="0.0" width="85" height="17"/>
+                                    <rect key="frame" x="20" y="0.0" width="63" height="17"/>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Direction:" id="X8H-4b-Zeg">
                                         <font key="font" metaFont="system"/>
@@ -127,6 +127,9 @@
                                 </textField>
                             </subviews>
                             <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="81" id="DXt-Sm-fyl"/>
+                            </constraints>
                             <visibilityPriorities>
                                 <integer value="1000"/>
                                 <integer value="1000"/>
@@ -150,7 +153,7 @@
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
-                        <stackView distribution="fillEqually" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="1" verticalStackHuggingPriority="749" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yfw-r3-yN8">
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="1" verticalStackHuggingPriority="250" horizontalHuggingPriority="248" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yfw-r3-yN8">
                             <rect key="frame" x="97" y="316" width="281" height="217"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tqm-PO-KkY">
@@ -378,7 +381,7 @@
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="XkK-dO-3YI">
-                        <rect key="frame" x="215" y="0.0" width="15" height="314"/>
+                        <rect key="frame" x="214" y="0.0" width="16" height="314"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
@@ -749,14 +752,14 @@
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="SRM-cL-h9k" userLabel="Bitmap Info">
             <rect key="frame" x="0.0" y="0.0" width="323" height="115"/>
             <subviews>
-                <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="1" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="2ow-B1-tnv">
+                <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="2ow-B1-tnv">
                     <rect key="frame" x="0.0" y="0.0" width="323" height="115"/>
                     <subviews>
-                        <stackView distribution="fillEqually" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="751" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IW6-68-M7Y">
+                        <stackView distribution="fillEqually" orientation="vertical" alignment="trailing" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="IW6-68-M7Y">
                             <rect key="frame" x="8" y="23" width="77" height="92"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x83-Zr-lcw">
-                                    <rect key="frame" x="-2" y="75" width="81" height="17"/>
+                                    <rect key="frame" x="16" y="75" width="63" height="17"/>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="UTI Type:" id="rzL-Mo-776">
                                         <font key="font" metaFont="system"/>
@@ -765,7 +768,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xJo-8T-rII">
-                                    <rect key="frame" x="-2" y="50" width="81" height="17"/>
+                                    <rect key="frame" x="3" y="50" width="76" height="17"/>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Orientation:" id="LMn-cg-a9h">
                                         <font key="font" metaFont="system"/>
@@ -783,7 +786,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xeW-VB-qI6">
-                                    <rect key="frame" x="-2" y="0.0" width="81" height="17"/>
+                                    <rect key="frame" x="24" y="0.0" width="55" height="17"/>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Opacity:" id="y6p-2X-46x">
                                         <font key="font" metaFont="system"/>
@@ -793,6 +796,9 @@
                                 </textField>
                             </subviews>
                             <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="77" id="wvx-Gf-473"/>
+                            </constraints>
                             <visibilityPriorities>
                                 <integer value="1000"/>
                                 <integer value="1000"/>
@@ -806,7 +812,7 @@
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
-                        <stackView distribution="fillEqually" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="750" verticalStackHuggingPriority="250" horizontalHuggingPriority="248" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iXZ-Sj-K1G">
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="750" verticalStackHuggingPriority="250" horizontalHuggingPriority="248" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iXZ-Sj-K1G">
                             <rect key="frame" x="93" y="20" width="214" height="95"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M4J-Dh-clS">
@@ -1956,7 +1962,7 @@
                 <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="Djd-sW-m7F">
                     <rect key="frame" x="20" y="20" width="166" height="145"/>
                     <subviews>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="eid-Ko-ubg" userLabel="Slice Control">
+                        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eid-Ko-ubg" userLabel="Slice Control">
                             <rect key="frame" x="0.0" y="120" width="165" height="17"/>
                             <subviews>
                                 <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dh2-9T-4BK">
@@ -2000,7 +2006,7 @@
                             </constraints>
                             <animations/>
                         </customView>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="ANm-dp-VbX" userLabel="Left" customClass="TEVariableStackViewItem">
+                        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ANm-dp-VbX" userLabel="Left" customClass="TEVariableStackViewItem">
                             <rect key="frame" x="0.0" y="90" width="156" height="22"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h50-rn-eYn">
@@ -2056,7 +2062,7 @@
                                 </binding>
                             </connections>
                         </customView>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="3os-fy-kMA" userLabel="Top" customClass="TEVariableStackViewItem">
+                        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3os-fy-kMA" userLabel="Top" customClass="TEVariableStackViewItem">
                             <rect key="frame" x="0.0" y="60" width="156" height="22"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="haD-dE-AR5">
@@ -2112,7 +2118,7 @@
                                 </binding>
                             </connections>
                         </customView>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Xl4-YB-hJo" userLabel="Right" customClass="TEVariableStackViewItem">
+                        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xl4-YB-hJo" userLabel="Right" customClass="TEVariableStackViewItem">
                             <rect key="frame" x="0.0" y="30" width="156" height="22"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iXF-Ke-EXq">
@@ -2168,7 +2174,7 @@
                                 </binding>
                             </connections>
                         </customView>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="HX7-xQ-NXR" userLabel="Bottom" customClass="TEVariableStackViewItem">
+                        <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HX7-xQ-NXR" userLabel="Bottom" customClass="TEVariableStackViewItem">
                             <rect key="frame" x="0.0" y="0.0" width="156" height="22"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dJK-a8-Elp">
@@ -2356,7 +2362,7 @@
                                 <animations/>
                             </scroller>
                             <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="2Xc-SO-e4z">
-                                <rect key="frame" x="221" y="1" width="16" height="139"/>
+                                <rect key="frame" x="222" y="1" width="15" height="139"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <animations/>
                             </scroller>
