@@ -10,7 +10,6 @@
 #import "TERenditionPasteboardItem.h"
 #import "TKRendition+Pasteboard.h"
 
-extern NSString *const TEGradientPasteboardType;
 @interface TKGradientRendition (Pasteboard) <TERenditionPasteboardItem>
 
 @end

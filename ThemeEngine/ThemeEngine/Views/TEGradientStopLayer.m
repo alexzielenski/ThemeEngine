@@ -46,6 +46,7 @@ static void *kTEStopDirtyContext;
     // Redraw when any of these properties change
     [self addObserver:self forKeyPath:@"gradientStop" options:0 context:&kTEStopDirtyContext];
     [self addObserver:self forKeyPath:@"gradientStop.color" options:0 context:&kTEStopDirtyContext];
+    [self addObserver:self forKeyPath:@"gradientStop.isDoubleStop" options:0 context:&kTEStopDirtyContext];
     [self addObserver:self forKeyPath:@"gradientStop.leadOutColor" options:0 context:&kTEStopDirtyContext];
     [self addObserver:self forKeyPath:@"gradientStop.opacity" options:0 context:&kTEStopDirtyContext];
     [self addObserver:self forKeyPath:@"gradientStop.leadOutOpacity" options:0 context:&kTEStopDirtyContext];
@@ -60,6 +61,7 @@ static void *kTEStopDirtyContext;
     [self removeObserver:self forKeyPath:@"gradientStop.opacity"];
     [self removeObserver:self forKeyPath:@"gradientStop.leadOutOpacity"];
     [self removeObserver:self forKeyPath:@"gradientStop.leadOutColor"];
+    [self removeObserver:self forKeyPath:@"gradientStop.isDoubleStop"];
     [self removeObserver:self forKeyPath:@"selected"];
 }
 

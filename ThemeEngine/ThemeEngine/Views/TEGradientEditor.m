@@ -74,9 +74,7 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
 
 - (void)noteStopChanged:(TKGradientStop *)stop {
     [self setNeedsLayout:YES];
-    self.gradient.colorMidpoints = [self.colorMidpointStopLayers valueForKeyPath:@"gradientStop.location"];
-    self.gradient.opacityMidpoints = [self.opacityMidpointStopLayers valueForKeyPath:@"gradientStop.location"];
-    
+
     [self.gradientLayer setNeedsLayout];
     [self.gradientLayer setNeedsDisplay];
 }
@@ -133,6 +131,7 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
         [self layerForStop:self.selectedStop].selected = YES;
         
     } else if (context == &kTEGradientEditorLayoutContext) {
+        self.selectedStop = nil;
         [self _repositionStops];
         
     }
@@ -153,7 +152,8 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
 }
 
 - (void)_synchronizeMidpoints {
-
+    self.gradient.colorMidpoints = [self.colorMidpointStopLayers valueForKeyPath:@"gradientStop.location"];
+    self.gradient.opacityMidpoints = [self.opacityMidpointStopLayers valueForKeyPath:@"gradientStop.location"];
 }
 
 - (void)_repositionStops {
@@ -460,6 +460,8 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
             // otherwise drag anywhere
             self.draggedLayer.gradientStop.location = MAX(MIN(viewPoint.x / self.bounds.size.width, 1), 0);
         }
+        
+        [self _synchronizeMidpoints];
     }
 }
 
@@ -483,6 +485,8 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
         [NSCursor setHiddenUntilMouseMoves:YES];
         
     }
+    
+    [self _synchronizeMidpoints];
     self.draggedLayer = nil;
     self.beforeLayer = nil;
     self.afterLayer = nil;

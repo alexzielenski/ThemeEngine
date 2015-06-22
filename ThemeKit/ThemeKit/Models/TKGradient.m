@@ -64,7 +64,9 @@
                                                                        colorSpace:[[NSColorSpace sRGBColorSpace] CGColorSpace]];
     
     if ((self = [self initWithCUIGradient:grad angle:angle style:radial ? CUIGradientStyleRadial : CUIGradientStyleLinear])) {
-        
+        // reinforce this value
+        // it doesnt seem to stick for some reason
+        self.opacityMidpoints = opacityMidPointLocations;
     }
     
     return self;

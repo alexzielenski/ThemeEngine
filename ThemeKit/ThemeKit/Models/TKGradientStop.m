@@ -35,11 +35,13 @@
     return self;
 }
 
+- (BOOL)isDoubleStop {
+    return [self.backingStop isKindOfClass:[TKClass(CUIPSDGradientDoubleOpacityStop) class]];
+}
+
 - (void)setDoubleStop:(BOOL)doubleStop {
-    if (_doubleStop == doubleStop)
+    if (self.isDoubleStop == doubleStop)
         return;
-    
-    _doubleStop = doubleStop;
 
     CUIPSDGradientStop *newBacking = nil;
     if (doubleStop) {
@@ -101,11 +103,14 @@
     return self;
 }
 
+- (BOOL)isDoubleStop {
+    return [self.backingStop isKindOfClass:[TKClass(CUIPSDGradientDoubleColorStop) class]];
+}
+
 - (void)setDoubleStop:(BOOL)doubleStop {
-    if (_doubleStop == doubleStop)
+    if (self.isDoubleStop == doubleStop)
         return;
-    
-    _doubleStop = doubleStop;
+
     CUIPSDGradientStop *newBacking = nil;
     if (doubleStop) {
         newBacking = [TKClass(CUIPSDGradientDoubleColorStop)

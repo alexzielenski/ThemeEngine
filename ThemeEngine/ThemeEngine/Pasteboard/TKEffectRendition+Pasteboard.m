@@ -9,16 +9,15 @@
 #import "TKEffectRendition+Pasteboard.h"
 #import "TKEffectPreset+Pasteboard.h"
 
-NSString *const TEEffectPasteboardType = @"com.alexzielenski.themekit.rendition.effect";
 
 @implementation TKEffectRendition (Pasteboard)
 
 + (NSString *)pasteboardType {
-    return TEEffectPasteboardType;
+    return TKEffectPresetPBoardType;
 }
 
 - (id)pasteboardPropertyListForType:(NSString *)type {
-    if ([type isEqualToString:TEEffectPasteboardType]) {
+    if ([type isEqualToString:TKEffectPresetPBoardType]) {
         return [self.effectPreset pasteboardPropertyListForType:TKEffectPresetPBoardType];
     }
     
@@ -26,8 +25,8 @@ NSString *const TEEffectPasteboardType = @"com.alexzielenski.themekit.rendition.
 }
 
 - (BOOL)readFromPasteboardItem:(NSPasteboardItem *)item {
-    if ([[item availableTypeFromArray:@[ TEEffectPasteboardType ]] isEqualToString:TEEffectPasteboardType]) {
-        TKEffectPreset *preset = [[TKEffectPreset alloc] initWithPasteboardPropertyList:[item propertyListForType:TEEffectPasteboardType]
+    if ([[item availableTypeFromArray:@[ TKEffectPresetPBoardType ]] isEqualToString:TKEffectPresetPBoardType]) {
+        TKEffectPreset *preset = [[TKEffectPreset alloc] initWithPasteboardPropertyList:[item propertyListForType:TKEffectPresetPBoardType]
                                                                                  ofType:TKEffectPresetPBoardType];
         if (preset) {
             self.effectPreset = preset;
