@@ -137,7 +137,7 @@ static const void *TKModelObjectCollectionContext = &TKModelObjectCollectionCont
         
         // Register undo
         [[self.undoManager prepareWithInvocationTarget:object] setValue:value
-                                                           forKeyPath:keyPath];
+                                                             forKeyPath:keyPath];
         
         // Register the action name
         if (!self.undoManager.isUndoing) {

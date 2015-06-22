@@ -282,6 +282,15 @@
     if ([key isEqualToString:TKKey(location)]) {
         self.location = 0;
         return;
+    } else if ([key isEqualToString:TKKey(isDoubleStop)] || [key isEqualToString:@"doubleStop"]) {
+        self.doubleStop = NO;
+        return;
+    } else if ([key isEqualToString:TKKey(opacity)]) {
+        self.opacity = 0.0;
+        return;
+    } else if ([key isEqualToString:TKKey(leadOutOpacity)]) {
+        self.opacity = 0.0;
+        return;
     }
     
     [super setNilValueForKey:key];

@@ -47,11 +47,31 @@
         TKEffectProperties = @{
                                TKKey(utiType): @"Change UTI",
                                TKKey(effectPreset): @"Change Effect Preset",
-                               @"effectPreset.effects": @"Change Effects"
+                               @"effectPreset.scaleFactor": @"Change Scale Factor"
                                };
     });
     
     return TKEffectProperties;
+}
+
++ (NSDictionary<NSString *, NSDictionary *> *)collectionProperties {
+    static NSDictionary *collectionProperties = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        collectionProperties = @{ @"effectPreset.effects": @[ @"Effects", @(TKCollectionTypeArray), @{
+                                                                  TKKey(colorValue): @"Change Effect Color",
+                                                                  TKKey(color2Value): @"Change Effect Color 2",
+                                                                  TKKey(opacityValue): @"Change Effect Opacity",
+                                                                  TKKey(opacity2Value): @"Change Effect Opacity 2",
+                                                                  TKKey(blurRadiusValue): @"Change Effect Blur Radius",
+                                                                  TKKey(offsetValue): @"Change Effect Offset",
+                                                                  TKKey(angleValue): @"Change Effect Angle",
+                                                                  TKKey(softenValue): @"Change Effect Softness",
+                                                                  TKKey(spreadValue): @"Change Effect Spread"
+                                                                  }],
+                                  };
+    });
+    return collectionProperties;
 }
 
 @end
