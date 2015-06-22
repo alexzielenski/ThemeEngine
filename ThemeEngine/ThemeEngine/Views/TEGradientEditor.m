@@ -416,12 +416,12 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
         // Add a new opacity stop
         if (viewPoint.y > NSMaxY(self.gradientLayer.frame)) {
             stop = [TKGradientOpacityStop opacityStopWithLocation:location opacity:color.alphaComponent];
-            [self.gradient addOpacityStopsObject:(TKGradientOpacityStop *)stop];
+            [self.gradient addOpacityStop:(TKGradientOpacityStop *)stop];
         
         // Add a new color stop
         } else if (viewPoint.y < NSMinY(self.gradientLayer.frame)) {
             stop = [TKGradientColorStop colorStopWithLocation:location color:color];
-            [self.gradient addColorStopsObject:(TKGradientColorStop *)stop];
+            [self.gradient addColorStop:(TKGradientColorStop *)stop];
         }
         
         [self _repositionStops];
@@ -469,9 +469,9 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
     if ([[NSCursor currentCursor] isEqual:[NSCursor disappearingItemCursor]]) {
         // remove it
         if (self.draggedLayer.gradientStop.isColorStop)
-            [self.gradient removeColorStopsObject:(TKGradientColorStop *)self.draggedLayer.gradientStop];
+            [self.gradient removeColorStop:(TKGradientColorStop *)self.draggedLayer.gradientStop];
         else
-            [self.gradient removeOpacityStopsObject:(TKGradientOpacityStop *)self.draggedLayer.gradientStop];
+            [self.gradient removeOpacityStop:(TKGradientOpacityStop *)self.draggedLayer.gradientStop];
         [self _removeStopLayer:self.draggedLayer];
         
         [self _repositionStops];

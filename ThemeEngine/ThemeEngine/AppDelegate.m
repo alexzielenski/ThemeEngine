@@ -16,6 +16,7 @@
 // 1. Draw Checkers
 // 2. Humanize Names (Experimental)
 // 3. Always hide inspectors
+// 4. Per-document undo context vs per asset
 
 @implementation AppDelegate
 @dynamic darkMode;

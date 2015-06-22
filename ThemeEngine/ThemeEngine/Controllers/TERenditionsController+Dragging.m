@@ -24,9 +24,7 @@
         success &= [rendition readFromPasteboardItem:items[itemIndex]];
         *stop = !success;
     }];
-    
-//    [self.renditionBrowser reloadData];
-    
+        
     return success;
 }
 
@@ -55,7 +53,6 @@
 
 
 - (NSUInteger)imageBrowser:(IKImageBrowserView *)aBrowser writeItemsAtIndexes:(NSIndexSet *)itemIndexes toPasteboard:(NSPasteboard *)pasteboard {
-    NSLog(@"copied!");
     
     [pasteboard clearContents];
     [pasteboard writeObjects:[self.renditionsArrayController.arrangedObjects objectsAtIndexes:itemIndexes]];

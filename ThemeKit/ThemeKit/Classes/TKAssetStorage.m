@@ -27,7 +27,7 @@ extern NSInteger kCoreThemeStepperElementID;
 @end
 
 @implementation TKAssetStorage
-
+@dynamic dirty;
 
 + (instancetype)assetStorageWithPath:(NSString *)path {
     return [[[self class] alloc] initWithPath:path];
@@ -42,6 +42,20 @@ extern NSInteger kCoreThemeStepperElementID;
     return self;
 }
 
+- (instancetype)init {
+    if ((self = [super init])) {
+        self.undoManager = [[NSUndoManager alloc] init];
+    }
+    
+    return self;
+}
+
+//- (BOOL)isDirty {
+//    
+//}
+
+#pragma mark - Enumeration
+
 - (void)_beginEnumeration {
     self.elementNameMap = [NSMutableDictionary<NSString *, TKElement *> dictionary];
     
@@ -49,8 +63,6 @@ extern NSInteger kCoreThemeStepperElementID;
     [self _enumerateColors];
     [self _enumerateFonts];
 }
-
-#pragma mark - Enumeration
 
 - (void)_enumerateAssets {
     self.elements = [NSMutableSet<TKElement *> set];
@@ -82,12 +94,11 @@ extern NSInteger kCoreThemeStepperElementID;
     
     while (!BOMTreeIteratorIsAtEnd(iterator)) {
         struct colorkey *key = BOMTreeIteratorKey(iterator);
-//        size_t key_size = BOMTreeIteratorKeySize(iterator);
-        
         struct colordef *value = BOMTreeIteratorValue(iterator);
-//        size_t value_size = BOMTreeIteratorValueSize(iterator);
         
-        [self addRendition:[TKRendition renditionWithColorKey:*key definition:*value]];
+        TKRendition *rendition = [TKRendition renditionWithColorKey:*key definition:*value];
+        
+        [self addRendition:rendition];
         
         BOMTreeIteratorNext(iterator);
     }

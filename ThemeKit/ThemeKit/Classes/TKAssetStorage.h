@@ -13,6 +13,8 @@
 // ThemeKit is for editing files ONLY, you may not create a new file with this
 @interface TKAssetStorage : NSObject
 @property (readonly, strong) NSSet<TKElement *> *elements;
+@property (strong) NSUndoManager *undoManager;
+@property (assign, getter=isDirty) BOOL dirty;
 
 + (instancetype)assetStorageWithPath:(NSString *)path;
 - (instancetype)initWithPath:(NSString *)path;

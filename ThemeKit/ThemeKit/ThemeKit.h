@@ -16,6 +16,8 @@ FOUNDATION_EXPORT const unsigned char ThemeKitVersionString[];
 
 #import <ThemeKit/TKAssetStorage.h>
 #import <ThemeKit/TKMutableAssetStorage.h>
+
+#import <ThemeKit/TKModelObject.h>
 #import <ThemeKit/TKRendition.h>
 #import <ThemeKit/TKTypes.h>
 

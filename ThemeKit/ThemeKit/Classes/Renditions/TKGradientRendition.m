@@ -13,6 +13,17 @@
 
 @implementation TKGradientRendition
 @dynamic gradient;
+
+- (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData key:(CUIRenditionKey *)key {
+    if ((self = [super _initWithCUIRendition:rendition csiData:csiData key:key])) {
+        self.gradient = [TKGradient gradientWithCUIGradient:rendition.gradient
+                                                      angle:rendition.gradientDrawingAngle
+                                                      style:rendition.gradientStyle];
+    }
+    
+    return self;
+}
+
 - (void)computePreviewImageIfNecessary {
     if (self._previewImage)
         return;
@@ -30,12 +41,6 @@
 }
 
 - (TKGradient *)gradient {
-    if (!_gradient) {
-        _gradient = [TKGradient gradientWithCUIGradient:self.rendition.gradient
-                                                  angle:self.rendition.gradientDrawingAngle
-                                                  style:self.rendition.gradientStyle];
-    }
-    
     return _gradient;
 }
 
@@ -47,6 +52,53 @@
     
     _gradient = gradient;
     self._previewImage = nil;
+}
+
+/*
+ @property (assign, getter=isRadial) BOOL radial;
+ @property (assign) CGFloat angle;
+ @property (assign, getter=isDithered) BOOL dithered;
+ @property (assign) CGFloat smoothingCoefficient;
+ @property (assign) CGFloat fillCoefficient;
+ @property (strong) NSColor *fillColor;
+ @property (assign) CGBlendMode blendMode;
+ */
+ 
+
++ (NSDictionary *)undoProperties {
+    static NSDictionary *TKGradientProperties = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        TKGradientProperties = @{
+                                TKKey(utiType): @"Change UTI",
+                                TKKey(gradient): @"Change Gradient",
+                                @"gradient.radial": @"Change Gradient Type",
+                                @"gradient.angle": @"Change Gradient Angle",
+                                @"gradient.dithered": @"Change Gradient Dithering",
+                                @"gradient.smoothingCoefficient": @"Change Gradient Smoothing",
+                                @"gradient.fillCoefficient": @"Change Gradient Fill Coefficient",
+                                @"gradient.fillColor": @"Change Gradient Fill Color",
+                                @"gradient.blendMode": @"Change Gradient Blend Mode",
+                                };
+    });
+    
+    return TKGradientProperties;
+}
+
++ (NSDictionary<NSString *, NSDictionary *> *)collectionProperties {
+    return @{ @"gradient.colorStops": @[ @"Color Stops", @(TKCollectionTypeArray), @{
+                                             @"color": @"Change Color",
+                                             @"location": @"Move Stop",
+                                             @"leadOutColor": @"Change LeadOut Color",
+                                             @"doubleStop": @"Make Double Stop",
+                                             }],
+              @"gradient.opacityStops": @[ @"Opacity Stops", @(TKCollectionTypeArray), @{
+                                               @"opacity": @"Change Opacity",
+                                               @"location": @"Change Location",
+                                               @"leadOutOpacity": @"Change LeadOut Opacity",
+                                               @"doubleStop": @"Make Double Stop",
+                                               }]
+              };
 }
 
 @end

@@ -54,8 +54,10 @@
     // -initWithCGImage: only bumps the retain count, it does not copy, so we're good
     if (!_image) {
         CGImageRef unsliced = self.rendition.unslicedImage;
-        if (unsliced != NULL)
-            self.image = [[NSBitmapImageRep alloc] initWithCGImage:unsliced];
+        if (unsliced != NULL) {
+            _image = [[NSBitmapImageRep alloc] initWithCGImage:unsliced];
+            self._previewImage = nil;
+        }
     }
     return _image;
 }
@@ -68,6 +70,26 @@
     
     _image = image;
     self._previewImage = nil;
+}
+
++ (NSDictionary *)undoProperties {
+    static NSDictionary *TKBitmapProperties = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        TKBitmapProperties = @{
+                               TKKey(utiType): @"Change UTI",
+                               TKKey(image): @"Change Image",
+                               TKKey(opacity): @"Change Opacity",
+                               TKKey(blendMode): @"Change Blend Mode",
+                               TKKey(exifOrientation): @"Change EXIF Orientation",
+                               TKKey(layoutInformation): @"Change Layout",
+                               @"layoutInformation.sliceRects": @"Change Slices",
+                               @"layoutInformation.edgeInsets": @"Change Metrics",
+                               @"layoutInformation.imageSize": @"Change Image Size"
+                               };
+    });
+    
+    return TKBitmapProperties;
 }
 
 @end

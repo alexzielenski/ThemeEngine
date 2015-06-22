@@ -8,6 +8,7 @@
 
 #import "TKRendition.h"
 #import "TKRendition+Private.h"
+#import "TKAssetStorage.h"
 
 #import "TKColorRendition.h"
 #import "TKGradientRendition.h"
@@ -17,9 +18,7 @@
 #import "TKPDFRendition.h"
 
 #import <CoreUI/Renditions/CUIRenditions.h>
-
 #import <objc/objc.h>
-
 #import <CommonCrypto/CommonDigest.h>
 
 NSString *md5(NSString *str) {
@@ -39,8 +38,6 @@ NSString *md5(NSString *str) {
 }
 
 @interface TKRendition ()
-@property (nonatomic, readwrite, assign) NSUInteger changeCount;
-@property (nonatomic, readwrite, assign) NSUInteger lastChangeCount;
 @property (copy) NSString *_renditionHash;
 @end
 
@@ -100,8 +97,12 @@ NSString *md5(NSString *str) {
     return nil;
 }
 
-- (BOOL)isDirty {
-    return self.lastChangeCount != self.changeCount;
+- (instancetype)init {
+    if ((self = [super init])) {
+        self.undoManager = nil;
+    }
+    
+    return self;
 }
 
 - (NSImage *)previewImage {
@@ -115,34 +116,26 @@ NSString *md5(NSString *str) {
     }
 }
 
+- (NSUndoManager *)undoManager {
+    return self.element.storage.undoManager;
+}
+
 #pragma mark - KVC
 
-- (void)updateChangeCount:(NSDocumentChangeType)change {
-    switch (change) {
-        case NSChangeRedone:
-        case NSChangeDone:
-            self.changeCount++;
-            break;
-        case NSChangeUndone:
-            self.changeCount = MAX(self.changeCount - 1, 0);
-            break;
-        case NSChangeReadOtherContents:
-        case NSChangeAutosaved:
-        case NSChangeCleared:
-            self.lastChangeCount = self.changeCount;
-            break;
-        default: {
-            break;
-        }
-    }
++ (NSDictionary<NSString *, NSString *> *)undoProperties {
+    static NSDictionary *TKRenditionProperties = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        TKRenditionProperties = @{
+                                  TKKey(utiType): @"Change UTI"
+                                  };
+    });
+    
+    return TKRenditionProperties;
 }
 
 + (NSSet *)keyPathsForValuesAffectingPreviewImage {
     return [NSSet setWithObject:TKKey(_previewImage)];
-}
-
-+ (NSSet *)keyPathsForValuesAffectingDirty {
-    return [NSSet setWithObjects:TKKey(changeCount), TKKey(lastChangeCount), nil];
 }
 
 #pragma mark - Properties

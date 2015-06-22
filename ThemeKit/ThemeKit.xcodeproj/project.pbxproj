@@ -15,6 +15,8 @@
 		FA57E1811B2FEC290032B765 /* TKEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = FA57E17F1B2FEC290032B765 /* TKEffect.m */; };
 		FA57E1831B2FEECA0032B765 /* TKEffect+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = FA57E1821B2FEECA0032B765 /* TKEffect+Private.h */; };
 		FA57E1851B2FEF440032B765 /* CUIShapeEffectPreset.h in Headers */ = {isa = PBXBuildFile; fileRef = FA57E1841B2FEF440032B765 /* CUIShapeEffectPreset.h */; };
+		FA59E4861B38402A00D03907 /* TKModelObject.h in Headers */ = {isa = PBXBuildFile; fileRef = FA59E4841B38402A00D03907 /* TKModelObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA59E4871B38402A00D03907 /* TKModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FA59E4851B38402A00D03907 /* TKModelObject.m */; };
 		FA606C2A1B2C1D5000F24960 /* CoreUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA606C291B2C1D5000F24960 /* CoreUI.framework */; };
 		FA606C311B2C1D9400F24960 /* CSIGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = FA606C2E1B2C1D9400F24960 /* CSIGenerator.h */; };
 		FA606C321B2C1D9400F24960 /* CUICommonAssetStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = FA606C2F1B2C1D9400F24960 /* CUICommonAssetStorage.h */; };
@@ -111,6 +113,8 @@
 		FA57E17F1B2FEC290032B765 /* TKEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKEffect.m; path = Models/TKEffect.m; sourceTree = "<group>"; };
 		FA57E1821B2FEECA0032B765 /* TKEffect+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKEffect+Private.h"; path = "Models/TKEffect+Private.h"; sourceTree = "<group>"; };
 		FA57E1841B2FEF440032B765 /* CUIShapeEffectPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CUIShapeEffectPreset.h; path = ThemeKit/CoreUI/Rendering/CUIShapeEffectPreset.h; sourceTree = SOURCE_ROOT; };
+		FA59E4841B38402A00D03907 /* TKModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TKModelObject.h; path = Models/TKModelObject.h; sourceTree = "<group>"; };
+		FA59E4851B38402A00D03907 /* TKModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKModelObject.m; path = Models/TKModelObject.m; sourceTree = "<group>"; };
 		FA606C291B2C1D5000F24960 /* CoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreUI.framework; path = ../../../../../../../System/Library/PrivateFrameworks/CoreUI.framework; sourceTree = "<group>"; };
 		FA606C2E1B2C1D9400F24960 /* CSIGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSIGenerator.h; sourceTree = "<group>"; };
 		FA606C2F1B2C1D9400F24960 /* CUICommonAssetStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUICommonAssetStorage.h; sourceTree = "<group>"; };
@@ -343,6 +347,8 @@
 				FA514C361B3471DC002CBF5A /* TKLayoutInformation.h */,
 				FA514C3B1B3471F3002CBF5A /* TKLayoutInformation+Private.h */,
 				FA514C371B3471DC002CBF5A /* TKLayoutInformation.m */,
+				FA59E4841B38402A00D03907 /* TKModelObject.h */,
+				FA59E4851B38402A00D03907 /* TKModelObject.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -438,6 +444,7 @@
 				FAA5C0871B2CD81B007DEBA1 /* CUIPSDGradientDoubleColorStop.h in Headers */,
 				FAA5C0791B2CD30E007DEBA1 /* CUIThemeGradient.h in Headers */,
 				FAA5C06B1B2CD094007DEBA1 /* _CUIPDFRendition.h in Headers */,
+				FA59E4861B38402A00D03907 /* TKModelObject.h in Headers */,
 				FAA5C0701B2CD094007DEBA1 /* _CUIThemePixelRendition.h in Headers */,
 				FAA5C06E1B2CD094007DEBA1 /* _CUIThemeEffectRendition.h in Headers */,
 				FA6E012B1B2FFB9800209DE2 /* CUIShapeEffectStack.h in Headers */,
@@ -568,6 +575,7 @@
 				FA606C771B2C9E5400F24960 /* NSColor+CoreUI.m in Sources */,
 				FAA5C05F1B2CCFB5007DEBA1 /* TKEffectRendition.m in Sources */,
 				FA606C371B2C1E1000F24960 /* TKAssetStorage.m in Sources */,
+				FA59E4871B38402A00D03907 /* TKModelObject.m in Sources */,
 				FA80CDFD1B309542005E5DD2 /* TKGradientStop.m in Sources */,
 				FA606C681B2C9BF200F24960 /* TKColorRendition.m in Sources */,
 			);

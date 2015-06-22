@@ -8,7 +8,6 @@
 
 #import "TEImageBrowserView.h"
 #import "TERenditionBrowserCell.h"
-#import <Opee/Opee.h>
 #import <objc/objc-auto.h>
 
 @interface IKImageBrowserGridGroup : NSObject

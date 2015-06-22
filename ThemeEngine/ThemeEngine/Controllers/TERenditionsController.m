@@ -62,7 +62,9 @@ static NSString *stringKeyForGroupTag(NSInteger tag) {
 @property (assign) BOOL groupCalculationDisabled;
 @end
 
-const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
+static const void *REEVALUATEGROUPS    = &REEVALUATEGROUPS;
+static const void *PREVIEWIMAGECHANGED = &PREVIEWIMAGECHANGED;
+
 @implementation TERenditionsController
 
 - (void)viewDidLoad {
@@ -95,6 +97,10 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
                                      forKeyPath:NSStringFromSelector(@selector(arrangedObjects))
                                         options:0
                                         context:&REEVALUATEGROUPS];
+    [self addObserver:self
+           forKeyPath:@"renditionsArrayController.arrangedObjects.previewImage"
+              options:0
+              context:&PREVIEWIMAGECHANGED];
     [self bootstrapDragAndDrop];
 }
 
@@ -108,6 +114,9 @@ const void *REEVALUATEGROUPS = &REEVALUATEGROUPS;
     if (context == &REEVALUATEGROUPS) {
         if (!self.groupCalculationDisabled)
             self.currentGroup = self.currentGroup;
+    } else if (context == &PREVIEWIMAGECHANGED) {
+        [self.renditionBrowser reloadData];
+        
     } else {
         [super observeValueForKeyPath:keyPath
                              ofObject:object

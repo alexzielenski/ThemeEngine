@@ -39,4 +39,17 @@
     }];
 }
 
++ (NSDictionary *)undoProperties {
+    static NSDictionary *TKColorProperties = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        TKColorProperties = @{
+                               TKKey(color): @"Change Color"
+                               };
+    });
+    
+    return TKColorProperties;
+}
+
+
 @end

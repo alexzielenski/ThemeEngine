@@ -8,18 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import <ThemeKit/TKTypes.h>
+#import <ThemeKit/TKModelObject.h>
 
 @class TKElement;
 // Partially Abstract Root class for all rendition types
-@interface TKRendition : NSObject
+@interface TKRendition : TKModelObject
 @property (nonatomic, readonly, copy) NSString *name;
 @property (nonatomic, readonly, weak) TKElement *element;
 @property (readonly) NSImage *previewImage;
 
-@property (nonatomic, readonly, assign) NSUInteger changeCount;
-@property (nonatomic, readonly, assign) NSUInteger lastChangeCount;
-
-@property (readonly, getter=isDirty) BOOL dirty;
 @property (nonatomic, readonly, getter=isAssetPack) BOOL assetPack;
 
 @property (copy) NSString *utiType;

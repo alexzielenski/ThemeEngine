@@ -29,7 +29,4 @@
 + (Class)renditionClassForCoreUIRendition:(CUIThemeRendition *)rendition;
 - (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData key:(CUIRenditionKey *)key;
 
-// Other
-- (void)updateChangeCount:(NSDocumentChangeType)change;
-
 @end

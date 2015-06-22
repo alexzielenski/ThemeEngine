@@ -18,6 +18,15 @@
 
 @implementation TKEffectRendition
 
+- (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData key:(CUIRenditionKey *)key {
+    if ((self = [super _initWithCUIRendition:rendition csiData:csiData key:key])) {
+        self.effectPreset = [TKEffectPreset effectPresetWithCUIShapeEffectPreset:rendition.effectPreset];
+
+    }
+    
+    return self;
+}
+
 - (void)computePreviewImageIfNecessary {
     if (self._previewImage)
         return;
@@ -26,17 +35,23 @@
     [self._previewImage addRepresentation:[self.effectPreset proccesedImage:[TKEffectPreset shapeImage]]];
 }
 
-- (TKEffectPreset *)effectPreset {
-    if (!_effectPreset) {
-        self.effectPreset = [TKEffectPreset effectPresetWithCUIShapeEffectPreset:self.rendition.effectPreset];
-    }
-    
-    return _effectPreset;
-}
-
 - (void)setEffectPreset:(TKEffectPreset *)effectPreset {
     _effectPreset = effectPreset;
     self._previewImage = nil;
+}
+
++ (NSDictionary *)undoProperties {
+    static NSDictionary *TKEffectProperties = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        TKEffectProperties = @{
+                               TKKey(utiType): @"Change UTI",
+                               TKKey(effectPreset): @"Change Effect Preset",
+                               @"effectPreset.effects": @"Change Effects"
+                               };
+    });
+    
+    return TKEffectProperties;
 }
 
 @end

@@ -79,7 +79,7 @@
 - (instancetype)initWithCUIGradient:(CUIThemeGradient *)gradient angle:(CGFloat)angle style:(CUIGradientStyle)style {
     if ((self = [self init])) {
         self.gradient  = gradient;
-        self.evaluator = TKIvar(self.gradient, CUIPSDGradientEvaluator *, gradientEvaluator);
+        self.evaluator = TKIvar(gradient, CUIPSDGradientEvaluator *, gradientEvaluator);
         self.angle     = angle;
         self.radial    = style == CUIGradientStyleRadial;
         
@@ -166,7 +166,7 @@
 
 #pragma mark - Stop Management
 
-- (void)addColorStopsObject:(TKGradientColorStop *)object {
+- (void)addColorStop:(TKGradientColorStop *)object {
     [self insertObject:object inColorStopsAtIndex:self.colorStops.count];
 }
 
@@ -176,7 +176,7 @@
     [self syncColorStops];
 }
 
-- (void)addColorMidpointsObject:(NSNumber *)object {
+- (void)addColorMidpoint:(NSNumber *)object {
     [self insertObject:object inOpacityMidpointsAtIndex:self.colorMidpoints.count];
 }
 
@@ -185,7 +185,7 @@
     [self syncColorStops];;
 }
 
-- (void)removeColorStopsObject:(TKGradientColorStop *)object {
+- (void)removeColorStop:(TKGradientColorStop *)object {
     [self removeObjectFromColorStopsAtIndex:[self.colorStops indexOfObject:object]];
 }
 
@@ -194,7 +194,7 @@
     [self syncColorStops];
 }
 
-- (void)removeColorMidpointsObject:(NSNumber *)object {
+- (void)removeColorMidpoint:(NSNumber *)object {
     [self removeObjectFromColorMidpointsAtIndex:[self.colorMidpoints indexOfObject:object]];
 }
 
@@ -203,7 +203,7 @@
     [self syncColorStops];
 }
 
-- (void)addOpacityStopsObject:(TKGradientOpacityStop *)object {
+- (void)addOpacityStop:(TKGradientOpacityStop *)object {
     [self insertObject:object inOpacityStopsAtIndex:self.opacityStops.count];
 }
 
@@ -212,7 +212,7 @@
     [self syncOpacityStops];
 }
 
-- (void)addOpacityMidpointsObject:(NSNumber *)object {
+- (void)addOpacityMidpoint:(NSNumber *)object {
     [self insertObject:object inOpacityMidpointsAtIndex:self.opacityMidpoints.count];
 }
 
@@ -221,7 +221,7 @@
     [self syncOpacityStops];
 }
 
-- (void)removeOpacityStopsObject:(TKGradientOpacityStop *)object {
+- (void)removeOpacityStop:(TKGradientOpacityStop *)object {
     [self removeObjectFromOpacityStopsAtIndex:[self.opacityStops indexOfObject:object]];
 }
 
@@ -231,7 +231,7 @@
 
 }
 
-- (void)removeOpacityMidpointsObject:(NSNumber *)object {
+- (void)removeOpacityMidpoint:(NSNumber *)object {
     [self removeObjectFromOpacityMidpointsAtIndex:[self.opacityMidpoints indexOfObject:object]];
 }
 

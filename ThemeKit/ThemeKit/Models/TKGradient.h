@@ -55,17 +55,17 @@
 
 - (NSColor *)interpolatedColorAtLocation:(CGFloat)location;
 
-- (void)addColorStopsObject:(TKGradientColorStop *)object;
-- (void)addColorMidpointsObject:(NSNumber *)object;
+- (void)addColorStop:(TKGradientColorStop *)object;
+- (void)addColorMidpoint:(NSNumber *)object;
 
-- (void)removeColorStopsObject:(TKGradientColorStop *)object;
-- (void)removeColorMidpointsObject:(NSNumber *)object;
+- (void)removeColorStop:(TKGradientColorStop *)object;
+- (void)removeColorMidpoint:(NSNumber *)object;
 
-- (void)addOpacityStopsObject:(TKGradientOpacityStop *)object;
-- (void)addOpacityMidpointsObject:(NSNumber *)object;
+- (void)addOpacityStop:(TKGradientOpacityStop *)object;
+- (void)addOpacityMidpoint:(NSNumber *)object;
 
-- (void)removeOpacityStopsObject:(TKGradientOpacityStop *)object;
-- (void)removeOpacityMidpointsObject:(NSNumber *)object;
+- (void)removeOpacityStop:(TKGradientOpacityStop *)object;
+- (void)removeOpacityMidpoint:(NSNumber *)object;
 
 // Purely for KVC compliance
 - (void)insertObject:(TKGradientColorStop *)object inColorStopsAtIndex:(NSUInteger)index;
