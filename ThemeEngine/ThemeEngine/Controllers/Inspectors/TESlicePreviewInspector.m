@@ -14,6 +14,8 @@
 @property (strong) TKLayoutInformation *layoutInformation;
 @end
 
+static const void *kTESlicePreviewSlicesUpdatedContext = &kTESlicePreviewSlicesUpdatedContext;
+
 @implementation TESlicePreviewInspector
 @dynamic canChangeBottomEdge, canChangeLeftEdge, canChangeRightEdge, canChangeTopEdge;
 @dynamic layoutInformation;
@@ -55,6 +57,21 @@
                          toObject:self
                       withKeyPath:@"layoutInformation.sliceRects"
                           options:@{ NSRaisesForNotApplicableKeysBindingOption: @(NO) }];
+        
+        [self.sliceImageView addObserver:self
+                              forKeyPath:@"sliceRects"
+                                 options:0
+                                 context:&kTESlicePreviewSlicesUpdatedContext];
+    }
+}
+
+- (void)dealloc {
+    [self.sliceImageView removeObserver:self forKeyPath:@"sliceRects" context:&kTESlicePreviewSlicesUpdatedContext];
+}
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
+    if (context == &kTESlicePreviewSlicesUpdatedContext) {
+        self.rendition.layoutInformation.sliceRects = self.sliceImageView.sliceRects;
     }
 }
 
