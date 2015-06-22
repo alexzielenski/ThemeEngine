@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FA030C7A1B35235B009471DF /* Opee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA030C791B35235B009471DF /* Opee.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FA092CED1B36822D0064DBC4 /* TERenditionsController+Dragging.m in Sources */ = {isa = PBXBuildFile; fileRef = FA092CEC1B36822D0064DBC4 /* TERenditionsController+Dragging.m */; };
 		FA1E9C691B3346A40097AA41 /* TEBitmapInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1E9C681B3346A40097AA41 /* TEBitmapInspector.m */; };
 		FA21F87D1B2E95710094202A /* TKRendition+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = FA21F87C1B2E95710094202A /* TKRendition+Filtering.m */; };
@@ -76,7 +75,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		FA030C791B35235B009471DF /* Opee.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Opee.framework; path = ../../../../../../../Library/Frameworks/Opee.framework; sourceTree = "<group>"; };
 		FA092CEB1B36822D0064DBC4 /* TERenditionsController+Dragging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TERenditionsController+Dragging.h"; path = "Controllers/TERenditionsController+Dragging.h"; sourceTree = "<group>"; };
 		FA092CEC1B36822D0064DBC4 /* TERenditionsController+Dragging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TERenditionsController+Dragging.m"; path = "Controllers/TERenditionsController+Dragging.m"; sourceTree = "<group>"; };
 		FA1E9C671B3346A40097AA41 /* TEBitmapInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEBitmapInspector.h; path = Controllers/Inspectors/TEBitmapInspector.h; sourceTree = "<group>"; };
@@ -181,7 +179,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA030C7A1B35235B009471DF /* Opee.framework in Frameworks */,
 				FA81475D1B2D95D100881F36 /* Quartz.framework in Frameworks */,
 				FA46BD371B2DA08100BA9B01 /* ThemeKit.framework in Frameworks */,
 			);
@@ -226,7 +223,6 @@
 		FA606C001B2C1D2000F24960 = {
 			isa = PBXGroup;
 			children = (
-				FA030C791B35235B009471DF /* Opee.framework */,
 				FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */,
 				FA81475C1B2D95D100881F36 /* Quartz.framework */,
 				FA606C2B1B2C1D5A00F24960 /* CoreUI.framework */,
