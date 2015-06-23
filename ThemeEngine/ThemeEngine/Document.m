@@ -98,11 +98,12 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
 
 - (BOOL)readFromURL:(nonnull NSURL *)url ofType:(nonnull NSString *)typeName error:(NSError * __nullable __autoreleasing * __nullable)outError {
     NSFileManager *manager = [NSFileManager defaultManager];
-    if (![manager isWritableFileAtPath:url.path]) {
-        //!TODO: Prompt to user to ask if we should move to a temporary location
-        //! or open just for viewing
-        return NO;
-    }
+//    if (![manager isWritableFileAtPath:url.path]) {
+//        //!TODO: Prompt to user to ask if we should move to a temporary location
+//        //! or open just for viewing
+//        return NO;
+//    }
+
     NSURL *temporary = [[NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryDocuments]
                         URLByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
     if (![[NSFileManager defaultManager] copyItemAtURL:url

@@ -33,9 +33,9 @@
     // Insert code here to tear down your application
 }
 
-//- (BOOL)applicationShouldOpenUntitledFile:(nonnull NSApplication *)sender {
-//    return NO;
-//}
+- (BOOL)applicationShouldOpenUntitledFile:(nonnull NSApplication *)sender {
+    return NO;
+}
 
 - (BOOL)darkMode {
     return [[[NSAppearance currentAppearance] name] isEqualToString:NSAppearanceNameVibrantDark];
