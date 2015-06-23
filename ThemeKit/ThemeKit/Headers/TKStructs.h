@@ -109,7 +109,7 @@ struct colorkey {
 };
 
 struct colordef {
-    unsigned int version;
+    unsigned int version; // excluded from filter?
     unsigned int reserved;
     struct rgbquad value;
 };

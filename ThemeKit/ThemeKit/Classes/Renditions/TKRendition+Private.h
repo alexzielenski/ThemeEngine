@@ -9,6 +9,7 @@
 #import "TKRendition.h"
 #import <CoreUI/CUIThemeRendition.h>
 #import <Cocoa/Cocoa.h>
+#import <CoreUI/CUIMutableCommonAssetStorage.h>
 
 @interface TKRendition ()
 @property (strong) CUIThemeRendition *rendition;
@@ -28,5 +29,8 @@
 + (instancetype)renditionWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData key:(CUIRenditionKey *)key;
 + (Class)renditionClassForCoreUIRendition:(CUIThemeRendition *)rendition;
 - (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData key:(CUIRenditionKey *)key;
+
+- (CUIMutableCommonAssetStorage *)cuiAssetStorage;
+- (NSData *)keyData;
 
 @end

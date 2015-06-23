@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSURL *TERenditionTemporaryPasteboardLocation;
 extern NSString *TERenditionHashPBType;
 
 #define IS(TYPE) [type isEqualToString:(__bridge NSString *)TYPE]

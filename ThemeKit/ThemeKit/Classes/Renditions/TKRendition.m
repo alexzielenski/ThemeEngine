@@ -8,7 +8,7 @@
 
 #import "TKRendition.h"
 #import "TKRendition+Private.h"
-#import "TKAssetStorage.h"
+#import "TKAssetStorage+Private.h"
 
 #import "TKColorRendition.h"
 #import "TKGradientRendition.h"
@@ -128,6 +128,10 @@ NSString *md5(NSString *str) {
     return self.element.storage.undoManager;
 }
 
+- (void)commitToStorage {
+    NSLog(@"called commitToStorage on abstract TKRendition class Contact the developer with this message if this happens. Backing rendition: %@", self.rendition);
+}
+
 #pragma mark - KVC
 
 + (NSDictionary<NSString *, NSString *> *)undoProperties {
@@ -147,6 +151,16 @@ NSString *md5(NSString *str) {
 }
 
 #pragma mark - Properties
+
+- (CUIMutableCommonAssetStorage *)cuiAssetStorage {
+    return (CUIMutableCommonAssetStorage *)self.element.storage.storage;
+}
+
+- (NSData *)keyData {
+    return TKConvertRenditionKeyToCARKey([NSData dataWithBytesNoCopy:(void *)self.renditionKey.keyList
+                                                              length:60 freeWhenDone:NO],
+                                         self.cuiAssetStorage);
+}
 
 - (CoreThemeValue)value {
     return self.renditionKey.themeValue;

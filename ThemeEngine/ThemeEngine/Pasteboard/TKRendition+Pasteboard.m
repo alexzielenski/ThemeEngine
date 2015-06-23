@@ -7,22 +7,11 @@
 //
 
 #import "TKRendition+Pasteboard.h"
-NSURL *TERenditionTemporaryPasteboardLocation;
+#import "NSURL+Paths.h"
 
 NSString *TERenditionHashPBType = @"com.alexzielenski.themeengine.rendition.hash";
 
 @implementation TKRendition (Pasteboard)
-+ (void)load {
-    TERenditionTemporaryPasteboardLocation = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@%@/Drags", NSTemporaryDirectory(), NSBundle.mainBundle.bundleIdentifier]
-                                                        isDirectory:YES];
-    
-    [[NSFileManager defaultManager] removeItemAtURL:TERenditionTemporaryPasteboardLocation
-                                              error:nil];
-    [[NSFileManager defaultManager] createDirectoryAtURL:TERenditionTemporaryPasteboardLocation
-                             withIntermediateDirectories:YES
-                                              attributes:nil
-                                                   error:nil];
-}
 
 + (NSString *)pasteboardType {
     return nil;
@@ -49,8 +38,10 @@ NSString *TERenditionHashPBType = @"com.alexzielenski.themeengine.rendition.hash
     NSString *sanitizedName = [[[self.name stringByReplacingOccurrencesOfString:@":" withString:@""]
                                stringByReplacingOccurrencesOfString:@"/" withString:@""] stringByDeletingPathExtension];
     
+    NSURL *location = [NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryDrags];
+    
     NSURL *url = [NSURL fileURLWithPath:[[NSString stringWithFormat:@"%@_%@_%lu", sanitizedName, self.renditionHash, self.changeCount] stringByAppendingPathExtension:self.mainDataExtension]
-                          relativeToURL:TERenditionTemporaryPasteboardLocation];
+                          relativeToURL:location];
         
     if (![[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
         NSData *pngData = [self pasteboardPropertyListForType:self.mainDataType];

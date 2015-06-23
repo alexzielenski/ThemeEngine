@@ -19,6 +19,7 @@
 		FA4D11AC1B37585400175D14 /* TKEffectRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D11AB1B37585400175D14 /* TKEffectRendition+Pasteboard.m */; };
 		FA514C321B346E86002CBF5A /* TESlicePreviewInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA514C311B346E86002CBF5A /* TESlicePreviewInspector.m */; };
 		FA514C351B346EDC002CBF5A /* TESliceImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA514C341B346EDC002CBF5A /* TESliceImageView.m */; };
+		FA55EC711B39EA6D001F3B4F /* NSURL+Paths.m in Sources */ = {isa = PBXBuildFile; fileRef = FA55EC701B39EA6D001F3B4F /* NSURL+Paths.m */; };
 		FA59C2C81B2E88E800EF027D /* TERenditionBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA59C2C71B2E88E800EF027D /* TERenditionBrowserCell.m */; };
 		FA59C2CB1B2E893F00EF027D /* TEImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA59C2CA1B2E893F00EF027D /* TEImageBrowserView.m */; };
 		FA606C0E1B2C1D2100F24960 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA606C0D1B2C1D2100F24960 /* AppDelegate.m */; };
@@ -99,6 +100,8 @@
 		FA514C311B346E86002CBF5A /* TESlicePreviewInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TESlicePreviewInspector.m; path = Controllers/Inspectors/TESlicePreviewInspector.m; sourceTree = "<group>"; };
 		FA514C331B346EDC002CBF5A /* TESliceImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TESliceImageView.h; path = Views/TESliceImageView.h; sourceTree = "<group>"; };
 		FA514C341B346EDC002CBF5A /* TESliceImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TESliceImageView.m; path = Views/TESliceImageView.m; sourceTree = "<group>"; };
+		FA55EC6F1B39EA6D001F3B4F /* NSURL+Paths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSURL+Paths.h"; path = "Categories/NSURL+Paths.h"; sourceTree = "<group>"; };
+		FA55EC701B39EA6D001F3B4F /* NSURL+Paths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+Paths.m"; path = "Categories/NSURL+Paths.m"; sourceTree = "<group>"; };
 		FA59C2C61B2E88E800EF027D /* TERenditionBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TERenditionBrowserCell.h; path = Views/TERenditionBrowserCell.h; sourceTree = "<group>"; };
 		FA59C2C71B2E88E800EF027D /* TERenditionBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TERenditionBrowserCell.m; path = Views/TERenditionBrowserCell.m; sourceTree = "<group>"; };
 		FA59C2C91B2E893F00EF027D /* TEImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEImageBrowserView.h; path = Views/TEImageBrowserView.h; sourceTree = "<group>"; };
@@ -302,6 +305,8 @@
 			children = (
 				FAEA99841B36469A00EEA486 /* NSColor+TE.h */,
 				FAEA99851B36469A00EEA486 /* NSColor+TE.m */,
+				FA55EC6F1B39EA6D001F3B4F /* NSURL+Paths.h */,
+				FA55EC701B39EA6D001F3B4F /* NSURL+Paths.m */,
 				FAA54F701B2E3C5900EA15F2 /* NSSplitView+Divider.h */,
 				FAA54F711B2E3C5900EA15F2 /* NSSplitView+Divider.m */,
 				FAA2B1BC1B2E023900D70473 /* TKRendition+ImageBrowser.h */,
@@ -478,6 +483,7 @@
 				FAA54F721B2E3C5900EA15F2 /* NSSplitView+Divider.m in Sources */,
 				FA4D11A91B3755E800175D14 /* TKRendition+Pasteboard.m in Sources */,
 				FA4D11A41B3683A800175D14 /* TKBitmapRendition+Pasteboard.m in Sources */,
+				FA55EC711B39EA6D001F3B4F /* NSURL+Paths.m in Sources */,
 				FACD44CC1B33A58900E75650 /* TEAnimationInspector.m in Sources */,
 				FAC2D37B1B37B8840015BF7F /* NSColor+Pasteboard.m in Sources */,
 				FAA54F751B2E4DB700EA15F2 /* TEElementsController.m in Sources */,

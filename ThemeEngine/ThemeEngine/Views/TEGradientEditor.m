@@ -339,9 +339,10 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
 
 - (TEGradientStopLayer *)_addStop:(TKGradientStop *)stop colorStop:(BOOL)isColorStop {
     TEGradientStopLayer *layer = [TEGradientStopLayer layer];
-    layer.gradientStop = stop;
-    layer.frame = CGRectMake(0, 0, kTEGradientEditorStopSize, kTEGradientEditorStopSize);
-    
+    layer.gradientStop         = stop;
+    layer.frame                = CGRectMake(0, 0, kTEGradientEditorStopSize, kTEGradientEditorStopSize);
+    layer.anchorPoint          = CGPointMake(0.5, 0.5);
+
     BOOL midpoint = !stop.isColorStop && !stop.isOpacityStop;
     
     if (midpoint)

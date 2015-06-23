@@ -32,7 +32,25 @@ typeof(OBJECT) _ = OBJECT;
 
 extern void *TKIvarPointer(id self, const char *name);
 
-@class TKRendition;
+@class TKRendition, CUICommonAssetStorage;
 extern NSString *TKElementNameForRendition(TKRendition *rendition);
+extern NSData *TKConvertRenditionKeyToCARKey(NSData *src, CUICommonAssetStorage *storage);
+extern NSData *TKConvertCARKeyToRenditionKey(NSData *src, CUICommonAssetStorage *storage);
 
+///Not Exported
+extern void CUIFillCARKeyArrayForRenditionKey(uint16_t *dst, struct renditionkeytoken *src, struct renditionkeyfmt const*format);
+extern void CUIFillRenditionKeyForCARKeyArray(struct renditionkeytoken *dst, uint16_t *src, struct renditionkeyfmt const*format);
+
+extern OSErr CUIRenditionKeyCopy(struct renditionkeytoken *dst, struct renditionkeytoken *src, int maxCountIncludingZeroTerminator); // use 0x10
+
+extern OSErr CUIRenditionKeySetValueForAttribute(struct renditionkeytoken *rendition, int, int, int);
+extern CFIndex CUIRenditionKeyIndexForAttribute(struct renditionkeytoken *rendition, int attribute);
+extern size_t CUIRenditionKeyTokenCount(struct renditionkeytoken *rendition);
+extern BOOL CUIRenditionKeyHasIdentifier(struct renditionkeytoken *rendition, int, int);
+extern int CUIRenditionKeyValueForAttribute(struct renditionkeytoken *rendition, int attribute);
+extern int CUIRenditionKeyStandardize(int arg0, int arg1, int arg2);
+@class CUIRenditionKey;
+extern CUIRenditionKey *CUIRenditionKeyFromKeySignature(NSString *signature, int *unk);
+extern int CUIRenditionKeyTokenIsBaseKeyOfKeyList(struct renditionkeytoken *arg0, int arg1);
+///
 #endif /* TKHelpers_h */

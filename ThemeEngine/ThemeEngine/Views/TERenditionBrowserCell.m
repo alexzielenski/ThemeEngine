@@ -8,22 +8,9 @@
 
 #import "TERenditionBrowserCell.h"
 #import <ThemeKit/TKRendition.h>
-
-static NSURL *TKRenditionTemporaryDirectoryURL;
+#import "NSURL+Paths.h"
 
 @implementation TERenditionBrowserCell
-+ (void)load {
-    TKRenditionTemporaryDirectoryURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@/Previews", NSTemporaryDirectory(), NSBundle.mainBundle.bundleIdentifier]
-                                                  isDirectory:YES];
-    
-    [[NSFileManager defaultManager] removeItemAtURL:TKRenditionTemporaryDirectoryURL
-                                              error:nil];
-    [[NSFileManager defaultManager] createDirectoryAtURL:TKRenditionTemporaryDirectoryURL
-                             withIntermediateDirectories:YES
-                                              attributes:nil
-                                                   error:nil];
-}
-
 
 #pragma mark - QLPreviewItem
 
@@ -31,7 +18,7 @@ static NSURL *TKRenditionTemporaryDirectoryURL;
     TKRendition *rendition = self.representedItem;
     // Save the Image to a temporary directory
     NSURL *destinationURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@_%@_%lu.tiff", rendition.name, rendition.renditionHash, rendition.changeCount]
-                                     relativeToURL:TKRenditionTemporaryDirectoryURL];
+                                     relativeToURL:[NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryPreviews]];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:destinationURL.path])
         return destinationURL;

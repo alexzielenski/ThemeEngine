@@ -10,6 +10,6 @@
 #import <ThemeKit/ThemeKit.h>
 
 @interface Document : NSDocument
-@property (strong) TKAssetStorage *assetStorage;
+@property (strong) TKMutableAssetStorage *assetStorage;
 @end
 

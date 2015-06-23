@@ -27,7 +27,7 @@ extern NSInteger kCoreThemeStepperElementID;
 @end
 
 @implementation TKAssetStorage
-@dynamic dirty;
+@dynamic dirty, path;
 
 + (instancetype)assetStorageWithPath:(NSString *)path {
     return [[[self class] alloc] initWithPath:path];
@@ -50,9 +50,9 @@ extern NSInteger kCoreThemeStepperElementID;
     return self;
 }
 
-//- (BOOL)isDirty {
-//    
-//}
+- (NSString *)path {
+    return self.storage.path;
+}
 
 #pragma mark - Enumeration
 

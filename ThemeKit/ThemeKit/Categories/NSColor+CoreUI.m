@@ -38,4 +38,12 @@
     psdColor->alpha = color.alphaComponent;
 }
 
+- (void)getRGBQuad:(struct rgbquad *)quad {
+    NSColor *color = [self colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
+    quad->r = (uint8_t)(color.redComponent * 255.0);
+    quad->g = (uint8_t)(color.greenComponent * 255.0);
+    quad->b = (uint8_t)(color.blueComponent * 255.0);
+    quad->a = (uint8_t)(color.alphaComponent * 255.0);
+}
+
 @end

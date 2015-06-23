@@ -10,5 +10,5 @@
 #import <ThemeKit/TKTypes.h>
 
 @interface TKMutableAssetStorage : TKAssetStorage
-
+- (void)writeToDiskUpdatingChangeCounts:(BOOL)update;
 @end

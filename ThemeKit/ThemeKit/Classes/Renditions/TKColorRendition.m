@@ -10,12 +10,17 @@
 #import "TKRendition+Private.h"
 #import "NSColor+CoreUI.h"
 
+@interface TKColorRendition ()
+@property BOOL excudedFromFilter;
+@end
+
 @implementation TKColorRendition
 
 - (instancetype)initWithColorKey:(struct colorkey)key definition:(struct colordef)definition {
     if ((self = [self init])) {
-        self.name  = @(key.name);
-        self.color = [NSColor colorWithColorDef:definition];
+        self.name              = @(key.name);
+        self.color             = [NSColor colorWithColorDef:definition];
+        self.excudedFromFilter = YES;
     }
     
     return self;
@@ -51,5 +56,17 @@
     return TKColorProperties;
 }
 
+- (void)commitToStorage {
+    if (!self.isDirty) {
+        NSLog(@"tried to commit clean rendition %@: %@", self, self.name);
+        return;
+    }
+    
+    struct rgbquad rgb;
+    [self.color getRGBQuad:&rgb];
+    [self.cuiAssetStorage setColor:rgb
+                           forName:[self.name UTF8String]
+                 excludeFromFilter:self.excudedFromFilter];
+}
 
 @end

@@ -11,6 +11,8 @@
 #import <ThemeKit/TKModelObject.h>
 
 @class TKElement;
+@class TKAssetStorage;
+
 // Partially Abstract Root class for all rendition types
 @interface TKRendition : TKModelObject
 @property (nonatomic, readonly, copy) NSString *name;
@@ -35,5 +37,7 @@
 // Hash unique to this rendition key
 - (NSString *)renditionHash;
 - (void)computePreviewImageIfNecessary;
+
+- (void)commitToStorage;
 
 @end

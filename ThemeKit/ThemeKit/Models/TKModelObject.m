@@ -336,6 +336,8 @@ static const void *TKModelObjectCollectionContext = &TKModelObjectCollectionCont
             self.changeCount = MAX(self.changeCount - 1, 0);
             break;
         case NSChangeReadOtherContents:
+            self.lastChangeCount = self.changeCount = 0;
+            break;
         case NSChangeAutosaved:
         case NSChangeCleared:
             self.lastChangeCount = self.changeCount;

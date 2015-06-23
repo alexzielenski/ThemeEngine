@@ -81,7 +81,7 @@
 //    allowsVibrancy, defaultBlendMode
 - (NSData *)catalogGlobalData;
 
-- (const struct _renditionkeyfmt *)keyFormat;
+- (const struct renditionkeyfmt *)keyFormat;
 - (NSData *)keyFormatData;
 - (int)keySemantics;
 

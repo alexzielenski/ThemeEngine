@@ -14,6 +14,7 @@
 @interface TKAssetStorage : NSObject
 @property (readonly, strong) NSSet<TKElement *> *elements;
 @property (strong) NSUndoManager *undoManager;
+@property (readonly, copy) NSString *path;
 @property (assign, getter=isDirty) BOOL dirty;
 
 + (instancetype)assetStorageWithPath:(NSString *)path;

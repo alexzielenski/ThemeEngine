@@ -16,5 +16,6 @@
 + (instancetype)colorWithCUIColor:(CUIColor *)color;
 
 - (void)getPSDColor:(struct _psdGradientColor *)gradientColor;
+- (void)getRGBQuad:(struct rgbquad *)quad;
 
 @end

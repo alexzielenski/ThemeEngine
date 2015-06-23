@@ -7,6 +7,7 @@
 //
 
 #import "Document.h"
+#import "NSURL+Paths.h"
 
 static NSString *const TKCarPathSystemAppearance = @"/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/SystemAppearance.car";
 static NSString *const TKCarPathAssets           = @"/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/Assets.car";
@@ -20,8 +21,6 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
 - (instancetype)init {
     if ((self = [super init])) {
         // Add your subclass-specific initialization here.
-        self.assetStorage = [TKAssetStorage assetStorageWithPath:TKCarPathSystemAppearance];
-        self.undoManager = self.assetStorage.undoManager;
     }
     return self;
 }
@@ -40,11 +39,61 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
     return @"Document";
 }
 
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
-    // Insert code here to write your document to data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning nil.
-    // You can also choose to override -fileWrapperOfType:error:, -writeToURL:ofType:error:, or -writeToURL:ofType:forSaveOperation:originalContentsURL:error: instead.
-    [NSException raise:@"UnimplementedMethod" format:@"%@ is unimplemented", NSStringFromSelector(_cmd)];
-    return nil;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outError {
+    
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    switch (saveOperation) {
+        case NSSaveOperation:
+        case NSSaveToOperation: {
+            // write our stuff to tmp on disk
+            [self.assetStorage writeToDiskUpdatingChangeCounts:YES];
+            
+            // copy the written information to the actual location
+            if (![manager copyItemAtPath:self.assetStorage.path
+                                  toPath:absoluteURL.path
+                                   error:outError])
+                return NO;
+                
+            break;
+        }
+        case NSSaveAsOperation: {
+            NSURL *temporary = [[NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryDocuments]
+                                URLByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+            
+            
+            // copy current stuff to another tmp location
+            if (![manager copyItemAtPath:self.assetStorage.path
+                             toPath:temporary.path
+                                   error:outError]) {
+                return NO;
+            }
+            
+            // write to disk
+            [self.assetStorage writeToDiskUpdatingChangeCounts:NO];
+            // move newly written stuff to destination
+            if (![manager moveItemAtURL:[NSURL fileURLWithPath:self.assetStorage.path]
+                                  toURL:absoluteURL
+                                  error:outError]) {
+                return NO;
+            }
+            
+            
+            // move our copied stuff back into the original tmp location
+            if (![manager moveItemAtURL:temporary
+                                  toURL:[NSURL fileURLWithPath:self.assetStorage.path]
+                                  error:outError]) {
+                return NO;
+            }
+            break;
+        }
+        default: {
+            return NO;
+            break;
+        }
+    }
+    
+    return NO;
 }
 
 - (BOOL)readFromURL:(nonnull NSURL *)url ofType:(nonnull NSString *)typeName error:(NSError * __nullable __autoreleasing * __nullable)outError {
@@ -54,6 +103,17 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
         //! or open just for viewing
         return NO;
     }
+    NSURL *temporary = [[NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryDocuments]
+                        URLByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
+    if (![[NSFileManager defaultManager] copyItemAtURL:url
+                                            toURL:temporary
+                                            error:outError]) {
+        return NO;
+    }
+    
+    
+    self.assetStorage = [TKMutableAssetStorage assetStorageWithPath:temporary.path];
+    self.undoManager = self.assetStorage.undoManager;
     
     return YES;
 }

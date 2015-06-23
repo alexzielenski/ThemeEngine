@@ -21,4 +21,18 @@
     return self;
 }
 
+- (void)writeToDiskUpdatingChangeCounts:(BOOL)update {
+    NSPredicate *dirtyPredicate = [NSPredicate predicateWithFormat:@"isDirty == YES"];
+    NSSet *dirtyAssets = [self.allRenditions filteredSetUsingPredicate:dirtyPredicate];
+    
+    for (TKRendition *rendition in dirtyAssets) {
+        [rendition commitToStorage];
+        
+        if (update)
+            [rendition updateChangeCount:NSChangeCleared];
+    }
+    
+    [self.storage writeToDiskAndCompact:YES];
+}
+
 @end
