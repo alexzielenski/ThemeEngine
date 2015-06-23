@@ -78,7 +78,6 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
                 return NO;
             }
             
-            
             // move our copied stuff back into the original tmp location
             if (![manager moveItemAtURL:temporary
                                   toURL:[NSURL fileURLWithPath:self.assetStorage.path]
@@ -106,14 +105,24 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
 
     NSURL *temporary = [[NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryDocuments]
                         URLByAppendingPathComponent:[[NSUUID UUID] UUIDString]];
-    if (![[NSFileManager defaultManager] copyItemAtURL:url
-                                            toURL:temporary
-                                            error:outError]) {
+    if (![manager copyItemAtURL:url
+                          toURL:temporary
+                          error:outError]) {
         return NO;
     }
     
-    
     self.assetStorage = [TKMutableAssetStorage assetStorageWithPath:temporary.path];
+    
+    if (!self.assetStorage) {
+        *outError = [NSError errorWithDomain:NSBundle.mainBundle.bundleIdentifier
+                                        code:-1
+                                    userInfo:@{
+                                               NSLocalizedFailureReasonErrorKey: @"Failed to read contents of car file",
+                                               NSLocalizedRecoverySuggestionErrorKey: @"Try another file"
+                                               }];
+        return NO;
+    }
+    
     self.undoManager = self.assetStorage.undoManager;
     
     return YES;
