@@ -70,6 +70,11 @@ NSString *md5(NSString *str) {
 }
 
 + (instancetype)renditionWithCSIData:(NSData *)csiData renditionKey:(CUIRenditionKey *)key {
+    if (!csiData || csiData.length == 0) {
+        NSLog(@"Empty CSI Data!");
+        return nil;
+    }
+    
     CUIThemeRendition *rendition = [[TKClass(CUIThemeRendition) alloc] initWithCSIData:csiData forKey:key.keyList];
     return [TKRendition renditionWithCUIRendition:rendition csiData:csiData key:key];
 }
@@ -84,7 +89,6 @@ NSString *md5(NSString *str) {
         self.rendition       = rendition;
         self.name            = rendition.name;
         self.utiType         = rendition.utiType;
-        self.pixelFormat     = rendition.pixelFormat;
         self.exifOrientation = rendition.exifOrientation;
         self.blendMode       = rendition.blendMode;
         self.opacity         = rendition.opacity;
@@ -99,9 +103,10 @@ NSString *md5(NSString *str) {
         self.layout                     = header.metadata.layout;
         self.colorspaceID               = header.colorspaceID;
         self.scaleFactor                = (CGFloat)header.scaleFactor / 100.0;
+        self.pixelFormat                = header.pixelFormat;
         
         //TOOD: Find out if this impacts our ability to save
-        CFDataRef *data  =TKIvarPointer(self.rendition, "_srcData");
+        CFDataRef *data = TKIvarPointer(self.rendition, "_srcData");
         if (data != NULL) {
             if (*data != NULL)
                 CFRelease(*data);
@@ -170,6 +175,11 @@ NSString *md5(NSString *str) {
     }
     
     @finally {
+        if (csiData == nil) {
+            NSLog(@"Got null csidata, backing out...");
+            return;
+        }
+        
         [self.cuiAssetStorage setAsset:csiData forKey:self.keyData];
     }
 }

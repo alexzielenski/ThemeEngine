@@ -36,7 +36,7 @@
  0        4      Magic
  4        4      Padding. Always zero
  8        16     Destination Frame
- 24       2      '10'|'20' scale factor X 10?
+ 24       2      Layout (Would usually go in the layout field of the csiheader if it wasnt a reference)
  26       4      Length of Reference Key
  30       X      Rendition Reference Key List
  

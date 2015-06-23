@@ -83,6 +83,7 @@ static NSString *const TEBitmapKeyPayload           = @"payload";
         }
         
         return NO;
+        
     } else if ([available isEqualToString:(__bridge NSString *)kUTTypeURL] ||
                [available isEqualToString:(__bridge NSString *)kUTTypeFileURL]) {
         
@@ -93,6 +94,7 @@ static NSString *const TEBitmapKeyPayload           = @"payload";
         if (rep)
             self.image = rep;
         return rep != nil;
+        
     // Then it must be bitmap
     } else {
         NSData *data = [item dataForType:available];

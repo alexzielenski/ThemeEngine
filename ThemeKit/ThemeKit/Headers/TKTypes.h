@@ -66,6 +66,7 @@ typedef NS_ENUM(NSUInteger, CoreThemePresentationState) {
     CoreThemePresentationStateActiveMain = 2
 };
 
+// There is something similar between CoreThemeTypeAndCoreThemeLayout
 typedef NS_ENUM(uint32_t, CoreThemeLayout) {
     CoreThemeLayoutGradient                               = 6,
     CoreThemeLayoutEffect                                 = 7,
@@ -92,7 +93,8 @@ typedef NS_ENUM(uint32_t, CoreThemeLayout) {
     CoreThemeLayoutExternalLink        = 1001,
     // Layer stacks being encoded CALayers/.caar
     CoreThemeLayoutLayerStack          = 1002,
-    CoreThemeLayoutInternalLink        = 1003
+    CoreThemeLayoutInternalLink        = 1003,
+    CoreThemeLayoutAssetPack           = 1004,
 };
 
 typedef NS_ENUM(uint32_t, CSIPixelFormat) {

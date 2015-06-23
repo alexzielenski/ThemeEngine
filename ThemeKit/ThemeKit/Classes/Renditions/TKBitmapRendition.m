@@ -99,8 +99,7 @@
                                TKKey(exifOrientation): @"Change EXIF Orientation",
                                TKKey(layoutInformation): @"Change Layout",
                                @"layoutInformation.sliceRects": @"Change Slices",
-                               @"layoutInformation.edgeInsets": @"Change Metrics",
-                               @"layoutInformation.imageSize": @"Change Image Size"
+                               @"layoutInformation.metrics": @"Change Image Size"
                                };
     });
     
@@ -108,6 +107,11 @@
 }
 
 - (CSIGenerator *)generator {
+    
+    if (self.layout == CoreThemeLayoutInternalLink) {
+        self.layout = self.rendition.subtype;
+    }
+
     
     CSIGenerator *gen = [[CSIGenerator alloc] initWithCanvasSize:CGSizeMake(self.image.pixelsWide, self.image.pixelsHigh)
                                                       sliceCount:(unsigned int)self.layoutInformation.sliceRects.count

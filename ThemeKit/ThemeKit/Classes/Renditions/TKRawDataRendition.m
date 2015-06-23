@@ -38,7 +38,6 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
         listOffset += sizeof(dataLength);
         self.rawData = [csiData subdataWithRange:NSMakeRange(listOffset, dataLength)];
         
-
         // release raw data off of rendition to save ram...
         if ([rendition isKindOfClass:[TKClass(_CUIRawDataRendition) class]]) {
             CFDataRef *dataBytes = (CFDataRef *)TKIvarPointer(self.rendition, "_dataBytes");

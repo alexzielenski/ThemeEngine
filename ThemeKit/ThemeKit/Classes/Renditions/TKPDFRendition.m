@@ -49,6 +49,7 @@ static const void *TKPDFRenditionRawDataChangedContext = &TKPDFRenditionRawDataC
 
 - (void)setRawData:(NSData *)rawData {
     self.pdf = [NSPDFImageRep imageRepWithData:rawData];
+    self._previewImage = nil;
 }
 
 + (NSSet *)keyPathsForValuesAffectingRawData {

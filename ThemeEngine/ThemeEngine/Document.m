@@ -13,7 +13,7 @@ static NSString *const TKCarPathSystemAppearance = @"/System/Library/CoreService
 static NSString *const TKCarPathAssets           = @"/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/Assets.car";
 
 @interface Document () <NSTableViewDelegate>
-
+@property (copy) NSURL *tmpURL;
 @end
 
 @implementation Document
@@ -50,11 +50,13 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
             [self.assetStorage writeToDiskUpdatingChangeCounts:YES];
             
             // copy the written information to the actual location
-            if (![manager copyItemAtPath:self.assetStorage.path
+            if (![manager copyItemAtPath:self.tmpURL.path
                                   toPath:absoluteURL.path
-                                   error:outError])
+                                   error:outError]) {
+                NSLog(@"%@", *outError);
                 return NO;
-                
+            }
+            
             break;
         }
         case NSSaveAsOperation: {
@@ -63,8 +65,8 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
             
             
             // copy current stuff to another tmp location
-            if (![manager copyItemAtPath:self.assetStorage.path
-                             toPath:temporary.path
+            if (![manager copyItemAtPath:self.tmpURL.path
+                                  toPath:temporary.path
                                    error:outError]) {
                 return NO;
             }
@@ -72,7 +74,7 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
             // write to disk
             [self.assetStorage writeToDiskUpdatingChangeCounts:NO];
             // move newly written stuff to destination
-            if (![manager moveItemAtURL:[NSURL fileURLWithPath:self.assetStorage.path]
+            if (![manager moveItemAtURL:self.tmpURL
                                   toURL:absoluteURL
                                   error:outError]) {
                 return NO;
@@ -80,7 +82,7 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
             
             // move our copied stuff back into the original tmp location
             if (![manager moveItemAtURL:temporary
-                                  toURL:[NSURL fileURLWithPath:self.assetStorage.path]
+                                  toURL:self.tmpURL
                                   error:outError]) {
                 return NO;
             }
@@ -92,7 +94,7 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
         }
     }
     
-    return NO;
+    return YES;
 }
 
 - (BOOL)readFromURL:(nonnull NSURL *)url ofType:(nonnull NSString *)typeName error:(NSError * __nullable __autoreleasing * __nullable)outError {
@@ -111,6 +113,7 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
         return NO;
     }
     
+    self.tmpURL = temporary;
     self.assetStorage = [TKMutableAssetStorage assetStorageWithPath:temporary.path];
     
     if (!self.assetStorage) {
