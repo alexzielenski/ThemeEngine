@@ -11,8 +11,6 @@
 @implementation NSColor (TE)
 
 + (NSColor *)checkerPattern {
-    
-    
     static NSColor *pattern = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

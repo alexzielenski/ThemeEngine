@@ -58,8 +58,6 @@ static const void *TKModelObjectCollectionContext = &TKModelObjectCollectionCont
                 collection:(BOOL)collection {
     
     void *context = &TKModelObjectContext;
-//    if (collection)
-//        context = (__bridge void *)properties;
     
     if (!unregister) {
         NSKeyValueObservingOptions options = NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew;
@@ -71,6 +69,14 @@ static const void *TKModelObjectCollectionContext = &TKModelObjectCollectionCont
                      forKeyPath:value
                         options:options
                         context:context];
+            if (collection) {
+                // Set the properties for a key->action map associated with the object
+                // don't bump the retain count because the dictionary is static
+                objc_setAssociatedObject(object,
+                                         context,
+                                         properties,
+                                         OBJC_ASSOCIATION_ASSIGN);
+            }
         }
     } else {
         for (NSString *value in properties.allKeys) {
@@ -159,8 +165,8 @@ static const void *TKModelObjectCollectionContext = &TKModelObjectCollectionCont
             else {
                 // Context for collection types are the dictionary
                 // for their associated keypath-Action registration
-//                NSDictionary *strs = (__bridge NSDictionary *)context;
-//                [self.undoManager setActionName:strs[keyPath]];
+                NSDictionary *strs = objc_getAssociatedObject(object, context);
+                [self.undoManager setActionName:strs[keyPath]];
             }
         }
         
