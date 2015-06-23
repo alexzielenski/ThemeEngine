@@ -39,6 +39,7 @@ NSString *md5(NSString *str) {
 
 @interface TKRendition ()
 @property (copy) NSString *_renditionHash;
+@property (readwrite) CGFloat scaleFactor;
 @end
 
 @implementation TKRendition
@@ -79,10 +80,25 @@ NSString *md5(NSString *str) {
 
 - (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData key:(CUIRenditionKey *)key {
     if ((self = [self init])) {
-        self.renditionKey  = key;
-        self.rendition     = rendition;
-        self.name          = self.rendition.name;
-        self.utiType       = rendition.utiType;
+        self.renditionKey    = key;
+        self.rendition       = rendition;
+        self.name            = rendition.name;
+        self.utiType         = rendition.utiType;
+        self.pixelFormat     = rendition.pixelFormat;
+        self.exifOrientation = rendition.exifOrientation;
+        self.blendMode       = rendition.blendMode;
+        self.opacity         = rendition.opacity;
+
+        struct csiheader header;
+        [csiData getBytes:&header range:NSMakeRange(0, offsetof(struct csiheader, infolistLength) + sizeof(unsigned int))];
+
+        self.fpo                        = header.renditionFlags.isHeaderFlaggedFPO;
+        self.excludedFromContrastFilter = header.renditionFlags.isExcludedFromContrastFilter;
+        self.vector                     = header.renditionFlags.isVectorBased;
+        self.opaque                     = header.renditionFlags.isOpaque;
+        self.layout                     = header.metadata.layout;
+        self.colorspaceID               = header.colorspaceID;
+        self.scaleFactor                = (CGFloat)header.scaleFactor / 100.0;
         
         //TOOD: Find out if this impacts our ability to save
         CFDataRef *data  =TKIvarPointer(self.rendition, "_srcData");
@@ -129,7 +145,39 @@ NSString *md5(NSString *str) {
 }
 
 - (void)commitToStorage {
-    NSLog(@"called commitToStorage on abstract TKRendition class Contact the developer with this message if this happens. Backing rendition: %@", self.rendition);
+    CSIGenerator *generator = self.generator;
+    generator.utiType                    = self.utiType;
+    generator.templateRenderingMode      = self.rendition.templateRenderingMode;
+    generator.isVectorBased              = self.isVector;
+    generator.isRenditionFPO             = self.isFPO;
+    generator.excludedFromContrastFilter = self.isExcludedFromConstrastFilter;
+    generator.name                       = self.name;
+    generator.blendMode                  = self.blendMode;
+    generator.opacity                    = self.opacity;
+    generator.exifOrientation            = self.exifOrientation;
+    generator.colorSpaceID               = self.colorspaceID;
+    generator.scaleFactor                = (unsigned int)self.scaleFactor * 100;
+    
+    NSData *csiData = nil;
+    
+    @try {
+        csiData = [generator CSIRepresentationWithCompression:YES];
+    }
+    
+    @catch (NSException *exception) {
+        NSLog(@"%@ caught %@", self.name, exception);
+        NSLog(@"refs: %@", [generator valueForKey:@"_references"]);
+    }
+    
+    @finally {
+        [self.cuiAssetStorage setAsset:csiData forKey:self.keyData];
+    }
+}
+
+- (CSIGenerator *)generator {
+    [NSException raise:@"Invalid Callee"
+                format:@"called -generator or -commitToStorage on abstract TKRendition class Contact the developer with this message if this happens. Backing rendition: %@", self.rendition];
+    return nil;
 }
 
 #pragma mark - KVC

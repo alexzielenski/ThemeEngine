@@ -89,6 +89,7 @@
 		FAA5C0951B2D4013007DEBA1 /* TKRawDataRendition.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C0931B2D4013007DEBA1 /* TKRawDataRendition.m */; };
 		FAA5C0981B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA5C0961B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.h */; };
 		FAA5C0991B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C0971B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.m */; };
+		FADA72D31B39FD6A00C541D9 /* CSIBitmapWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = FADA72D21B39FD6A00C541D9 /* CSIBitmapWrapper.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +188,7 @@
 		FAA5C0931B2D4013007DEBA1 /* TKRawDataRendition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKRawDataRendition.m; path = Classes/Renditions/TKRawDataRendition.m; sourceTree = "<group>"; };
 		FAA5C0961B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CUIRenditionKey+Equal.h"; path = "Categories/CUIRenditionKey+Equal.h"; sourceTree = "<group>"; };
 		FAA5C0971B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CUIRenditionKey+Equal.m"; path = "Categories/CUIRenditionKey+Equal.m"; sourceTree = "<group>"; };
+		FADA72D21B39FD6A00C541D9 /* CSIBitmapWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSIBitmapWrapper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 				FAA5C0711B2CD0E9007DEBA1 /* Metadata */,
 				FAA5C0601B2CD061007DEBA1 /* Renditions */,
 				FA606C2E1B2C1D9400F24960 /* CSIGenerator.h */,
+				FADA72D21B39FD6A00C541D9 /* CSIBitmapWrapper.h */,
 				FA606C2F1B2C1D9400F24960 /* CUICommonAssetStorage.h */,
 				FA606C301B2C1D9400F24960 /* CUIMutableCommonAssetStorage.h */,
 				FA606C511B2C320900F24960 /* CUIThemeRendition.h */,
@@ -415,6 +418,7 @@
 				FA606C6E1B2C9DA100F24960 /* TKHelpers.h in Headers */,
 				FAA54F661B2E1A5B00EA15F2 /* TKEffectPreset+Private.h in Headers */,
 				FA57E1851B2FEF440032B765 /* CUIShapeEffectPreset.h in Headers */,
+				FADA72D31B39FD6A00C541D9 /* CSIBitmapWrapper.h in Headers */,
 				FAA5C08D1B2CD976007DEBA1 /* CUIColor.h in Headers */,
 				FAA5C05E1B2CCFB5007DEBA1 /* TKEffectRendition.h in Headers */,
 				FAA5C0901B2D3FF0007DEBA1 /* TKPDFRendition.h in Headers */,

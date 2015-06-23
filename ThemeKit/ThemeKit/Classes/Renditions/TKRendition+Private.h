@@ -10,6 +10,7 @@
 #import <CoreUI/CUIThemeRendition.h>
 #import <Cocoa/Cocoa.h>
 #import <CoreUI/CUIMutableCommonAssetStorage.h>
+#import <CoreUI/CSIGenerator.h>
 
 @interface TKRendition ()
 @property (strong) CUIThemeRendition *rendition;
@@ -32,5 +33,6 @@
 
 - (CUIMutableCommonAssetStorage *)cuiAssetStorage;
 - (NSData *)keyData;
+- (CSIGenerator *)generator;
 
 @end

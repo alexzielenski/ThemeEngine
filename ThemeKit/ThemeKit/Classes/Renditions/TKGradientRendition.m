@@ -97,4 +97,13 @@
     return collectionProperties;
 }
 
+- (CSIGenerator *)generator {
+    CSIGenerator *generator = [[CSIGenerator alloc] initWithCanvasSize:CGSizeZero
+                                                            sliceCount:0
+                                                                layout:self.layout];
+    
+    generator.gradient = self.gradient.psdGradient;
+    return generator;
+}
+
 @end

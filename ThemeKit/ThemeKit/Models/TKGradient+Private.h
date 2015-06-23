@@ -9,12 +9,17 @@
 #import "TKGradient.h"
 #import "TKTypes.h"
 #import <CoreUI/Rendering/CUIThemeGradient.h>
+#import <CoreUI/Rendering/PSD/CUIPSDGradient.h>
 
 @interface TKGradient ()
+@property (strong) CUIThemeGradient *gradient;
+@property (strong) CUIPSDGradientEvaluator *evaluator;
 
 // The gradient renderer
 - (void)resetShaders;
 + (instancetype)gradientWithCUIGradient:(CUIThemeGradient *)gradient angle:(CGFloat)angle style:(CUIGradientStyle)style;
 - (instancetype)initWithCUIGradient:(CUIThemeGradient *)gradient angle:(CGFloat)angle style:(CUIGradientStyle)style;
+
+- (CUIPSDGradient *)psdGradient;
 
 @end

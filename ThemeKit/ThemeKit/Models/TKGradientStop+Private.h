@@ -8,6 +8,7 @@
 
 #import <ThemeKit/ThemeKit.h>
 #import <CoreUI/Rendering/CUIThemeGradient.h>
+#import <CoreUI/Rendering/PSD/CUIPSDGradient.h>
 #import <CoreUI/Rendering/PSD/CUIPSDGradientEvaluator.h>
 #import <CoreUI/Rendering/PSD/CUIPSDGradientStop.h>
 #import <CoreUI/Rendering/PSD/CUIPSDGradientColorStop.h>

@@ -5,23 +5,23 @@
  */
 
 
-@class CUIPSDGradientEvaluator;
+#import <CoreUI/Rendering/PSD/CUIPSDGradientEvaluator.h>
 
 @interface CUIPSDGradient : NSObject
 {
     CUIPSDGradientEvaluator *evaluator;
-    double drawingAngle;
-    unsigned int gradientStyle;
+    CGFloat drawingAngle;
+    CUIGradientStyle gradientStyle;
 }
-
-+ (id)cuiPSDGradientWithColors:(id)arg1 locations:(id)arg2 midpointLocations:(id)arg3 angle:(CGFloat)arg4 style:(unsigned int)arg5;
-+ (id)cuiPSDGradientWithColors:(id)arg1 locations:(id)arg2 midpointLocations:(id)arg3 angle:(CGFloat)arg4 isRadial:(BOOL)arg5;
-+ (id)getMidpointLocationFromArray:(id)arg1 atIndex:(long long)arg2 withPolicy:(int)arg3;
-@property unsigned int gradientStyle; // @synthesize gradientStyle;
-@property double drawingAngle; // @synthesize drawingAngle;
+@property CUIGradientStyle gradientStyle; // @synthesize gradientStyle;
+@property CGFloat drawingAngle; // @synthesize drawingAngle;
 @property(retain) CUIPSDGradientEvaluator *evaluator; // @synthesize evaluator;
-- (void)dealloc;
-- (id)initWithEvaluator:(id)arg1 drawingAngle:(CGFloat)arg2 gradientStyle:(unsigned int)arg3;
+
++ (instancetype)cuiPSDGradientWithColors:(NSArray *)colors locations:(NSArray<NSNumber *> *)locations midpointLocations:(NSArray<NSNumber *> *)arg3 angle:(CGFloat)angle style:(CUIGradientStyle)style;
++ (instancetype)cuiPSDGradientWithColors:(NSArray *)colors locations:(NSArray<NSNumber *> *)locations midpointLocations:(NSArray<NSNumber *> *)arg3 angle:(CGFloat)angle isRadial:(BOOL)radial;
++ (instancetype)getMidpointLocationFromArray:(NSArray *)locations atIndex:(CFIndex)index withPolicy:(int)policy;
+
+- (instancetype)initWithEvaluator:(CUIPSDGradientEvaluator *)evaluator drawingAngle:(CGFloat)angle gradientStyle:(CUIGradientStyle)style;
 
 @end
 

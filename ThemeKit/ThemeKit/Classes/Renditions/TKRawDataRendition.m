@@ -109,4 +109,12 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
     return TKRawDataProperties;
 }
 
+- (CSIGenerator *)generator {
+    CSIGenerator *generator = [[CSIGenerator alloc] initWithRawData:self.rawData
+                                                        pixelFormat:self.pixelFormat
+                                                             layout:self.layout];
+    
+    return generator;
+}
+
 @end

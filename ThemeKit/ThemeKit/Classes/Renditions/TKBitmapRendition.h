@@ -14,8 +14,6 @@
 }
 
 @property (nonatomic, strong) NSBitmapImageRep *image;
-@property CGFloat opacity;
-@property TKEXIFOrientation exifOrientation;
-@property CGBlendMode blendMode;
+
 @property (strong) TKLayoutInformation *layoutInformation;
 @end

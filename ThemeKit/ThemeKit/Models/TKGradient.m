@@ -18,10 +18,6 @@
 @interface TKGradient ()
 @property (readwrite, strong) NSArray<__kindof TKGradientColorStop *> *colorStops;
 @property (readwrite, strong) NSArray<__kindof TKGradientOpacityStop *> *opacityStops;
-
-@property (strong) CUIThemeGradient *gradient;
-@property (strong) CUIPSDGradientEvaluator *evaluator;
-
 - (void)syncColorStops;
 - (void)syncOpacityStops;
 @end
@@ -162,6 +158,14 @@
 - (void)syncOpacityStops {
     [self.evaluator setOpacityStops:[[self.opacityStops valueForKey:TKKey(backingStop)] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"location" ascending:YES]]]
                           midpoints:_opacityMidpoints];
+}
+
+- (CUIPSDGradient *)psdGradient {
+    CUIPSDGradient *grad = [[CUIPSDGradient alloc] initWithEvaluator:self.evaluator
+                                                        drawingAngle:self.angle
+                                                       gradientStyle:self.isRadial ? CUIGradientStyleRadial : CUIGradientStyleLinear];
+    
+    return grad;
 }
 
 #pragma mark - Stop Management

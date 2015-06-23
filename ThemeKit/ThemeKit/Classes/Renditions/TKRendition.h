@@ -17,6 +17,19 @@
 @interface TKRendition : TKModelObject
 @property (nonatomic, readonly, copy) NSString *name;
 @property (nonatomic, readonly, weak) TKElement *element;
+
+@property (getter=isFPO) BOOL fpo;
+@property (getter=isOpaque) BOOL opaque;
+@property (getter=isVector) BOOL vector;
+@property (assign) CSIPixelFormat pixelFormat;
+@property CGFloat opacity;
+@property TKEXIFOrientation exifOrientation;
+@property CGBlendMode blendMode;
+@property short layout;
+@property (getter=isExcludedFromConstrastFilter) BOOL excludedFromContrastFilter;
+@property (readonly) CGFloat scaleFactor;
+@property short colorspaceID;
+
 @property (readonly) NSImage *previewImage;
 @property (nonatomic, readonly, getter=isAssetPack) BOOL assetPack;
 

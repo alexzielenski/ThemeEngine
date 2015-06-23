@@ -74,4 +74,11 @@
     return collectionProperties;
 }
 
+- (CSIGenerator *)generator {
+    CSIGenerator *generator = [[CSIGenerator alloc] initWithShapeEffectPreset:self.effectPreset.effectPreset
+                                                               forScaleFactor:(unsigned int)self.scaleFactor * 100];
+    
+    return generator;
+}
+
 @end

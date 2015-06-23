@@ -14,6 +14,5 @@
 @property NSArray *sliceRects;
 
 // Metrics
-@property NSEdgeInsets edgeInsets;
-@property NSSize imageSize;
+@property NSArray *metrics;
 @end

@@ -52,7 +52,40 @@
         
         
         // Get metric information
+        NSMutableArray *metrics = [NSMutableArray array];
+        unsigned metricMagic = CSIInfoMagicMetrics;
+        NSRange metricMagicLocation = [csiData rangeOfData:
+                                       [NSData dataWithBytes:&metricMagic length:sizeof(metricMagic)]
+                                                   options:0
+                                                     range:NSMakeRange(sizeof(struct csiheader), infoLength)];
+        if (metricMagicLocation.location != NSNotFound) {
+            unsigned int nmetrics = 0;
+            [csiData getBytes:&nmetrics range:NSMakeRange(metricMagicLocation.location +
+                                                          sizeof(unsigned int) * 2, sizeof(nmetrics))];
+            
+            NSMutableArray *metrics = [NSMutableArray arrayWithCapacity:nmetrics];
+            for (int idx = 0; idx < nmetrics; idx++) {
+                CUIMetrics renditionMetric;
+                
+                struct {
+                    unsigned int a;
+                    unsigned int b;
+                    unsigned int c;
+                    unsigned int d;
+                    unsigned int e;
+                    unsigned int f;
+                } mtr;
+                
+                [csiData getBytes:&mtr range:NSMakeRange(metricMagicLocation.location + sizeof(mtr) * idx + sizeof(unsigned int) * 3, sizeof(mtr))];
+                renditionMetric.edgeTR = CGSizeMake(mtr.c, mtr.b);
+                renditionMetric.edgeBL = CGSizeMake(mtr.a, mtr.d);
+                renditionMetric.imageSize = CGSizeMake(mtr.e, mtr.f);
+                
+                [metrics addObject:[NSValue valueWithBytes:&renditionMetric objCType:@encode(CUIMetrics)]];
+            }
+        }
         
+        self.metrics = metrics;
         
     }
     
@@ -61,18 +94,16 @@
 
 - (instancetype)initWithCoder:(nonnull NSCoder *)coder {
     if ((self = [self init])) {
-        [self setValue:[coder decodeObjectForKey:TKKey(imageSize)] forKey:TKKey(imageSize)];
+        [self setValue:[coder decodeObjectForKey:TKKey(metrics)] forKey:TKKey(metrics)];
         [self setValue:[coder decodeObjectForKey:TKKey(sliceRects)] forKey:TKKey(sliceRects)];
-        [self setValue:[coder decodeObjectForKey:TKKey(edgeInsets)] forKey:TKKey(edgeInsets)];
     }
     
     return self;
 }
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
-    [coder encodeObject:[NSValue valueWithSize:self.imageSize] forKey:TKKey(imageSize)];
+    [coder encodeObject:self.metrics forKey:TKKey(metrics)];
     [coder encodeObject:self.sliceRects forKey:TKKey(sliceRects)];
-    [coder encodeObject:[NSValue valueWithEdgeInsets:self.edgeInsets] forKey:TKKey(edgeInsets)];
 }
 
 @end

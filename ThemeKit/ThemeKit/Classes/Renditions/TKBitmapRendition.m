@@ -11,6 +11,7 @@
 #import "TKElement.h"
 #import "TKLayoutInformation+Private.h"
 
+#
 #import <CoreUI/Renditions/CUIRenditions.h>
 
 @implementation TKBitmapRendition
@@ -19,10 +20,6 @@
 - (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData  key:(CUIRenditionKey *)key {
     if ((self = [super _initWithCUIRendition:rendition csiData:(NSData *)csiData key:key])) {
         self.assetPack = rendition.type == CoreThemeTypeAssetPack;
-        self.exifOrientation = rendition.exifOrientation;
-        self.blendMode       = rendition.blendMode;
-        self.opacity         = rendition.opacity;
-        
         self.layoutInformation = [TKLayoutInformation layoutInformationWithCSIData:csiData];
     }
     
@@ -108,6 +105,37 @@
     });
     
     return TKBitmapProperties;
+}
+
+- (CSIGenerator *)generator {
+    
+    CSIGenerator *gen = [[CSIGenerator alloc] initWithCanvasSize:CGSizeMake(self.image.pixelsWide, self.image.pixelsHigh)
+                                                      sliceCount:(unsigned int)self.layoutInformation.sliceRects.count
+                                                          layout:self.layout];
+    
+    CSIBitmapWrapper *wrapper = [[CSIBitmapWrapper alloc] initWithPixelWidth:(unsigned int)self.image.pixelsWide
+                                                                 pixelHeight:(unsigned int)self.image.pixelsHigh];
+    wrapper.pixelFormat = self.pixelFormat;
+    wrapper.allowsMultiPassEncoding = YES;
+    CGContextDrawImage(wrapper.bitmapContext,
+                       CGRectMake(0, 0, self.image.pixelsWide, self.image.pixelsHigh),
+                       self.image.CGImage);
+    
+    [gen addBitmap:wrapper];
+    
+    NSArray<NSValue *> *slices = self.layoutInformation.sliceRects;
+    for (NSInteger x = 0; x < slices.count; x++) {
+        [gen addSliceRect:slices[x].rectValue];
+    }
+    
+    NSArray<NSValue *> *metrics = self.layoutInformation.metrics;
+    for (NSInteger x = 0; x < metrics.count; x++) {
+        CUIMetrics metric;
+        [metrics[x] getValue:&metric];
+        [gen addMetrics:metric];
+    }
+    
+    return gen;
 }
 
 @end
