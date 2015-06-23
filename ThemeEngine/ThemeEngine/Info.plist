@@ -12,7 +12,7 @@
 				<string>car</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string></string>
+			<string>Car.icns</string>
 			<key>CFBundleTypeName</key>
 			<string>Assets File</string>
 			<key>CFBundleTypeOSTypes</key>
