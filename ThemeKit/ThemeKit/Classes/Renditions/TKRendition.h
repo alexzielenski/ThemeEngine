@@ -16,7 +16,6 @@
 @property (nonatomic, readonly, copy) NSString *name;
 @property (nonatomic, readonly, weak) TKElement *element;
 @property (readonly) NSImage *previewImage;
-
 @property (nonatomic, readonly, getter=isAssetPack) BOOL assetPack;
 
 @property (copy) NSString *utiType;

@@ -267,10 +267,7 @@ const void *kTEGradientEditorLayoutContext     = &kTEGradientEditorLayoutContext
 }
 
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
-    CGFloat angle = self.gradient.angle;
-    self.gradient.angle = 0;
-    [self.gradient drawInRect:layer.bounds withContext:ctx];
-    self.gradient.angle = angle;
+    [self.gradient drawInRect:layer.bounds atAngle:0.0 withContext:ctx];
 }
 
 - (void)createLayersForStops:(NSArray<TKGradientStop *> *)stops colors:(BOOL)colors {

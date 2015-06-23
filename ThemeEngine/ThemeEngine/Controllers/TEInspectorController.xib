@@ -983,7 +983,7 @@
                 <outlet property="inspectorView" destination="Ogu-w6-qGs" id="Bn8-OE-krj"/>
             </connections>
         </viewController>
-        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ogu-w6-qGs" userLabel="Gradient Iifo">
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ogu-w6-qGs" userLabel="Gradient Info">
             <rect key="frame" x="0.0" y="0.0" width="168" height="109"/>
             <subviews>
                 <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0rY-T2-5T2">

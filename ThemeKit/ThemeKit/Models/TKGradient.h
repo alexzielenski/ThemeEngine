@@ -80,8 +80,10 @@
 
 // Radial gradients assume a relative center position in the middle of the rectangle
 - (void)drawInRect:(CGRect)rect;
+- (void)drawInRect:(CGRect)rect atAngle:(CGFloat)angle;
 - (void)drawInRect:(CGRect)rect relativeCenterPosition:(CGPoint)relativeCenterPosition;
 - (void)drawInRect:(CGRect)rect withContext:(CGContextRef)contex;
+- (void)drawInRect:(CGRect)rect atAngle:(CGFloat)angle withContext:(CGContextRef)contex;
 - (void)drawInRect:(CGRect)rect relativeCenterPosition:(CGPoint)relativeCenterPosition withContext:(CGContextRef)contex;
 
 @end

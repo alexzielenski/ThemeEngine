@@ -312,6 +312,10 @@
     [self drawInRect:rect withContext:[[NSGraphicsContext currentContext] graphicsPort]];
 }
 
+- (void)drawInRect:(CGRect)rect atAngle:(CGFloat)angle {
+    [self drawInRect:rect atAngle:self.angle withContext:[[NSGraphicsContext currentContext] graphicsPort]];
+}
+
 - (void)drawInRect:(CGRect)rect relativeCenterPosition:(CGPoint)relativeCenterPosition {
     [self drawInRect:rect relativeCenterPosition:relativeCenterPosition withContext:[[NSGraphicsContext currentContext] graphicsPort]];
 }
@@ -320,8 +324,12 @@
     if (self.isRadial) {
         [self drawInRect:rect relativeCenterPosition:CGPointMake(0.5, 0.5) withContext:context];
     } else {
-        [self.gradient drawInRect:rect angle:self.angle withContext:context];
+        [self drawInRect:rect atAngle:self.angle withContext:context];
     }
+}
+
+- (void)drawInRect:(CGRect)rect atAngle:(CGFloat)angle withContext:(CGContextRef)context {
+    [self.gradient drawInRect:rect angle:angle withContext:context];
 }
 
 - (void)drawInRect:(CGRect)rect relativeCenterPosition:(CGPoint)relativeCenterPosition withContext:(CGContextRef)context {
