@@ -58,6 +58,7 @@
 		FACD44CC1B33A58900E75650 /* TEAnimationInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FACD44CB1B33A58900E75650 /* TEAnimationInspector.m */; };
 		FACD44CF1B33B08C00E75650 /* TEEffectsInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FACD44CE1B33B08C00E75650 /* TEEffectsInspector.m */; };
 		FAD3AAD01B3356F10006FA7F /* TEGradientInfoInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD3AACF1B3356F10006FA7F /* TEGradientInfoInspector.m */; };
+		FADA72D11B39F2FB00C541D9 /* NSDocumentController+Untitled.m in Sources */ = {isa = PBXBuildFile; fileRef = FADA72D01B39F2FB00C541D9 /* NSDocumentController+Untitled.m */; };
 		FAE35D301B38C26900334C96 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FAE35D2F1B38C26900334C96 /* Credits.rtf */; };
 		FAEA99861B36469A00EEA486 /* NSColor+TE.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEA99851B36469A00EEA486 /* NSColor+TE.m */; };
 		FAEA99891B36587D00EEA486 /* TEBackgroundColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEA99881B36587D00EEA486 /* TEBackgroundColorView.m */; };
@@ -175,6 +176,8 @@
 		FACD44CE1B33B08C00E75650 /* TEEffectsInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEEffectsInspector.m; path = Controllers/Inspectors/TEEffectsInspector.m; sourceTree = "<group>"; };
 		FAD3AACE1B3356F10006FA7F /* TEGradientInfoInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEGradientInfoInspector.h; path = Controllers/Inspectors/TEGradientInfoInspector.h; sourceTree = "<group>"; };
 		FAD3AACF1B3356F10006FA7F /* TEGradientInfoInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEGradientInfoInspector.m; path = Controllers/Inspectors/TEGradientInfoInspector.m; sourceTree = "<group>"; };
+		FADA72CF1B39F2FB00C541D9 /* NSDocumentController+Untitled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDocumentController+Untitled.h"; path = "Categories/NSDocumentController+Untitled.h"; sourceTree = "<group>"; };
+		FADA72D01B39F2FB00C541D9 /* NSDocumentController+Untitled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDocumentController+Untitled.m"; path = "Categories/NSDocumentController+Untitled.m"; sourceTree = "<group>"; };
 		FAE35D2F1B38C26900334C96 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		FAEA99841B36469A00EEA486 /* NSColor+TE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+TE.h"; sourceTree = "<group>"; };
 		FAEA99851B36469A00EEA486 /* NSColor+TE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+TE.m"; sourceTree = "<group>"; };
@@ -257,6 +260,8 @@
 				FA606C0D1B2C1D2100F24960 /* AppDelegate.m */,
 				FA606C121B2C1D2100F24960 /* Document.h */,
 				FA606C131B2C1D2100F24960 /* Document.m */,
+				FADA72CF1B39F2FB00C541D9 /* NSDocumentController+Untitled.h */,
+				FADA72D01B39F2FB00C541D9 /* NSDocumentController+Untitled.m */,
 				FA606C151B2C1D2100F24960 /* Document.xib */,
 				FABEAEC41B2F70C200B02805 /* TEInspectorController.xib */,
 				FABEAECB1B2F70F300B02805 /* TEInspectorDetailController.xib */,
@@ -477,6 +482,7 @@
 				FA7EA3E21B30CFC30014393A /* TEGradientInspector.m in Sources */,
 				FABEAECC1B2F70F300B02805 /* TEInspectorDetailController.m in Sources */,
 				FAC2D3811B37C4D00015BF7F /* TKGradient+Pasteboard.m in Sources */,
+				FADA72D11B39F2FB00C541D9 /* NSDocumentController+Untitled.m in Sources */,
 				FAC2D3781B37B3FE0015BF7F /* TKEffectPreset+Pasteboard.m in Sources */,
 				FAC2D37E1B37C0ED0015BF7F /* TKGradientStop+Pasteboard.m in Sources */,
 				FA1E9C691B3346A40097AA41 /* TEBitmapInspector.m in Sources */,
@@ -628,6 +634,10 @@
 				);
 				INFOPLIST_FILE = ThemeEngine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_CFLAGS = (
+					"-Wno-profile-instr-unprofiled",
+					"-Wno-profile-instr-out-of-date",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexzielenski.ThemeEngine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../ThemeKit/**";
@@ -648,6 +658,10 @@
 				);
 				INFOPLIST_FILE = ThemeEngine/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_CFLAGS = (
+					"-Wno-profile-instr-unprofiled",
+					"-Wno-profile-instr-out-of-date",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexzielenski.ThemeEngine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../ThemeKit/**";
