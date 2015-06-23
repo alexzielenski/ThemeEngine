@@ -192,11 +192,6 @@ NSString *md5(NSString *str) {
     return (CGFloat)self.renditionKey.themeScale;
 }
 
-#define WITH(OBJECT) { \
-    typeof(OBJECT) _ = OBJECT;
-
-#define ENDWITH }
-
 - (NSString *)renditionHash {
     if (!self._renditionHash) {
 WITH(self.renditionKey)

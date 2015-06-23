@@ -25,6 +25,11 @@
 #define AntiARCRetain(...) { void *retainedThing = (__bridge_retained void *)__VA_ARGS__; retainedThing = retainedThing; }
 #define AntiARCRelease(...) { void *retainedThing = (__bridge void *) __VA_ARGS__; id unretainedThing = (__bridge_transfer id)retainedThing; unretainedThing = nil; }
 
+#define WITH(OBJECT) { \
+typeof(OBJECT) _ = OBJECT;
+
+#define ENDWITH }
+
 extern void *TKIvarPointer(id self, const char *name);
 
 @class TKRendition;
