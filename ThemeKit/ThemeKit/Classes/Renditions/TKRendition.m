@@ -192,31 +192,36 @@ NSString *md5(NSString *str) {
     return (CGFloat)self.renditionKey.themeScale;
 }
 
+#define WITH(OBJECT) { \
+    typeof(OBJECT) _ = OBJECT;
+
+#define ENDWITH }
+
 - (NSString *)renditionHash {
     if (!self._renditionHash) {
-#define KEY(K) self.renditionKey.K
+WITH(self.renditionKey)
         self._renditionHash = md5([NSString stringWithFormat:@"%lld%lld%lld%lld%lld%lld%lu%lld%lu%lu%lld%lu%lld%lld%lld%lu%lu%lu%lld%lld",
-                                   KEY(themeIdentifier),
-                                   KEY(themeGraphicsClass),
-                                   KEY(themeMemoryClass),
-                                   KEY(themeSizeClassVertical),
-                                   KEY(themeSizeClassHorizontal),
-                                   KEY(themeSubtype),
-                                   (unsigned long)KEY(themeIdiom),
-                                   KEY(themeScale),
-                                   (unsigned long)KEY(themeLayer),
-                                   (unsigned long)KEY(themePresentationState),
-                                   KEY(themePreviousState),
-                                   (unsigned long)KEY(themeState),
-                                   KEY(themeDimension2),
-                                   KEY(themeDimension1),
-                                   KEY(themePreviousValue),
-                                   KEY(themeValue),
-                                   KEY(themeDirection),
-                                   (unsigned long)KEY(themeSize),
-                                   KEY(themePart),
-                                   KEY(themeElement)]);
-#undef KEY
+                                   _.themeIdentifier,
+                                   _.themeGraphicsClass,
+                                   _.themeMemoryClass,
+                                   _.themeSizeClassVertical,
+                                   _.themeSizeClassHorizontal,
+                                   _.themeSubtype,
+                                   (unsigned long)_.themeIdiom,
+                                   _.themeScale,
+                                   (unsigned long)_.themeLayer,
+                                   (unsigned long)_.themePresentationState,
+                                   _.themePreviousState,
+                                   (unsigned long)_.themeState,
+                                   _.themeDimension2,
+                                   _.themeDimension1,
+                                   _.themePreviousValue,
+                                   _.themeValue,
+                                   _.themeDirection,
+                                   (unsigned long)_.themeSize,
+                                   _.themePart,
+                                   _.themeElement]);
+ENDWITH
     }
     
     return self._renditionHash;
