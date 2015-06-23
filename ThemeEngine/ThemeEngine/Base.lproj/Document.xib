@@ -332,7 +332,7 @@
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="c83-w5-G1C">
-                        <rect key="frame" x="485" y="0.0" width="15" height="351"/>
+                        <rect key="frame" x="484" y="0.0" width="16" height="351"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
@@ -340,62 +340,6 @@
                 <customView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3S4-16-oLu">
                     <rect key="frame" x="0.0" y="0.0" width="500" height="32"/>
                     <subviews>
-                        <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TJn-WL-X6h">
-                            <rect key="frame" x="6" y="7" width="65" height="17"/>
-                            <animations/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Group By:" id="Knh-cc-V98">
-                                <font key="font" metaFont="system"/>
-                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundStyle">
-                                        <integer key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </textFieldCell>
-                        </textField>
-                        <button wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YXj-cd-YIj">
-                            <rect key="frame" x="344" y="11" width="12" height="12"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="12" id="4ea-J6-6Wi"/>
-                                <constraint firstAttribute="width" constant="12" id="aWH-hW-nSd"/>
-                            </constraints>
-                            <animations/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SliderAnchorTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="kpR-aW-Z80">
-                                <behavior key="behavior" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="zoomAnchorPressed:" target="DYE-2D-1ip" id="Y94-Hw-ZcJ"/>
-                            </connections>
-                        </button>
-                        <button wantsLayer="YES" verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-jj-xg3">
-                            <rect key="frame" x="464" y="9" width="16" height="16"/>
-                            <animations/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SliderAnchorTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="Rr4-tC-JlR">
-                                <behavior key="behavior" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundStyle">
-                                        <integer key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </buttonCell>
-                            <connections>
-                                <action selector="zoomAnchorPressed:" target="DYE-2D-1ip" id="Voy-yP-pJL"/>
-                            </connections>
-                        </button>
-                        <slider wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4dv-Sn-CWt">
-                            <rect key="frame" x="362" y="6" width="96" height="20"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="92" id="C1j-Vu-sK4"/>
-                            </constraints>
-                            <animations/>
-                            <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.40000000000000002" maxValue="0.80000000000000004" doubleValue="0.80000000000000004" tickMarkPosition="above" sliderType="linear" id="uXd-mE-mW7"/>
-                            <connections>
-                                <binding destination="DYE-2D-1ip" name="value" keyPath="renditionBrowser.zoomValue" id="2QX-fR-fwu"/>
-                            </connections>
-                        </slider>
                         <popUpButton wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6I9-Ub-ITu">
                             <rect key="frame" x="77" y="2" width="75" height="25"/>
                             <animations/>
@@ -434,6 +378,62 @@
                                 <binding destination="DYE-2D-1ip" name="selectedTag" keyPath="currentGroup" id="9MS-O7-dXk"/>
                             </connections>
                         </popUpButton>
+                        <button wantsLayer="YES" verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-jj-xg3">
+                            <rect key="frame" x="464" y="9" width="16" height="16"/>
+                            <animations/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SliderAnchorTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="Rr4-tC-JlR">
+                                <behavior key="behavior" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundStyle">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </buttonCell>
+                            <connections>
+                                <action selector="zoomAnchorPressed:" target="DYE-2D-1ip" id="Voy-yP-pJL"/>
+                            </connections>
+                        </button>
+                        <button wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YXj-cd-YIj">
+                            <rect key="frame" x="344" y="11" width="12" height="12"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="12" id="4ea-J6-6Wi"/>
+                                <constraint firstAttribute="width" constant="12" id="aWH-hW-nSd"/>
+                            </constraints>
+                            <animations/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SliderAnchorTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="kpR-aW-Z80">
+                                <behavior key="behavior" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="zoomAnchorPressed:" target="DYE-2D-1ip" id="Y94-Hw-ZcJ"/>
+                            </connections>
+                        </button>
+                        <textField wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="TJn-WL-X6h">
+                            <rect key="frame" x="6" y="7" width="65" height="17"/>
+                            <animations/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Group By:" id="Knh-cc-V98">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backgroundStyle">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textFieldCell>
+                        </textField>
+                        <slider wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4dv-Sn-CWt">
+                            <rect key="frame" x="362" y="6" width="96" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="92" id="C1j-Vu-sK4"/>
+                            </constraints>
+                            <animations/>
+                            <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.40000000000000002" maxValue="0.80000000000000004" doubleValue="0.80000000000000004" tickMarkPosition="above" sliderType="linear" id="uXd-mE-mW7"/>
+                            <connections>
+                                <binding destination="DYE-2D-1ip" name="value" keyPath="renditionBrowser.zoomValue" id="2QX-fR-fwu"/>
+                            </connections>
+                        </slider>
                     </subviews>
                     <constraints>
                         <constraint firstItem="4dv-Sn-CWt" firstAttribute="baseline" secondItem="Wze-jj-xg3" secondAttribute="baseline" constant="1" id="37Y-kN-oyZ"/>
