@@ -11,18 +11,20 @@
 @implementation NSColor (TE)
 
 + (NSColor *)checkerPattern {
+    
+    
     static NSColor *pattern = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSImage *checkerImage = [NSImage imageWithSize:NSMakeSize(11, 11)
+        NSImage *checkerImage = [NSImage imageWithSize:NSMakeSize(14, 14)
                                                flipped:YES
                                         drawingHandler:^BOOL(NSRect dstRect) {
                                             CGFloat size = dstRect.size.width / 2;
-                                            [[NSColor lightGrayColor] set];
+                                            [[[NSColor lightGrayColor] colorWithAlphaComponent:0.4] set];
                                             NSRectFill(NSMakeRect(0, 0, size, size));
                                             NSRectFill(NSMakeRect(size, size, size, size));
                                             
-                                            [[NSColor whiteColor] set];
+                                            [[[NSColor whiteColor] colorWithAlphaComponent:0.4] set];
                                             NSRectFill(NSMakeRect(size, 0, size, size));
                                             NSRectFill(NSMakeRect(0, size, size, size));
                                             
