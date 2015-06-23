@@ -30,6 +30,7 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
     [super windowControllerDidLoadNib:aController];
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
     aController.window.titleVisibility = NSWindowTitleHidden;
+    aController.window.appearance = [NSAppearance currentAppearance];
     aController.window.titlebarAppearsTransparent = YES;
 }
 
