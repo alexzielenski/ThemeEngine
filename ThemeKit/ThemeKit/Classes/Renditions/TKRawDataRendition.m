@@ -10,6 +10,8 @@
 #import "TKRendition+Private.h"
 @import QuartzCore.CATransaction;
 
+extern NSData *CAEncodeLayerTree(CALayer *layer);
+
 NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archive";
 
 @interface TKRawDataRendition () {
@@ -87,12 +89,12 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
 
 - (void)setRootLayer:(CALayer *)rootLayer {
     _rootLayer = rootLayer;
-    self._previewImage = nil;
+    self.rawData = rootLayer ? CAEncodeLayerTree(rootLayer) : nil;
 }
 
 - (void)setRawData:(NSData *)rawData {
     _rawData = rawData;
-    self._previewImage = nil;
+    _rootLayer = nil;
 }
 
 + (NSDictionary *)undoProperties {

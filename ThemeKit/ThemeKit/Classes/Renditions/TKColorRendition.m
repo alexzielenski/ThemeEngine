@@ -26,11 +26,6 @@
     return self;
 }
 
-- (void)setColor:(NSColor *)color {
-    _color = color;
-    self._previewImage = nil;
-}
-
 - (void)computePreviewImageIfNecessary {
     if (self._previewImage)
         return;

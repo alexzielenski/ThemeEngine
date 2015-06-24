@@ -37,6 +37,8 @@ NSString *md5(NSString *str) {
             ];
 }
 
+static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
+
 @interface TKRendition ()
 @property (copy) NSString *_renditionHash;
 @property (readwrite) CGFloat scaleFactor;
@@ -129,9 +131,28 @@ NSString *md5(NSString *str) {
 - (instancetype)init {
     if ((self = [super init])) {
         self.undoManager = nil;
+        [self addObserver:self
+               forKeyPath:@"changeCount"
+                  options:0
+                  context:&TKRenditionChangeContext];
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [self removeObserver:self
+              forKeyPath:@"changeCount"
+                 context:&TKRenditionChangeContext];
+}
+
+- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary *)change context:(nullable void *)context {
+    if (context == &TKRenditionChangeContext) {
+        self._previewImage = nil;
+        
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (NSImage *)previewImage {

@@ -35,11 +35,6 @@
     [self._previewImage addRepresentation:[self.effectPreset proccesedImage:[TKEffectPreset shapeImage]]];
 }
 
-- (void)setEffectPreset:(TKEffectPreset *)effectPreset {
-    _effectPreset = effectPreset;
-    self._previewImage = nil;
-}
-
 + (NSDictionary *)undoProperties {
     static NSDictionary *TKEffectProperties = nil;
     static dispatch_once_t onceToken;

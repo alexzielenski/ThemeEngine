@@ -12,7 +12,6 @@
 #import "TKGradient+Private.h"
 
 @implementation TKGradientRendition
-@dynamic gradient;
 
 - (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData key:(CUIRenditionKey *)key {
     if ((self = [super _initWithCUIRendition:rendition csiData:csiData key:key])) {
@@ -38,20 +37,6 @@
                                          return YES;
                                      }];
     }
-}
-
-- (TKGradient *)gradient {
-    return _gradient;
-}
-
-- (void)setGradient:(TKGradient *)gradient {
-    if (!gradient) {
-        [NSException raise:@"Invalid Argument" format:@"TKGradientRendition: Gradient must be non-null!"];
-        return;
-    }
-    
-    _gradient = gradient;
-    self._previewImage = nil;
 }
 
 + (NSDictionary *)undoProperties {

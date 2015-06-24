@@ -15,7 +15,6 @@
 #import <CoreUI/Renditions/CUIRenditions.h>
 
 @implementation TKBitmapRendition
-@dynamic image;
 
 - (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData  key:(CUIRenditionKey *)key {
     if ((self = [super _initWithCUIRendition:rendition csiData:(NSData *)csiData key:key])) {
@@ -53,7 +52,6 @@
         CGImageRef unsliced = self.rendition.unslicedImage;
         if (unsliced != NULL) {
             _image = [[NSBitmapImageRep alloc] initWithCGImage:unsliced];
-            self._previewImage = nil;
             
             // remove backing image after we're done with it
             CGImageRef *ptr = TKIvarPointer(self.rendition, "_unslicedImage");
@@ -75,16 +73,6 @@
         }
     }
     return _image;
-}
-
-- (void)setImage:(NSBitmapImageRep *)image {
-    if (!image) {
-        [NSException raise:@"Invalid Argument" format:@"TKBitmapRendition: Image must be non-null!"];
-        return;
-    }
-    
-    _image = image;
-    self._previewImage = nil;
 }
 
 + (NSDictionary *)undoProperties {
