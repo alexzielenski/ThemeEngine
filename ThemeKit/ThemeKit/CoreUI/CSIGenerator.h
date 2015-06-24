@@ -41,7 +41,7 @@
 @property(retain, nonatomic) CUIPSDGradient *gradient; // @synthesize gradient=_gradient;
 @property(nonatomic) short colorSpaceID; // @synthesize colorSpaceID=_colorSpaceID;
 @property(nonatomic, getter=isExcludedFromContrastFilter) BOOL excludedFromContrastFilter; // @synthesize excludedFromContrastFilter=_isExcludedFromFilter;
-@property(nonatomic) long long templateRenderingMode; // @synthesize templateRenderingMode=_templateRenderingMode;
+@property(nonatomic) CoreThemeTemplateRenderingMode templateRenderingMode; // @synthesize templateRenderingMode=_templateRenderingMode;
 @property(nonatomic) BOOL isVectorBased; // @synthesize isVectorBased=_isVectorBased;
 @property(nonatomic) BOOL isRenditionFPO; // @synthesize isRenditionFPO=_isFPOHint;
 @property(copy, nonatomic) NSString *utiType; // @synthesize utiType=_utiType;

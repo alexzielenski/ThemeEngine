@@ -23,7 +23,7 @@
         unsigned int bitmapEncoding:4;
         unsigned int reserved:24;
     } _renditionFlags;
-    long long _templateRenderingMode;
+    CoreThemeTemplateRenderingMode _templateRenderingMode;
     long long _artworkStatus;
     unsigned long long _colorSpaceID;
     NSString *_name;
@@ -83,8 +83,7 @@
 - (unsigned long long)colorSpaceID;
 
 - (long long)artworkStatus;
-// Basically NSImage -isTemplate
-- (long long)templateRenderingMode;
+- (CoreThemeTemplateRenderingMode)templateRenderingMode;
 - (int)bitmapEncoding;
 - (BOOL)isOpaque;
 - (BOOL)isVectorBased;

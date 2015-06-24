@@ -26,7 +26,20 @@ typedef NS_ENUM(NSUInteger, CoreThemeIdiom) {
     CoreThemeIdiomPad        = 2,
     CoreThemeIdiomTV         = 3,
     CoreThemeIdiomCar        = 4,
-    CoreThemeIdiom5          = 5
+    CoreThemeIdiomWatch      = 5,
+    CoreThemeIdiomMarketing  = 6
+};
+
+typedef NS_ENUM(NSUInteger, CoreThemeSizeClass) {
+    CoreThemeSizeClassUnspecified = 0,
+    CoreThemeSizeClassCompact     = 1,
+    CoreThemeSizeClassRegular     = 2
+};
+
+typedef NS_ENUM(NSUInteger, CoreThemeTemplateRenderingMode) {
+    CoreThemeTemplateRenderingModeNone      = 0,
+    CoreThemeTemplateRenderingModeTemplate  = 1,
+    CoreThemeTemplateRenderingModeAutomatic = 2
 };
 
 typedef NS_ENUM(NSUInteger, CoreThemeSize) {
