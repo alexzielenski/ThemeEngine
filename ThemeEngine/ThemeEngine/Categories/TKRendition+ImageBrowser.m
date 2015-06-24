@@ -14,7 +14,7 @@
 #pragma mark - IKImageBrowserItem
 
 - (NSString *)imageUID {
-    return self.description;
+    return self.renditionHash;
 }
 
 - (NSString *)imageRepresentationType {
@@ -26,7 +26,7 @@
 }
 
 - (NSUInteger)imageVersion {
-    return self.changeCount;
+    return (NSUInteger)self.previewImage;
 }
 
 - (NSString *)imageTitle {
