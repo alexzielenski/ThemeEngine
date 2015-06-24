@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, CoreThemeSizeClass) {
     CoreThemeSizeClassRegular     = 2
 };
 
-typedef NS_ENUM(NSUInteger, CoreThemeTemplateRenderingMode) {
+typedef NS_ENUM(NSInteger, CoreThemeTemplateRenderingMode) {
     CoreThemeTemplateRenderingModeNone      = 0,
     CoreThemeTemplateRenderingModeTemplate  = 1,
     CoreThemeTemplateRenderingModeAutomatic = 2
