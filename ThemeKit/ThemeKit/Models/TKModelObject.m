@@ -92,8 +92,7 @@ static const void *TKModelObjectCollectionContext = &TKModelObjectCollectionCont
     [self evaluateProperties:properties forObject:self unregister:YES collection:NO];
     
     properties = [self.class collectionProperties];
-    for (NSString *key in properties.allKeys) {
-        
+    for (NSString *key in properties) {
         NSArray *registration = properties[key];
         NSDictionary *props = registration.lastObject;
         
@@ -172,7 +171,6 @@ static const void *TKModelObjectCollectionContext = &TKModelObjectCollectionCont
         
     } else if (context == &TKModelObjectCollectionContext) {
         NSArray *registration = [self.class collectionProperties][keyPath];
-        
         NSIndexSet *indices = change[NSKeyValueChangeIndexesKey];
         
         NSArray *newValues = (NSArray *)newValue;
@@ -181,104 +179,103 @@ static const void *TKModelObjectCollectionContext = &TKModelObjectCollectionCont
         // We support undo operations for collections adding/removing/setting
         if (self.undoManager) {
             // Don't trigger a registration if there was no change
-            if (newValue == value)
-                return;
-            
-            if ([value respondsToSelector:@selector(isEqual:)]) {
-                if ([value isEqual:newValue])
-                    return;
-            }
-            
-            // Update our dirty status accordingly
-            if (self.undoManager.isUndoing) {
-                [self updateChangeCount:NSChangeUndone];
-            } else if (self.undoManager.isRedoing) {
-                [self updateChangeCount:NSChangeRedone];
-            } else {
-                [self updateChangeCount:NSChangeDone];
-            }
-            
-            
-            TKCollectionType type = [registration[1] unsignedIntegerValue];
-            NSKeyValueChange kind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
-            NSString *verb = nil;
-            
-            switch (kind) {
-                case NSKeyValueChangeSetting: {
-                    [[self.undoManager prepareWithInvocationTarget:object] setValue:value
-                                                                         forKeyPath:keyPath];
-                    verb = @"Change";
-                    break;
-                }
-                case NSKeyValueChangeInsertion: {
-                    [self.undoManager registerUndoWithTarget:object handler:^(id  __nonnull target) {
-                        switch (type) {
-                            case TKCollectionTypeArray:
-                                [[target mutableArrayValueForKeyPath:keyPath] removeObjectsAtIndexes:indices];
-                                break;
-                            case TKCollectionTypeSet:
-                                [[target mutableSetValueForKeyPath:keyPath] minusSet:[NSSet setWithArray:newValues]];
-                                break;
-                            case TKCollectionTypeOrderedSet:
-                                [[target mutableOrderedSetValueForKeyPath:keyPath] removeObjectsAtIndexes:indices];
-                                break;
-                        }
-                    }];
+            if (newValue != value) {
+                if (!([value respondsToSelector:@selector(isEqual:)] &&
+                      [value isEqual:newValue])) {
                     
-                    verb = @"Add";
-                    break;
-                }
-                case NSKeyValueChangeRemoval: {
-                    [self.undoManager registerUndoWithTarget:object handler:^(id  __nonnull target) {
-                        switch (type) {
-                            case TKCollectionTypeArray:
-                                [[target mutableArrayValueForKeyPath:keyPath] insertObjects:oldValues
-                                                                                  atIndexes:indices];
-                                break;
-                            case TKCollectionTypeSet:
-                                [[target mutableSetValueForKeyPath:keyPath] unionSet:[NSSet setWithArray:oldValues]];
-                                break;
-                            case TKCollectionTypeOrderedSet:
-                                [[target mutableOrderedSetValueForKeyPath:keyPath] insertObjects:oldValues
-                                                                                       atIndexes:indices];
-                                break;
-                        }
-                    }];
-                    verb = @"Remove";
-                    break;
-                }
-                case NSKeyValueChangeReplacement: {
-                    [self.undoManager registerUndoWithTarget:object handler:^(id  __nonnull target) {
-                        switch (type) {
-                            case TKCollectionTypeArray:
-                                [[target mutableArrayValueForKeyPath:keyPath] replaceObjectsAtIndexes:indices
-                                                                                          withObjects:oldValues];
-                                break;
-                            case TKCollectionTypeSet:
-                                [[target mutableSetValueForKeyPath:keyPath] minusSet:[NSSet setWithArray:newValues]];
-                                [[target mutableSetValueForKeyPath:keyPath] unionSet:[NSSet setWithArray:oldValues]];
-                                break;
-                            case TKCollectionTypeOrderedSet:
-                                [[target mutableOrderedSetValueForKeyPath:keyPath] replaceObjectsAtIndexes:indices
-                                                                                               withObjects:oldValues];
-                                break;
-                        }
-                    }];
+                    // Update our dirty status accordingly
+                    if (self.undoManager.isUndoing) {
+                        [self updateChangeCount:NSChangeUndone];
+                    } else if (self.undoManager.isRedoing) {
+                        [self updateChangeCount:NSChangeRedone];
+                    } else {
+                        [self updateChangeCount:NSChangeDone];
+                    }
                     
-                    verb = @"Change";
-                    break;
-                }
-            }
-            
-            verb = [verb stringByAppendingFormat:@" %@", registration[0]];
-            if (!self.undoManager.isUndoing) {
-                [self.undoManager setActionName:verb];
-            }
-        }
+                    
+                    TKCollectionType type = [registration[1] unsignedIntegerValue];
+                    NSKeyValueChange kind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
+                    NSString *verb = nil;
+                    
+                    switch (kind) {
+                        case NSKeyValueChangeSetting: {
+                            [[self.undoManager prepareWithInvocationTarget:object] setValue:value
+                                                                                 forKeyPath:keyPath];
+                            verb = @"Change";
+                            break;
+                        }
+                        case NSKeyValueChangeInsertion: {
+                            [self.undoManager registerUndoWithTarget:object handler:^(id  __nonnull target) {
+                                switch (type) {
+                                    case TKCollectionTypeArray:
+                                        [[target mutableArrayValueForKeyPath:keyPath] removeObjectsAtIndexes:indices];
+                                        break;
+                                    case TKCollectionTypeSet:
+                                        [[target mutableSetValueForKeyPath:keyPath] minusSet:[NSSet setWithArray:newValues]];
+                                        break;
+                                    case TKCollectionTypeOrderedSet:
+                                        [[target mutableOrderedSetValueForKeyPath:keyPath] removeObjectsAtIndexes:indices];
+                                        break;
+                                }
+                            }];
+                            
+                            verb = @"Add";
+                            break;
+                        }
+                        case NSKeyValueChangeRemoval: {
+                            [self.undoManager registerUndoWithTarget:object handler:^(id  __nonnull target) {
+                                switch (type) {
+                                    case TKCollectionTypeArray:
+                                        [[target mutableArrayValueForKeyPath:keyPath] insertObjects:oldValues
+                                                                                          atIndexes:indices];
+                                        break;
+                                    case TKCollectionTypeSet:
+                                        [[target mutableSetValueForKeyPath:keyPath] unionSet:[NSSet setWithArray:oldValues]];
+                                        break;
+                                    case TKCollectionTypeOrderedSet:
+                                        [[target mutableOrderedSetValueForKeyPath:keyPath] insertObjects:oldValues
+                                                                                               atIndexes:indices];
+                                        break;
+                                }
+                            }];
+                            verb = @"Remove";
+                            break;
+                        }
+                        case NSKeyValueChangeReplacement: {
+                            [self.undoManager registerUndoWithTarget:object handler:^(id  __nonnull target) {
+                                switch (type) {
+                                    case TKCollectionTypeArray:
+                                        [[target mutableArrayValueForKeyPath:keyPath] replaceObjectsAtIndexes:indices
+                                                                                                  withObjects:oldValues];
+                                        break;
+                                    case TKCollectionTypeSet:
+                                        [[target mutableSetValueForKeyPath:keyPath] minusSet:[NSSet setWithArray:newValues]];
+                                        [[target mutableSetValueForKeyPath:keyPath] unionSet:[NSSet setWithArray:oldValues]];
+                                        break;
+                                    case TKCollectionTypeOrderedSet:
+                                        [[target mutableOrderedSetValueForKeyPath:keyPath] replaceObjectsAtIndexes:indices
+                                                                                                       withObjects:oldValues];
+                                        break;
+                                }
+                            }];
+                            
+                            verb = @"Change";
+                            break;
+                        }
+                    }
+                    
+                    verb = [verb stringByAppendingFormat:@" %@", registration[0]];
+                    if (!self.undoManager.isUndoing) {
+                        [self.undoManager setActionName:verb];
+                    }
+                    
+                } // value isEuql
+            } // value !=
+        } // self.undo
         
         // After registering the adding/removing, etc. we have to observe each
         NSDictionary *properties = registration.lastObject;
-
+        
         for (id object in oldValues) {
             [self evaluateProperties:properties
                            forObject:object
@@ -292,7 +289,7 @@ static const void *TKModelObjectCollectionContext = &TKModelObjectCollectionCont
                           unregister:NO
                           collection:YES];
         }
-
+        
         
     } else {
         [super observeValueForKeyPath:keyPath
