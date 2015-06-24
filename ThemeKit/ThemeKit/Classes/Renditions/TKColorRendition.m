@@ -69,4 +69,8 @@
                  excludeFromFilter:self.excudedFromFilter];
 }
 
+- (NSString *)renditionHash {
+    return self.name;
+}
+
 @end
