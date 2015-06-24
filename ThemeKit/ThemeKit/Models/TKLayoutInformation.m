@@ -52,7 +52,6 @@
         
         
         // Get metric information
-        NSMutableArray *metrics = [NSMutableArray array];
         unsigned metricMagic = CSIInfoMagicMetrics;
         NSRange metricMagicLocation = [csiData rangeOfData:
                                        [NSData dataWithBytes:&metricMagic length:sizeof(metricMagic)]
@@ -83,10 +82,8 @@
                 
                 [metrics addObject:[NSValue valueWithBytes:&renditionMetric objCType:@encode(CUIMetrics)]];
             }
+            self.metrics = metrics;
         }
-        
-        self.metrics = metrics;
-        
     }
     
     return self;

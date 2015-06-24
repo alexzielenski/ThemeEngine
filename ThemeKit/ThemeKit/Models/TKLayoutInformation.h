@@ -11,8 +11,8 @@
 
 @interface TKLayoutInformation : NSObject <NSCoding>
 // Slices
-@property NSArray *sliceRects;
+@property (strong) NSArray *sliceRects;
 
 // Metrics
-@property NSArray *metrics;
+@property (strong) NSArray *metrics;
 @end
