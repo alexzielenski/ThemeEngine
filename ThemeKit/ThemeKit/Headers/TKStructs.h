@@ -24,8 +24,9 @@
  0xEC03 - 1004: Composition - First 4 length, second is the blendmode, third is a float for opacity
  0xED03 - 1005: UTI Type, First 4 length, next 4 length of string, then the string
  0xEE03 - 1006: Image Metadata: First 4 length, next 4 EXIF orientation, (UTI type...?)
- 0xEF03 - 1007: Unknown. Found in new bitmaps
+ 0xEF03 - 1007: Bytes Per Row: first 4 length, next for BPR for bitmaps
  0xF203 - 1010: Internal Reference – First 4 length, next 4 reference magic 'INKL', next is variable
+ 0xF303 - 1011: Alpha Cropped Frame
  
  GRADIENT format documented in TKGradient.h
  SHAPE EFFECT format documented in CUIShapeEffectPreset.h

@@ -32,10 +32,10 @@
 
 NSString *decamelize(NSString *string) {
     string = [string stringByDeletingPathExtension];
-    return [[string stringByReplacingOccurrencesOfString:@"([A-Z])"
-                                              withString:@" $1"
-                                                 options:NSRegularExpressionSearch
-                                                   range:NSMakeRange(0, string.length)] capitalizedString];
+    return [[[string stringByReplacingOccurrencesOfString:@"(?<!^)(?=[A-Z])"
+                                               withString:@" $1"
+                                                  options:NSRegularExpressionSearch
+                                                    range:NSMakeRange(0, string.length)] capitalizedString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
 NSString *CoreThemeTypeToString(CoreThemeType value) {
@@ -88,7 +88,8 @@ NSString *CoreThemeIdiomToString(CoreThemeIdiom value) {
     STRINGIFY(CoreThemeIdiomPad)
     STRINGIFY(CoreThemeIdiomTV)
     STRINGIFY(CoreThemeIdiomCar)
-    STRINGIFY(CoreThemeIdiom5)
+    STRINGIFY(CoreThemeIdiomWatch)
+    STRINGIFY(CoreThemeIdiomMarketing)
     ENDSTRINGIFY
 }
 
@@ -179,6 +180,14 @@ NSString *CUIEffectTypeToString(CUIEffectType value) {
     STRINGIFY(CUIEffectTypeOutputOpacity)
     STRINGIFY(CUIEffectTypeShapeOpacity)
     STRINGIFY(CUIEffectTypeGradientFill);
+    ENDSTRINGIFY
+}
+
+extern NSString *CoreThemeTemplateRenderingModeToString(CoreThemeTemplateRenderingMode value) {
+    BEGINSTRINGIFY(CoreThemeTemplateRenderingMode, NO)
+    STRINGIFY(CoreThemeTemplateRenderingModeNone)
+    STRINGIFY(CoreThemeTemplateRenderingModeTemplate)
+    STRINGIFY(CoreThemeTemplateRenderingModeAutomatic)
     ENDSTRINGIFY
 }
 

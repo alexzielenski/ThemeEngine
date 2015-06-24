@@ -29,6 +29,7 @@
 @property (getter=isExcludedFromConstrastFilter) BOOL excludedFromContrastFilter;
 @property (readonly) CGFloat scaleFactor;
 @property short colorspaceID;
+@property (assign) CoreThemeTemplateRenderingMode renderingMode;
 
 @property (readonly) NSImage *previewImage;
 @property (nonatomic, readonly, getter=isAssetPack) BOOL assetPack;

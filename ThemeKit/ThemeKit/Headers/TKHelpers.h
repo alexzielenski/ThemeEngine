@@ -38,8 +38,8 @@ extern NSData *TKConvertRenditionKeyToCARKey(NSData *src, CUICommonAssetStorage 
 extern NSData *TKConvertCARKeyToRenditionKey(NSData *src, CUICommonAssetStorage *storage);
 
 ///Not Exported
-extern void CUIFillCARKeyArrayForRenditionKey(uint16_t *dst, struct renditionkeytoken *src, struct renditionkeyfmt const*format);
-extern void CUIFillRenditionKeyForCARKeyArray(struct renditionkeytoken *dst, uint16_t *src, struct renditionkeyfmt const*format);
+extern void CUIFillCARKeyArrayForRenditionKey(uint16_t *dst, struct renditionkeytoken *src, struct renditionkeyfmt const *format);
+extern void CUIFillRenditionKeyForCARKeyArray(struct renditionkeytoken *dst, uint16_t *src, struct renditionkeyfmt const *format);
 
 extern OSErr CUIRenditionKeyCopy(struct renditionkeytoken *dst, struct renditionkeytoken *src, int maxCountIncludingZeroTerminator); // use 0x10
 

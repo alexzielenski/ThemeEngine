@@ -10,18 +10,18 @@
 @class CUIPSDGradient, CUIShapeEffectPreset;
 @interface CSIGenerator : NSObject
 {
-    NSMutableArray *_slices;
-    NSMutableArray *_bitmaps;
-    NSMutableArray *_metrics;
-    BOOL _allowsMultiPassEncoding;
-    short _layout;
-    NSData *_rawData;
-    int _exifOrientation;
-    unsigned long long _rowbytes;
-    NSString *_assetPackIdentifier;
-    NSSet *_externalTags;
-    CGRect _externalReferenceFrame;
-    unsigned short _linkLayout;
+    NSMutableArray *_slices; // 0x0
+    NSMutableArray *_bitmaps; // 0x8
+    NSMutableArray *_metrics; // 0x10
+    BOOL _allowsMultiPassEncoding; // 0x18
+    short _layout; // 0x20
+    NSData *_rawData; // 0x28
+    int _exifOrientation; // 0x30
+    unsigned long long _rowbytes; // 0x38
+    NSString *_assetPackIdentifier; // 0x40
+    NSSet *_externalTags; // 0x48
+    CGRect _externalReferenceFrame; // 0x50
+    unsigned short _linkLayout; // 0x58
 }
 
 + (int)fileEncoding;

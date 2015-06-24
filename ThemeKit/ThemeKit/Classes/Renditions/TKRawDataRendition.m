@@ -89,7 +89,6 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
 
 - (void)setRootLayer:(CALayer *)rootLayer {
     _rootLayer = rootLayer;
-    self.rawData = rootLayer ? CAEncodeLayerTree(rootLayer) : nil;
 }
 
 - (void)setRawData:(NSData *)rawData {
@@ -111,6 +110,10 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
 }
 
 - (CSIGenerator *)generator {
+    if (self.rootLayer != nil) {
+        self.rawData = CAEncodeLayerTree(self.rootLayer);
+    }
+    
     CSIGenerator *generator = [[CSIGenerator alloc] initWithRawData:self.rawData
                                                         pixelFormat:self.pixelFormat
                                                              layout:self.layout];

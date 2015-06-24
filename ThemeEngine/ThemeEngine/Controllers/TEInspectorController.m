@@ -38,6 +38,7 @@ const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSe
     [super viewDidLoad];
     
      self.inspectorViewControllers = @[
+                                       self.caarInspector,
                                        self.animationInspector,
                                        self.sliceInspector,
                                        self.colorInspector,

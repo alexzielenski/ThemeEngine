@@ -234,5 +234,5 @@ extern NSString *CoreThemePresentationStateToString(CoreThemePresentationState v
 extern NSString *CoreThemeLayoutToString(CoreThemeLayout value);
 extern NSString *TKScaleToString(double scale);
 extern NSString *CUIEffectTypeToString(CUIEffectType value);
-
+extern NSString *CoreThemeTemplateRenderingModeToString(CoreThemeTemplateRenderingMode mode);
 #endif /* TKTypes_h */

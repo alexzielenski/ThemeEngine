@@ -106,7 +106,8 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
         self.colorspaceID               = header.colorspaceID;
         self.scaleFactor                = (CGFloat)header.scaleFactor / 100.0;
         self.pixelFormat                = header.pixelFormat;
-        
+        self.renderingMode              = rendition.templateRenderingMode;
+                
         //TOOD: Find out if this impacts our ability to save
         CFDataRef *data = TKIvarPointer(self.rendition, "_srcData");
         if (data != NULL) {
@@ -173,7 +174,7 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
 - (void)commitToStorage {
     CSIGenerator *generator = self.generator;
     generator.utiType                    = self.utiType;
-    generator.templateRenderingMode      = self.rendition.templateRenderingMode;
+    generator.templateRenderingMode      = self.renderingMode;
     generator.isVectorBased              = self.isVector;
     generator.isRenditionFPO             = self.isFPO;
     generator.excludedFromContrastFilter = self.isExcludedFromConstrastFilter;
@@ -188,6 +189,7 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
     
     @try {
         csiData = [generator CSIRepresentationWithCompression:YES];
+        [csiData writeToFile:@"/Users/Alex/Desktop/Apple.png" atomically:NO];
     }
     
     @catch (NSException *exception) {
@@ -218,7 +220,8 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         TKRenditionProperties = @{
-                                  TKKey(utiType): @"Change UTI"
+                                  TKKey(utiType): @"Change UTI",
+                                  TKKey(renderingMode): @"Change Template Mode"
                                   };
     });
     

@@ -16,6 +16,7 @@
 #import "TEColorInspector.h"
 #import "TESlicePreviewInspector.h"
 #import "TEAnimationInspector.h"
+#import "TECaarInspector.h"
 
 // representedObject must be an NSArrayController
 // with updated selectionIndexes
@@ -32,6 +33,7 @@
 @property (weak) IBOutlet TEColorInspector *colorInspector;
 @property (weak) IBOutlet TESlicePreviewInspector *sliceInspector;
 @property (weak) IBOutlet TEAnimationInspector *animationInspector;
+@property (weak) IBOutlet TECaarInspector *caarInspector;
 
 @property IBOutlet NSView *bottomLine;
 @end
