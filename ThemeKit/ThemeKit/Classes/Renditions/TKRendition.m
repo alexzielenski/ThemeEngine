@@ -161,7 +161,7 @@ NSString *md5(NSString *str) {
     generator.opacity                    = self.opacity;
     generator.exifOrientation            = self.exifOrientation;
     generator.colorSpaceID               = self.colorspaceID;
-    generator.scaleFactor                = (unsigned int)self.scaleFactor * 100;
+    generator.scaleFactor                = self.scale;
     
     NSData *csiData = nil;
     

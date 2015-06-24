@@ -50,7 +50,7 @@ static NSString *const TEBitmapKeyPayload           = @"payload";
         dictionary[TEBitmapKeyOpacity]           = @(self.opacity);
         dictionary[TEBitmapKeyPayload]           = [self pasteboardPropertyListForType:(__bridge NSString *)kUTTypePNG];
         dictionary[TEBitmapKeyUTType]            = self.utiType;
-        dictionary[TEBitmapKeyLayoutInformation] = [NSKeyedArchiver archivedDataWithRootObject:self.layoutInformation];
+        dictionary[TEBitmapKeyLayoutInformation] = self.layoutInformation.dicitonaryRepresentation;
         
         return [NSPropertyListSerialization dataWithPropertyList:dictionary
                                                           format:NSPropertyListXMLFormat_v1_0
@@ -77,7 +77,7 @@ static NSString *const TEBitmapKeyPayload           = @"payload";
             self.opacity           = [dict[TEBitmapKeyOpacity] doubleValue];
             self.image             = [[NSBitmapImageRep alloc] initWithData:dict[TEBitmapKeyPayload]];
             self.utiType           = dict[TEBitmapKeyUTType];
-            self.layoutInformation = [NSKeyedUnarchiver unarchiveObjectWithData:dict[TEBitmapKeyLayoutInformation]];
+            self.layoutInformation = [[TKLayoutInformation alloc] initWithDictionaryRepresentation:dict[TEBitmapKeyLayoutInformation]];
             
             return YES;
         }

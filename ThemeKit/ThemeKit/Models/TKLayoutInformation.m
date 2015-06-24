@@ -89,18 +89,62 @@
     return self;
 }
 
-- (instancetype)initWithCoder:(nonnull NSCoder *)coder {
+- (instancetype)initWithDictionaryRepresentation:(NSDictionary *)d {
     if ((self = [self init])) {
-        [self setValue:[coder decodeObjectForKey:TKKey(metrics)] forKey:TKKey(metrics)];
-        [self setValue:[coder decodeObjectForKey:TKKey(sliceRects)] forKey:TKKey(sliceRects)];
+        NSArray *slices = d[@"slices"];
+        NSArray *metrics = d[@"metrics"];
+        
+        NSMutableArray *sliceRects = [NSMutableArray array];
+        for (NSInteger x = 0; x < slices.count; x++) {
+            [sliceRects addObject:[NSValue valueWithRect:NSRectFromString(slices[x])]];
+        }
+        
+        self.sliceRects = sliceRects;
+        
+        sliceRects = [NSMutableArray array];
+        for (NSInteger x = 0; x < metrics.count; x++) {
+            CUIMetrics metric;
+            NSDictionary *h = metrics[x];
+            metric.imageSize = NSSizeFromString(h[@"imageSize"]);
+            metric.edgeTR    = NSSizeFromString(h[@"edgeTR"]);
+            metric.edgeBL    = NSSizeFromString(h[@"edgeBL"]);
+            
+            [sliceRects addObject:[NSValue valueWithBytes:&metric
+                                                 objCType:@encode(CUIMetrics)]];
+        }
+        
+        self.metrics = sliceRects;
     }
     
     return self;
 }
 
-- (void)encodeWithCoder:(nonnull NSCoder *)coder {
-    [coder encodeObject:self.metrics forKey:TKKey(metrics)];
-    [coder encodeObject:self.sliceRects forKey:TKKey(sliceRects)];
+- (NSDictionary *)dicitonaryRepresentation {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    NSMutableArray *slices = [NSMutableArray array];
+    for (NSInteger x = 0; x < self.sliceRects.count; x++) {
+        NSValue *slice = self.sliceRects[x];
+        [slices addObject:NSStringFromRect(slice.rectValue)];
+    }
+    
+    NSMutableArray *metrics = [NSMutableArray array];
+    for (NSInteger x = 0; x < self.metrics.count; x++) {
+        CUIMetrics metric;
+        NSValue *value = self.metrics[x];
+        [value getValue:&metric];
+        
+        NSMutableDictionary *d = [NSMutableDictionary dictionary];
+        d[@"imageSize"] = NSStringFromSize(metric.imageSize);
+        d[@"edgeTR"] = NSStringFromSize(metric.edgeTR);
+        d[@"edgeBL"] = NSStringFromSize(metric.edgeBL);
+        
+        [metrics addObject:d];
+    }
+    
+    dict[@"metrics"] = metrics;
+    dict[@"slices"]  = slices;
+    
+    return dict;
 }
 
 @end
