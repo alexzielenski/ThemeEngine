@@ -36,7 +36,7 @@
 
 - (NSArray<NSNumber *> *)opacityLocations;
 - (NSArray<NSNumber *> *)opacityStops;
-- (NSArray<NSNUmber *> *)colorLocations;
+- (NSArray<NSNumber *> *)colorLocations;
 - (NSArray<CUIColor *> *)colorStops;
 
 - (CUIColor *)_colorFromPSDGradientColor:(struct _psdGradientColor)arg1;
