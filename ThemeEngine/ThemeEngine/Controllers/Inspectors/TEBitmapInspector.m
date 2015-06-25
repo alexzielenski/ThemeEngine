@@ -7,7 +7,7 @@
 //
 
 #import "TEBitmapInspector.h"
-#import <ThemeKit/TKBitmapRendition.h>
+#import <ThemeKit/TKColorRendition.h>
 
 @interface TEBitmapInspector ()
 
@@ -21,7 +21,7 @@
 }
 
 - (NSStackViewVisibilityPriority)visibilityPriorityForInspectedObjects:(NSArray *)objects {
-    return [[objects valueForKeyPath:@"className"] containsObject:[TKBitmapRendition className]] ?
+    return ![[objects valueForKeyPath:@"className"] containsObject:[TKColorRendition className]] ?
     NSStackViewVisibilityPriorityMustHold : NSStackViewVisibilityPriorityNotVisible;
 }
 
