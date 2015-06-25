@@ -201,7 +201,10 @@
 #pragma mark - Effect Parameters
 
 - (void)setColor:(NSColor *)color forParameter:(CUIEffectParameter)parameter {
-    NSAssert([color isKindOfClass:[NSColor class]], @"Must pass NSColor object to %@", NSStringFromSelector(_cmd));
+    if (!color)
+        return;
+    
+    NSAssert([color isKindOfClass:[NSColor class]], @"Must pass NSColor object to %@. You passed %@", NSStringFromSelector(_cmd), color);
     [self willChangeValueForKey:@"parameters"];
     
     color = [color colorUsingColorSpace:[NSColorSpace sRGBColorSpace]];
@@ -351,6 +354,10 @@
     [self setNumber:@(blendModeValue) forParameter:CUIEffectParameterBlendMode];
 }
 
+- (void)setBlurRadiusValue:(NSUInteger)blurRadiusValue {
+    [self setNumber:@(blurRadiusValue) forParameter:CUIEffectParameterBlurRadius];
+}
+
 - (void)setAngleValue:(NSUInteger)angleValue {
     [self setNumber:@(angleValue) forParameter:CUIEffectParameterAngle];
 }
@@ -369,6 +376,14 @@
     }
     
     return [super keyPathsForValuesAffectingValueForKey:key];
+}
+
+- (void)setNilValueForKey:(nonnull NSString *)key {
+    if ([key hasSuffix:@"Value"]) {
+        [self setValue:@(0) forKey:key];
+    } else {
+        [super setNilValueForKey:key];
+    }
 }
 
 @end
