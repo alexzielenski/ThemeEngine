@@ -11,7 +11,7 @@
 #import "TKElement.h"
 #import "TKLayoutInformation+Private.h"
 
-#
+@import Accelerate;
 #import <CoreUI/Renditions/CUIRenditions.h>
 
 @implementation TKBitmapRendition
@@ -109,9 +109,80 @@
                                                                  pixelHeight:(unsigned int)self.image.pixelsHigh];
     wrapper.pixelFormat = self.pixelFormat;
     wrapper.allowsMultiPassEncoding = YES;
-    CGContextDrawImage(wrapper.bitmapContext,
-                       CGRectMake(0, 0, self.image.pixelsWide, self.image.pixelsHigh),
-                       self.image.CGImage);
+    
+    if (!self.image.isPlanar && self.image.hasAlpha &&
+        self.image.bitsPerPixel == 32 && self.image.samplesPerPixel == 4 &&
+        wrapper.pixelFormat == CSIPixelFormatARGB &&
+        [[self class] shouldProcessPixels]) {
+        
+        //! Experimental: Disable this by setting +shouldProcessPixels to NO
+        //! To try to avoid issues with alpha and lossiness with the bitmap context
+        //! 
+        
+        unsigned long *rowBytes = TKIvarPointer(wrapper, "_rowbytes");
+        *rowBytes = self.image.bytesPerRow;
+        
+        unsigned long dataLength = self.image.bytesPerRow * self.image.pixelsHigh;
+        unsigned char *newData   = malloc(dataLength);
+        unsigned char *pixelData = self.image.bitmapData;
+        NSBitmapFormat format    = self.image.bitmapFormat;
+        const uint8_t *map = NULL;
+
+        // RGBA to BGRA
+        if ((format & NSAlphaFirstBitmapFormat) != NSAlphaFirstBitmapFormat) {
+            if ((format & NS32BitBigEndianBitmapFormat) == NS32BitBigEndianBitmapFormat) {
+                // ABGR -> BGRA
+                const uint8_t big[4] = { 3, 0, 1, 2 };
+                map = big;
+            } else {
+                // RGBA -> BGRA
+                const uint8_t little[4] = { 2, 1, 0, 3 };
+                map = little;
+            }
+        } else {
+            // ARGB to BGRA
+            if ((format & NS32BitBigEndianBitmapFormat) == NS32BitBigEndianBitmapFormat) {
+                // BGRA -> BGRA
+                const uint8_t big[4] = { 0, 1, 2, 3 };
+                map = big;
+            } else {
+                // ARGB -> BGRA
+                const uint8_t little[4] = { 3, 2, 1, 0 };
+                map = little;
+            }
+        }
+        
+        vImage_Buffer src;
+        src.height   = self.image.pixelsHigh;
+        src.width    = self.image.pixelsWide;
+        src.rowBytes = self.image.bytesPerRow;
+        src.data     = pixelData;
+        
+        vImage_Buffer dst;
+        dst.height   = src.height;
+        dst.width    = src.width;
+        dst.rowBytes = src.rowBytes;
+        dst.data     = newData;
+        
+        vImagePermuteChannels_ARGB8888(&src,
+                                       &dst,
+                                       map,
+                                       kvImageNoFlags);
+        
+        // Unpremultiply that alpha
+        if ((format & NSAlphaNonpremultipliedBitmapFormat) != NSAlphaNonpremultipliedBitmapFormat) {
+            src.data = newData;
+            vImageUnpremultiplyData_ARGB8888(&src,
+                                             &dst,
+                                             kvImageNoFlags);
+        }
+        
+        [wrapper setPixelData:[NSData dataWithBytesNoCopy:newData length:dataLength freeWhenDone:YES]];
+    } else {
+        CGContextDrawImage(wrapper.bitmapContext,
+                           CGRectMake(0, 0, self.image.pixelsWide, self.image.pixelsHigh),
+                           self.image.CGImage);
+    }
     
     [gen addBitmap:wrapper];
     
@@ -128,6 +199,16 @@
     }
     
     return gen;
+}
+
+
+static BOOL shouldProcessPixels = YES;
++ (void)setShouldProcessPixels:(BOOL)flag {
+    shouldProcessPixels = flag;
+}
+
++ (BOOL)shouldProcessPixels {
+    return shouldProcessPixels;
 }
 
 @end

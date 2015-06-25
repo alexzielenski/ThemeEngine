@@ -14,6 +14,9 @@
 }
 
 @property (nonatomic, strong) NSBitmapImageRep *image;
-
 @property (strong) TKLayoutInformation *layoutInformation;
+
++ (BOOL)shouldProcessPixels;
++ (void)setShouldProcessPixels:(BOOL)flag;
+
 @end
