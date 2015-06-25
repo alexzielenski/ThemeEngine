@@ -76,8 +76,8 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
 }
 
 - (CALayer *)rootLayer {
-    if (!_rootLayer ||
-        [self.rendition.utiType isEqualToString:TKUTITypeCoreAnimationArchive]) {
+    if (!_rootLayer &&
+        [self.utiType isEqualToString:TKUTITypeCoreAnimationArchive]) {
         NSDictionary *archive = [NSKeyedUnarchiver unarchiveObjectWithData:self.rawData];
         _rootLayer = [archive objectForKey:@"rootLayer"];
         _rootLayer.geometryFlipped = [[archive objectForKey:@"geometryFlipped"] boolValue];
