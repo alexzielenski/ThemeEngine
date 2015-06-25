@@ -40,15 +40,11 @@ static NSGradient *selectionGradient = nil;
     return [TETexturedCell class];
 }
 
-+ (void)initialize {
-    selectionGradient =  [[NSGradient alloc] initWithStartingColor:[[NSColor blackColor] colorWithAlphaComponent:0.5]
-                                                       endingColor:[[NSColor grayColor] colorWithAlphaComponent:0.5]];
-}
-
 - (void)_viewDidChangeAppearance:(id)arg1 {
     [super _viewDidChangeAppearance:arg1];
-    selectionGradient =  [[NSGradient alloc] initWithStartingColor:[[NSColor controlTextColor] colorWithAlphaComponent:0.5]
-                                                       endingColor:[[NSColor disabledControlTextColor] colorWithAlphaComponent:0.5]];
+    
+    selectionGradient =  [[NSGradient alloc] initWithStartingColor:[[NSColor grayColor] colorWithAlphaComponent:1.0]
+                                                       endingColor:[[NSColor grayColor] colorWithAlphaComponent:1.0]];
 }
 
 @end
@@ -56,15 +52,15 @@ static NSGradient *selectionGradient = nil;
 
 - (void)_drawBackgroundWithFrame:(struct CGRect)cellFrame inView:(id)arg2 {
     // draw last separator
-    [[[NSColor lightGrayColor] colorWithAlphaComponent:0.3] set];
-    NSRectFill(NSMakeRect(round(NSMaxX(cellFrame)) - 1.0, 0, 1.0, NSHeight(cellFrame)));
+//    [[[NSColor lightGrayColor] colorWithAlphaComponent:0.3] set];
+//    NSRectFill(NSMakeRect(round(NSMaxX(cellFrame)) - 1.0, 0, 1.0, NSHeight(cellFrame)));
     
     for (NSUInteger segment = 0; segment < self.segmentCount; segment++) {
         NSRect segmentRect = NSIntegralRect([self rectForSegment:segment inFrame:cellFrame]);
 
         // draw separators on right side
-        [[[NSColor lightGrayColor] colorWithAlphaComponent:0.3] set];
-        NSRectFill(NSMakeRect(round(NSMaxX(segmentRect)), 0, 1.0, NSHeight(segmentRect)));
+//        [[[NSColor lightGrayColor] colorWithAlphaComponent:0.3] set];
+//        NSRectFill(NSMakeRect(round(NSMaxX(segmentRect)), 0, 1.0, NSHeight(segmentRect)));
         
         if (segment == self.selectedSegment) {
             NSRect gradientRect = segmentRect;
