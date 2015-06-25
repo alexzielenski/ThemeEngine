@@ -18,11 +18,11 @@
                                                flipped:YES
                                         drawingHandler:^BOOL(NSRect dstRect) {
                                             CGFloat size = dstRect.size.width / 2;
-                                            [[[NSColor lightGrayColor] colorWithAlphaComponent:0.4] set];
+                                            [[[NSColor lightGrayColor] colorWithAlphaComponent:0.25] set];
                                             NSRectFill(NSMakeRect(0, 0, size, size));
                                             NSRectFill(NSMakeRect(size, size, size, size));
                                             
-                                            [[[NSColor whiteColor] colorWithAlphaComponent:0.4] set];
+                                            [[[NSColor whiteColor] colorWithAlphaComponent:0.25] set];
                                             NSRectFill(NSMakeRect(size, 0, size, size));
                                             NSRectFill(NSMakeRect(0, size, size, size));
                                             
