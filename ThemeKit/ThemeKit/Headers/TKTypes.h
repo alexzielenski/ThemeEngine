@@ -9,14 +9,43 @@
 #ifndef TKTypes_h
 #define TKTypes_h
 
-typedef NS_ENUM(NSUInteger, CoreThemeLayer) {
+/**
+ *  @enum CoreThemeLayer enum
+ *  @abstract Indicates which layer this asset is part of for its UI element
+ */
+typedef NS_ENUM(NSUInteger, CoreThemeLayer){
+    /**
+     *  The asset is the base layout to which every other layer is stacked on.
+     * This is the one you probably want to use.
+     */
     CoreThemeLayerBase             = 0,
+    /**
+     *  The asset should be layered on top of the base in a highlighted state.
+     */
     CoreThemeLayerHighlight        = 1,
+    /**
+     *  This asset masks the entire element. All alpha in this mask will be clipped off of the element.
+     */
     CoreThemeLayerMask             = 2,
+    /**
+     *  This asset represents a pulse. (Mostly unused nowadays, but think of the NSButton pulsing)
+     */
     CoreThemeLayerPulse            = 3,
+    /**
+     *  Unknown
+     */
     CoreThemeLayerHitMask          = 4,
+    /**
+     *  This asset should be mostly alpha and should contain a pattern that repeats over the entire element
+     */
     CoreThemeLayerPatternOverlay   = 5,
+    /**
+     *  Unknown
+     */
     CoreThemeLayerOutline          = 6,
+    /**
+     *  Unknown
+     */
     CoreThemeLayerInterior         = 7
 };
 
