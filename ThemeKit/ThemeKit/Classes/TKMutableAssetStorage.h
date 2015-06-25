@@ -26,4 +26,8 @@
  *  @see TKModelObject
  */
 - (void)writeToDiskUpdatingChangeCounts:(BOOL)update;
+
+- (void)addRendition:(TKRendition *)rendition;
+- (void)removeRendition:(TKRendition *)rendition;
+
 @end

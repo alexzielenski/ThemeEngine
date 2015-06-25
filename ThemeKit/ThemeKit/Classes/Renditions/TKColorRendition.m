@@ -51,6 +51,21 @@
     return TKColorProperties;
 }
 
+- (void)removeFromStorage {
+    [self.cuiAssetStorage removeAssetForKey:self.keyData];
+    if ([self.cuiAssetStorage hasColorForName:self.name.UTF8String]) {
+        struct colorkey key;
+        key.reserved = 0;
+        strncpy(key.name, self.name.UTF8String, MIN(127, self.name.length));
+        key.name[127] = '\0';
+        
+        BOMTreeRef colorTree = TKIvar(self.cuiAssetStorage, BOMTreeRef, "_colordb");
+        if (colorTree != NULL) {
+            BOMTreeRemoveValue(colorTree, &key, sizeof(key));
+        }
+    }
+}
+
 - (void)commitToStorage {
     if (!self.isDirty) {
         NSLog(@"tried to commit clean rendition %@: %@", self, self.name);

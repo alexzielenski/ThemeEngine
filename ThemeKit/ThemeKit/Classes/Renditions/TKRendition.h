@@ -52,6 +52,4 @@
 - (NSString *)renditionHash;
 - (void)computePreviewImageIfNecessary;
 
-- (void)commitToStorage;
-
 @end

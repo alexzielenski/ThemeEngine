@@ -117,7 +117,7 @@
         
         //! Experimental: Disable this by setting +shouldProcessPixels to NO
         //! To try to avoid issues with alpha and lossiness with the bitmap context
-        //! 
+        //!
         
         unsigned long *rowBytes = TKIvarPointer(wrapper, "_rowbytes");
         *rowBytes = self.image.bytesPerRow;

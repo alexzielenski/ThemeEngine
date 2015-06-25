@@ -52,5 +52,11 @@ extern int CUIRenditionKeyStandardize(int arg0, int arg1, int arg2);
 @class CUIRenditionKey;
 extern CUIRenditionKey *CUIRenditionKeyFromKeySignature(NSString *signature, int *unk);
 extern int CUIRenditionKeyTokenIsBaseKeyOfKeyList(struct renditionkeytoken *arg0, int arg1);
+
+// I think it returns compression factor
+// this is used to compress image data for car files
+// Haven't been able to figure out pk_decompressData yet
+extern float pk_compressData(void *bytes, unsigned int samples_per_pixel, unsigned int width, unsigned int height, unsigned int bytes_per_row, void *buffer, unsigned int buffer_length);
+
 ///
 #endif /* TKHelpers_h */

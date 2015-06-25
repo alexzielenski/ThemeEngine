@@ -35,4 +35,7 @@
 - (NSData *)keyData;
 - (CSIGenerator *)generator;
 
+- (void)commitToStorage;
+- (void)removeFromStorage;
+
 @end

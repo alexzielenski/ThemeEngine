@@ -171,6 +171,10 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
     return self.element.storage.undoManager;
 }
 
+- (void)removeFromStorage {
+    [self.cuiAssetStorage removeAssetForKey:self.keyData];
+}
+
 - (void)commitToStorage {
     CSIGenerator *generator = self.generator;
     generator.utiType                    = self.utiType;
@@ -189,7 +193,6 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
     
     @try {
         csiData = [generator CSIRepresentationWithCompression:YES];
-        [csiData writeToFile:@"/Users/Alex/Desktop/Apple.png" atomically:NO];
     }
     
     @catch (NSException *exception) {

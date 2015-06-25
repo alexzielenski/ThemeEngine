@@ -22,7 +22,6 @@ extern NSInteger kCoreThemeStepperElementID;
 @property (readwrite, strong) NSMutableDictionary<NSString *, TKElement *> *elementNameMap;
 // Maps keys to their renditions
 @property (strong) NSCache *renditionCache;
-- (void)addRendition:(TKRendition *)rendition;
 - (TKElement *)elementWithName:(NSString *)name createIfNeeded:(BOOL)create;
 @end
 
@@ -74,7 +73,7 @@ extern NSInteger kCoreThemeStepperElementID;
         [self.storage enumerateKeysAndObjectsUsingBlock:^(struct renditionkeytoken *keyList, NSData *csiData) {
             if (weakSelf) {
                 TKRendition *rendition = [TKRendition renditionWithCSIData:csiData renditionKey:[CUIRenditionKey renditionKeyWithKeyList:keyList]];
-                [weakSelf addRendition: rendition];
+                [weakSelf _addRendition: rendition];
             }
         }];
     }
@@ -101,7 +100,7 @@ extern NSInteger kCoreThemeStepperElementID;
         
         TKRendition *rendition = [TKRendition renditionWithColorKey:*key definition:*value];
         
-        [self addRendition:rendition];
+        [self _addRendition:rendition];
         
         BOMTreeIteratorNext(iterator);
     }
@@ -187,7 +186,7 @@ extern NSInteger kCoreThemeStepperElementID;
     }
 }
 
-- (void)addRendition:(TKRendition *)rendition {
+- (void)_addRendition:(TKRendition *)rendition {
     NSString *elementName = TKElementNameForRendition(rendition);
     TKElement *element = [self elementWithName:elementName createIfNeeded:YES];
     [element addRendition:rendition];

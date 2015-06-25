@@ -17,6 +17,8 @@
 - (void)_enumerateAssets;
 - (void)_enumerateColors;
 - (void)_enumerateFonts;
+
+- (void)_addRendition:(TKRendition *)rendition;
 @end
 
 @interface TKMutableAssetStorage (Private)
