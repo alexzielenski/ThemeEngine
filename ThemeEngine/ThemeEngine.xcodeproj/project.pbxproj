@@ -29,6 +29,7 @@
 		FA606C191B2C1D2100F24960 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA606C181B2C1D2100F24960 /* Assets.xcassets */; };
 		FA606C1C1B2C1D2100F24960 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA606C1A1B2C1D2100F24960 /* MainMenu.xib */; };
 		FA6E01341B301F1A00209DE2 /* TEDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6E01331B301F1A00209DE2 /* TEDocumentViewController.m */; };
+		FA78DEB61B3C58CA005157D7 /* TEExportController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA78DEB51B3C58CA005157D7 /* TEExportController.m */; };
 		FA7EA3E21B30CFC30014393A /* TEGradientInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7EA3E11B30CFC30014393A /* TEGradientInspector.m */; };
 		FA80CE0C1B30BD4E005E5DD2 /* TEGradientEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = FA80CE0B1B30BD4E005E5DD2 /* TEGradientEditor.m */; };
 		FA80CE0F1B30BF36005E5DD2 /* TEGradientStopLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA80CE0E1B30BF36005E5DD2 /* TEGradientStopLayer.m */; };
@@ -124,6 +125,8 @@
 		FA606C2B1B2C1D5A00F24960 /* CoreUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreUI.framework; path = ../../../../../../../System/Library/PrivateFrameworks/CoreUI.framework; sourceTree = "<group>"; };
 		FA6E01321B301F1A00209DE2 /* TEDocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEDocumentViewController.h; path = Controllers/TEDocumentViewController.h; sourceTree = "<group>"; };
 		FA6E01331B301F1A00209DE2 /* TEDocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEDocumentViewController.m; path = Controllers/TEDocumentViewController.m; sourceTree = "<group>"; };
+		FA78DEB41B3C58CA005157D7 /* TEExportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEExportController.h; path = Controllers/TEExportController.h; sourceTree = "<group>"; };
+		FA78DEB51B3C58CA005157D7 /* TEExportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEExportController.m; path = Controllers/TEExportController.m; sourceTree = "<group>"; };
 		FA7EA3E01B30CFC30014393A /* TEGradientInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEGradientInspector.h; path = Controllers/Inspectors/TEGradientInspector.h; sourceTree = "<group>"; };
 		FA7EA3E11B30CFC30014393A /* TEGradientInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEGradientInspector.m; path = Controllers/Inspectors/TEGradientInspector.m; sourceTree = "<group>"; };
 		FA80CDEE1B308AE6005E5DD2 /* ThemeEngine.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = ThemeEngine.profdata; sourceTree = "<group>"; };
@@ -393,6 +396,8 @@
 				FABEAEC71B2F70ED00B02805 /* TEInspectorController.m */,
 				FABEAEC91B2F70F300B02805 /* TEInspectorDetailController.h */,
 				FABEAECA1B2F70F300B02805 /* TEInspectorDetailController.m */,
+				FA78DEB41B3C58CA005157D7 /* TEExportController.h */,
+				FA78DEB51B3C58CA005157D7 /* TEExportController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -408,7 +413,6 @@
 				FA606C061B2C1D2100F24960 /* Frameworks */,
 				FA606C071B2C1D2100F24960 /* Resources */,
 				FA4DCE851B2D9C1700D820FD /* Copy Frameworks */,
-				FA8313E31B3B2B87003D0F4A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -468,22 +472,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		FA8313E31B3B2B87003D0F4A /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\nagvtool next-version -all";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		FA606C051B2C1D2100F24960 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -503,6 +491,7 @@
 				FAC2D3811B37C4D00015BF7F /* TKGradient+Pasteboard.m in Sources */,
 				FADA72D11B39F2FB00C541D9 /* NSDocumentController+Untitled.m in Sources */,
 				FAC2D3781B37B3FE0015BF7F /* TKEffectPreset+Pasteboard.m in Sources */,
+				FA78DEB61B3C58CA005157D7 /* TEExportController.m in Sources */,
 				FAC2D37E1B37C0ED0015BF7F /* TKGradientStop+Pasteboard.m in Sources */,
 				FA1E9C691B3346A40097AA41 /* TEBitmapInspector.m in Sources */,
 				FAA54F721B2E3C5900EA15F2 /* NSSplitView+Divider.m in Sources */,

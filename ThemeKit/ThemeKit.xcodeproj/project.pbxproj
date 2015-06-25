@@ -92,21 +92,10 @@
 		FADA72D31B39FD6A00C541D9 /* CSIBitmapWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = FADA72D21B39FD6A00C541D9 /* CSIBitmapWrapper.h */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		FA4DCE8D1B2D9C9C00D820FD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FA4DCE891B2D9C9C00D820FD /* ThemeEngine.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FA606C091B2C1D2100F24960;
-			remoteInfo = ThemeEngine;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		FA092C7E1B2C1C7600D04F6D /* ThemeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThemeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA092C821B2C1C7600D04F6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA092C831B2C1C7600D04F6D /* ThemeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemeKit.h; sourceTree = "<group>"; };
-		FA4DCE891B2D9C9C00D820FD /* ThemeEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ThemeEngine.xcodeproj; path = ../ThemeEngine/ThemeEngine.xcodeproj; sourceTree = "<group>"; };
 		FA514C361B3471DC002CBF5A /* TKLayoutInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TKLayoutInformation.h; path = Models/TKLayoutInformation.h; sourceTree = "<group>"; };
 		FA514C371B3471DC002CBF5A /* TKLayoutInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKLayoutInformation.m; path = Models/TKLayoutInformation.m; sourceTree = "<group>"; };
 		FA514C3B1B3471F3002CBF5A /* TKLayoutInformation+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKLayoutInformation+Private.h"; path = "Models/TKLayoutInformation+Private.h"; sourceTree = "<group>"; };
@@ -211,7 +200,6 @@
 				FA606C291B2C1D5000F24960 /* CoreUI.framework */,
 				FA092C801B2C1C7600D04F6D /* ThemeKit */,
 				FA092C7F1B2C1C7600D04F6D /* Products */,
-				FA4DCE891B2D9C9C00D820FD /* ThemeEngine.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -245,14 +233,6 @@
 				FA092C821B2C1C7600D04F6D /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		FA4DCE8A1B2D9C9C00D820FD /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FA4DCE8E1B2D9C9C00D820FD /* ThemeEngine.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		FA606C2D1B2C1D9400F24960 /* CoreUI */ = {
@@ -524,28 +504,12 @@
 			mainGroup = FA092C741B2C1C7600D04F6D;
 			productRefGroup = FA092C7F1B2C1C7600D04F6D /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = FA4DCE8A1B2D9C9C00D820FD /* Products */;
-					ProjectRef = FA4DCE891B2D9C9C00D820FD /* ThemeEngine.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				FA092C7D1B2C1C7600D04F6D /* ThemeKit */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		FA4DCE8E1B2D9C9C00D820FD /* ThemeEngine.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = ThemeEngine.app;
-			remoteRef = FA4DCE8D1B2D9C9C00D820FD /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		FA092C7C1B2C1C7600D04F6D /* Resources */ = {
