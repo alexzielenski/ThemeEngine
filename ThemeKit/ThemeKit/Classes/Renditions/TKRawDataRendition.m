@@ -17,7 +17,6 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
 @interface TKRawDataRendition () {
     CALayer *_rootLayer;
 }
-@property (strong) CALayer *rootLayer;
 @end
 
 @implementation TKRawDataRendition
@@ -110,7 +109,12 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
 }
 
 - (CSIGenerator *)generator {
-    if (self.rootLayer != nil) {
+    if (_rootLayer != nil) {
+        self.rootLayer = [CALayer layer];
+//        NSLog(@"dat hookup");
+//        self.rootLayer.bounds = self.rootLayer.bounds;
+//        self.rootLayer.backgroundColor = [[NSColor greenColor] CGColor];
+        
         self.rawData = CAEncodeLayerTree(self.rootLayer);
     }
     
