@@ -81,6 +81,9 @@ extern NSInteger kCoreThemeStepperElementID;
 }
 
 - (void)_enumerateColors {
+    if (!self.storage)
+        return;
+    
     BOMTreeRef color_tree = TKIvar(self.storage, BOMTreeRef, _colordb);
     if (color_tree == NULL)
         return;
@@ -106,6 +109,9 @@ extern NSInteger kCoreThemeStepperElementID;
 }
 
 - (void)_enumerateFonts {
+    if (!self.storage)
+        return;
+    
     BOMTreeRef font_tree = TKIvar(self.storage, BOMTreeRef, _fontdb);
     if (font_tree == NULL)
         return;
