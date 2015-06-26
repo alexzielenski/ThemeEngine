@@ -63,6 +63,7 @@
 		FAC2D3811B37C4D00015BF7F /* TKGradient+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC2D3801B37C4D00015BF7F /* TKGradient+Pasteboard.m */; };
 		FACD44CC1B33A58900E75650 /* TEAnimationInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FACD44CB1B33A58900E75650 /* TEAnimationInspector.m */; };
 		FACD44CF1B33B08C00E75650 /* TEEffectsInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FACD44CE1B33B08C00E75650 /* TEEffectsInspector.m */; };
+		FAD1575E1B3DC7FF00EB3275 /* TESplashButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD1575D1B3DC7FF00EB3275 /* TESplashButtonView.m */; };
 		FAD3AAD01B3356F10006FA7F /* TEGradientInfoInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD3AACF1B3356F10006FA7F /* TEGradientInfoInspector.m */; };
 		FADA72D11B39F2FB00C541D9 /* NSDocumentController+Untitled.m in Sources */ = {isa = PBXBuildFile; fileRef = FADA72D01B39F2FB00C541D9 /* NSDocumentController+Untitled.m */; };
 		FADA72D61B3A073300C541D9 /* Car.icns in Resources */ = {isa = PBXBuildFile; fileRef = FADA72D51B3A073300C541D9 /* Car.icns */; };
@@ -191,6 +192,8 @@
 		FACD44CB1B33A58900E75650 /* TEAnimationInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEAnimationInspector.m; path = Controllers/Inspectors/TEAnimationInspector.m; sourceTree = "<group>"; };
 		FACD44CD1B33B08C00E75650 /* TEEffectsInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEEffectsInspector.h; path = Controllers/Inspectors/TEEffectsInspector.h; sourceTree = "<group>"; };
 		FACD44CE1B33B08C00E75650 /* TEEffectsInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEEffectsInspector.m; path = Controllers/Inspectors/TEEffectsInspector.m; sourceTree = "<group>"; };
+		FAD1575C1B3DC7FF00EB3275 /* TESplashButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TESplashButtonView.h; path = Views/TESplashButtonView.h; sourceTree = "<group>"; };
+		FAD1575D1B3DC7FF00EB3275 /* TESplashButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TESplashButtonView.m; path = Views/TESplashButtonView.m; sourceTree = "<group>"; };
 		FAD3AACE1B3356F10006FA7F /* TEGradientInfoInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEGradientInfoInspector.h; path = Controllers/Inspectors/TEGradientInfoInspector.h; sourceTree = "<group>"; };
 		FAD3AACF1B3356F10006FA7F /* TEGradientInfoInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEGradientInfoInspector.m; path = Controllers/Inspectors/TEGradientInfoInspector.m; sourceTree = "<group>"; };
 		FADA72CF1B39F2FB00C541D9 /* NSDocumentController+Untitled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDocumentController+Untitled.h"; path = "Categories/NSDocumentController+Untitled.h"; sourceTree = "<group>"; };
@@ -368,6 +371,8 @@
 				FA476D5F1B3D240D00F3AAB8 /* TESplashWindow.m */,
 				FA476D611B3D265F00F3AAB8 /* TERecentCell.h */,
 				FA476D621B3D265F00F3AAB8 /* TERecentCell.m */,
+				FAD1575C1B3DC7FF00EB3275 /* TESplashButtonView.h */,
+				FAD1575D1B3DC7FF00EB3275 /* TESplashButtonView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -528,6 +533,7 @@
 				FAA5F76A1B36616200F01121 /* TEAnimationView.m in Sources */,
 				FA514C351B346EDC002CBF5A /* TESliceImageView.m in Sources */,
 				FABEAED01B2F714000B02805 /* TEAttributesInspector.m in Sources */,
+				FAD1575E1B3DC7FF00EB3275 /* TESplashButtonView.m in Sources */,
 				FA092CED1B36822D0064DBC4 /* TERenditionsController+Dragging.m in Sources */,
 				FABEAEC81B2F70ED00B02805 /* TEInspectorController.m in Sources */,
 				FAEA99861B36469A00EEA486 /* NSColor+TE.m in Sources */,

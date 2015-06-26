@@ -13,4 +13,8 @@
 @property (weak) IBOutlet TEBackgroundColorView *backgroundView;
 @property (weak) IBOutlet NSTableView *recentsTable;
 
+- (void)createOSXDocument:(id)sender;
+- (void)createiOSDocument:(id)sender;
+- (void)openDocument:(id)sender;
+
 @end

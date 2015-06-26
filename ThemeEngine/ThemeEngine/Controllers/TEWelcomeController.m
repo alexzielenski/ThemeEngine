@@ -17,15 +17,9 @@
 
 @implementation TEWelcomeController
 
-- (BOOL)validateMenuItem:(nonnull NSMenuItem *)menuItem {
-    if (menuItem.action == @selector(performClose:))
-        return YES;
-    return [super validateMenuItem:menuItem];
-}
-
 - (void)windowDidLoad {
     self.URLs = [[NSDocumentController sharedDocumentController] recentDocumentURLs];
-
+    
     [super windowDidLoad];
     self.backgroundView.backgroundColor = [NSColor themeEnginePurpleColor];
     
@@ -59,13 +53,29 @@
     [self.window center];
 }
 
+#pragma mark - Actions
+
+- (void)createOSXDocument:(id)sender {
+    NSLog(@"OSX");
+}
+
+- (void)createiOSDocument:(id)sender {
+    NSLog(@"iOS");
+}
+
+- (void)openDocument:(id)sender {
+    [[NSDocumentController sharedDocumentController] openDocument:sender];
+}
+
+#pragma mark - Table
+
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     self.URLs = [[NSDocumentController sharedDocumentController] recentDocumentURLs];
     [self.recentsTable reloadData];
 }
 
 - (NSInteger)numberOfRowsInTableView:(nonnull NSTableView *)tableView {
-    return [self.URLs count];
+    return MIN([self.URLs count], 10);
 }
 
 - (NSView *)tableView:(nonnull NSTableView *)tableView viewForTableColumn:(nullable NSTableColumn *)tableColumn row:(NSInteger)row {
