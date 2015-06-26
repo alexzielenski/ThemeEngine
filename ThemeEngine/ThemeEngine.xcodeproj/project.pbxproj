@@ -14,6 +14,7 @@
 		FA43A02C1B34993A0000DB66 /* TEColorInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A02B1B34993A0000DB66 /* TEColorInspector.m */; };
 		FA46BD361B2DA07E00BA9B01 /* ThemeKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA46BD371B2DA08100BA9B01 /* ThemeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */; };
+		FA476D601B3D240D00F3AAB8 /* TESplashWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = FA476D5F1B3D240D00F3AAB8 /* TESplashWindow.m */; };
 		FA4D11A41B3683A800175D14 /* TKBitmapRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D11A31B3683A800175D14 /* TKBitmapRendition+Pasteboard.m */; };
 		FA4D11A91B3755E800175D14 /* TKRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D11A81B3755E800175D14 /* TKRendition+Pasteboard.m */; };
 		FA4D11AC1B37585400175D14 /* TKEffectRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D11AB1B37585400175D14 /* TKEffectRendition+Pasteboard.m */; };
@@ -64,6 +65,8 @@
 		FAD3AAD01B3356F10006FA7F /* TEGradientInfoInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD3AACF1B3356F10006FA7F /* TEGradientInfoInspector.m */; };
 		FADA72D11B39F2FB00C541D9 /* NSDocumentController+Untitled.m in Sources */ = {isa = PBXBuildFile; fileRef = FADA72D01B39F2FB00C541D9 /* NSDocumentController+Untitled.m */; };
 		FADA72D61B3A073300C541D9 /* Car.icns in Resources */ = {isa = PBXBuildFile; fileRef = FADA72D51B3A073300C541D9 /* Car.icns */; };
+		FADE23F51B3D13DA003DC234 /* TEWelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = FADE23F31B3D13DA003DC234 /* TEWelcomeController.m */; };
+		FADE23F61B3D13DA003DC234 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADE23F41B3D13DA003DC234 /* Welcome.xib */; };
 		FAEA99861B36469A00EEA486 /* NSColor+TE.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEA99851B36469A00EEA486 /* NSColor+TE.m */; };
 		FAEA99891B36587D00EEA486 /* TEBackgroundColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEA99881B36587D00EEA486 /* TEBackgroundColorView.m */; };
 /* End PBXBuildFile section */
@@ -95,6 +98,8 @@
 		FA43A02A1B34993A0000DB66 /* TEColorInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEColorInspector.h; path = Controllers/Inspectors/TEColorInspector.h; sourceTree = "<group>"; };
 		FA43A02B1B34993A0000DB66 /* TEColorInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEColorInspector.m; path = Controllers/Inspectors/TEColorInspector.m; sourceTree = "<group>"; };
 		FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ThemeKit.framework; path = "/Users/Alex/Library/Developer/Xcode/DerivedData/ThemeEngine-gwwcsfnqaxckjsfbmzrlbqvxnwpn/Build/Products/Debug/ThemeKit.framework"; sourceTree = "<absolute>"; };
+		FA476D5E1B3D240D00F3AAB8 /* TESplashWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TESplashWindow.h; path = Views/TESplashWindow.h; sourceTree = "<group>"; };
+		FA476D5F1B3D240D00F3AAB8 /* TESplashWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TESplashWindow.m; path = Views/TESplashWindow.m; sourceTree = "<group>"; };
 		FA4D11A21B3683A800175D14 /* TKBitmapRendition+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKBitmapRendition+Pasteboard.h"; path = "Pasteboard/TKBitmapRendition+Pasteboard.h"; sourceTree = "<group>"; };
 		FA4D11A31B3683A800175D14 /* TKBitmapRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKBitmapRendition+Pasteboard.m"; path = "Pasteboard/TKBitmapRendition+Pasteboard.m"; sourceTree = "<group>"; };
 		FA4D11A61B3684A500175D14 /* TERenditionPasteboardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TERenditionPasteboardItem.h; path = Pasteboard/TERenditionPasteboardItem.h; sourceTree = "<group>"; };
@@ -188,6 +193,9 @@
 		FADA72CF1B39F2FB00C541D9 /* NSDocumentController+Untitled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDocumentController+Untitled.h"; path = "Categories/NSDocumentController+Untitled.h"; sourceTree = "<group>"; };
 		FADA72D01B39F2FB00C541D9 /* NSDocumentController+Untitled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDocumentController+Untitled.m"; path = "Categories/NSDocumentController+Untitled.m"; sourceTree = "<group>"; };
 		FADA72D51B3A073300C541D9 /* Car.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Car.icns; path = Resources/Car.icns; sourceTree = "<group>"; };
+		FADE23F21B3D13DA003DC234 /* TEWelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEWelcomeController.h; path = Controllers/TEWelcomeController.h; sourceTree = "<group>"; };
+		FADE23F31B3D13DA003DC234 /* TEWelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEWelcomeController.m; path = Controllers/TEWelcomeController.m; sourceTree = "<group>"; };
+		FADE23F41B3D13DA003DC234 /* Welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Welcome.xib; path = Controllers/Welcome.xib; sourceTree = "<group>"; };
 		FAEA99841B36469A00EEA486 /* NSColor+TE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+TE.h"; sourceTree = "<group>"; };
 		FAEA99851B36469A00EEA486 /* NSColor+TE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+TE.m"; sourceTree = "<group>"; };
 		FAEA99871B36587D00EEA486 /* TEBackgroundColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEBackgroundColorView.h; path = Views/TEBackgroundColorView.h; sourceTree = "<group>"; };
@@ -265,7 +273,9 @@
 				FA606C131B2C1D2100F24960 /* Document.m */,
 				FADA72CF1B39F2FB00C541D9 /* NSDocumentController+Untitled.h */,
 				FADA72D01B39F2FB00C541D9 /* NSDocumentController+Untitled.m */,
+				FA606C1A1B2C1D2100F24960 /* MainMenu.xib */,
 				FA606C151B2C1D2100F24960 /* Document.xib */,
+				FADE23F41B3D13DA003DC234 /* Welcome.xib */,
 				FABEAEC41B2F70C200B02805 /* TEInspectorController.xib */,
 				FABEAECB1B2F70F300B02805 /* TEInspectorDetailController.xib */,
 				FABEAED21B2F714A00B02805 /* Controllers */,
@@ -275,7 +285,6 @@
 				FAA2B1BF1B2E023C00D70473 /* Categories */,
 				FA8313DA1B3B2218003D0F4A /* Frameworks */,
 				FA606C181B2C1D2100F24960 /* Assets.xcassets */,
-				FA606C1A1B2C1D2100F24960 /* MainMenu.xib */,
 				FA606C1D1B2C1D2100F24960 /* Info.plist */,
 				FA606C0F1B2C1D2100F24960 /* Supporting Files */,
 			);
@@ -352,6 +361,8 @@
 				FAEA99881B36587D00EEA486 /* TEBackgroundColorView.m */,
 				FAA5F7681B36616200F01121 /* TEAnimationView.h */,
 				FAA5F7691B36616200F01121 /* TEAnimationView.m */,
+				FA476D5E1B3D240D00F3AAB8 /* TESplashWindow.h */,
+				FA476D5F1B3D240D00F3AAB8 /* TESplashWindow.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -384,6 +395,8 @@
 		FABEAED21B2F714A00B02805 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FADE23F21B3D13DA003DC234 /* TEWelcomeController.h */,
+				FADE23F31B3D13DA003DC234 /* TEWelcomeController.m */,
 				FA6E01321B301F1A00209DE2 /* TEDocumentViewController.h */,
 				FA6E01331B301F1A00209DE2 /* TEDocumentViewController.m */,
 				FAA54F731B2E4DB700EA15F2 /* TEElementsController.h */,
@@ -461,6 +474,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA606C191B2C1D2100F24960 /* Assets.xcassets in Resources */,
+				FADE23F61B3D13DA003DC234 /* Welcome.xib in Resources */,
 				FA606C171B2C1D2100F24960 /* Document.xib in Resources */,
 				FABEAECD1B2F70F300B02805 /* TEInspectorDetailController.xib in Resources */,
 				FABEAEC51B2F70C200B02805 /* TEInspectorController.xib in Resources */,
@@ -518,10 +532,12 @@
 				FA6E01341B301F1A00209DE2 /* TEDocumentViewController.m in Sources */,
 				FA43A02C1B34993A0000DB66 /* TEColorInspector.m in Sources */,
 				FA8313E61B3B390A003D0F4A /* TECaarInspector.m in Sources */,
+				FADE23F51B3D13DA003DC234 /* TEWelcomeController.m in Sources */,
 				FA514C321B346E86002CBF5A /* TESlicePreviewInspector.m in Sources */,
 				FAA54F691B2E211F00EA15F2 /* RBLScrollView.m in Sources */,
 				FA59C2CB1B2E893F00EF027D /* TEImageBrowserView.m in Sources */,
 				FAA54F791B2E4DC700EA15F2 /* TERenditionsController.m in Sources */,
+				FA476D601B3D240D00F3AAB8 /* TESplashWindow.m in Sources */,
 				FA2F00BA1B360B6700998329 /* TECenteredClipView.m in Sources */,
 				FA4D11AC1B37585400175D14 /* TKEffectRendition+Pasteboard.m in Sources */,
 			);
@@ -566,7 +582,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Walter Zielenski";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 104;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -614,7 +630,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Walter Zielenski";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 104;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

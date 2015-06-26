@@ -9,5 +9,5 @@
 #import <Cocoa/Cocoa.h>
 
 @interface TEBackgroundColorView : NSView
-@property (nonatomic, strong) NSColor *backgroundColor;
+@property (nonatomic, strong) IBInspectable NSColor *backgroundColor;
 @end

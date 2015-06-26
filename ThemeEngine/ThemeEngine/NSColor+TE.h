@@ -9,5 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 @interface NSColor (TE)
+
 + (NSColor *)checkerPattern;
++ (NSColor *)themeEnginePurpleColor;
+
 @end

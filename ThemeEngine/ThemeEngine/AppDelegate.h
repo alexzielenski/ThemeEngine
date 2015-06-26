@@ -7,8 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "TEWelcomeController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 @property (nonatomic) BOOL darkMode;
+@property (strong) TEWelcomeController *welcomeController;
+
+- (IBAction)showWelcome:(id)sender;
+
 @end
 

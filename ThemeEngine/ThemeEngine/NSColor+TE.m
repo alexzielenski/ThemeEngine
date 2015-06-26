@@ -34,4 +34,17 @@
     return pattern;
 }
 
++ (NSColor *)themeEnginePurpleColor {
+    static NSColor *purple = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        purple = [NSColor colorWithCalibratedHue:0.76
+                                      saturation:0.58
+                                      brightness:0.65
+                                           alpha:1.0];
+    });
+    
+    return purple;
+}
+
 @end
