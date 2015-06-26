@@ -15,6 +15,7 @@
 		FA46BD361B2DA07E00BA9B01 /* ThemeKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA46BD371B2DA08100BA9B01 /* ThemeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */; };
 		FA476D601B3D240D00F3AAB8 /* TESplashWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = FA476D5F1B3D240D00F3AAB8 /* TESplashWindow.m */; };
+		FA476D631B3D265F00F3AAB8 /* TERecentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA476D621B3D265F00F3AAB8 /* TERecentCell.m */; };
 		FA4D11A41B3683A800175D14 /* TKBitmapRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D11A31B3683A800175D14 /* TKBitmapRendition+Pasteboard.m */; };
 		FA4D11A91B3755E800175D14 /* TKRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D11A81B3755E800175D14 /* TKRendition+Pasteboard.m */; };
 		FA4D11AC1B37585400175D14 /* TKEffectRendition+Pasteboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D11AB1B37585400175D14 /* TKEffectRendition+Pasteboard.m */; };
@@ -100,6 +101,8 @@
 		FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = ThemeKit.framework; path = "/Users/Alex/Library/Developer/Xcode/DerivedData/ThemeEngine-gwwcsfnqaxckjsfbmzrlbqvxnwpn/Build/Products/Debug/ThemeKit.framework"; sourceTree = "<absolute>"; };
 		FA476D5E1B3D240D00F3AAB8 /* TESplashWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TESplashWindow.h; path = Views/TESplashWindow.h; sourceTree = "<group>"; };
 		FA476D5F1B3D240D00F3AAB8 /* TESplashWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TESplashWindow.m; path = Views/TESplashWindow.m; sourceTree = "<group>"; };
+		FA476D611B3D265F00F3AAB8 /* TERecentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TERecentCell.h; path = Views/TERecentCell.h; sourceTree = "<group>"; };
+		FA476D621B3D265F00F3AAB8 /* TERecentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TERecentCell.m; path = Views/TERecentCell.m; sourceTree = "<group>"; };
 		FA4D11A21B3683A800175D14 /* TKBitmapRendition+Pasteboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKBitmapRendition+Pasteboard.h"; path = "Pasteboard/TKBitmapRendition+Pasteboard.h"; sourceTree = "<group>"; };
 		FA4D11A31B3683A800175D14 /* TKBitmapRendition+Pasteboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKBitmapRendition+Pasteboard.m"; path = "Pasteboard/TKBitmapRendition+Pasteboard.m"; sourceTree = "<group>"; };
 		FA4D11A61B3684A500175D14 /* TERenditionPasteboardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TERenditionPasteboardItem.h; path = Pasteboard/TERenditionPasteboardItem.h; sourceTree = "<group>"; };
@@ -363,6 +366,8 @@
 				FAA5F7691B36616200F01121 /* TEAnimationView.m */,
 				FA476D5E1B3D240D00F3AAB8 /* TESplashWindow.h */,
 				FA476D5F1B3D240D00F3AAB8 /* TESplashWindow.m */,
+				FA476D611B3D265F00F3AAB8 /* TERecentCell.h */,
+				FA476D621B3D265F00F3AAB8 /* TERecentCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -494,6 +499,7 @@
 				FA606C141B2C1D2100F24960 /* Document.m in Sources */,
 				FAB6EB821B375AAA00D914F4 /* TKRawDataRendition+Pasteboard.m in Sources */,
 				FA59C2C81B2E88E800EF027D /* TERenditionBrowserCell.m in Sources */,
+				FA476D631B3D265F00F3AAB8 /* TERecentCell.m in Sources */,
 				FA80CE0C1B30BD4E005E5DD2 /* TEGradientEditor.m in Sources */,
 				FAA54F6C1B2E212E00EA15F2 /* RBLClipView.m in Sources */,
 				FAB6EB7C1B375A8C00D914F4 /* TKColorRendition+Pasteboard.m in Sources */,
@@ -584,10 +590,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application: Walter Zielenski";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 104;
+				CURRENT_PROJECT_VERSION = 105;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = "$(inherited)";
-				DYLIB_CURRENT_VERSION = 104;
+				DYLIB_CURRENT_VERSION = 105;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -632,10 +638,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application: Walter Zielenski";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 104;
+				CURRENT_PROJECT_VERSION = 105;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = "$(inherited)";
-				DYLIB_CURRENT_VERSION = 104;
+				DYLIB_CURRENT_VERSION = 105;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

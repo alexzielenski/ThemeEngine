@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import "TEBackgroundColorView.h"
-@interface TEWelcomeController : NSWindowController
+@interface TEWelcomeController : NSWindowController <NSTableViewDataSource, NSTableViewDelegate>
 @property (weak) IBOutlet TEBackgroundColorView *backgroundView;
+@property (weak) IBOutlet NSTableView *recentsTable;
+
 @end
