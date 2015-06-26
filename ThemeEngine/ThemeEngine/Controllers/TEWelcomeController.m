@@ -24,6 +24,8 @@
 }
 
 - (void)windowDidLoad {
+    self.URLs = [[NSDocumentController sharedDocumentController] recentDocumentURLs];
+
     [super windowDidLoad];
     self.backgroundView.backgroundColor = [NSColor themeEnginePurpleColor];
     
@@ -38,7 +40,7 @@
     self.recentsTable.target = self;
     self.recentsTable.doubleAction = @selector(openRecent:);
     
-    self.URLs = [[NSDocumentController sharedDocumentController] recentDocumentURLs];
+    [self.recentsTable reloadData];
 }
 
 - (void)openRecent:(id)sender {
