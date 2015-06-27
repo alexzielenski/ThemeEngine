@@ -94,7 +94,7 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
         self.exifOrientation = rendition.exifOrientation;
         self.blendMode       = rendition.blendMode;
         self.opacity         = rendition.opacity;
-
+        
         struct csiheader header;
         [csiData getBytes:&header range:NSMakeRange(0, offsetof(struct csiheader, infolistLength) + sizeof(unsigned int))];
 
@@ -170,6 +170,8 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
 - (NSUndoManager *)undoManager {
     return self.element.storage.undoManager;
 }
+
+#pragma mark - Saving
 
 - (void)removeFromStorage {
     [self.cuiAssetStorage removeAssetForKey:self.keyData];

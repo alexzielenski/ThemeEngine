@@ -187,7 +187,7 @@ extern NSInteger kCoreThemeStepperElementID;
 }
 
 - (void)_addRendition:(TKRendition *)rendition {
-    NSString *elementName = TKElementNameForRendition(rendition);
+    NSString *elementName = TKElementNameForRendition(rendition, self);
     TKElement *element = [self elementWithName:elementName createIfNeeded:YES];
     [element addRendition:rendition];
 }

@@ -32,8 +32,8 @@ typeof(OBJECT) _ = OBJECT;
 
 extern void *TKIvarPointer(id self, const char *name);
 
-@class TKRendition, CUICommonAssetStorage;
-extern NSString *TKElementNameForRendition(TKRendition *rendition);
+@class TKRendition, CUICommonAssetStorage, TKAssetStorage;
+extern NSString *TKElementNameForRendition(TKRendition *rendition, TKAssetStorage *storage);
 extern NSData *TKConvertRenditionKeyToCARKey(NSData *src, CUICommonAssetStorage *storage);
 extern NSData *TKConvertCARKeyToRenditionKey(NSData *src, CUICommonAssetStorage *storage);
 

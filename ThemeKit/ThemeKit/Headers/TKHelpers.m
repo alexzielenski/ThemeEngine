@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "TKHelpers.h"
-#import "TKRendition.h"
+#import "TKRendition+Private.h"
 #import "TKColorRendition.h"
 #import <CoreUI/CUICommonAssetStorage.h>
+#import "TKAssetStorage+Private.h"
 
 void *TKIvarPointer(id self, const char *name) {
     Ivar ivar = class_getInstanceVariable(object_getClass(self), name);
@@ -19,7 +20,12 @@ void *TKIvarPointer(id self, const char *name) {
 
 // Sanitizes the names of assets to not include any context information
 // which is covered by the key
-extern NSString *TKElementNameForRendition(TKRendition *rendition) {    
+extern NSString *TKElementNameForRendition(TKRendition *rendition, TKAssetStorage *storage) {
+    NSString *nam = [storage.storage renditionNameForKeyList:(struct renditionkeytoken *)rendition.renditionKey.keyList];
+    if (nam != nil) {
+        return nam;
+    }
+    
     static NSArray *replacements = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
