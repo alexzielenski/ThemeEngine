@@ -76,6 +76,11 @@
 
 #pragma mark - Table
 
+- (void)dismissController:(nullable id)sender {
+    [super dismissController:sender];
+    [self.window performClose:sender];
+}
+
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     self.URLs = [[NSDocumentController sharedDocumentController] recentDocumentURLs];
     [self.recentsTable reloadData];

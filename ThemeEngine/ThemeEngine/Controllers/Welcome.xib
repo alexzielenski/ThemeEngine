@@ -171,26 +171,6 @@
                                             </userDefinedRuntimeAttributes>
                                         </textFieldCell>
                                     </textField>
-                                    <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Q9o-Zp-v6x">
-                                        <rect key="frame" x="8" y="401" width="11" height="11"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="11" id="7av-wX-Pz1"/>
-                                            <constraint firstAttribute="width" constant="11" id="dDT-sK-38N"/>
-                                        </constraints>
-                                        <animations/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="SplashCloseTemplate" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="jOT-QJ-J5P">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="backgroundStyle">
-                                                    <integer key="value" value="1"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="performClose:" target="-1" id="sSA-Y7-f4u"/>
-                                        </connections>
-                                    </button>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="4BB-18-kCC" customClass="TEBackgroundColorView">
                                         <rect key="frame" x="177" y="177" width="128" height="4"/>
                                         <constraints>
@@ -363,6 +343,49 @@
                                             <outlet property="target" destination="-2" id="4ed-M2-42y"/>
                                         </connections>
                                     </customView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="hww-Uo-8LA" userLabel="Close" customClass="TESplashButtonView">
+                                        <rect key="frame" x="8" y="396" width="16" height="16"/>
+                                        <subviews>
+                                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ElC-iI-1Xw">
+                                                <rect key="frame" x="4" y="4" width="8" height="8"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="ElC-iI-1Xw" secondAttribute="height" multiplier="1:1" id="APf-Vn-kcA"/>
+                                                </constraints>
+                                                <animations/>
+                                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SplashCloseTemplate" id="Nr9-mD-mqm">
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="backgroundStyle">
+                                                            <integer key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageCell>
+                                            </imageView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="ElC-iI-1Xw" firstAttribute="top" secondItem="hww-Uo-8LA" secondAttribute="top" constant="4" id="9SI-9m-LQB"/>
+                                            <constraint firstAttribute="height" constant="16" id="CQH-Zm-dsu"/>
+                                            <constraint firstItem="ElC-iI-1Xw" firstAttribute="leading" secondItem="hww-Uo-8LA" secondAttribute="leading" constant="4" id="SCa-Pt-Rlc"/>
+                                            <constraint firstAttribute="width" constant="16" id="aOh-hu-GsS"/>
+                                            <constraint firstAttribute="bottom" secondItem="ElC-iI-1Xw" secondAttribute="bottom" constant="4" id="boV-55-3xF"/>
+                                            <constraint firstAttribute="trailing" secondItem="ElC-iI-1Xw" secondAttribute="trailing" constant="4" id="g1j-vM-Hxf"/>
+                                        </constraints>
+                                        <animations/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
+                                                <color key="value" white="1" alpha="0.1625387855" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="pressColor">
+                                                <color key="value" red="0.65244600789999996" green="0.65244600789999996" blue="0.65244600789999996" alpha="0.1625387855" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="actionName" value="dismissController:"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="target" destination="-2" id="vsh-hv-PpN"/>
+                                        </connections>
+                                    </customView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="J5G-KO-Uoy" firstAttribute="leading" secondItem="S6C-ku-BVN" secondAttribute="leading" id="0I0-Ek-Le1"/>
@@ -370,12 +393,14 @@
                                     <constraint firstItem="J5G-KO-Uoy" firstAttribute="top" secondItem="S6C-ku-BVN" secondAttribute="bottom" constant="8" symbolic="YES" id="6nd-UB-mNW"/>
                                     <constraint firstItem="4BB-18-kCC" firstAttribute="top" secondItem="2SI-pe-91d" secondAttribute="bottom" constant="16" id="9pM-3k-jwc"/>
                                     <constraint firstItem="2SI-pe-91d" firstAttribute="top" secondItem="5Ie-m8-pgj" secondAttribute="bottom" constant="-4" id="Aua-DZ-ZM4"/>
+                                    <constraint firstItem="hww-Uo-8LA" firstAttribute="top" secondItem="3Es-dO-e6E" secondAttribute="top" constant="8" id="CEZ-8c-g8H"/>
                                     <constraint firstItem="S6C-ku-BVN" firstAttribute="top" secondItem="gZU-9B-iVg" secondAttribute="bottom" constant="8" symbolic="YES" id="FBb-DX-rVF"/>
                                     <constraint firstItem="4BB-18-kCC" firstAttribute="centerX" secondItem="2SI-pe-91d" secondAttribute="centerX" id="GIc-GK-RfO"/>
                                     <constraint firstItem="S6C-ku-BVN" firstAttribute="leading" secondItem="gZU-9B-iVg" secondAttribute="leading" id="U4F-aX-ybO"/>
                                     <constraint firstItem="gZU-9B-iVg" firstAttribute="centerX" secondItem="4BB-18-kCC" secondAttribute="centerX" id="bbP-aN-3Yt"/>
                                     <constraint firstItem="bLE-Gt-M2B" firstAttribute="centerX" secondItem="3Es-dO-e6E" secondAttribute="centerX" id="cj9-C1-bU2"/>
                                     <constraint firstItem="5Ie-m8-pgj" firstAttribute="centerX" secondItem="bLE-Gt-M2B" secondAttribute="centerX" id="nXT-it-mL3"/>
+                                    <constraint firstItem="hww-Uo-8LA" firstAttribute="leading" secondItem="3Es-dO-e6E" secondAttribute="leading" constant="8" id="nkZ-F3-vzH"/>
                                     <constraint firstItem="gZU-9B-iVg" firstAttribute="top" secondItem="4BB-18-kCC" secondAttribute="bottom" constant="8" symbolic="YES" id="oGM-MI-UHM"/>
                                     <constraint firstItem="bLE-Gt-M2B" firstAttribute="top" secondItem="3Es-dO-e6E" secondAttribute="top" constant="62" id="tSf-sE-9aH"/>
                                     <constraint firstItem="5Ie-m8-pgj" firstAttribute="top" secondItem="bLE-Gt-M2B" secondAttribute="bottom" id="w2N-Ae-DIc"/>
@@ -386,8 +411,6 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="nuP-2o-gYC" secondAttribute="trailing" id="4fa-ZO-khq"/>
                             <constraint firstAttribute="bottom" secondItem="nuP-2o-gYC" secondAttribute="bottom" id="8Gz-Ek-yP9"/>
-                            <constraint firstItem="Q9o-Zp-v6x" firstAttribute="leading" secondItem="ndf-nb-ttr" secondAttribute="leading" constant="8" id="HS3-Ub-nAb"/>
-                            <constraint firstItem="Q9o-Zp-v6x" firstAttribute="top" secondItem="ndf-nb-ttr" secondAttribute="top" constant="8" id="JFd-cb-nsM"/>
                             <constraint firstItem="nuP-2o-gYC" firstAttribute="width" secondItem="ndf-nb-ttr" secondAttribute="width" multiplier="0.33" id="QKr-3Y-ObS"/>
                             <constraint firstItem="nuP-2o-gYC" firstAttribute="leading" secondItem="3Es-dO-e6E" secondAttribute="trailing" id="S1q-mV-OFp"/>
                             <constraint firstItem="3Es-dO-e6E" firstAttribute="leading" secondItem="ndf-nb-ttr" secondAttribute="leading" id="dpB-6b-6JE"/>
