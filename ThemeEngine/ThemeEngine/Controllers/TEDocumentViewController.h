@@ -17,5 +17,10 @@
 @property IBOutlet TEInspectorController *inspectorController;
 @property IBOutlet NSSegmentedControl *paneControl;
 @property IBOutlet NSSplitView *splitView;
+
+@property (nonatomic, readonly, strong) NSSplitViewItem *elementsItem;
+@property (nonatomic, readonly, strong) NSSplitViewItem *inspectorItem;
+
 - (IBAction)sidebarToggle:(NSSegmentedControl *)sender;
+
 @end

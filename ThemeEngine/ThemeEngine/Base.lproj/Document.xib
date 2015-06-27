@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Document">
             <connections>
+                <outlet property="documentViewController" destination="oxw-nq-5sg" id="5m6-9m-KPr"/>
                 <outlet property="elementsArrayController" destination="5aX-cC-x7E" id="V8N-8L-Qa1"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>

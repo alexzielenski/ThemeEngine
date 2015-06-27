@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
-
+@property (readwrite) NSDocumentController *documentController;
 @end
 
 // Prefs:
@@ -22,6 +22,7 @@
 @dynamic darkMode;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
+    self.documentController = [NSDocumentController sharedDocumentController];
     self.welcomeController = [[TEWelcomeController alloc] initWithWindowNibName:@"Welcome"];
     
     self.darkMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkMode"];

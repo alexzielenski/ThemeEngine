@@ -13,6 +13,7 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 @property (nonatomic) BOOL darkMode;
 @property (strong) TEWelcomeController *welcomeController;
+@property (readonly) NSDocumentController *documentController;
 
 - (IBAction)showWelcome:(id)sender;
 

@@ -353,19 +353,26 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Renditions" id="AKa-pJ-DbV">
                         <items>
-                            <menuItem title="Add Rendition" id="j6E-Zz-eOE">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Add Element" keyEquivalent="=" id="SbT-TR-aln">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Remove Element" id="9J3-Sd-Cl7">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Lag-ql-cl4"/>
+                            <menuItem title="Add Rendition" keyEquivalent="=" id="j6E-Zz-eOE">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
                             </menuItem>
                             <menuItem title="Remove Rendition" id="6R4-Q2-MzQ">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="EJK-2F-tnP"/>
-                            <menuItem title="Send to Editor" id="gqF-dK-4ef">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Receive from Editor" id="vir-II-Kza">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
+                            <menuItem title="Send to Editor" keyEquivalent="" id="gqF-dK-4ef"/>
+                            <menuItem title="Receive from Editor" keyEquivalent="" id="vir-II-Kza"/>
                         </items>
                     </menu>
                 </menuItem>
@@ -654,17 +661,17 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="TCC-4l-c1Y"/>
-                            <menuItem title="Show Inspector" id="oo9-I1-a22">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Show Inspector" tag="1" keyEquivalent="" id="oo9-I1-a22">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="toggleInspector:" target="-1" id="REK-dd-3qc"/>
+                                </connections>
                             </menuItem>
-                            <menuItem title="Hide Inspector" id="w3j-po-V1g">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Show Sidebar" id="L67-cX-b4R">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Hide Sidebar" id="exc-5I-VxG">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Show Sidebar" tag="1" keyEquivalent="" id="L67-cX-b4R">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="toggleElements:" target="-1" id="gPN-wG-hT6"/>
+                                </connections>
                             </menuItem>
                         </items>
                     </menu>

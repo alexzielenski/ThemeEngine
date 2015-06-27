@@ -174,4 +174,30 @@ NSString *const TEDocumentDidShowNotification = @"TEDocumentDidShowNotification"
     return NO;
 }
 
+#pragma mark - Menu Actions
+
+- (BOOL)validateMenuItem:(nonnull NSMenuItem *)menuItem {
+    if (menuItem.action == @selector(toggleInspector:)) {
+        BOOL enable = self.documentViewController.inspectorItem.collapsed;
+        menuItem.title = enable ? @"Show Inspector" : @"Hide Inspector";
+        
+        return YES;;
+    } else if (menuItem.action == @selector(toggleElements:)) {
+        BOOL enable = self.documentViewController.elementsItem.collapsed;
+        menuItem.title = enable ? @"Show Sidebar" : @"Hide Sidebar";
+        
+        return YES;
+    }
+    
+    return [super validateMenuItem:menuItem];
+}
+
+- (IBAction)toggleInspector:(NSMenuItem *)sender {
+    self.documentViewController.inspectorItem.animator.collapsed = !self.documentViewController.inspectorItem.collapsed;
+}
+
+- (IBAction)toggleElements:(NSMenuItem *)sender {
+    self.documentViewController.elementsItem.animator.collapsed = !self.documentViewController.elementsItem.collapsed;
+}
+
 @end
