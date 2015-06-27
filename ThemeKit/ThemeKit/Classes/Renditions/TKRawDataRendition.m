@@ -58,7 +58,7 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
     if (self._previewImage)
         return;
     
-    if ([self.rendition.utiType isEqualToString:TKUTITypeCoreAnimationArchive]) {
+    if ([self.utiType isEqualToString:TKUTITypeCoreAnimationArchive]) {
         __weak CALayer *layer = self.rootLayer;
         
         self._previewImage = [NSImage imageWithSize:layer.bounds.size
@@ -70,6 +70,9 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
                                          [CATransaction commit];
                                          return YES;
                                      }];
+    } else if (self.utiType != nil) {
+        self._previewImage = [[NSWorkspace sharedWorkspace] iconForFileType:self.utiType];
+        
     } else {
         [super computePreviewImageIfNecessary];
     }
@@ -123,6 +126,11 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
                                                              layout:self.layout];
     
     return generator;
+}
+
+- (void)setUtiType:(NSString *)utiType {
+    [super setUtiType:utiType];
+    self._previewImage = nil;
 }
 
 @end
