@@ -10,6 +10,8 @@
 		FA092CED1B36822D0064DBC4 /* TERenditionsController+Dragging.m in Sources */ = {isa = PBXBuildFile; fileRef = FA092CEC1B36822D0064DBC4 /* TERenditionsController+Dragging.m */; };
 		FA1E9C691B3346A40097AA41 /* TEBitmapInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1E9C681B3346A40097AA41 /* TEBitmapInspector.m */; };
 		FA21F87D1B2E95710094202A /* TKRendition+Filtering.m in Sources */ = {isa = PBXBuildFile; fileRef = FA21F87C1B2E95710094202A /* TKRendition+Filtering.m */; };
+		FA26627F1B3F55FA00D97439 /* TEPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA26627D1B3F55FA00D97439 /* TEPreferencesController.m */; };
+		FA2662801B3F55FA00D97439 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA26627E1B3F55FA00D97439 /* Preferences.xib */; };
 		FA2F00BA1B360B6700998329 /* TECenteredClipView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2F00B91B360B6700998329 /* TECenteredClipView.m */; };
 		FA43A02C1B34993A0000DB66 /* TEColorInspector.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43A02B1B34993A0000DB66 /* TEColorInspector.m */; };
 		FA46BD361B2DA07E00BA9B01 /* ThemeKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = FA46BD351B2DA07E00BA9B01 /* ThemeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -95,6 +97,9 @@
 		FA1E9C681B3346A40097AA41 /* TEBitmapInspector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEBitmapInspector.m; path = Controllers/Inspectors/TEBitmapInspector.m; sourceTree = "<group>"; };
 		FA21F87B1B2E95710094202A /* TKRendition+Filtering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TKRendition+Filtering.h"; path = "Categories/TKRendition+Filtering.h"; sourceTree = "<group>"; };
 		FA21F87C1B2E95710094202A /* TKRendition+Filtering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TKRendition+Filtering.m"; path = "Categories/TKRendition+Filtering.m"; sourceTree = "<group>"; };
+		FA26627C1B3F55FA00D97439 /* TEPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEPreferencesController.h; path = Controllers/TEPreferencesController.h; sourceTree = "<group>"; };
+		FA26627D1B3F55FA00D97439 /* TEPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TEPreferencesController.m; path = Controllers/TEPreferencesController.m; sourceTree = "<group>"; };
+		FA26627E1B3F55FA00D97439 /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Preferences.xib; path = Controllers/Preferences.xib; sourceTree = "<group>"; };
 		FA2F00B81B360B6700998329 /* TECenteredClipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TECenteredClipView.h; path = Views/TECenteredClipView.h; sourceTree = "<group>"; };
 		FA2F00B91B360B6700998329 /* TECenteredClipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TECenteredClipView.m; path = Views/TECenteredClipView.m; sourceTree = "<group>"; };
 		FA43A02A1B34993A0000DB66 /* TEColorInspector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TEColorInspector.h; path = Controllers/Inspectors/TEColorInspector.h; sourceTree = "<group>"; };
@@ -222,6 +227,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA2662811B3F568E00D97439 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				FA26627C1B3F55FA00D97439 /* TEPreferencesController.h */,
+				FA26627D1B3F55FA00D97439 /* TEPreferencesController.m */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
 		FA4D11A51B3683AC00175D14 /* Pasteboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,10 +296,12 @@
 				FA606C1A1B2C1D2100F24960 /* MainMenu.xib */,
 				FA606C151B2C1D2100F24960 /* Document.xib */,
 				FADE23F41B3D13DA003DC234 /* Welcome.xib */,
+				FA26627E1B3F55FA00D97439 /* Preferences.xib */,
 				FABEAEC41B2F70C200B02805 /* TEInspectorController.xib */,
 				FABEAECB1B2F70F300B02805 /* TEInspectorDetailController.xib */,
 				FABEAED21B2F714A00B02805 /* Controllers */,
 				FA4D11A51B3683AC00175D14 /* Pasteboard */,
+				FA2662811B3F568E00D97439 /* Preferences */,
 				FABEAED11B2F714400B02805 /* Inspectors */,
 				FAA54F581B2E0B7800EA15F2 /* Views */,
 				FAA2B1BF1B2E023C00D70473 /* Categories */,
@@ -487,6 +503,7 @@
 				FADE23F61B3D13DA003DC234 /* Welcome.xib in Resources */,
 				FA606C171B2C1D2100F24960 /* Document.xib in Resources */,
 				FABEAECD1B2F70F300B02805 /* TEInspectorDetailController.xib in Resources */,
+				FA2662801B3F55FA00D97439 /* Preferences.xib in Resources */,
 				FABEAEC51B2F70C200B02805 /* TEInspectorController.xib in Resources */,
 				FA606C1C1B2C1D2100F24960 /* MainMenu.xib in Resources */,
 				FA8313DE1B3B221E003D0F4A /* Credits.rtf in Resources */,
@@ -508,6 +525,7 @@
 				FA80CE0C1B30BD4E005E5DD2 /* TEGradientEditor.m in Sources */,
 				FAA54F6C1B2E212E00EA15F2 /* RBLClipView.m in Sources */,
 				FAB6EB7C1B375A8C00D914F4 /* TKColorRendition+Pasteboard.m in Sources */,
+				FA26627F1B3F55FA00D97439 /* TEPreferencesController.m in Sources */,
 				FAB6EB7F1B375A9C00D914F4 /* TKGradientRendition+Pasteboard.m in Sources */,
 				FA21F87D1B2E95710094202A /* TKRendition+Filtering.m in Sources */,
 				FAEA99891B36587D00EEA486 /* TEBackgroundColorView.m in Sources */,
