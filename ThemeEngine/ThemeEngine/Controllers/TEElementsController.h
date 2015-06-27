@@ -16,4 +16,7 @@
 @property (weak) IBOutlet TETexturedScope *elementScope;
 @property (weak) IBOutlet NSView *tableHeaderView;
 
+- (IBAction)receiveFromEditor:(id)sender;
+- (IBAction)sendToEditor:(id)sender;
+
 @end

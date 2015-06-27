@@ -25,6 +25,10 @@ static NSString *TKDirectoryToString(TKTemporaryDirectory directory) {
             return @"Documents";
             break;
         }
+        case TKTemporaryDirectoryExports: {
+            return @"Exports";
+            break;
+        }
         default: {
             break;
         }

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ThemeKit/TKRendition.h>
 
 @interface TEExportController : NSObject
 @property (strong) NSMutableDictionary *applicationMap;
@@ -20,5 +21,7 @@
 
 - (NSString *)bundleIdentifierForUTI:(NSString *)type;
 - (void)setBundleIdentifier:(NSString *)bundleIdentifier forUTI:(NSString *)type;
+
+- (void)exportRenditions:(NSArray <TKRendition *> *)renditions;
 
 @end

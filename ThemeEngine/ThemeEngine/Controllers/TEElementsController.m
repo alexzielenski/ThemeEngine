@@ -7,6 +7,7 @@
 //
 
 #import "TEElementsController.h"
+#import "TEExportController.h"
 
 static NSArray<NSArray *> *filterPredicates = nil;
 
@@ -88,6 +89,14 @@ static NSArray<NSArray *> *filterPredicates = nil;
     NSTableCellView *cell = [aTableView makeViewWithIdentifier:@"ElementCell" owner:self];
     cell.textField.allowsExpansionToolTips = YES;
     return cell;
+}
+
+- (IBAction)receiveFromEditor:(id)sender {
+
+}
+
+- (IBAction)sendToEditor:(id)sender {
+    
 }
 
 @end

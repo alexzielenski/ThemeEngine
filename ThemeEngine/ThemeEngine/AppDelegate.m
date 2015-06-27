@@ -23,14 +23,14 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
     self.documentController = [NSDocumentController sharedDocumentController];
-    self.welcomeController = [[TEWelcomeController alloc] initWithWindowNibName:@"Welcome"];
-    
+    self.welcomeController  = [[TEWelcomeController alloc] initWithWindowNibName:@"Welcome"];
+
     self.darkMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkMode"];
     [self bind:@"darkMode"
       toObject:[NSUserDefaultsController sharedUserDefaultsController]
    withKeyPath:@"values.darkMode"
        options:nil];
-    
+
     [self showWelcome:self];
     
     __weak typeof(self.welcomeController) weakWelcome = self.welcomeController;

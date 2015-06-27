@@ -16,6 +16,11 @@
 @property (weak) IBOutlet NSSlider *zoomSlider;
 @property (weak) IBOutlet TEInspectorController *inspectorController;
 @property (nonatomic, assign) NSInteger currentGroup;
+
 - (IBAction)zoomAnchorPressed:(NSButton *)sender;
 - (IBAction)searchRenditions:(NSSearchField *)sender;
+
+- (IBAction)receiveFromEditor:(id)sender;
+- (IBAction)sendToEditor:(id)sender;
+
 @end

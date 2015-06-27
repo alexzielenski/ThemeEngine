@@ -12,6 +12,7 @@ typedef NS_ENUM(NSUInteger, TKTemporaryDirectory) {
     TKTemporaryDirectoryDrags     = 0,
     TKTemporaryDirectoryPreviews  = 1,
     TKTemporaryDirectoryDocuments = 2,
+    TKTemporaryDirectoryExports   = 3
 };
 
 @interface NSURL (Paths)

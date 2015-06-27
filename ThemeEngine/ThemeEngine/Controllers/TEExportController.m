@@ -7,6 +7,12 @@
 //
 
 #import "TEExportController.h"
+#import <ThemeKit/TKBitmapRendition.h>
+#import <ThemeKit/TKPDFRendition.h>
+
+#import "NSURL+Paths.h"
+
+@import Cocoa;
 
 @implementation TEExportController
 
@@ -34,11 +40,58 @@
 }
 
 - (NSString *)bundleIdentifierForUTI:(NSString *)type {
-    return self.applicationMap[type];
+    NSString *identifier = self.applicationMap[type];
+    if (!identifier) {
+        identifier = (__bridge_transfer NSString *)LSCopyDefaultRoleHandlerForContentType((__bridge CFStringRef)type, kLSRolesEditor);
+    }
+    
+    return identifier;
 }
 
 - (void)setBundleIdentifier:(NSString *)bundleIdentifier forUTI:(NSString *)type; {
     self.applicationMap[type] = bundleIdentifier;
+}
+
+- (void)exportRenditions:(NSArray <TKRendition *> *)renditions {
+    NSSet *types = [NSSet setWithArray:[renditions valueForKeyPath:@"className"]];
+    if (types.count > 1) {
+        NSLog(@"select different types");
+        return;
+    } else if (types.count == 0) {
+        return;
+    }
+    
+    TKRendition *rendition = renditions.firstObject;
+    NSURL *tmpURL = [NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryExports];
+    
+    if ([rendition isKindOfClass:[TKBitmapRendition class]]) {
+        
+        
+    } else if ([rendition isKindOfClass:[TKPDFRendition class]]) {
+        
+    } else if ([rendition isKindOfClass:[TKRawDataRendition class]]) {
+
+        for (TKRawDataRendition *rend in renditions) {
+            NSString *uti = [rend utiType];
+            NSString *identifier = [self bundleIdentifierForUTI:uti];
+            NSBundle *bndl = [NSBundle bundleWithIdentifier:identifier];
+            NSString *name = bndl.infoDictionary[@"CFBundleDisplayName"] ?:
+            bndl.infoDictionary[@"CFBundleName"];
+            
+            NSString *ext = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)uti, kUTTagClassFilenameExtension);
+            
+            NSURL *url = [tmpURL URLByAppendingPathComponent:[[[NSUUID UUID] UUIDString] stringByAppendingPathExtension:ext]];
+            [rend.rawData writeToFile:url.path
+                           atomically:NO];
+            
+            [[NSWorkspace sharedWorkspace] openFile:url.path];
+            
+        }
+        
+    } else {
+        NSLog(@"no rule to export");
+    }
+    
 }
 
 @end

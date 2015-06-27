@@ -9,6 +9,7 @@
 #import "TERenditionsController.h"
 #import <ThemeKit/TKRendition.h>
 #import "TERenditionsController+Dragging.h"
+#import "TEExportController.h"
 
 static NSString *keyForGroupTag(NSInteger tag) {
     switch (tag) {
@@ -126,6 +127,16 @@ static const void *PREVIEWIMAGECHANGED = &PREVIEWIMAGECHANGED;
                               context:context];
     }
 }
+
+#pragma mark - Interface Actions
+
+- (IBAction)receiveFromEditor:(id)sender {
+}
+
+- (IBAction)sendToEditor:(id)sender {
+    [[TEExportController sharedExportController] exportRenditions:[self.renditionsArrayController selectedObjects]];
+}
+
 
 - (void)setCurrentGroup:(NSInteger)currentGroup {
     // Use this so we can observe arranged objects and regroup everytime it changes
