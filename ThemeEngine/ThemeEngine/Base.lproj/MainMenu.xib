@@ -349,6 +349,26 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Renditions" id="JPJ-qU-Ooz">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Renditions" id="AKa-pJ-DbV">
+                        <items>
+                            <menuItem title="Add Rendition" id="j6E-Zz-eOE">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Remove Rendition" id="6R4-Q2-MzQ">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="EJK-2F-tnP"/>
+                            <menuItem title="Send to Editor" id="gqF-dK-4ef">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Receive from Editor" id="vir-II-Kza">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Format" id="jxT-CU-nIS">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Format" id="GEO-Iw-cKr">
@@ -632,6 +652,19 @@
                                 <connections>
                                     <action selector="runToolbarCustomizationPalette:" target="-1" id="pQI-g3-MTW"/>
                                 </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="TCC-4l-c1Y"/>
+                            <menuItem title="Show Inspector" id="oo9-I1-a22">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Hide Inspector" id="w3j-po-V1g">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Show Sidebar" id="L67-cX-b4R">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Hide Sidebar" id="exc-5I-VxG">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                         </items>
                     </menu>

@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import <ThemeKit/ThemeKit.h>
 
+extern NSString *const TEDocumentDidShowNotification;
+
 @interface Document : NSDocument
 @property (strong) TKMutableAssetStorage *assetStorage;
 @end

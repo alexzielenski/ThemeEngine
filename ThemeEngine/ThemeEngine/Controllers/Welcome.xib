@@ -258,7 +258,7 @@
                                         </connections>
                                     </customView>
                                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="S6C-ku-BVN" customClass="TESplashButtonView">
-                                        <rect key="frame" x="146" y="93" width="174" height="34"/>
+                                        <rect key="frame" x="146" y="93" width="178" height="34"/>
                                         <subviews>
                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rHg-oG-TFl">
                                                 <rect key="frame" x="6" y="4" width="26" height="26"/>
@@ -275,9 +275,9 @@
                                                 </imageCell>
                                             </imageView>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s9R-02-XWr">
-                                                <rect key="frame" x="38" y="3" width="132" height="29"/>
+                                                <rect key="frame" x="38" y="3" width="136" height="29"/>
                                                 <animations/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="New IOSCatalog" id="7yT-Ff-iuB">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="New iOS Catalog" id="7yT-Ff-iuB">
                                                     <font key="font" size="17" name="Avenir-Book"/>
                                                     <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

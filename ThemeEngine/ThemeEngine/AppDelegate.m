@@ -31,6 +31,14 @@
        options:nil];
     
     [self showWelcome:self];
+    
+    __weak typeof(self.welcomeController) weakWelcome = self.welcomeController;
+    [[NSNotificationCenter defaultCenter] addObserverForName:TEDocumentDidShowNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification * __nonnull note) {
+                                                      [weakWelcome.window performClose:self];
+                                                  }];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

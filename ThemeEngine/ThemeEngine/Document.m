@@ -12,6 +12,8 @@
 static NSString *const TKCarPathSystemAppearance = @"/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/SystemAppearance.car";
 static NSString *const TKCarPathAssets           = @"/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/Assets.car";
 
+NSString *const TEDocumentDidShowNotification = @"TEDocumentDidShowNotification";
+
 @interface Document () <NSTableViewDelegate>
 @property (copy) NSURL *tmpURL;
 @end
@@ -31,6 +33,8 @@ static NSString *const TKCarPathAssets           = @"/System/Library/CoreService
     aController.window.titleVisibility            = NSWindowTitleHidden;
     aController.window.appearance                 = [NSAppearance currentAppearance];
     aController.window.titlebarAppearsTransparent = YES;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:TEDocumentDidShowNotification object:self];
 }
 
 - (NSString *)windowNibName {

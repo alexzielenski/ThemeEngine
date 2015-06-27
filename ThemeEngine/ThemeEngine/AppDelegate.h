@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "TEWelcomeController.h"
+#import "Document.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 @property (nonatomic) BOOL darkMode;
