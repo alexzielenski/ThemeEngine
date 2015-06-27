@@ -9,23 +9,25 @@
 #import "BOM.h"
 #import "TKStructs.h"
 
+struct _carheader {
+    unsigned int magic; // 'CTAR'
+    unsigned int coreui_version;
+    unsigned int storage_version;
+    unsigned int _field4;
+    unsigned int renditionCount;
+    char program_string[128];
+    char version_string[256];
+    unsigned char _field8[16];
+    unsigned int associated_checksum;
+    unsigned int schema_version;
+    unsigned int colorspace_id;
+    unsigned int key_semantics;
+};
+
 // Not exported
 @interface CUICommonAssetStorage : NSObject
 {
-    struct _carheader {
-        unsigned int _field1;
-        unsigned int _field2;
-        unsigned int _field3;
-        unsigned int _field4;
-        unsigned int _field5;
-        char _field6[128];
-        char _field7[256];
-        unsigned char _field8[16];
-        unsigned int _field9;
-        unsigned int _field10;
-        unsigned int _field11;
-        unsigned int _field12;
-    } *_header;
+    struct _carheader *_header;
     
     struct renditionkeyfmt *_keyfmt;
     // Maps rendition keys to CoreTheme Structured Images
@@ -41,6 +43,9 @@
     // Unknown
     BOMTreeRef _zcbezeldb;
     //  Maps rendition names to rendition keys
+    // keys in this tree are facet names
+    // values are lists of:
+    //
     BOMTreeRef _facetKeysdb;
     
     NSData *_globals;

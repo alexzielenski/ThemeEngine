@@ -130,6 +130,20 @@ struct renditionkeytoken {
     unsigned short value;
 };
 
+struct facet_key {
+    const char *facet_name;
+};
+
+struct facet_value {
+    struct {
+        short x;
+        short y;
+    } hot_spot;
+    
+    // list of tokens with a length of sizeof(renditionkeytoken) * keyfmt.num_identifiers
+    struct renditionkeytoken tokens[];
+};
+
 #pragma mark - Types
 
 //!TODO document this
