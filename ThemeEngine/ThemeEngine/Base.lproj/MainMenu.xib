@@ -648,18 +648,6 @@ CA
                                     <binding destination="XbG-Hc-y3v" name="value" keyPath="values.darkMode" id="3dJ-qq-fvZ"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Show Toolbar" keyEquivalent="t" id="snW-S8-Cw5">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                <connections>
-                                    <action selector="toggleToolbarShown:" target="-1" id="BXY-wc-z0C"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Customize Toolbar…" id="1UK-8n-QPP">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="runToolbarCustomizationPalette:" target="-1" id="pQI-g3-MTW"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="TCC-4l-c1Y"/>
                             <menuItem title="Show Inspector" tag="1" keyEquivalent="" id="oo9-I1-a22">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>

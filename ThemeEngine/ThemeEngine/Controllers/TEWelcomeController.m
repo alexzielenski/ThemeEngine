@@ -10,7 +10,7 @@
 #import "NSColor+TE.h"
 #import "TERecentCell.h"
 
-@interface TEWelcomeController ()
+@interface TEWelcomeController () <NSWindowDelegate>
 @property (strong) NSArray *URLs;
 - (void)openRecent:(id)sender;
 @end
@@ -18,8 +18,6 @@
 @implementation TEWelcomeController
 
 - (void)windowDidLoad {
-    self.URLs = [[NSDocumentController sharedDocumentController] recentDocumentURLs];
-    
     [super windowDidLoad];
     self.backgroundView.backgroundColor = [NSColor themeEnginePurpleColor];
     
@@ -33,8 +31,6 @@
     
     self.recentsTable.target = self;
     self.recentsTable.doubleAction = @selector(openRecent:);
-    
-    [self.recentsTable reloadData];
 }
 
 - (void)openRecent:(id)sender {
@@ -72,6 +68,10 @@
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     self.URLs = [[NSDocumentController sharedDocumentController] recentDocumentURLs];
     [self.recentsTable reloadData];
+    
+    if (self.URLs.count > 0)
+        [self.recentsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+    [self.window makeFirstResponder:self.recentsTable];
 }
 
 - (NSInteger)numberOfRowsInTableView:(nonnull NSTableView *)tableView {
