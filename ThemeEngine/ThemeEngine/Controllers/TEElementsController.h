@@ -14,5 +14,6 @@
 @property (strong) NSPredicate *filterPredicate;
 @property (weak) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet TETexturedScope *elementScope;
+@property (weak) IBOutlet NSView *tableHeaderView;
 
 @end

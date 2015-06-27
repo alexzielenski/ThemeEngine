@@ -10,7 +10,7 @@
 
 static NSArray<NSArray *> *filterPredicates = nil;
 
-@interface TEElementsController ()
+@interface TEElementsController () <NSTableViewDataSource, NSTableViewDelegate>
 - (void)scopeChanged:(TETexturedScope *)scope;
 @end
 
@@ -30,6 +30,7 @@ static NSArray<NSArray *> *filterPredicates = nil;
     self.sortDescriptors = @[
                              [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]
                              ];
+    
     self.tableView.verticalMotionCanBeginDrag = NO;
     
     for (NSUInteger i = 0; i < filterPredicates.count; i++) {
@@ -47,11 +48,45 @@ static NSArray<NSArray *> *filterPredicates = nil;
     
     self.elementScope.target = self;
     self.elementScope.action = @selector(scopeChanged:);
+    
+    self.tableView.enclosingScrollView.automaticallyAdjustsContentInsets = NO;
+    self.tableView.enclosingScrollView.contentInsets = NSEdgeInsetsMake(20, 0, 0, 0);
+    
+    NSView *contentView = self.tableView.enclosingScrollView.contentView;
+    self.tableHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.tableHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:self.tableHeaderView
+                                                                     attribute:NSLayoutAttributeHeight
+                                                                     relatedBy:NSLayoutRelationEqual
+                                                                        toItem:nil
+                                                                     attribute:0
+                                                                    multiplier:0
+                                                                      constant:22.0]];
+    [contentView addSubview:self.tableHeaderView];
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-20)-[headerView]"
+                                                                        options:0
+                                                                        metrics:nil
+                                                                          views:@{ @"headerView": self.tableHeaderView }]];
+    
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[headerView]|"
+                                                                        options:0
+                                                                        metrics:nil
+                                                                          views:@{ @"headerView": self.tableHeaderView }]];
+    
 }
 
 - (void)scopeChanged:(TETexturedScope *)scope {
     if (scope.selectedSegment < filterPredicates.count)
         self.filterPredicate = filterPredicates[scope.selectedSegment][1];
+    if (self.tableView.numberOfRows > 0)
+        [self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+}
+
+- (NSView *)tableView:(NSTableView *)aTableView
+   viewForTableColumn:(NSTableColumn *)tableColumn
+                  row:(NSInteger)row {
+    NSTableCellView *cell = [aTableView makeViewWithIdentifier:@"ElementCell" owner:self];
+    cell.textField.allowsExpansionToolTips = YES;
+    return cell;
 }
 
 @end
