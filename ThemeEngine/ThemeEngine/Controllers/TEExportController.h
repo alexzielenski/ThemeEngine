@@ -9,15 +9,16 @@
 #import <Foundation/Foundation.h>
 
 @interface TEExportController : NSObject
-/**
- *  Application to which you want to export the document
- */
-@property (copy) NSString *exportBundleIdentifier;
+@property (strong) NSMutableDictionary *applicationMap;
 
 /**
  *  Shared Instance of TEExportController
  */
 + (instancetype)sharedExportController;
 
++ (NSArray *)bundleIdentifiersForUTI:(NSString *)type;
+
+- (NSString *)bundleIdentifierForUTI:(NSString *)type;
+- (void)setBundleIdentifier:(NSString *)bundleIdentifier forUTI:(NSString *)type;
 
 @end
