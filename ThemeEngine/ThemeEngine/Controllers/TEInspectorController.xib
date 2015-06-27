@@ -2413,17 +2413,11 @@
                                 <rect key="frame" x="1" y="1" width="236" height="139"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="9ef-J6-Gci" customClass="TEAnimationView">
+                                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ef-J6-Gci" customClass="TEAnimationView">
                                         <rect key="frame" x="0.0" y="0.0" width="236" height="139"/>
                                         <animations/>
                                     </customView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="9ef-J6-Gci" secondAttribute="bottom" id="VWS-GI-wze"/>
-                                    <constraint firstItem="9ef-J6-Gci" firstAttribute="top" secondItem="FFS-Xk-oeI" secondAttribute="top" id="mFR-Ie-Jah"/>
-                                    <constraint firstItem="9ef-J6-Gci" firstAttribute="leading" secondItem="FFS-Xk-oeI" secondAttribute="leading" id="ned-Sr-xeG"/>
-                                    <constraint firstAttribute="trailing" secondItem="9ef-J6-Gci" secondAttribute="trailing" id="qAI-7T-j08"/>
-                                </constraints>
                                 <animations/>
                             </clipView>
                             <animations/>
@@ -2433,7 +2427,7 @@
                                 <animations/>
                             </scroller>
                             <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="2Xc-SO-e4z">
-                                <rect key="frame" x="221" y="1" width="16" height="139"/>
+                                <rect key="frame" x="222" y="1" width="15" height="139"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <animations/>
                             </scroller>
