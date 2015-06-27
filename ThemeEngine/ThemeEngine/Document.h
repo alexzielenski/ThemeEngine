@@ -13,5 +13,6 @@ extern NSString *const TEDocumentDidShowNotification;
 
 @interface Document : NSDocument
 @property (strong) TKMutableAssetStorage *assetStorage;
+@property (strong) IBOutlet NSArrayController *elementsArrayController;
 @end
 

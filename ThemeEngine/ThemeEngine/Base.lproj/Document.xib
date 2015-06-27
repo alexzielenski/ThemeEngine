@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Document">
             <connections>
+                <outlet property="elementsArrayController" destination="5aX-cC-x7E" id="V8N-8L-Qa1"/>
                 <outlet property="window" destination="xOd-HO-29H" id="JIz-fz-R2o"/>
             </connections>
         </customObject>
@@ -254,11 +255,6 @@
         </customView>
         <arrayController objectClassName="TKElement" editable="NO" selectsInsertedObjects="NO" clearsFilterPredicateOnInsertion="NO" id="5aX-cC-x7E" userLabel="Elements">
             <connections>
-                <binding destination="-2" name="contentSet" keyPath="assetStorage.elements" id="8Dn-Yz-55R">
-                    <dictionary key="options">
-                        <bool key="NSValidatesImmediately" value="YES"/>
-                    </dictionary>
-                </binding>
                 <binding destination="fev-Za-txR" name="filterPredicate" keyPath="filterPredicate" id="Nbm-zf-5wf"/>
                 <binding destination="fev-Za-txR" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="Nbm-zf-5wf" id="C9W-Zh-YlZ"/>
             </connections>
@@ -332,7 +328,7 @@
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="c83-w5-G1C">
-                        <rect key="frame" x="484" y="0.0" width="16" height="351"/>
+                        <rect key="frame" x="485" y="0.0" width="15" height="351"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
@@ -378,7 +374,7 @@
                                 <binding destination="DYE-2D-1ip" name="selectedTag" keyPath="currentGroup" id="9MS-O7-dXk"/>
                             </connections>
                         </popUpButton>
-                        <button wantsLayer="YES" verticalHuggingPriority="750" misplaced="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-jj-xg3">
+                        <button wantsLayer="YES" verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-jj-xg3">
                             <rect key="frame" x="464" y="9" width="16" height="16"/>
                             <animations/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SliderAnchorTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="Rr4-tC-JlR">
@@ -394,7 +390,7 @@
                                 <action selector="zoomAnchorPressed:" target="DYE-2D-1ip" id="Voy-yP-pJL"/>
                             </connections>
                         </button>
-                        <button wantsLayer="YES" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YXj-cd-YIj">
+                        <button wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YXj-cd-YIj">
                             <rect key="frame" x="344" y="11" width="12" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="4ea-J6-6Wi"/>
@@ -423,7 +419,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textFieldCell>
                         </textField>
-                        <slider wantsLayer="YES" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4dv-Sn-CWt">
+                        <slider wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4dv-Sn-CWt">
                             <rect key="frame" x="362" y="6" width="96" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="92" id="C1j-Vu-sK4"/>

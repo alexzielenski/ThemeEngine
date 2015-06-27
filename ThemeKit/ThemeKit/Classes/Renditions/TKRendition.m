@@ -86,7 +86,7 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
 }
 
 - (instancetype)_initWithCUIRendition:(CUIThemeRendition *)rendition csiData:(NSData *)csiData key:(CUIRenditionKey *)key {
-    if ((self = [self init])) {
+    if ((self = [self init])) {        
         self.renditionKey    = key;
         self.rendition       = rendition;
         self.name            = rendition.name;

@@ -16,10 +16,12 @@
 #import "TKElement+Private.h"
 
 extern NSInteger kCoreThemeStepperElementID;
+NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDidFinishLoadingNotification";
 
 @interface TKAssetStorage ()
 @property (readwrite, strong) NSSet<TKElement *> *elements;
 @property (readwrite, strong) NSMutableDictionary<NSString *, TKElement *> *elementNameMap;
+@property (strong) NSOperationQueue *queue;
 // Maps keys to their renditions
 @property (strong) NSCache *renditionCache;
 - (TKElement *)elementWithName:(NSString *)name createIfNeeded:(BOOL)create;
@@ -56,11 +58,28 @@ extern NSInteger kCoreThemeStepperElementID;
 #pragma mark - Enumeration
 
 - (void)_beginEnumeration {
+    NSMutableArray *allowed = [NSMutableArray array];
+    const struct renditionkeyfmt *fmt = self.storage.keyFormat;
+    for (int x = 0; x < fmt->num_identifiers; x++) {
+        [allowed addObject:@(fmt->identifier_list[x])];
+    }
+    
+    self.renditionKeyAttributes = allowed;
     self.elementNameMap = [NSMutableDictionary<NSString *, TKElement *> dictionary];
     
-    [self _enumerateAssets];
-    [self _enumerateColors];
-    [self _enumerateFonts];
+    self.queue = [[NSOperationQueue alloc] init];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.queue addOperationWithBlock:^{
+        [weakSelf _enumerateAssets];
+        [weakSelf _enumerateColors];
+        [weakSelf _enumerateFonts];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:TKAssetStorageDidFinishLoadingNotification object:self];
+        });
+    }];
+    
 }
 
 - (void)_enumerateAssets {

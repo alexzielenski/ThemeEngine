@@ -10,6 +10,8 @@
 #import <ThemeKit/TKElement.h>
 #import <ThemeKit/TKTypes.h>
 
+extern NSString *const TKAssetStorageDidFinishLoadingNotification;
+
 /**
  *  TKAssetStorage represents a car file on disk. It populates its elements and renditions lists
  * based on the contents of the car file. You can use this class to obtain a list of all elements or
@@ -41,6 +43,12 @@
  *  @warning This property will not be useful if the rendition's `-wantsUndoHandling` returns NO.
  */
 @property (assign, getter=isDirty) BOOL dirty;
+
+/**
+ *  List of allowed attributes for this Asset Catalog.
+ *  @see TKThemeAttribute
+ */
+@property (readonly, strong) NSArray *renditionKeyAttributes;
 
 /**
  *  Creates an asset storage object

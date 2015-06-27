@@ -16,6 +16,8 @@ NSString *const TEDocumentDidShowNotification = @"TEDocumentDidShowNotification"
 
 @interface Document () <NSTableViewDelegate>
 @property (copy) NSURL *tmpURL;
+@property (assign) BOOL finishedLoading;
+- (void)bindTable:(NSNotification *)note;
 @end
 
 @implementation Document
@@ -25,6 +27,16 @@ NSString *const TEDocumentDidShowNotification = @"TEDocumentDidShowNotification"
         // Add your subclass-specific initialization here.
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    if (self.finishedLoading) {
+        [self.elementsArrayController bind:NSContentSetBinding
+                                  toObject:self
+                               withKeyPath:@"assetStorage.elements"
+                                   options:nil];
+    }
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController {
@@ -41,6 +53,21 @@ NSString *const TEDocumentDidShowNotification = @"TEDocumentDidShowNotification"
     // Override returning the nib file name of the document
     // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
     return @"Document";
+}
+
+- (void)bindTable:(NSNotification *)note {
+    self.finishedLoading = YES;
+    
+    if (self.elementsArrayController) {
+        [self.elementsArrayController bind:NSContentSetBinding
+                                  toObject:self
+                               withKeyPath:@"assetStorage.elements"
+                                   options:nil];
+    }
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:TKAssetStorageDidFinishLoadingNotification
+                                                  object:self.assetStorage];
 }
 
 - (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)outError {
@@ -119,6 +146,10 @@ NSString *const TEDocumentDidShowNotification = @"TEDocumentDidShowNotification"
     
     self.tmpURL = temporary;
     self.assetStorage = [TKMutableAssetStorage assetStorageWithPath:temporary.path];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(bindTable:)
+                                                 name:TKAssetStorageDidFinishLoadingNotification
+                                               object:self.assetStorage];
     
     if (!self.assetStorage) {
         *outError = [NSError errorWithDomain:NSBundle.mainBundle.bundleIdentifier
