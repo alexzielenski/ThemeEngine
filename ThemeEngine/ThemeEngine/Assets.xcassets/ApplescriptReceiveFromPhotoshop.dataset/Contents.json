@@ -1,0 +1,13 @@
+{
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "data" : [
+    {
+      "idiom" : "universal",
+      "filename" : "ReceiveFromPhotoshop.applescript",
+      "universal-type-identifier" : "com.apple.applescript.text"
+    }
+  ]
+}
