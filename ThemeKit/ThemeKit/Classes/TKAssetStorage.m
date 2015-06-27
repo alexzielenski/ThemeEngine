@@ -58,6 +58,8 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
 #pragma mark - Enumeration
 
 - (void)_beginEnumeration {
+    self.elements = [NSMutableSet<TKElement *> set];
+
     NSMutableArray *allowed = [NSMutableArray array];
     const struct renditionkeyfmt *fmt = self.storage.keyFormat;
     for (int x = 0; x < fmt->num_identifiers; x++) {
@@ -71,6 +73,7 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
     
     __weak typeof(self) weakSelf = self;
     [self.queue addOperationWithBlock:^{
+        [weakSelf _enumerateFacets];
         [weakSelf _enumerateAssets];
         [weakSelf _enumerateColors];
         [weakSelf _enumerateFonts];
@@ -82,9 +85,39 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
     
 }
 
-- (void)_enumerateAssets {
-    self.elements = [NSMutableSet<TKElement *> set];
+- (void)_enumerateFacets {
+    if (!self.storage)
+        return;
     
+    BOMTreeRef facet_tree = TKIvar(self.storage, BOMTreeRef, _facetKeysdb);
+    if (facet_tree == NULL)
+        return;
+    
+    int num_facets = BOMTreeCount(facet_tree);
+    NSLog(@"Found %d facets", num_facets);
+    if (num_facets == 0)
+        return;
+    
+    BOMTreeIteratorRef iterator = BOMTreeIteratorNew(facet_tree, 0, 0, 0);
+    
+    while (!BOMTreeIteratorIsAtEnd(iterator)) {
+        struct facet_key *key = BOMTreeIteratorKey(iterator);
+        size_t key_size = BOMTreeIteratorKeySize(iterator);
+        
+        // We only care about the key
+        NSData *keyData     = [NSData dataWithBytes:key length:key_size];
+        NSString *facetName = [[NSString alloc] initWithData:keyData encoding:NSUTF8StringEncoding];
+
+        // Create the element, even if it's empty
+        (void)[self elementWithName:facetName createIfNeeded:YES];
+        
+        
+        BOMTreeIteratorNext(iterator);
+    }
+    BOMTreeIteratorFree(iterator);
+}
+
+- (void)_enumerateAssets {
     NSLog(@"Found %d renditions", self.storage.renditionCount);
     
     @autoreleasepool {
@@ -153,13 +186,15 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
     
     TKElement *element = self.elementNameMap[name];
     
-    if (!element) {
+    if (!element && create) {
         element = [TKElement elementWithRenditions:nil
                                               name:name
                                            storage:self];
         
         self.elementNameMap[name] = element;
         [self addElements:[NSSet setWithObject:element]];
+    } else {
+
     }
     
     return element;

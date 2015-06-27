@@ -15,6 +15,7 @@
 @property (readwrite, strong) NSArray *renditionKeyAttributes;
 
 - (void)_beginEnumeration;
+- (void)_enumerateFacets;
 - (void)_enumerateAssets;
 - (void)_enumerateColors;
 - (void)_enumerateFonts;

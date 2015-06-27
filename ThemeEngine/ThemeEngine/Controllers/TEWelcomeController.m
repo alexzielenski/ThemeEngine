@@ -38,6 +38,7 @@
     if (theEvent.keyCode == 36 &&
         self.window.firstResponder == self.recentsTable) {
         [self openRecent:self.recentsTable];
+        
     } else {
         [super keyDown:theEvent];
     }
@@ -56,7 +57,6 @@
 
 - (void)showWindow:(nullable id)sender {
     [super showWindow:sender];
-    NSLog(@"show window");
     [self.window center];
 }
 
