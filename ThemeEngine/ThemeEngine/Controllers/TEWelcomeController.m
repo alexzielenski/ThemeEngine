@@ -28,13 +28,23 @@
     self.window.contentView.wantsLayer          = YES;
     self.window.contentView.layer.masksToBounds = YES;
     self.window.contentView.layer.cornerRadius  = 8.0;
-    
-    self.recentsTable.target = self;
-    self.recentsTable.doubleAction = @selector(openRecent:);
+
+    self.recentsTable.target               = self;
+    self.recentsTable.doubleAction         = @selector(openRecent:);
+    self.recentsTable.allowsEmptySelection = NO;
+}
+
+- (void)keyDown:(nonnull NSEvent *)theEvent {
+    if (theEvent.keyCode == 36 &&
+        self.window.firstResponder == self.recentsTable) {
+        [self openRecent:self.recentsTable];
+    } else {
+        [super keyDown:theEvent];
+    }
 }
 
 - (void)openRecent:(id)sender {
-    NSInteger row = self.recentsTable.clickedRow;
+    NSInteger row = self.recentsTable.selectedRow;
     NSURL *url = self.URLs[row];
     
     [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url
@@ -46,6 +56,7 @@
 
 - (void)showWindow:(nullable id)sender {
     [super showWindow:sender];
+    NSLog(@"show window");
     [self.window center];
 }
 
@@ -68,9 +79,6 @@
 - (void)windowDidBecomeKey:(NSNotification *)notification {
     self.URLs = [[NSDocumentController sharedDocumentController] recentDocumentURLs];
     [self.recentsTable reloadData];
-    
-    if (self.URLs.count > 0)
-        [self.recentsTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
     [self.window makeFirstResponder:self.recentsTable];
 }
 
@@ -94,9 +102,11 @@
             image = [NSImage imageNamed:@"Car"];
     }
     
+    cell.textField.target          = self;
+    cell.textField.action          = @selector(openRecent:);
     cell.subTitleLabel.stringValue = url.path;
-    cell.textField.stringValue = url.lastPathComponent.stringByDeletingPathExtension;
-    cell.imageView.image = image;
+    cell.textField.stringValue     = url.lastPathComponent.stringByDeletingPathExtension;
+    cell.imageView.image           = image;
     return cell;
 }
 
