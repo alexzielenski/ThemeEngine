@@ -21,6 +21,7 @@
 - (void)_enumerateFonts;
 
 - (void)_addRendition:(TKRendition *)rendition;
+- (void)removeElements:(NSSet<TKElement *> *)objects;
 @end
 
 @interface TKMutableAssetStorage (Private)

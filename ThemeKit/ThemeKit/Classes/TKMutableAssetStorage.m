@@ -51,6 +51,12 @@
     [rendition removeFromStorage];
     
     [rendition.element removeRendition:rendition];
+    
+    if (rendition.element.renditions.count == 0) {
+        [self removeElements:[NSSet setWithObject:rendition.element]];
+        //!TODO: Remove facet key
+    }
+    
     rendition.element = nil;
     
     if (![rendition isKindOfClass:[TKClass(TKColorRendition) class]]) {
