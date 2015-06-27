@@ -50,9 +50,10 @@ static NSArray<NSArray *> *filterPredicates = nil;
     self.elementScope.action = @selector(scopeChanged:);
     
     self.tableView.enclosingScrollView.automaticallyAdjustsContentInsets = NO;
-    self.tableView.enclosingScrollView.contentInsets = NSEdgeInsetsMake(20, 0, 0, 0);
+    self.tableView.enclosingScrollView.contentInsets = NSEdgeInsetsMake(28, 0, 0, 0);
     
     NSView *contentView = self.tableView.enclosingScrollView.contentView;
+
     self.tableHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.tableHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:self.tableHeaderView
                                                                      attribute:NSLayoutAttributeHeight
@@ -60,9 +61,9 @@ static NSArray<NSArray *> *filterPredicates = nil;
                                                                         toItem:nil
                                                                      attribute:0
                                                                     multiplier:0
-                                                                      constant:22.0]];
+                                                                      constant:28.0]];
     [contentView addSubview:self.tableHeaderView];
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-20)-[headerView]"
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-28)-[headerView]"
                                                                         options:0
                                                                         metrics:nil
                                                                           views:@{ @"headerView": self.tableHeaderView }]];

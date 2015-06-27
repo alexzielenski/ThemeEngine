@@ -45,7 +45,7 @@ NSString *const TEDocumentDidShowNotification = @"TEDocumentDidShowNotification"
     aController.window.titleVisibility            = NSWindowTitleHidden;
     aController.window.appearance                 = [NSAppearance currentAppearance];
     aController.window.titlebarAppearsTransparent = YES;
-    
+        
     [[NSNotificationCenter defaultCenter] postNotificationName:TEDocumentDidShowNotification object:self];
 }
 
