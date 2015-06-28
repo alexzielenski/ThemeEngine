@@ -16,6 +16,9 @@
 @property (weak) IBOutlet TETexturedScope *elementScope;
 @property (weak) IBOutlet NSView *tableHeaderView;
 
+- (IBAction)addElement:(id)sender;
+- (IBAction)removeSelection:(id)sender;
+
 - (IBAction)receiveFromEditor:(id)sender;
 - (IBAction)sendToEditor:(id)sender;
 

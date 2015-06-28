@@ -11,6 +11,17 @@
 
 static NSArray<NSArray *> *filterPredicates = nil;
 
+@interface TEFlippedView : NSView
+@end
+
+@implementation TEFlippedView
+
+- (BOOL)isFlipped {
+    return YES;
+}
+
+@end
+
 @interface TEElementsController () <NSTableViewDataSource, NSTableViewDelegate>
 - (void)scopeChanged:(TETexturedScope *)scope;
 @end
@@ -50,30 +61,48 @@ static NSArray<NSArray *> *filterPredicates = nil;
     self.elementScope.target = self;
     self.elementScope.action = @selector(scopeChanged:);
     
-    self.tableView.enclosingScrollView.automaticallyAdjustsContentInsets = NO;
-    self.tableView.enclosingScrollView.contentInsets = NSEdgeInsetsMake(28, 0, 0, 0);
-    
     NSView *contentView = self.tableView.enclosingScrollView.contentView;
-
+    NSScrollView *scrollView = self.tableView.enclosingScrollView;
+    NSTableView *table = self.tableView;
+    
+    self.tableView.translatesAutoresizingMaskIntoConstraints = YES;
+    self.tableView.focusRingType = NSFocusRingTypeNone;
     self.tableHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSView *container = [[TEFlippedView alloc] initWithFrame:contentView.bounds];
+    container.translatesAutoresizingMaskIntoConstraints = NO;
+    [container addSubview:table];
+
+    NSRect tbf   = table.frame;
+    tbf.origin.y = 28;
+    table.frame  = tbf;
+
+    [container addSubview:self.tableHeaderView];
+    container.wantsLayer = YES;
     [self.tableHeaderView addConstraint:[NSLayoutConstraint constraintWithItem:self.tableHeaderView
                                                                      attribute:NSLayoutAttributeHeight
                                                                      relatedBy:NSLayoutRelationEqual
                                                                         toItem:nil
                                                                      attribute:0
-                                                                    multiplier:0
+                                                                    multiplier:1.0
                                                                       constant:28.0]];
-    [contentView addSubview:self.tableHeaderView];
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(-28)-[headerView]"
+
+    [container addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[header]-0-[table]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:@{ @"header": self.tableHeaderView, @"table": self.tableView }]];
+    [container addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[header]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:@{ @"header": self.tableHeaderView }]];
+    
+    [contentView addSubview:container];
+    scrollView.documentView = container;
+
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[container]-0-|"
                                                                         options:0
                                                                         metrics:nil
-                                                                          views:@{ @"headerView": self.tableHeaderView }]];
-    
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[headerView]|"
-                                                                        options:0
-                                                                        metrics:nil
-                                                                          views:@{ @"headerView": self.tableHeaderView }]];
-    
+                                                                          views:NSDictionaryOfVariableBindings(container)]];
 }
 
 - (void)scopeChanged:(TETexturedScope *)scope {
@@ -89,6 +118,14 @@ static NSArray<NSArray *> *filterPredicates = nil;
     NSTableCellView *cell = [aTableView makeViewWithIdentifier:@"ElementCell" owner:self];
     cell.textField.allowsExpansionToolTips = YES;
     return cell;
+}
+
+- (IBAction)addElement:(id)sender {
+    NSLog(@"add element");
+}
+
+- (IBAction)removeSelection:(id)sender {
+    NSLog(@"remove elements");
 }
 
 - (IBAction)receiveFromEditor:(id)sender {

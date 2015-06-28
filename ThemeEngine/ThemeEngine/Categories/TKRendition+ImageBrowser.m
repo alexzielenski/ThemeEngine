@@ -18,6 +18,7 @@
 }
 
 - (NSString *)imageRepresentationType {
+    //!TODO: return IKImageBrowserNSURLRepresentationType for raw data types
     return IKImageBrowserNSImageRepresentationType;
 }
 

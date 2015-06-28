@@ -130,7 +130,16 @@ static const void *PREVIEWIMAGECHANGED = &PREVIEWIMAGECHANGED;
 
 #pragma mark - Interface Actions
 
+- (IBAction)addRendition:(id)sender {
+    NSLog(@"add rends");
+}
+
+- (IBAction)removeSelection:(id)sender {
+    NSLog(@"remove rends");
+}
+
 - (IBAction)receiveFromEditor:(id)sender {
+    [[TEExportController sharedExportController] importRenditions:[self.renditionsArrayController selectedObjects]];
 }
 
 - (IBAction)sendToEditor:(id)sender {
