@@ -35,7 +35,12 @@
 }
 
 + (NSArray *)bundleIdentifiersForUTI:(NSString *)type {
-    NSArray *identifiers = (__bridge_transfer NSArray *)LSCopyAllRoleHandlersForContentType((__bridge CFStringRef)type, kLSRolesEditor);
+    NSArray *identifiers = (__bridge_transfer NSArray *)LSCopyAllRoleHandlersForContentType((__bridge CFStringRef)type, kLSRolesAll);
+    NSString *ext = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)type, kUTTagClassFilenameExtension);
+    
+    LSCopyAllRoleHandlersForContentType(<#CFStringRef  __nonnull inContentType#>, <#LSRolesMask inRole#>)
+    identifiers = [identifiers arrayByAddingObjectsFromArray:<#(nonnull NSArray *)#>];
+    
     return identifiers;
 }
 
@@ -67,16 +72,14 @@
     if ([rendition isKindOfClass:[TKBitmapRendition class]]) {
         
         
-    } else if ([rendition isKindOfClass:[TKPDFRendition class]]) {
+//    } else if ([rendition isKindOfClass:[TKPDFRendition class]]) {
         
     } else if ([rendition isKindOfClass:[TKRawDataRendition class]]) {
 
         for (TKRawDataRendition *rend in renditions) {
             NSString *uti = [rend utiType];
+            NSLog(@"%@", [self.class bundleIdentifiersForUTI:uti]);
             NSString *identifier = [self bundleIdentifierForUTI:uti];
-            NSBundle *bndl = [NSBundle bundleWithIdentifier:identifier];
-            NSString *name = bndl.infoDictionary[@"CFBundleDisplayName"] ?:
-            bndl.infoDictionary[@"CFBundleName"];
             
             NSString *ext = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)uti, kUTTagClassFilenameExtension);
             
@@ -84,7 +87,11 @@
             [rend.rawData writeToFile:url.path
                            atomically:NO];
             
-            [[NSWorkspace sharedWorkspace] openFile:url.path];
+            [[NSWorkspace sharedWorkspace] openURLs:[NSArray arrayWithObject:url]
+                            withAppBundleIdentifier:identifier
+                                            options:NSWorkspaceLaunchDefault
+                     additionalEventParamDescriptor:nil
+                                  launchIdentifiers:nil];
             
         }
         
