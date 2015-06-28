@@ -35,22 +35,35 @@
 }
 
 + (NSArray *)bundleIdentifiersForUTI:(NSString *)type {
-    NSArray *identifiers = (__bridge_transfer NSArray *)LSCopyAllRoleHandlersForContentType((__bridge CFStringRef)type, kLSRolesAll);
+    // LSCopyAllRoleHandlersForContentType sucks
     NSString *ext = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)type, kUTTagClassFilenameExtension);
+    NSURL *url = [[[NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryExports] URLByAppendingPathComponent:@"test"] URLByAppendingPathExtension:ext];
     
-    LSCopyAllRoleHandlersForContentType(<#CFStringRef  __nonnull inContentType#>, <#LSRolesMask inRole#>)
-    identifiers = [identifiers arrayByAddingObjectsFromArray:<#(nonnull NSArray *)#>];
+    int zero = 0;
+    [[NSData dataWithBytes:&zero length:1] writeToURL:url atomically:NO];
+    
+    NSArray *identifiers = (__bridge_transfer NSArray *)LSCopyApplicationURLsForURL((__bridge CFURLRef)url, kLSRolesEditor);
     
     return identifiers;
 }
 
 - (NSString *)bundleIdentifierForUTI:(NSString *)type {
     NSString *identifier = self.applicationMap[type];
-    if (!identifier) {
-        identifier = (__bridge_transfer NSString *)LSCopyDefaultRoleHandlerForContentType((__bridge CFStringRef)type, kLSRolesEditor);
-    }
     
+    if (!identifier) {
+        identifier = [[NSBundle bundleWithURL:[self.class defaultApplicationURLForUTI:type]] bundleIdentifier];
+    }
+
     return identifier;
+}
++ (NSURL *)defaultApplicationURLForUTI:(NSString *)type {
+    NSString *ext = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)type, kUTTagClassFilenameExtension);
+    NSURL *url = [[[NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryExports] URLByAppendingPathComponent:@"test"] URLByAppendingPathExtension:ext];
+    
+    int zero = 0;
+    [[NSData dataWithBytes:&zero length:1] writeToURL:url atomically:NO];
+    
+    return (__bridge_transfer NSURL *)LSCopyDefaultApplicationURLForURL((__bridge CFURLRef)url, kLSRolesEditor, NULL);
 }
 
 - (void)setBundleIdentifier:(NSString *)bundleIdentifier forUTI:(NSString *)type; {
@@ -70,15 +83,12 @@
     NSURL *tmpURL = [NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryExports];
     
     if ([rendition isKindOfClass:[TKBitmapRendition class]]) {
-        
-        
-//    } else if ([rendition isKindOfClass:[TKPDFRendition class]]) {
+                
         
     } else if ([rendition isKindOfClass:[TKRawDataRendition class]]) {
 
         for (TKRawDataRendition *rend in renditions) {
             NSString *uti = [rend utiType];
-            NSLog(@"%@", [self.class bundleIdentifiersForUTI:uti]);
             NSString *identifier = [self bundleIdentifierForUTI:uti];
             
             NSString *ext = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)uti, kUTTagClassFilenameExtension);
@@ -99,6 +109,33 @@
         NSLog(@"no rule to export");
     }
     
+}
+
+- (void)importRenditions:(NSArray <TKRendition *> *)renditions {
+    NSSet *types = [NSSet setWithArray:[renditions valueForKeyPath:@"className"]];
+    if (types.count > 1) {
+        NSLog(@"select different types");
+        return;
+    } else if (types.count == 0) {
+        return;
+    }
+    
+    TKRendition *rendition = renditions.firstObject;
+    if ([rendition isKindOfClass:[TKBitmapRendition class]]) {
+        
+        
+    } else if ([rendition isKindOfClass:[TKRawDataRendition class]]) {
+        
+        
+        
+        for (TKRawDataRendition *rend in renditions) {
+            
+            
+        }
+        
+    } else {
+        NSLog(@"no rule to import");
+    }
 }
 
 @end

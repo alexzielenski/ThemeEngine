@@ -9,8 +9,8 @@
   "data" : [
     {
       "idiom" : "universal",
-      "filename" : "ReceiveFromPhotoshop.applescript",
-      "universal-type-identifier" : "com.apple.applescript.text"
+      "filename" : "ApplescriptReceiveFromApplication.scpt",
+      "universal-type-identifier" : "com.apple.applescript.script"
     }
   ]
 }
