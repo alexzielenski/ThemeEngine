@@ -16,6 +16,7 @@
 @property (readonly) NSDocumentController *documentController;
 
 - (IBAction)showWelcome:(id)sender;
+- (IBAction)mergeFrontDocuments:(id)sender;
 
 @end
 
