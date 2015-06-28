@@ -29,9 +29,36 @@
 - (id)init {
     if ((self = [super init])) {
         self.applicationMap = [NSMutableDictionary dictionary];
+        
     }
     
     return self;
+}
+
++ (NSArray <NSString *> *)supportedBundleIdentifiers {
+    static NSArray *supported = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        supported = @[
+                      @"com.bohemiancoding.sketch3",
+                      @"com.adobe.Photoshop",
+                      @"com.apple.Preview",
+                      @"com.apple.dt.Xcode",
+                      @"com.apple.ScriptEditor2"
+                      ];
+    });
+    
+    return supported;
+}
+
++ (NSString *)scriptNameForBundleIdentifier:(NSString *)bundle {
+    if ([bundle isEqualToString:@"com.adobe.Photoshop"]) {
+        return @"ApplescriptReceiveFromPhotoshop";
+    } else if ([bundle isEqualToString:@"com.apple.dt.Xcode"]) {
+        return @"ApplescriptReceiveFromXcode";
+    }
+    
+    return @"ApplescriptReceiveFromApplication";
 }
 
 + (NSArray *)bundleIdentifiersForUTI:(NSString *)type {
@@ -125,8 +152,6 @@
         
         
     } else if ([rendition isKindOfClass:[TKRawDataRendition class]]) {
-        
-        
         
         for (TKRawDataRendition *rend in renditions) {
             
