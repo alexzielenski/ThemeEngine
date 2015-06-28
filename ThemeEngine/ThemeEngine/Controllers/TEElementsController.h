@@ -19,7 +19,4 @@
 - (IBAction)addElement:(id)sender;
 - (IBAction)removeSelection:(id)sender;
 
-- (IBAction)receiveFromEditor:(id)sender;
-- (IBAction)sendToEditor:(id)sender;
-
 @end

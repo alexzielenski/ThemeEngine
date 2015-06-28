@@ -75,4 +75,21 @@
     }
 }
 
+- (IBAction)mergeFrontDocuments:(id)sender {
+    
+}
+
+
+- (BOOL)validateMenuItem:(nonnull NSMenuItem *)menuItem {
+    if (menuItem.action == @selector(mergeFrontDocuments:)) {
+        NSArray *docs = [[NSDocumentController sharedDocumentController] documents];
+        NSLog(@"%@", [docs valueForKeyPath:@"fileURL"]);
+        
+        
+        return docs.count >= 2;
+    }
+    
+    return YES;
+}
+
 @end

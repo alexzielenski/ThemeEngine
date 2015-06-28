@@ -74,7 +74,7 @@ static NSArray<NSArray *> *filterPredicates = nil;
     [container addSubview:table];
 
     NSRect tbf   = table.frame;
-    tbf.origin.y = 28;
+    tbf.origin.y = 29;
     table.frame  = tbf;
 
     [container addSubview:self.tableHeaderView];
@@ -85,7 +85,7 @@ static NSArray<NSArray *> *filterPredicates = nil;
                                                                         toItem:nil
                                                                      attribute:0
                                                                     multiplier:1.0
-                                                                      constant:28.0]];
+                                                                      constant:29.0]];
 
     [container addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[header]-0-[table]|"
                                                                       options:0
@@ -126,14 +126,6 @@ static NSArray<NSArray *> *filterPredicates = nil;
 
 - (IBAction)removeSelection:(id)sender {
     NSLog(@"remove elements");
-}
-
-- (IBAction)receiveFromEditor:(id)sender {
-
-}
-
-- (IBAction)sendToEditor:(id)sender {
-    
 }
 
 @end

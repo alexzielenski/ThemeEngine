@@ -136,7 +136,7 @@ static const void *PREVIEWIMAGECHANGED = &PREVIEWIMAGECHANGED;
         return self.renditionsArrayController.selectionIndexes.count > 0;
     }
     
-    return [super validateMenuItem:menuItem];
+    return YES;
 }
 
 - (IBAction)addRendition:(id)sender {
