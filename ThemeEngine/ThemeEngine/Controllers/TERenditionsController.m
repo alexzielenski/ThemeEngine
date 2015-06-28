@@ -130,6 +130,15 @@ static const void *PREVIEWIMAGECHANGED = &PREVIEWIMAGECHANGED;
 
 #pragma mark - Interface Actions
 
+- (BOOL)validateMenuItem:(nonnull NSMenuItem *)menuItem {
+    if (menuItem.action == @selector(receiveFromEditor:) ||
+        menuItem.action == @selector(sendToEditor:)) {
+        return self.renditionsArrayController.selectionIndexes.count > 0;
+    }
+    
+    return [super validateMenuItem:menuItem];
+}
+
 - (IBAction)addRendition:(id)sender {
     NSLog(@"add rends");
 }

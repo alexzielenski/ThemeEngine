@@ -376,7 +376,11 @@ CA
                                     <action selector="sendToEditor:" target="-1" id="VJC-1h-xFs"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Receive from Editor" keyEquivalent="" id="vir-II-Kza"/>
+                            <menuItem title="Receive from Editor" keyEquivalent="" id="vir-II-Kza">
+                                <connections>
+                                    <action selector="receiveFromEditor:" target="-1" id="H3Q-hn-fcq"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
