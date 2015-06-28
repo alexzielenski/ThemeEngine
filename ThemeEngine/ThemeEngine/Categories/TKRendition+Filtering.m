@@ -34,6 +34,7 @@
     if (!keywords) {
         keywords = [NSSet setWithObjects:
                     self.name,
+                    self.element.name,
                     self.typeString,
                     self.stateString,
                     self.scaleString,
@@ -45,7 +46,10 @@
                     self.directionString,
                     nil];
         keywords = [keywords setByAddingObjectsFromArray:[[[decamelize(self.name) lowercaseString]
-                                                           stringByReplacingOccurrencesOfString:@"_" withString:@""]
+                                                           stringByReplacingOccurrencesOfString:@"_" withString:@" "]
+                                                          componentsSeparatedByString:@" "]];
+        keywords = [keywords setByAddingObjectsFromArray:[[[decamelize(self.element.name) lowercaseString]
+                                                           stringByReplacingOccurrencesOfString:@"_" withString:@" "]
                                                           componentsSeparatedByString:@" "]];
         objc_setAssociatedObject(self, @selector(keywords), keywords, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
