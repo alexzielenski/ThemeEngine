@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface TESplashWindow : NSWindow
+@interface TESplashWindow : NSPanel
 
 @end
