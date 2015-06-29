@@ -10,20 +10,10 @@
 #import <ThemeKit/TKRendition.h>
 
 @interface TEExportController : NSObject
-@property (strong) NSMutableDictionary *applicationMap;
-
 /**
  *  Shared Instance of TEExportController
  */
 + (instancetype)sharedExportController;
-
-+ (NSArray *)bundleIdentifiersForUTI:(NSString *)type;
-+ (NSURL *)defaultApplicationURLForUTI:(NSString *)type;
-
-+ (NSArray <NSString *> *)supportedBundleIdentifiers;
-
-- (NSString *)bundleIdentifierForUTI:(NSString *)type;
-- (void)setBundleIdentifier:(NSString *)bundleIdentifier forUTI:(NSString *)type;
 
 - (void)exportRenditions:(NSArray <TKRendition *> *)renditions;
 - (void)importRenditions:(NSArray <TKRendition *> *)renditions;

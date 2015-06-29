@@ -1,15 +1,12 @@
 {
   "info" : {
     "version" : 1,
-    "author" : "xcode",
-    "on-demand-resource-tags" : [
-
-    ]
+    "author" : "xcode"
   },
   "data" : [
     {
       "idiom" : "universal",
-      "filename" : "ReceiveFromPhotoshop.applescript",
+      "filename" : "ReceiveFromIllustrator.applescript",
       "universal-type-identifier" : "com.apple.applescript.text"
     }
   ]

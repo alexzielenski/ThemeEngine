@@ -10,6 +10,7 @@
 #import <ThemeKit/TKBitmapRendition.h>
 #import <ThemeKit/TKPDFRendition.h>
 
+#import "NSAppleScript+Functions.h"
 #import "NSURL+Paths.h"
 
 @import Cocoa;
@@ -28,73 +29,10 @@
 
 - (id)init {
     if ((self = [super init])) {
-        self.applicationMap = [NSMutableDictionary dictionary];
         
     }
     
     return self;
-}
-
-+ (NSArray <NSString *> *)supportedBundleIdentifiers {
-    static NSArray *supported = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        supported = @[
-                      @"com.bohemiancoding.sketch3",
-                      @"com.adobe.Photoshop",
-                      @"com.apple.Preview",
-                      @"com.apple.dt.Xcode",
-                      @"com.apple.ScriptEditor2"
-                      ];
-    });
-    
-    return supported;
-}
-
-+ (NSString *)scriptNameForBundleIdentifier:(NSString *)bundle {
-    if ([bundle isEqualToString:@"com.adobe.Photoshop"]) {
-        return @"ApplescriptReceiveFromPhotoshop";
-    } else if ([bundle isEqualToString:@"com.apple.dt.Xcode"]) {
-        return @"ApplescriptReceiveFromXcode";
-    }
-    
-    return @"ApplescriptReceiveFromApplication";
-}
-
-+ (NSArray *)bundleIdentifiersForUTI:(NSString *)type {
-    // LSCopyAllRoleHandlersForContentType sucks
-    NSString *ext = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)type, kUTTagClassFilenameExtension);
-    NSURL *url = [[[NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryExports] URLByAppendingPathComponent:@"test"] URLByAppendingPathExtension:ext];
-    
-    int zero = 0;
-    [[NSData dataWithBytes:&zero length:1] writeToURL:url atomically:NO];
-    
-    NSArray *identifiers = (__bridge_transfer NSArray *)LSCopyApplicationURLsForURL((__bridge CFURLRef)url, kLSRolesEditor);
-    
-    return identifiers;
-}
-
-- (NSString *)bundleIdentifierForUTI:(NSString *)type {
-    NSString *identifier = self.applicationMap[type];
-    
-    if (!identifier) {
-        identifier = [[NSBundle bundleWithURL:[self.class defaultApplicationURLForUTI:type]] bundleIdentifier];
-    }
-
-    return identifier;
-}
-+ (NSURL *)defaultApplicationURLForUTI:(NSString *)type {
-    NSString *ext = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)type, kUTTagClassFilenameExtension);
-    NSURL *url = [[[NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryExports] URLByAppendingPathComponent:@"test"] URLByAppendingPathExtension:ext];
-    
-    int zero = 0;
-    [[NSData dataWithBytes:&zero length:1] writeToURL:url atomically:NO];
-    
-    return (__bridge_transfer NSURL *)LSCopyDefaultApplicationURLForURL((__bridge CFURLRef)url, kLSRolesEditor, NULL);
-}
-
-- (void)setBundleIdentifier:(NSString *)bundleIdentifier forUTI:(NSString *)type; {
-    self.applicationMap[type] = bundleIdentifier;
 }
 
 - (void)exportRenditions:(NSArray <TKRendition *> *)renditions {
@@ -110,27 +48,22 @@
     NSURL *tmpURL = [NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryExports];
     
     if ([rendition isKindOfClass:[TKBitmapRendition class]]) {
-                
         
-    } else if ([rendition isKindOfClass:[TKRawDataRendition class]]) {
-
-        for (TKRawDataRendition *rend in renditions) {
-            NSString *uti = [rend utiType];
-            NSString *identifier = [self bundleIdentifierForUTI:uti];
-            
-            NSString *ext = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)uti, kUTTagClassFilenameExtension);
-            
-            NSURL *url = [tmpURL URLByAppendingPathComponent:[[[NSUUID UUID] UUIDString] stringByAppendingPathExtension:ext]];
-            [rend.rawData writeToFile:url.path
-                           atomically:NO];
-            
-            [[NSWorkspace sharedWorkspace] openURLs:[NSArray arrayWithObject:url]
-                            withAppBundleIdentifier:identifier
-                                            options:NSWorkspaceLaunchDefault
-                     additionalEventParamDescriptor:nil
-                                  launchIdentifiers:nil];
-            
+        
+    } else if ([rendition isKindOfClass:[TKPDFRendition class]]) {
+        
+        NSMutableArray *urls = [NSMutableArray array];
+        for (TKPDFRendition *rend in renditions) {
+            NSURL *url = [NSURL fileURLWithPath:[[NSUUID UUID] UUIDString] relativeToURL:tmpURL];
+            [rend.rawData writeToURL:url atomically:NO];
+            [urls addObject:url];
         }
+        
+        [[NSWorkspace sharedWorkspace] openURLs:urls
+                        withAppBundleIdentifier:@"com.adobe.illustrator"
+                                        options:NSWorkspaceLaunchDefault
+                 additionalEventParamDescriptor:nil
+                              launchIdentifiers:nil];
         
     } else {
         NSLog(@"no rule to export");
@@ -147,17 +80,35 @@
         return;
     }
     
+    NSURL *tmpURL = [NSURL temporaryURLInSubdirectory:TKTemporaryDirectoryExports];
     TKRendition *rendition = renditions.firstObject;
     if ([rendition isKindOfClass:[TKBitmapRendition class]]) {
         
+    } else if ([rendition isKindOfClass:[TKPDFRendition class]]) {
+        NSDataAsset *asset = [[NSDataAsset alloc] initWithName:@"ApplescriptReceiveFromIllustrator"];
+        NSData *data = asset.data;
+        NSString *format = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];;
         
-    } else if ([rendition isKindOfClass:[TKRawDataRendition class]]) {
+        NSRunningApplication *bndl = [NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.adobe.illustrator"].firstObject;
+        NSString *name = bndl.bundleURL.lastPathComponent.stringByDeletingPathExtension;
         
-        for (TKRawDataRendition *rend in renditions) {
-            
-            
+        NSString *scriptText = [NSString stringWithFormat:format, name, name];
+        
+        NSAppleScript *script = [[NSAppleScript alloc] initWithSource:scriptText];
+        NSURL *dst = [[tmpURL URLByAppendingPathComponent:[[NSUUID UUID] UUIDString]] URLByAppendingPathExtension:@"pdf"];
+        NSString *rtn = [script executeFunction:TEAppleScriptExportFunctionName
+                                  withArguments:@[ dst.path ]
+                                          error:nil];
+        
+        NSData *d = [NSData dataWithContentsOfURL:dst];
+        
+        if (d) {
+            [renditions makeObjectsPerformSelector:@selector(setRawData:) withObject:d];
         }
         
+        if (rtn) {
+            NSLog(@"%@", rtn);
+        }
     } else {
         NSLog(@"no rule to import");
     }
