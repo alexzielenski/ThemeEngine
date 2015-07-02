@@ -40,6 +40,8 @@ const void *kTEDocumentControllerCollapseContext = &kTEDocumentControllerCollaps
     
     self.elementsItem.minimumThickness = 160.0;
     self.inspectorItem.minimumThickness = 230.0;
+    self.inspectorItem.maximumThickness = 600.0;
+    self.inspectorItem.springLoaded = NO;
     
     self.elementsItem.canCollapse   = YES;
     self.renditionsItem.canCollapse = NO;
