@@ -58,6 +58,10 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
 #pragma mark - Enumeration
 
 - (void)_beginEnumeration {
+    if (!self.storage) {
+        NSLog(@"This is not a valid car file");
+        return;
+    }
     self.elements = [NSMutableSet<TKElement *> set];
 
     NSMutableArray *allowed = [NSMutableArray array];
