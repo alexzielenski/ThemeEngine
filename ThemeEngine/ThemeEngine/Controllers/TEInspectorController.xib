@@ -317,11 +317,11 @@
             <animations/>
             <point key="canvasLocation" x="511" y="711.5"/>
         </customView>
-        <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="0.0" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="1000" verticalClippingResistancePriority="250" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xp3-9J-lYi">
+        <stackView wantsLayer="YES" distribution="fill" orientation="vertical" alignment="centerX" spacing="0.0" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="1000" verticalClippingResistancePriority="250" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xp3-9J-lYi">
             <rect key="frame" x="0.0" y="0.0" width="256" height="32"/>
             <subviews>
                 <customView horizontalHuggingPriority="251" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Y1K-P5-Lck" customClass="NSVisualEffectView">
-                    <rect key="frame" x="1" y="4" width="255" height="28"/>
+                    <rect key="frame" x="1" y="3" width="255" height="29"/>
                     <subviews>
                         <textField wantsLayer="YES" horizontalHuggingPriority="1" verticalHuggingPriority="750" horizontalCompressionResistancePriority="249" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L6L-Ic-uKc">
                             <rect key="frame" x="6" y="6" width="231" height="17"/>
@@ -342,7 +342,7 @@
                         </textField>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="28" id="7qL-mZ-Lh7"/>
+                        <constraint firstAttribute="height" constant="29" id="7qL-mZ-Lh7"/>
                         <constraint firstItem="L6L-Ic-uKc" firstAttribute="centerY" secondItem="Y1K-P5-Lck" secondAttribute="centerY" id="HSD-t9-RL3"/>
                         <constraint firstItem="L6L-Ic-uKc" firstAttribute="leading" secondItem="Y1K-P5-Lck" secondAttribute="leading" constant="8" id="Qnm-rN-5yw"/>
                         <constraint firstAttribute="trailing" secondItem="L6L-Ic-uKc" secondAttribute="trailing" constant="20" symbolic="YES" id="hwQ-tU-Sc0"/>
