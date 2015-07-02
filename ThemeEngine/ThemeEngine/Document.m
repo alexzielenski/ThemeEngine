@@ -9,6 +9,15 @@
 #import "Document.h"
 #import "NSURL+Paths.h"
 
+@interface NSVisualEffectView (x)
+@end
+
+@implementation NSVisualEffectView (x)
+- (BOOL)mouseDownCanMoveWindow {
+    return YES;
+}
+@end
+
 static NSString *const TKCarPathSystemAppearance = @"/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/SystemAppearance.car";
 static NSString *const TKCarPathAssets           = @"/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/Assets.car";
 
