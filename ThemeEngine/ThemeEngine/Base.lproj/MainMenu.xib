@@ -388,6 +388,10 @@ CA
                                     <action selector="receiveFromEditor:" target="-1" id="H3Q-hn-fcq"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="nQj-zi-LgB"/>
+                            <menuItem title="Dump Renditions to folder" id="h9G-BU-4AE">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
