@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CUIWindowRimColor</key>
+	<string>Window Rim</string>
+	<key>CUIWindowRimColorUltraDark</key>
+	<string>Window Rim (Ultra Dark)</string>
+	<key>alternateSecondarySelectedControlColor</key>
+	<string>Alternate Secondary Selected Control</string>
+	<key>alternateSelectedControlColor</key>
+	<string>Alternate Selected Control</string>
+	<key>alternateSelectedControlTextColor</key>
+	<string>Alternate Selected Control Text</string>
+	<key>alternateSelectionBlueColor</key>
+	<string>Alternate Selection Blue Color (row highlight)</string>
+	<key>alternateSelectionGraphiteColor</key>
+	<string>Alternate Selection Graphite Color (row highlight)</string>
+	<key>blueControlTintColor</key>
+	<string>Blue Control Tint</string>
+	<key>clearControlTintColor</key>
+	<string>Clear Control Tint</string>
+	<key>controlAlternatingRowColor</key>
+	<string>Control Alternating Row</string>
+	<key>controlBackgroundColor</key>
+	<string>Control Background</string>
+	<key>controlColor</key>
+	<string>Control</string>
+	<key>controlDarkShadowColor</key>
+	<string>Control Dark Shadow</string>
+	<key>controlHighlightColor</key>
+	<string>Control Highlight</string>
+	<key>controlLightHighlightColor</key>
+	<string>Control Light Highlight</string>
+	<key>controlShadowColor</key>
+	<string>Control Shadow</string>
+	<key>controlTextColor</key>
+	<string>Control Text</string>
+	<key>disabledControlTextColor</key>
+	<string>Disabled Control Text</string>
+	<key>graphiteControlTintColor</key>
+	<string>Graphite Control Tint</string>
+	<key>gridColor</key>
+	<string>Grid</string>
+	<key>headerColor</key>
+	<string>Header</string>
+	<key>headerTextColor</key>
+	<string>Header Text</string>
+	<key>highlightColor</key>
+	<string>Highlight</string>
+	<key>keyboardFocusIndicatorColor</key>
+	<string>Keyboard Focus Indicator</string>
+	<key>knobColorColor</key>
+	<string>Knob Color</string>
+	<key>labelColor</key>
+	<string>Label Text</string>
+	<key>placeholderTextColor</key>
+	<string>Placeholder Text</string>
+	<key>progressIndicatorColor</key>
+	<string>Progress Indicator</string>
+	<key>quaternaryLabelColor</key>
+	<string>Label Text, Quaternary</string>
+	<key>scrollBarColor</key>
+	<string>Scroll Bar</string>
+	<key>secondaryLabelColor</key>
+	<string>Label Text, Secondary</string>
+	<key>secondarySelectedControlColor</key>
+	<string>Secondary Selected Control</string>
+	<key>selectedControlColor</key>
+	<string>Selected Control</string>
+	<key>selectedControlTextColor</key>
+	<string>Selected Control Text</string>
+	<key>selectedKnobColorColor</key>
+	<string>Selected Knob Color</string>
+	<key>selectedMenuItemColor</key>
+	<string>Selected Menu Item</string>
+	<key>selectedMenuItemTextColor</key>
+	<string>Selected Menu Item Text</string>
+	<key>selectedTextBackgroundColor</key>
+	<string>Selected Text Background</string>
+	<key>selectedTextColor</key>
+	<string>Selected Text</string>
+	<key>shadowColor</key>
+	<string>Shadow</string>
+	<key>systemBlueColor</key>
+	<string>System Blue</string>
+	<key>systemBrownColor</key>
+	<string>System Brown</string>
+	<key>systemGrayColor</key>
+	<string>System Gray</string>
+	<key>systemGreenColor</key>
+	<string>System Green</string>
+	<key>systemOrangeColor</key>
+	<string>System Orange</string>
+	<key>systemPinkColor</key>
+	<string>System Pink</string>
+	<key>systemPurpleColor</key>
+	<string>System Purple</string>
+	<key>systemRedColor</key>
+	<string>System Red</string>
+	<key>systemYellowColor</key>
+	<string>System Yellow</string>
+	<key>tertiaryLabelColor</key>
+	<string>Label Text, Tertiary</string>
+	<key>textBackgroundColor</key>
+	<string>Text Background</string>
+	<key>textColor</key>
+	<string>Text</string>
+	<key>toolTipColor</key>
+	<string>Tool Tip</string>
+	<key>toolTipTextColor</key>
+	<string>Tool Tip Text</string>
+	<key>toolbarBackgroundColor</key>
+	<string>Toolbar Background</string>
+	<key>underPageBackgroundColor</key>
+	<string>Under-page Background</string>
+	<key>windowBackgroundColor</key>
+	<string>Window Background</string>
+	<key>windowFrameColor</key>
+	<string>Window Frame</string>
+	<key>windowFrameTextColor</key>
+	<string>Window Frame Text</string>
+</dict>
+</plist>

@@ -1,4 +1,4 @@
-ThemeEngine 1.0.0
-===
+ThemeEngine
+===========
 
-App for OS 10.11 El Capitan for editing car files built for iOS or OS X.
+App for OS X Yosemite to edit .car files which allows for the possibility of theming.
