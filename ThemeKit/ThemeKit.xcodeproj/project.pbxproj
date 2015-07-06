@@ -89,6 +89,8 @@
 		FAA5C0951B2D4013007DEBA1 /* TKRawDataRendition.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C0931B2D4013007DEBA1 /* TKRawDataRendition.m */; };
 		FAA5C0981B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA5C0961B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.h */; };
 		FAA5C0991B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C0971B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.m */; };
+		FAB205401B4B427B00DDBBE1 /* TKRawPixelRendition.h in Headers */ = {isa = PBXBuildFile; fileRef = FAB2053E1B4B427B00DDBBE1 /* TKRawPixelRendition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAB205411B4B427B00DDBBE1 /* TKRawPixelRendition.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB2053F1B4B427B00DDBBE1 /* TKRawPixelRendition.m */; };
 		FADA72D31B39FD6A00C541D9 /* CSIBitmapWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = FADA72D21B39FD6A00C541D9 /* CSIBitmapWrapper.h */; };
 /* End PBXBuildFile section */
 
@@ -177,6 +179,8 @@
 		FAA5C0931B2D4013007DEBA1 /* TKRawDataRendition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKRawDataRendition.m; path = Classes/Renditions/TKRawDataRendition.m; sourceTree = "<group>"; };
 		FAA5C0961B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CUIRenditionKey+Equal.h"; path = "Categories/CUIRenditionKey+Equal.h"; sourceTree = "<group>"; };
 		FAA5C0971B2D8CAC007DEBA1 /* CUIRenditionKey+Equal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CUIRenditionKey+Equal.m"; path = "Categories/CUIRenditionKey+Equal.m"; sourceTree = "<group>"; };
+		FAB2053E1B4B427B00DDBBE1 /* TKRawPixelRendition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TKRawPixelRendition.h; path = Classes/Renditions/TKRawPixelRendition.h; sourceTree = "<group>"; };
+		FAB2053F1B4B427B00DDBBE1 /* TKRawPixelRendition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKRawPixelRendition.m; path = Classes/Renditions/TKRawPixelRendition.m; sourceTree = "<group>"; };
 		FADA72D21B39FD6A00C541D9 /* CSIBitmapWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSIBitmapWrapper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -297,6 +301,8 @@
 				FAA5C08F1B2D3FF0007DEBA1 /* TKPDFRendition.m */,
 				FAA5C0921B2D4013007DEBA1 /* TKRawDataRendition.h */,
 				FAA5C0931B2D4013007DEBA1 /* TKRawDataRendition.m */,
+				FAB2053E1B4B427B00DDBBE1 /* TKRawPixelRendition.h */,
+				FAB2053F1B4B427B00DDBBE1 /* TKRawPixelRendition.m */,
 			);
 			name = Renditions;
 			sourceTree = "<group>";
@@ -407,6 +413,7 @@
 				FA606C421B2C275400F24960 /* PrefixHeader.pch in Headers */,
 				FA57E1831B2FEECA0032B765 /* TKEffect+Private.h in Headers */,
 				FA80CE081B309756005E5DD2 /* TKGradientStop+Private.h in Headers */,
+				FAB205401B4B427B00DDBBE1 /* TKRawPixelRendition.h in Headers */,
 				FA606C471B2C2ADA00F24960 /* TKMutableAssetStorage.h in Headers */,
 				FA606C761B2C9E5400F24960 /* NSColor+CoreUI.h in Headers */,
 				FAA5C0741B2CD0E9007DEBA1 /* CUIRenditionMetrics.h in Headers */,
@@ -529,6 +536,7 @@
 				FA606C561B2C32B100F24960 /* TKTypes.m in Sources */,
 				FAA54F641B2E1A4B00EA15F2 /* TKEffectPreset.m in Sources */,
 				FA606C5E1B2C882300F24960 /* TKElement.m in Sources */,
+				FAB205411B4B427B00DDBBE1 /* TKRawPixelRendition.m in Sources */,
 				FAA5C0951B2D4013007DEBA1 /* TKRawDataRendition.m in Sources */,
 				FAA54F5C1B2E0F6900EA15F2 /* TKGradient.m in Sources */,
 				FA606C4F1B2C31C700F24960 /* TKRendition.m in Sources */,

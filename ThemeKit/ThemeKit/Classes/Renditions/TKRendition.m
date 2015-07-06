@@ -16,6 +16,7 @@
 #import "TKEffectRendition.h"
 #import "TKRawDataRendition.h"
 #import "TKPDFRendition.h"
+#import "TKRawPixelRendition.h"
 
 #import <CoreUI/Renditions/CUIRenditions.h>
 #import <objc/objc.h>
@@ -50,7 +51,6 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
 + (Class)renditionClassForCoreUIRendition:(CUIThemeRendition *)rendition {
     if ([rendition isKindOfClass:TKClass(_CUIExternalLinkRendition)] ||
         [rendition isKindOfClass:TKClass(_CUIInternalLinkRendition)] ||
-        [rendition isKindOfClass:TKClass(_CUIRawPixelRendition)] ||
         [rendition isKindOfClass:TKClass(_CUIThemePixelRendition)]) {
         return [TKBitmapRendition class];
         
@@ -65,6 +65,8 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
         
     } else if ([rendition isKindOfClass:TKClass(_CUIRawDataRendition)]) {
         return [TKRawDataRendition class];
+    } else if ([rendition isKindOfClass:TKClass(_CUIRawPixelRendition)]) {
+        return [TKRawPixelRendition class];
     }
     
     NSLog(@"Unknown class for rendition: %@", rendition);
