@@ -108,7 +108,7 @@
     CSIBitmapWrapper *wrapper = [[CSIBitmapWrapper alloc] initWithPixelWidth:(unsigned int)self.image.pixelsWide
                                                                  pixelHeight:(unsigned int)self.image.pixelsHigh];
     wrapper.pixelFormat = self.pixelFormat;
-    wrapper.allowsMultiPassEncoding = YES;
+    wrapper.allowsMultiPassEncoding = NO;
     
     if (!self.image.isPlanar && self.image.hasAlpha &&
         self.image.bitsPerPixel == 32 && self.image.samplesPerPixel == 4 &&
