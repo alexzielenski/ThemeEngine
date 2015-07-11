@@ -20,6 +20,7 @@
     if ((self = [super _initWithCUIRendition:rendition csiData:(NSData *)csiData key:key])) {
         self.assetPack = rendition.type == CoreThemeTypeAssetPack;
         self.layoutInformation = [TKLayoutInformation layoutInformationWithCSIData:csiData];
+
         if (!rendition) {
 //            [csiData writeToFile:[NSString stringWithFormat:@"/Users/Alex/Desktop/%@", key] atomically:NO];
 //            NSLog(@"%@", csiData);

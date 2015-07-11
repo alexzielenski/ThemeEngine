@@ -76,6 +76,39 @@ struct csiheader {
     } bitmaps;
 };
 
+struct slice {
+    unsigned int x;
+    unsigned int y;
+    unsigned int width;
+    unsigned int height;
+};
+
+struct metric {
+    unsigned int width;
+    unsigned int height;
+};
+
+struct csi_info_header {
+    unsigned int magic;
+    unsigned int length;
+};
+
+struct csi_slice_info {
+    unsigned int magic;
+    unsigned int length;
+    unsigned int nslices;
+    struct slice slices[0];
+};
+
+struct csi_metric_info {
+    unsigned int magic;
+    unsigned int length;
+    unsigned int nmetrics;
+    struct metric top_right_inset;
+    struct metric bottom_left_inset;
+    struct metric image_size;
+};
+
 typedef NS_ENUM(uint32_t, CSIInfoMagic) {
     CSIInfoMagicSlices = 1001,
     CSIInfoMagicMetrics = 1003,
@@ -86,9 +119,9 @@ typedef NS_ENUM(uint32_t, CSIInfoMagic) {
 };
 
 typedef struct {
-    CGSize imageSize;
-    CGSize edgeBL;
     CGSize edgeTR;
+    CGSize edgeBL;
+    CGSize imageSize;
 } CUIMetrics;
 
 typedef struct {
@@ -162,12 +195,6 @@ struct csibitmap {
     unsigned char data[0];
 };
 
-struct slice {
-    unsigned int x;
-    unsigned int y;
-    unsigned int width;
-    unsigned int height;
-};
 
 //!TODO Document this
 struct cuieffectdata {

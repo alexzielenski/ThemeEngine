@@ -76,8 +76,8 @@
                 } mtr;
                 
                 [csiData getBytes:&mtr range:NSMakeRange(metricMagicLocation.location + sizeof(mtr) * idx + sizeof(unsigned int) * 3, sizeof(mtr))];
-                renditionMetric.edgeTR = CGSizeMake(mtr.c, mtr.b);
-                renditionMetric.edgeBL = CGSizeMake(mtr.a, mtr.d);
+                renditionMetric.edgeTR = CGSizeMake(mtr.a, mtr.b);
+                renditionMetric.edgeBL = CGSizeMake(mtr.c, mtr.d);
                 renditionMetric.imageSize = CGSizeMake(mtr.e, mtr.f);
                 
                 [metrics addObject:[NSValue valueWithBytes:&renditionMetric objCType:@encode(CUIMetrics)]];

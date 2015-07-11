@@ -12,6 +12,7 @@
 #import <Cocoa/Cocoa.h>
 #import <objc/runtime.h>
 #import "TKStructs.h"
+#import "TKTypes.h"
 
 #define TKKey(KEY) NSStringFromSelector(@selector(KEY))
 #define TKClass(NAME) objc_getClass(#NAME)
@@ -32,10 +33,14 @@ typeof(OBJECT) _ = OBJECT;
 
 extern void *TKIvarPointer(id self, const char *name);
 
+@class CUIRenditionKey;
 @class TKRendition, CUICommonAssetStorage, TKAssetStorage;
 extern NSString *TKElementNameForRendition(TKRendition *rendition, TKAssetStorage *storage);
 extern NSData *TKConvertRenditionKeyToCARKey(NSData *src, CUICommonAssetStorage *storage);
 extern NSData *TKConvertCARKeyToRenditionKey(NSData *src, CUICommonAssetStorage *storage);
+
+extern CUIRenditionKey *CUIRenditionKeyFromDictionary(NSDictionary *dictionary);
+extern NSDictionary *NSDictionaryFromCUIRenditionKey(CUIRenditionKey *key);
 
 ///Not Exported
 extern void CUIFillCARKeyArrayForRenditionKey(uint16_t *dst, struct renditionkeytoken *src, struct renditionkeyfmt const *format);
@@ -49,9 +54,11 @@ extern size_t CUIRenditionKeyTokenCount(struct renditionkeytoken *rendition);
 extern BOOL CUIRenditionKeyHasIdentifier(struct renditionkeytoken *rendition, int, int);
 extern int CUIRenditionKeyValueForAttribute(struct renditionkeytoken *rendition, int attribute);
 extern int CUIRenditionKeyStandardize(int arg0, int arg1, int arg2);
-@class CUIRenditionKey;
 extern CUIRenditionKey *CUIRenditionKeyFromKeySignature(NSString *signature, int *unk);
 extern int CUIRenditionKeyTokenIsBaseKeyOfKeyList(struct renditionkeytoken *arg0, int arg1);
+
+extern NSEdgeInsets TKInsetsFromSliceRects(NSArray <NSValue *> *slices, CoreThemeType type);
+extern NSArray <NSValue *> *TKSlicesFromInsets(NSEdgeInsets insets, NSSize imageSize, CoreThemeType type);
 
 // I think it returns compression factor
 // this is used to compress image data for car files

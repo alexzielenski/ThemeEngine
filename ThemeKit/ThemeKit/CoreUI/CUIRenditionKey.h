@@ -51,8 +51,8 @@
 - (long long)themeSizeClassHorizontal;
 - (void)setThemeSizeClassHorizontal:(long long)arg1;
 
-- (long long)themeSubtype;
-- (void)setThemeSubtype:(long long)arg1;
+- (CoreThemeLayout)themeSubtype;
+- (void)setThemeSubtype:(CoreThemeLayout)arg1;
 
 - (CoreThemeIdiom)themeIdiom;
 - (void)setThemeIdiom:(CoreThemeIdiom)arg1;

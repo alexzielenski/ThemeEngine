@@ -15,6 +15,8 @@
 #import "TKRendition+Private.h"
 #import "TKElement+Private.h"
 
+#import "TKVerifyTool.h"
+
 extern NSInteger kCoreThemeStepperElementID;
 NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDidFinishLoadingNotification";
 
@@ -128,7 +130,22 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
         __weak typeof(self) weakSelf = self;
         [self.storage enumerateKeysAndObjectsUsingBlock:^(struct renditionkeytoken *keyList, NSData *csiData) {
             if (weakSelf) {
-                TKRendition *rendition = [TKRendition renditionWithCSIData:csiData renditionKey:[CUIRenditionKey renditionKeyWithKeyList:keyList]];
+                CUIRenditionKey *key = [CUIRenditionKey renditionKeyWithKeyList:keyList];
+                TKRendition *rendition = [TKRendition renditionWithCSIData:csiData renditionKey:key];
+                if (!rendition.rendition) {
+                    NSString *name;
+                    CUIThemeRendition *cui = [TKVerifyTool fixedRenditionForCSIData:csiData
+                                                                                key:key
+                                                                            outName:&name];
+                    
+                    if (!cui) {
+                        //!TODO Abort
+                        NSLog(@"Failed to automatically fix rendition with name: %@", name);
+                        return;
+                    } else {
+                        rendition = [TKRendition renditionWithCUIRendition:cui csiData:csiData key:key];
+                    }
+                }
                 [weakSelf _addRendition: rendition];
             }
         }];

@@ -92,6 +92,8 @@
 		FAB205401B4B427B00DDBBE1 /* TKRawPixelRendition.h in Headers */ = {isa = PBXBuildFile; fileRef = FAB2053E1B4B427B00DDBBE1 /* TKRawPixelRendition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAB205411B4B427B00DDBBE1 /* TKRawPixelRendition.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB2053F1B4B427B00DDBBE1 /* TKRawPixelRendition.m */; };
 		FADA72D31B39FD6A00C541D9 /* CSIBitmapWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = FADA72D21B39FD6A00C541D9 /* CSIBitmapWrapper.h */; };
+		FAE5A2591B5194810025B40D /* TKVerifyTool.h in Headers */ = {isa = PBXBuildFile; fileRef = FAE5A2571B5194810025B40D /* TKVerifyTool.h */; };
+		FAE5A25A1B5194810025B40D /* TKVerifyTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5A2581B5194810025B40D /* TKVerifyTool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -182,6 +184,8 @@
 		FAB2053E1B4B427B00DDBBE1 /* TKRawPixelRendition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TKRawPixelRendition.h; path = Classes/Renditions/TKRawPixelRendition.h; sourceTree = "<group>"; };
 		FAB2053F1B4B427B00DDBBE1 /* TKRawPixelRendition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKRawPixelRendition.m; path = Classes/Renditions/TKRawPixelRendition.m; sourceTree = "<group>"; };
 		FADA72D21B39FD6A00C541D9 /* CSIBitmapWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSIBitmapWrapper.h; sourceTree = "<group>"; };
+		FAE5A2571B5194810025B40D /* TKVerifyTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TKVerifyTool.h; path = Classes/TKVerifyTool.h; sourceTree = "<group>"; };
+		FAE5A2581B5194810025B40D /* TKVerifyTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TKVerifyTool.m; path = Classes/TKVerifyTool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +280,8 @@
 				FA606C6B1B2C9D9A00F24960 /* TKAssetStorage+Private.h */,
 				FA606C451B2C2ADA00F24960 /* TKMutableAssetStorage.h */,
 				FA606C461B2C2ADA00F24960 /* TKMutableAssetStorage.m */,
+				FAE5A2571B5194810025B40D /* TKVerifyTool.h */,
+				FAE5A2581B5194810025B40D /* TKVerifyTool.m */,
 			);
 			name = "Asset Storage";
 			sourceTree = "<group>";
@@ -461,6 +467,7 @@
 				FAA5C0861B2CD81B007DEBA1 /* CUIPSDGradientColorStop.h in Headers */,
 				FA514C3D1B3471F3002CBF5A /* TKLayoutInformation+Private.h in Headers */,
 				FAA5C08B1B2CD81B007DEBA1 /* CUIPSDGradientStop.h in Headers */,
+				FAE5A2591B5194810025B40D /* TKVerifyTool.h in Headers */,
 				FA606C361B2C1E1000F24960 /* TKAssetStorage.h in Headers */,
 				FAA54F5B1B2E0F6900EA15F2 /* TKGradient.h in Headers */,
 			);
@@ -534,6 +541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA606C561B2C32B100F24960 /* TKTypes.m in Sources */,
+				FAE5A25A1B5194810025B40D /* TKVerifyTool.m in Sources */,
 				FAA54F641B2E1A4B00EA15F2 /* TKEffectPreset.m in Sources */,
 				FA606C5E1B2C882300F24960 /* TKElement.m in Sources */,
 				FAB205411B4B427B00DDBBE1 /* TKRawPixelRendition.m in Sources */,

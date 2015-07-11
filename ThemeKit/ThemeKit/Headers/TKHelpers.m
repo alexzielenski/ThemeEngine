@@ -143,3 +143,72 @@ extern NSData *TKConvertRenditionKeyToCARKey(NSData *src, CUICommonAssetStorage 
     return [NSData dataWithBytesNoCopy:dst length:storage.keyFormat->num_identifiers * sizeof(uint16_t) freeWhenDone:YES];
 }
 
+extern NSEdgeInsets TKInsetsFromSliceRects(NSArray <NSValue *> *slices, CoreThemeType type) {
+    if (type == CoreThemeTypeThreePartVertical) {
+        CGRect topRect = [slices[0] rectValue];
+        CGRect bottomRect = [slices[2] rectValue];
+        
+        return NSEdgeInsetsMake(topRect.size.height, 0, bottomRect.size.height, 0);
+        
+    } else if (type == CoreThemeTypeNinePart && slices.count == 9) {
+        CGRect topLeftRect = [slices[0] rectValue];
+        CGRect bottomRightRect = [slices[8] rectValue];
+        
+        return (NSEdgeInsetsMake(topLeftRect.size.height, topLeftRect.size.width,
+                                 bottomRightRect.size.height, bottomRightRect.size.width));
+        
+    } else if (type == CoreThemeTypeThreePartHorizontal && slices.count == 3) {
+        CGRect leftRect = [slices[0] rectValue];
+        CGRect rightRect = [slices[2] rectValue];
+        
+        return (NSEdgeInsetsMake(0, leftRect.size.width, 0, rightRect.size.width));
+    }
+                
+    return NSEdgeInsetsZero;
+}
+
+extern NSArray <NSValue *> *TKSlicesFromInsets(NSEdgeInsets insets, NSSize imageSize, CoreThemeType type) {
+    if (type == CoreThemeTypeThreePartHorizontal) {
+        NSRect left = NSMakeRect(0, 0, insets.left, imageSize.height);
+        NSRect middle = NSMakeRect(insets.left, 0, imageSize.width - insets.left - insets.right, imageSize.height);
+        NSRect right = NSMakeRect(imageSize.width - insets.right, 0, insets.right, imageSize.height);
+        
+        return @[ [NSValue valueWithRect:left], [NSValue valueWithRect:middle], [NSValue valueWithRect:right] ];
+    } else if (type == CoreThemeTypeThreePartVertical) {
+        NSRect top = NSMakeRect(0, imageSize.height - insets.top, imageSize.width, insets.top);
+        NSRect middle = NSMakeRect(0, insets.bottom, imageSize.width, imageSize.height - insets.top - insets.bottom);
+        NSRect bottom = NSMakeRect(0, 0, imageSize.width, insets.bottom);
+        
+        return @[ [NSValue valueWithRect:top], [NSValue valueWithRect:middle], [NSValue valueWithRect:bottom] ];
+    } else if (type == CoreThemeTypeNinePart) {
+        NSRect topLeft = NSMakeRect(0, imageSize.height - insets.top, insets.left, insets.top);
+        NSRect topEdge = NSMakeRect(insets.left, topLeft.origin.y, imageSize.width - insets.left - insets.right, 0);
+        NSRect topRight = NSMakeRect(imageSize.width - insets.right, topLeft.origin.y, insets.right, insets.top);
+        NSRect leftEdge = NSMakeRect(0, insets.bottom, insets.left, imageSize.height - insets.top - insets.bottom);
+        NSRect center = NSMakeRect(insets.left, insets.bottom, imageSize.width - insets.left - insets.right, imageSize.height - insets.top - insets.bottom);
+        NSRect rightEdge = NSMakeRect(imageSize.width - insets.right, insets.bottom, insets.right, imageSize.height - insets.top - insets.bottom);
+        NSRect bottomLeft = NSMakeRect(0, 0, insets.left, 0);
+        NSRect bottomEdge = NSMakeRect(insets.left, 0, imageSize.width - insets.left - insets.right, insets.bottom);
+        NSRect bottomRight = NSMakeRect(imageSize.width - insets.right, 0, insets.right, insets.bottom);
+        
+        return @[ [NSValue valueWithRect:topLeft],
+                  [NSValue valueWithRect:topEdge],
+                  [NSValue valueWithRect:topRight],
+                  [NSValue valueWithRect:leftEdge],
+                  [NSValue valueWithRect:center],
+                  [NSValue valueWithRect:rightEdge],
+                  [NSValue valueWithRect:bottomLeft],
+                  [NSValue valueWithRect:bottomEdge],
+                  [NSValue valueWithRect:bottomRight]];
+    }
+
+    return @[];
+}
+
+extern CUIRenditionKey *CUIRenditionKeyFromDictionary(NSDictionary *dictionary) {
+    return nil;
+}
+
+extern NSDictionary *NSDictionaryFromCUIRenditionKey(CUIRenditionKey *key) {
+    return nil;
+}
