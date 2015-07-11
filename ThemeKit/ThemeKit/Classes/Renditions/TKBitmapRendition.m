@@ -202,7 +202,7 @@
 }
 
 
-static BOOL shouldProcessPixels = YES;
+static BOOL shouldProcessPixels = NO;
 + (void)setShouldProcessPixels:(BOOL)flag {
     shouldProcessPixels = flag;
 }
