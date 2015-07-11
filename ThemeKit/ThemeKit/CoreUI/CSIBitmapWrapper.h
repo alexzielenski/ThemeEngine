@@ -22,7 +22,7 @@
 @property(nonatomic) CSIPixelFormat pixelFormat; // @synthesize pixelFormat=_pixelFormat;
 @property BOOL allowsMultiPassEncoding; // @synthesize allowsMultiPassEncoding=_allowsMultiPassEncoding;
 - (instancetype)initWithPixelWidth:(unsigned int)arg1 pixelHeight:(unsigned int)arg2;
-- (NSData *)compressedData:(BOOL)arg1 usedEncoding:(int *)arg2 andRowChunkSize:(unsigned int *)arg3;
+- (NSArray <NSData *> *)compressedData:(BOOL)arg1 usedEncoding:(int *)arg2 andRowChunkSize:(unsigned int *)arg3;
 
 - (NSData *)pixelData;
 - (void)setPixelData:(NSData *)arg1;
