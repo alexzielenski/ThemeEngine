@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A216g" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8152.3" systemVersion="15A216g" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <development version="6300" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8121.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8152.3"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
@@ -20,7 +20,7 @@
                 <outlet property="effectsInspector" destination="NiE-Zo-ftF" id="1Xv-iq-bqY"/>
                 <outlet property="gradientInfoInspector" destination="FKr-Wk-qPc" id="bWb-g3-eVu"/>
                 <outlet property="gradientInspector" destination="Qba-ew-VCW" id="ApF-97-6jj"/>
-                <outlet property="scrollView" destination="jQf-bw-yCc" id="rZj-BM-oMr"/>
+                <outlet property="scrollView" destination="iet-xC-VKa" id="ZwS-e4-5GY"/>
                 <outlet property="sliceInspector" destination="l3p-vo-mxo" id="UhS-eU-RRp"/>
                 <outlet property="view" destination="doT-Fm-VU5" id="vvh-as-7Xs"/>
             </connections>
@@ -155,7 +155,7 @@
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
-                        <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="1" verticalStackHuggingPriority="250" horizontalHuggingPriority="248" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yfw-r3-yN8">
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="1" verticalStackHuggingPriority="250" horizontalHuggingPriority="248" translatesAutoresizingMaskIntoConstraints="NO" id="Yfw-r3-yN8">
                             <rect key="frame" x="97" y="316" width="281" height="217"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tqm-PO-KkY">
@@ -298,6 +298,10 @@
                     </subviews>
                     <animations/>
                     <edgeInsets key="edgeInsets" left="8" right="16" top="0.0" bottom="20"/>
+                    <constraints>
+                        <constraint firstItem="Yfw-r3-yN8" firstAttribute="leading" secondItem="e0q-D1-uAY" secondAttribute="trailing" constant="8" id="9rB-lq-JiJ"/>
+                        <constraint firstAttribute="trailing" secondItem="Yfw-r3-yN8" secondAttribute="trailing" constant="16" id="Fdm-AS-kYw"/>
+                    </constraints>
                     <visibilityPriorities>
                         <integer value="1000"/>
                         <integer value="1000"/>
@@ -320,32 +324,6 @@
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="doT-Fm-VU5">
             <rect key="frame" x="0.0" y="0.0" width="230" height="347"/>
             <subviews>
-                <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQf-bw-yCc">
-                    <rect key="frame" x="0.0" y="33" width="230" height="285"/>
-                    <clipView key="contentView" copiesOnScroll="NO" id="9mG-yc-jS0" customClass="TEFlippedClipView">
-                        <rect key="frame" x="0.0" y="0.0" width="230" height="285"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mu2-Ir-5St">
-                                <rect key="frame" x="92" y="-183" width="112" height="103"/>
-                                <animations/>
-                            </view>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" name="windowBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </clipView>
-                    <animations/>
-                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="B98-qN-lrd">
-                        <rect key="frame" x="0.0" y="269" width="230" height="16"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
-                    </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="XkK-dO-3YI">
-                        <rect key="frame" x="215" y="0.0" width="15" height="285"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
-                    </scroller>
-                </scrollView>
                 <customView horizontalHuggingPriority="251" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Y1K-P5-Lck" customClass="NSVisualEffectView">
                     <rect key="frame" x="0.0" y="318" width="230" height="29"/>
                     <subviews>
@@ -375,14 +353,47 @@
                     </constraints>
                     <animations/>
                 </customView>
+                <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iet-xC-VKa">
+                    <rect key="frame" x="0.0" y="33" width="230" height="285"/>
+                    <clipView key="contentView" id="3TI-rO-og2" customClass="TEFlippedClipView">
+                        <rect key="frame" x="0.0" y="0.0" width="230" height="285"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView wantsLayer="YES" distribution="fill" orientation="vertical" alignment="centerX" spacing="0.0" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="1000" verticalClippingResistancePriority="250" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xp3-9J-lYi">
+                                <rect key="frame" x="0.0" y="263" width="230" height="22"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="B5y-QR-gQm"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="xp3-9J-lYi" secondAttribute="trailing" id="EYD-lz-Uf7"/>
+                            <constraint firstItem="xp3-9J-lYi" firstAttribute="leading" secondItem="3TI-rO-og2" secondAttribute="leading" id="Orh-AH-Tr5"/>
+                            <constraint firstItem="xp3-9J-lYi" firstAttribute="top" secondItem="3TI-rO-og2" secondAttribute="top" id="Vqj-iF-02D"/>
+                        </constraints>
+                        <animations/>
+                    </clipView>
+                    <animations/>
+                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="NLU-I5-XgD">
+                        <rect key="frame" x="0.0" y="269" width="230" height="16"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </scroller>
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="GMZ-8W-1df">
+                        <rect key="frame" x="214" y="0.0" width="16" height="285"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </scroller>
+                </scrollView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="jQf-bw-yCc" secondAttribute="trailing" id="BfH-8W-f3X"/>
+                <constraint firstAttribute="trailing" secondItem="iet-xC-VKa" secondAttribute="trailing" id="Bim-ns-sYi"/>
                 <constraint firstItem="Y1K-P5-Lck" firstAttribute="top" secondItem="doT-Fm-VU5" secondAttribute="top" id="Fgm-rq-cc4"/>
-                <constraint firstItem="jQf-bw-yCc" firstAttribute="top" secondItem="Y1K-P5-Lck" secondAttribute="bottom" id="Khr-Hl-OXp"/>
-                <constraint firstItem="jQf-bw-yCc" firstAttribute="leading" secondItem="doT-Fm-VU5" secondAttribute="leading" id="ecH-RI-fOD"/>
+                <constraint firstAttribute="bottom" secondItem="iet-xC-VKa" secondAttribute="bottom" constant="33" id="Mt7-A1-B7e"/>
+                <constraint firstItem="iet-xC-VKa" firstAttribute="leading" secondItem="doT-Fm-VU5" secondAttribute="leading" id="OJD-F1-9bq"/>
+                <constraint firstItem="iet-xC-VKa" firstAttribute="top" secondItem="Y1K-P5-Lck" secondAttribute="bottom" id="fZP-vl-jza"/>
                 <constraint firstItem="Y1K-P5-Lck" firstAttribute="leading" secondItem="doT-Fm-VU5" secondAttribute="leading" id="hps-Gv-P1x"/>
-                <constraint firstAttribute="bottom" secondItem="jQf-bw-yCc" secondAttribute="bottom" constant="33" id="iTF-NL-J1x"/>
                 <constraint firstAttribute="trailing" secondItem="Y1K-P5-Lck" secondAttribute="trailing" id="yB2-AS-1pR"/>
             </constraints>
             <animations/>
@@ -821,13 +832,13 @@
                                 <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
-                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" verticalStackHuggingPriority="250" horizontalHuggingPriority="248" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iXZ-Sj-K1G">
+                        <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" verticalStackHuggingPriority="250" horizontalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="iXZ-Sj-K1G">
                             <rect key="frame" x="93" y="40" width="214" height="120"/>
                             <subviews>
-                                <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M4J-Dh-clS">
+                                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M4J-Dh-clS">
                                     <rect key="frame" x="0.0" y="101" width="214" height="19"/>
                                     <animations/>
-                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="UTI Type" drawsBackground="YES" id="jIA-lT-Upv">
+                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="UTI Type" bezelStyle="round" id="jIA-lT-Upv">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -845,7 +856,7 @@
                                         <outlet property="nextKeyView" destination="mmD-Ph-puP" id="0f7-WN-aEw"/>
                                     </connections>
                                 </textField>
-                                <popUpButton horizontalHuggingPriority="249" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mmD-Ph-puP">
+                                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mmD-Ph-puP">
                                     <rect key="frame" x="-3" y="73" width="137" height="22"/>
                                     <animations/>
                                     <popUpButtonCell key="cell" type="push" title="Normal" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="Y2N-UF-83K" id="xpn-Qs-8ee">
@@ -874,7 +885,7 @@
                                         <outlet property="nextKeyView" destination="P2R-Jz-qgb" id="ab6-BA-cGO"/>
                                     </connections>
                                 </popUpButton>
-                                <popUpButton horizontalHuggingPriority="249" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P2R-Jz-qgb">
+                                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P2R-Jz-qgb">
                                     <rect key="frame" x="-3" y="48" width="100" height="22"/>
                                     <animations/>
                                     <popUpButtonCell key="cell" type="push" title="Darken" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="bsD-jG-OKV" id="aiw-hB-UCt">
@@ -915,7 +926,7 @@
                                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Jc-3M-VuI">
                                     <rect key="frame" x="0.0" y="25" width="214" height="19"/>
                                     <animations/>
-                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Opacity" drawsBackground="YES" id="JOI-ct-ULI">
+                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Opacity" bezelStyle="round" id="JOI-ct-ULI">
                                         <numberFormatter key="formatter" formatterBehavior="custom10_4" usesGroupingSeparator="NO" minimumIntegerDigits="0" maximumIntegerDigits="1" minimumFractionDigits="1" maximumFractionDigits="1" id="baS-58-FSK">
                                             <real key="minimum" value="0.0"/>
                                             <real key="maximum" value="1"/>
@@ -974,6 +985,11 @@
                     </subviews>
                     <animations/>
                     <edgeInsets key="edgeInsets" left="8" right="16" top="0.0" bottom="20"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="iXZ-Sj-K1G" secondAttribute="trailing" constant="16" id="LSc-lw-Ts0"/>
+                        <constraint firstItem="IW6-68-M7Y" firstAttribute="leading" secondItem="2ow-B1-tnv" secondAttribute="leading" constant="8" id="Tsx-jg-Uzh"/>
+                        <constraint firstItem="iXZ-Sj-K1G" firstAttribute="leading" secondItem="IW6-68-M7Y" secondAttribute="trailing" constant="8" id="iGA-sR-9kF"/>
+                    </constraints>
                     <visibilityPriorities>
                         <integer value="1000"/>
                         <integer value="1000"/>
@@ -991,7 +1007,7 @@
                 <constraint firstItem="2ow-B1-tnv" firstAttribute="leading" secondItem="SRM-cL-h9k" secondAttribute="leading" id="v7S-QZ-q2Y"/>
             </constraints>
             <animations/>
-            <point key="canvasLocation" x="308.5" y="177"/>
+            <point key="canvasLocation" x="-264.5" y="343"/>
         </customView>
         <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="jUh-at-fMP">
             <rect key="frame" x="0.0" y="0.0" width="172" height="5"/>
@@ -2417,7 +2433,7 @@
                                 <animations/>
                             </scroller>
                             <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="2Xc-SO-e4z">
-                                <rect key="frame" x="222" y="1" width="15" height="139"/>
+                                <rect key="frame" x="221" y="1" width="16" height="139"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <animations/>
                             </scroller>
@@ -2483,14 +2499,6 @@
             <animations/>
             <point key="canvasLocation" x="-323.5" y="129.5"/>
         </customView>
-        <stackView wantsLayer="YES" distribution="fill" orientation="vertical" alignment="centerX" spacing="0.0" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="1000" verticalClippingResistancePriority="250" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xp3-9J-lYi">
-            <rect key="frame" x="0.0" y="0.0" width="255" height="22"/>
-            <animations/>
-            <constraints>
-                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="B5y-QR-gQm"/>
-            </constraints>
-            <point key="canvasLocation" x="-303.5" y="284"/>
-        </stackView>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="11" height="11"/>

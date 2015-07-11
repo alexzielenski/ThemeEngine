@@ -49,15 +49,7 @@ const void *kTEInspectorControllerSelectionDidChange = &kTEInspectorControllerSe
                                        self.attributesInspector
                                        ];
     
-    NSView *view = self.contentView;
-    
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
-    self.scrollView.documentView = view;
-    [self.scrollView.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[view]-0-|"
-                                                                                        options:0
-                                                                                        metrics:nil
-                                                                                          views:NSDictionaryOfVariableBindings(view)]];
-    
     self.contentView.distribution = NSStackViewDistributionFill;
 
     for (TEInspectorDetailController *vc in self.inspectorViewControllers) {
