@@ -76,16 +76,15 @@
 }
 
 - (IBAction)mergeFrontDocuments:(id)sender {
-    
+    // Get the asset storage
+    // Match rendition hashes to each other
+    // overwrite images/data
 }
 
 
 - (BOOL)validateMenuItem:(nonnull NSMenuItem *)menuItem {
     if (menuItem.action == @selector(mergeFrontDocuments:)) {
-        NSArray *docs = [[NSDocumentController sharedDocumentController] documents];
-        NSLog(@"%@", [docs valueForKeyPath:@"fileURL"]);
-        
-        
+        NSArray <Document *>*docs = [[NSDocumentController sharedDocumentController] documents];
         return docs.count >= 2;
     }
     
