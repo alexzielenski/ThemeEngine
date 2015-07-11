@@ -91,6 +91,13 @@ extern void BOMTreeIteratorNext(BOMTreeIteratorRef iterator);
 // Not reversed, but it's there
 extern void BOMTreeIteratorSet(BOMTreeIteratorRef iterator, int key, int arg2, int arg3);
 
+
+//!BOMFile
+typedef void * BOMFileRef;
+extern OSErr BOMFileNewFromCFReadStream(BOMFileRef *bom, CFReadStreamRef stream, BOOL unk);
+extern void *BOMFileRead(BOMFileRef bom);
+extern OSErr BOMFileClose(BOMFileRef bom);
+
 //!BOMStorage
 typedef void *BOMStorageRef;
 typedef void *BomSys;
