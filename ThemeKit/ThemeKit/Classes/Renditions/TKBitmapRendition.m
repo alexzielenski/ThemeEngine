@@ -20,6 +20,10 @@
     if ((self = [super _initWithCUIRendition:rendition csiData:(NSData *)csiData key:key])) {
         self.assetPack = rendition.type == CoreThemeTypeAssetPack;
         self.layoutInformation = [TKLayoutInformation layoutInformationWithCSIData:csiData];
+        if (!rendition) {
+//            [csiData writeToFile:[NSString stringWithFormat:@"/Users/Alex/Desktop/%@", key] atomically:NO];
+//            NSLog(@"%@", csiData);
+        }
     }
     
     return self;
@@ -73,6 +77,48 @@
         }
     }
     return _image;
+}
+
+- (void)setImage:(NSBitmapImageRep *)image {
+    NSSize oldSize = NSMakeSize(_image.pixelsWide, _image.pixelsHigh);
+    _image = image;
+    
+    CGFloat xScale = image.pixelsWide / oldSize.width;
+    CGFloat yScale = image.pixelsHigh / oldSize.height;
+    
+    // Autoscale slices and metrics
+    NSMutableArray *metrics = [NSMutableArray array];
+    for (NSValue *metricValue in self.layoutInformation.metrics) {
+        CUIMetrics metric;
+        [metricValue getValue:&metric];
+        metric.imageSize = NSMakeSize(image.pixelsWide, image.pixelsHigh);
+
+        CGSize bl = metric.edgeBL;
+        CGSize tr = metric.edgeTR;
+        
+        bl.width  *= xScale;
+        bl.height *= yScale;
+        tr.width  *= xScale;
+        tr.height *= yScale;
+        
+        metric.edgeBL = bl;
+        metric.edgeTR = tr;
+        
+        [metrics addObject:[NSValue valueWithBytes:&metric objCType:@encode(CUIMetrics)]];
+    }
+    
+    NSMutableArray *slices = [NSMutableArray array];
+    for (NSValue *sliceValue in self.layoutInformation.sliceRects) {
+        NSRect slice = sliceValue.rectValue;
+        slice.origin.x    *= xScale;
+        slice.origin.y    *= yScale;
+        slice.size.width  *= xScale;
+        slice.size.height *= yScale;
+        [slices addObject:[NSValue valueWithRect:slice]];
+    }
+    
+    self.layoutInformation.metrics = metrics;
+    self.layoutInformation.sliceRects = slices;
 }
 
 + (NSDictionary *)undoProperties {

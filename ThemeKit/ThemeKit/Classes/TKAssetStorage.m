@@ -184,6 +184,9 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
 }
 
 - (TKElement *)elementWithName:(NSString *)name createIfNeeded:(BOOL)create {
+    if (!name)
+        return nil;
+    
     if (!self.elementNameMap) {
         self.elementNameMap = [NSMutableDictionary dictionary];
     }
@@ -247,7 +250,11 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
 - (void)_addRendition:(TKRendition *)rendition {
     NSString *elementName = TKElementNameForRendition(rendition, self);
     TKElement *element = [self elementWithName:elementName createIfNeeded:YES];
-    [element addRendition:rendition];
+    if (element)
+        [element addRendition:rendition];
+    else {
+        NSLog(@"Failed to add rendition: %@", rendition);
+    }
 }
 
 @end

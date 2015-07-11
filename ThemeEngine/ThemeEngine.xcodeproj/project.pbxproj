@@ -478,6 +478,7 @@
 				TargetAttributes = {
 					FA606C081B2C1D2100F24960 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 3GD8ABJ22W;
 					};
 				};
 			};
@@ -618,7 +619,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application: Walter Zielenski";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Alexander Zielenski (3GD8ABJ22W)";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 105;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -666,7 +667,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application: Walter Zielenski";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Alexander Zielenski (3GD8ABJ22W)";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 105;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -696,6 +697,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -721,6 +723,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

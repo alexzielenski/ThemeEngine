@@ -381,7 +381,7 @@
                         <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="GMZ-8W-1df">
-                        <rect key="frame" x="214" y="0.0" width="16" height="285"/>
+                        <rect key="frame" x="215" y="0.0" width="15" height="285"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </scroller>
@@ -745,7 +745,7 @@
                 <constraint firstItem="dWq-7S-Qdg" firstAttribute="top" secondItem="P9E-z8-bJb" secondAttribute="top" id="vII-w8-kMA"/>
             </constraints>
             <animations/>
-            <point key="canvasLocation" x="78" y="694"/>
+            <point key="canvasLocation" x="-146.5" y="687"/>
         </customView>
         <viewController title="Gradient" nibName="TEInspectorDetailController" id="Qba-ew-VCW" customClass="TEGradientInspector">
             <connections>
@@ -2433,7 +2433,7 @@
                                 <animations/>
                             </scroller>
                             <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="2Xc-SO-e4z">
-                                <rect key="frame" x="221" y="1" width="16" height="139"/>
+                                <rect key="frame" x="222" y="1" width="15" height="139"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <animations/>
                             </scroller>
