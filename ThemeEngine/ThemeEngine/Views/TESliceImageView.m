@@ -516,7 +516,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
 }
 
 - (void)setLeftHandlePosition:(CGFloat)leftHandlePosition {
-    _sliceInsets.left = round(leftHandlePosition);
+    _sliceInsets.left = MIN(round(leftHandlePosition), self.image.pixelsWide - self.rightHandlePosition - 1.0);
     [self _repositionHandles];
     [self _generateSliceRectsFromInsets];
 }
@@ -526,7 +526,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
 }
 
 - (void)setTopHandlePosition:(CGFloat)topHandlePosition {
-    _sliceInsets.top = round(topHandlePosition);
+    _sliceInsets.top = MIN(round(topHandlePosition), self.image.pixelsHigh - self.bottomHandlePosition - 1.0);
     [self _repositionHandles];
     [self _generateSliceRectsFromInsets];
 }
@@ -536,7 +536,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
 }
 
 - (void)setRightHandlePosition:(CGFloat)rightHandlePosition {
-    _sliceInsets.right = round(rightHandlePosition);
+    _sliceInsets.right = MIN(round(rightHandlePosition), self.image.pixelsWide - self.leftHandlePosition - 1.0);
     [self _repositionHandles];
     [self _generateSliceRectsFromInsets];
 }
@@ -546,7 +546,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
 }
 
 - (void)setBottomHandlePosition:(CGFloat)bottomHandlePosition {
-    _sliceInsets.bottom = round(bottomHandlePosition);
+    _sliceInsets.bottom = MIN(round(bottomHandlePosition), self.image.pixelsHigh - self.topHandlePosition - 1.0);
     [self _repositionHandles];
     [self _generateSliceRectsFromInsets];
 }
@@ -555,6 +555,47 @@ static const CGFloat sliceSpaceWidth = 2.0;
     _sliceInsets = TEIntegralInsets(edgeInsets);
     [self _repositionHandles];
     [self _generateSliceRectsFromInsets];
+}
+
+- (CGFloat)constrainLeftValue:(CGFloat)value {
+    return MIN(round(value), self.image.pixelsWide - self.rightHandlePosition - 1.0);;
+}
+
+- (CGFloat)constrainTopValue:(CGFloat)value {
+    return MIN(round(value), self.image.pixelsHigh - self.bottomHandlePosition - 1.0);
+}
+
+- (CGFloat)constrainRightValue:(CGFloat)value {
+    return MIN(round(value), self.image.pixelsWide - self.leftHandlePosition - 1.0);
+}
+
+- (CGFloat)constrainBottomValue:(CGFloat)value {
+    return MIN(round(value), self.image.pixelsHigh - self.topHandlePosition - 1.0);
+}
+
+- (BOOL)validateValue:(inout id  __nullable __autoreleasing * __nonnull)ioValue forKeyPath:(nonnull NSString *)inKeyPath error:(out NSError * __nullable __autoreleasing * __nullable)outError {
+    NSLog(@"%@", inKeyPath);
+    if ([inKeyPath hasSuffix:@"HandlePosition"]) {
+        CGFloat newValue;
+        CGFloat oldValue = ((NSNumber *)*ioValue).doubleValue;
+        if ([inKeyPath isEqualToString:@"leftHandlePosition"]) {
+            newValue = [self constrainLeftValue:oldValue];
+            
+        } else if ([inKeyPath isEqualToString:@"topHandlePosition"]) {
+            newValue = [self constrainTopValue:oldValue];
+            
+        } else if ([inKeyPath isEqualToString:@"rightHandlePosition"]) {
+            newValue = [self constrainRightValue:oldValue];
+            
+        } else if ([inKeyPath isEqualToString:@"bottomHandlePosition"]) {
+            newValue = [self constrainBottomValue:oldValue];
+            
+        }
+        
+        *ioValue = [NSNumber numberWithDouble:newValue];
+    }
+    
+    return [super validateValue:ioValue forKeyPath:inKeyPath error:outError];
 }
 
 #pragma mark - Appearance Properties

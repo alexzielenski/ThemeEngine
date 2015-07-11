@@ -745,7 +745,7 @@
                 <constraint firstItem="dWq-7S-Qdg" firstAttribute="top" secondItem="P9E-z8-bJb" secondAttribute="top" id="vII-w8-kMA"/>
             </constraints>
             <animations/>
-            <point key="canvasLocation" x="-146.5" y="687"/>
+            <point key="canvasLocation" x="-203.5" y="622"/>
         </customView>
         <viewController title="Gradient" nibName="TEInspectorDetailController" id="Qba-ew-VCW" customClass="TEGradientInspector">
             <connections>
@@ -2113,7 +2113,11 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.leftHandlePosition" id="9qX-Bd-GxO"/>
+                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.leftHandlePosition" id="0KA-Bg-OUD">
+                                            <dictionary key="options">
+                                                <bool key="NSValidatesImmediately" value="YES"/>
+                                            </dictionary>
+                                        </binding>
                                         <outlet property="nextKeyView" destination="cIv-H2-zSG" id="K5W-lO-naH"/>
                                     </connections>
                                 </textField>
@@ -2170,7 +2174,11 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.topHandlePosition" id="iWb-po-p7h"/>
+                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.topHandlePosition" id="qrO-eZ-yq9">
+                                            <dictionary key="options">
+                                                <bool key="NSValidatesImmediately" value="YES"/>
+                                            </dictionary>
+                                        </binding>
                                         <outlet property="nextKeyView" destination="hqZ-tD-ty1" id="a6W-w6-QkA"/>
                                     </connections>
                                 </textField>
@@ -2227,7 +2235,11 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.rightHandlePosition" id="C1g-ov-tcB"/>
+                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.rightHandlePosition" id="ose-Bs-VEg">
+                                            <dictionary key="options">
+                                                <bool key="NSValidatesImmediately" value="YES"/>
+                                            </dictionary>
+                                        </binding>
                                         <outlet property="nextKeyView" destination="elY-k0-hSy" id="qk4-N0-NHq"/>
                                     </connections>
                                 </textField>
@@ -2284,7 +2296,11 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
-                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.bottomHandlePosition" id="2o1-r8-JzW"/>
+                                        <binding destination="l3p-vo-mxo" name="value" keyPath="sliceImageView.bottomHandlePosition" id="KA6-Sz-br0">
+                                            <dictionary key="options">
+                                                <bool key="NSValidatesImmediately" value="YES"/>
+                                            </dictionary>
+                                        </binding>
                                         <outlet property="nextKeyView" destination="KXf-ZR-kcc" id="NFf-ER-PwU"/>
                                     </connections>
                                 </textField>
