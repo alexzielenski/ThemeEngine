@@ -36,7 +36,7 @@
             [rendition updateChangeCount:NSChangeCleared];
     }
 
-    [self.storage writeToDiskAndCompact:YES];
+    [self.storage writeToDiskAndCompact:NO];
 }
 
 - (void)addRendition:(TKRendition *)rendition {
