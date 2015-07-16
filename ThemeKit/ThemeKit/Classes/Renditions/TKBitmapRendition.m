@@ -127,11 +127,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         TKBitmapProperties = @{
-                               TKKey(utiType): @"Change UTI",
                                TKKey(image): @"Change Image",
-                               TKKey(opacity): @"Change Opacity",
-                               TKKey(blendMode): @"Change Blend Mode",
-                               TKKey(exifOrientation): @"Change EXIF Orientation",
                                TKKey(layoutInformation): @"Change Layout",
                                @"layoutInformation.sliceRects": @"Change Slices",
                                @"layoutInformation.metrics": @"Change Image Size"

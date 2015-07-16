@@ -192,6 +192,7 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
     generator.colorSpaceID               = self.colorspaceID;
     generator.scaleFactor                = self.scale;
     
+    
     NSData *csiData = nil;
     
     @try {
@@ -226,6 +227,13 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         TKRenditionProperties = @{
+                                  TKKey(exifOrientation): @"Change EXIF Orientation",
+                                  TKKey(blendMode): @"Change Blend Mode",
+                                  TKKey(scaleFactor): @"Change Scale Factor",
+                                  @"opaque": @"Change Opaque Status",
+                                  @"vector": @"Change Vector Status",
+                                  @"fpo": @"Change FPO Status",
+                                  TKKey(opacity): @"Change Opacity",
                                   TKKey(utiType): @"Change UTI",
                                   TKKey(renderingMode): @"Change Template Mode"
                                   };
