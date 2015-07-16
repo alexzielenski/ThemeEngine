@@ -55,6 +55,7 @@ extern BOOL CUIRenditionKeyHasIdentifier(struct renditionkeytoken *rendition, in
 extern int CUIRenditionKeyValueForAttribute(struct renditionkeytoken *rendition, int attribute);
 extern int CUIRenditionKeyStandardize(int arg0, int arg1, int arg2);
 extern CUIRenditionKey *CUIRenditionKeyFromKeySignature(NSString *signature, int *unk);
+extern OSErr CUICopyKeySignature(char *buffer, size_t bufferSize, void *keyList, void *keyFormat);
 extern int CUIRenditionKeyTokenIsBaseKeyOfKeyList(struct renditionkeytoken *arg0, int arg1);
 
 extern NSEdgeInsets TKInsetsFromSliceRects(NSArray <NSValue *> *slices, CoreThemeType type);

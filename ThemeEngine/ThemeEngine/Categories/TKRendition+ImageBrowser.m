@@ -14,7 +14,7 @@
 #pragma mark - IKImageBrowserItem
 
 - (NSString *)imageUID {
-    return self.renditionHash;
+    return self.description;
 }
 
 - (NSString *)imageRepresentationType {

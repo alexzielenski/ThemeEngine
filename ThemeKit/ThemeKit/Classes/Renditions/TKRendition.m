@@ -22,8 +22,7 @@
 #import <objc/objc.h>
 #import <CommonCrypto/CommonDigest.h>
 
-NSString *md5(NSString *str) {
-    const char *cStr = [str UTF8String];
+NSString *md5(const char *cStr) {
     unsigned char result[CC_MD5_DIGEST_LENGTH];
     CC_MD5( cStr, (CC_LONG)strlen(cStr), result );
     return [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
@@ -298,27 +297,7 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
 - (NSString *)renditionHash {
     if (!self._renditionHash) {
 WITH(self.renditionKey)
-        self._renditionHash = md5([NSString stringWithFormat:@"%lld%lld%lld%lld%lld%lld%lu%lld%lu%lu%lld%lu%lld%lld%lld%lu%lu%lu%lld%lld",
-                                   _.themeIdentifier,
-                                   _.themeGraphicsClass,
-                                   _.themeMemoryClass,
-                                   _.themeSizeClassVertical,
-                                   _.themeSizeClassHorizontal,
-                                   _.themeSubtype,
-                                   (unsigned long)_.themeIdiom,
-                                   _.themeScale,
-                                   (unsigned long)_.themeLayer,
-                                   (unsigned long)_.themePresentationState,
-                                   _.themePreviousState,
-                                   (unsigned long)_.themeState,
-                                   _.themeDimension2,
-                                   _.themeDimension1,
-                                   _.themePreviousValue,
-                                   _.themeValue,
-                                   _.themeDirection,
-                                   (unsigned long)_.themeSize,
-                                   _.themePart,
-                                   _.themeElement]);
+        self._renditionHash = md5((const char *)_.keyList);
 ENDWITH
     }
     
