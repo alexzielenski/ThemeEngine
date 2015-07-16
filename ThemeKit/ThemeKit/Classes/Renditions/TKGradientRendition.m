@@ -40,20 +40,22 @@
 }
 
 + (NSDictionary *)undoProperties {
-    static NSDictionary *TKGradientProperties = nil;
+    static NSMutableDictionary *TKGradientProperties = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        TKGradientProperties = @{
-                                 TKKey(utiType): @"Change UTI",
-                                 TKKey(gradient): @"Change Gradient",
-                                 @"gradient.radial": @"Change Gradient Type",
-                                 @"gradient.angle": @"Change Gradient Angle",
-                                 @"gradient.dithered": @"Change Gradient Dithering",
-                                 @"gradient.smoothingCoefficient": @"Change Gradient Smoothing",
-                                 @"gradient.fillCoefficient": @"Change Gradient Fill Coefficient",
-                                 @"gradient.fillColor": @"Change Gradient Fill Color",
-                                 @"gradient.blendMode": @"Change Gradient Blend Mode",
-                                 };
+        TKGradientProperties = [NSMutableDictionary dictionary];
+        [TKGradientProperties addEntriesFromDictionary:@{
+                                                         TKKey(utiType): @"Change UTI",
+                                                         TKKey(gradient): @"Change Gradient",
+                                                         @"gradient.radial": @"Change Gradient Type",
+                                                         @"gradient.angle": @"Change Gradient Angle",
+                                                         @"gradient.dithered": @"Change Gradient Dithering",
+                                                         @"gradient.smoothingCoefficient": @"Change Gradient Smoothing",
+                                                         @"gradient.fillCoefficient": @"Change Gradient Fill Coefficient",
+                                                         @"gradient.fillColor": @"Change Gradient Fill Color",
+                                                         @"gradient.blendMode": @"Change Gradient Blend Mode",
+                                                         }];
+        [TKGradientProperties addEntriesFromDictionary:[super undoProperties]];
     });
     
     return TKGradientProperties;

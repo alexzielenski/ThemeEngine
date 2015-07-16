@@ -123,15 +123,17 @@
 }
 
 + (NSDictionary *)undoProperties {
-    static NSDictionary *TKBitmapProperties = nil;
+    static NSMutableDictionary *TKBitmapProperties = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        TKBitmapProperties = @{
-                               TKKey(image): @"Change Image",
-                               TKKey(layoutInformation): @"Change Layout",
-                               @"layoutInformation.sliceRects": @"Change Slices",
-                               @"layoutInformation.metrics": @"Change Image Size"
-                               };
+        TKBitmapProperties = [NSMutableDictionary dictionary];
+        [TKBitmapProperties addEntriesFromDictionary:@{
+                                                       TKKey(image): @"Change Image",
+                                                       TKKey(layoutInformation): @"Change Layout",
+                                                       @"layoutInformation.sliceRects": @"Change Slices",
+                                                       @"layoutInformation.metrics": @"Change Image Size"
+                                                       }];
+        [TKBitmapProperties addEntriesFromDictionary:super.undoProperties];
     });
     
     return TKBitmapProperties;

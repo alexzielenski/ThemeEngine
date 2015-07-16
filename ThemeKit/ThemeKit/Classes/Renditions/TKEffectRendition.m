@@ -36,14 +36,16 @@
 }
 
 + (NSDictionary *)undoProperties {
-    static NSDictionary *TKEffectProperties = nil;
+    static NSMutableDictionary *TKEffectProperties = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        TKEffectProperties = @{
-                               TKKey(utiType): @"Change UTI",
-                               TKKey(effectPreset): @"Change Effect Preset",
-                               @"effectPreset.scaleFactor": @"Change Scale Factor"
-                               };
+        TKEffectProperties = [NSMutableDictionary dictionary];
+        [TKEffectProperties addEntriesFromDictionary:@{
+                                                       TKKey(utiType): @"Change UTI",
+                                                       TKKey(effectPreset): @"Change Effect Preset",
+                                                       @"effectPreset.scaleFactor": @"Change Scale Factor"
+                                                       }];
+        [TKEffectProperties addEntriesFromDictionary:[super undoProperties]];
     });
     
     return TKEffectProperties;

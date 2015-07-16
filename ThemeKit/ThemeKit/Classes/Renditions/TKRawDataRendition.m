@@ -99,13 +99,15 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
 }
 
 + (NSDictionary *)undoProperties {
-    static NSDictionary *TKRawDataProperties = nil;
+    static NSMutableDictionary *TKRawDataProperties = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        TKRawDataProperties = @{
-                               TKKey(utiType): @"Change UTI",
-                               TKKey(rawData): @"Change Data",
-                               };
+        TKRawDataProperties = [NSMutableDictionary dictionary];
+        [TKRawDataProperties addEntriesFromDictionary:@{
+                                                        TKKey(utiType): @"Change UTI",
+                                                        TKKey(rawData): @"Change Data",
+                                                        }];
+        [TKRawDataProperties addEntriesFromDictionary:[super undoProperties]];
     });
     
     return TKRawDataProperties;

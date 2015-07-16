@@ -40,12 +40,14 @@
 }
 
 + (NSDictionary *)undoProperties {
-    static NSDictionary *TKColorProperties = nil;
+    static NSMutableDictionary *TKColorProperties = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        TKColorProperties = @{
-                               TKKey(color): @"Change Color"
-                               };
+        TKColorProperties = [NSMutableDictionary dictionary];
+        [TKColorProperties addEntriesFromDictionary:@{
+                                                      TKKey(color): @"Change Color"
+                                                      }];
+        [TKColorProperties addEntriesFromDictionary:[super undoProperties]];
     });
     
     return TKColorProperties;
