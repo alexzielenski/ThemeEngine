@@ -202,12 +202,12 @@
     
     // Grid Layout
     NSInteger const numCols  = 4;
-    NSInteger const numRows  = ceil(images.count / numCols);
+    NSInteger const numRows  = ceil((CGFloat)images.count / (CGFloat)numCols);
 
     // Evenly space out all the images
     CGFloat const itemWidth  = [[images valueForKeyPath:@"@max.pixelsWide"] doubleValue];
     CGFloat const itemHeight = [[images valueForKeyPath:@"@max.pixelsHigh"] doubleValue];
-
+    
     // Composited Image Dimensions
     CGFloat const maxWidth   = (itemWidth + kImagePadding) * numCols + kImagePadding;
     CGFloat const maxHeight  = (itemHeight + kImagePadding) * numRows + kImagePadding;
