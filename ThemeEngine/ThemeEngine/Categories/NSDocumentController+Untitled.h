@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NSDocumentController (Untitled)
+@interface TEDocumentController : NSDocumentController
 
 @end

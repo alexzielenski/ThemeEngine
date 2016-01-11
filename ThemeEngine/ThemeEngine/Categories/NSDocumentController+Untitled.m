@@ -8,7 +8,7 @@
 
 #import "NSDocumentController+Untitled.h"
 
-@implementation NSDocumentController (Untitled)
+@implementation TEDocumentController
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
@@ -19,4 +19,11 @@
     return nil;
 }
 #pragma clang diagnostic pop
+- (NSInteger)runModalOpenPanel:(NSOpenPanel *)openPanel
+                      forTypes:(NSArray *)types {
+    openPanel.treatsFilePackagesAsDirectories = YES;
+    
+    return [super runModalOpenPanel: openPanel forTypes: types];
+}
+
 @end

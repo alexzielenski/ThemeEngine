@@ -139,10 +139,6 @@ static const void *PREVIEWIMAGECHANGED = &PREVIEWIMAGECHANGED;
     return YES;
 }
 
-- (IBAction)addRendition:(id)sender {
-    NSLog(@"add rends");
-}
-
 - (IBAction)removeSelection:(id)sender {
     NSLog(@"remove rends");
 }

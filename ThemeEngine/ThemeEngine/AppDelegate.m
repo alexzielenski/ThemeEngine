@@ -7,9 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "NSDocumentController+Untitled.h"
 
 @interface AppDelegate ()
-@property (readwrite) NSDocumentController *documentController;
+@property (readwrite) TEDocumentController *documentController;
 @end
 
 // Prefs:
@@ -22,7 +23,7 @@
 @dynamic darkMode;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
-    self.documentController = [NSDocumentController sharedDocumentController];
+    self.documentController = [TEDocumentController sharedDocumentController];
     self.welcomeController  = [[TEWelcomeController alloc] initWithWindowNibName:@"Welcome"];
 
     self.darkMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkMode"];
@@ -84,7 +85,7 @@
 
 - (BOOL)validateMenuItem:(nonnull NSMenuItem *)menuItem {
     if (menuItem.action == @selector(mergeFrontDocuments:)) {
-        NSArray <Document *>*docs = [[NSDocumentController sharedDocumentController] documents];
+        NSArray <Document *>*docs = [[TEDocumentController sharedDocumentController] documents];
         return docs.count >= 2;
     }
     

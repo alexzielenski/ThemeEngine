@@ -8,6 +8,7 @@
 
 #import "TEElementsController.h"
 #import "TEExportController.h"
+#import "TEAddRenditionController.h"
 
 static NSArray<NSArray *> *filterPredicates = nil;
 
@@ -23,6 +24,7 @@ static NSArray<NSArray *> *filterPredicates = nil;
 @end
 
 @interface TEElementsController () <NSTableViewDataSource, NSTableViewDelegate>
+@property (strong) TEAddRenditionController *addRenditionController;
 - (void)scopeChanged:(TETexturedScope *)scope;
 @end
 
@@ -122,6 +124,17 @@ static NSArray<NSArray *> *filterPredicates = nil;
 
 - (IBAction)addElement:(id)sender {
     NSLog(@"add element");
+}
+
+- (IBAction)addRendition:(id)sender {
+    NSLog(@"add rends");
+    if (!self.addRenditionController) {
+        self.addRenditionController = [[TEAddRenditionController alloc] initWithWindowNibName:@"AddRendition"];
+    }
+    
+    [self.addRenditionController beginWithWindow:self.view.window completionHandler:^(TKRendition *rendition) {
+        NSLog(@"%@", rendition);
+    }];
 }
 
 - (IBAction)removeSelection:(id)sender {

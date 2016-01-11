@@ -9,6 +9,7 @@
 #import "TEWelcomeController.h"
 #import "NSColor+TE.h"
 #import "TERecentCell.h"
+#import "NSDocumentController+Untitled.h"
 
 @interface TEWelcomeController () <NSWindowDelegate>
 @property (strong) NSArray *URLs;
@@ -48,7 +49,7 @@
     NSInteger row = self.recentsTable.selectedRow;
     NSURL *url = self.URLs[row];
     
-    [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url
+    [[TEDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url
                                                                            display:YES
                                                                  completionHandler:^(NSDocument * __nullable document, BOOL documentWasAlreadyOpen, NSError * __nullable error) {
                                                                  }];
@@ -71,7 +72,7 @@
 }
 
 - (void)openDocument:(id)sender {
-    [[NSDocumentController sharedDocumentController] openDocument:sender];
+    [[TEDocumentController sharedDocumentController] openDocument:sender];
 }
 
 #pragma mark - Table
@@ -82,7 +83,7 @@
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification {
-    self.URLs = [[NSDocumentController sharedDocumentController] recentDocumentURLs];
+    self.URLs = [[TEDocumentController sharedDocumentController] recentDocumentURLs];
     [self.recentsTable reloadData];
     [self.window makeFirstResponder:self.recentsTable];
 }
