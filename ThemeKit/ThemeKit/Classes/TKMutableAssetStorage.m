@@ -36,7 +36,9 @@
             [rendition updateChangeCount:NSChangeCleared];
     }
 
-    [self.storage writeToDiskAndCompact:NO];
+    // Changed to YES to fix size of files expanding over time
+    // But I feel like it will cause other issues
+    [self.storage writeToDiskAndCompact:YES];
 }
 
 - (void)addRendition:(TKRendition *)rendition {
