@@ -21,9 +21,18 @@
 
 @implementation AppDelegate
 @dynamic darkMode;
+
+- (id)init {
+    if ((self = [super init])) {
+        self.documentController = [TEDocumentController sharedDocumentController];
+
+    }
+    
+    return self;
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
-    self.documentController = [TEDocumentController sharedDocumentController];
     self.welcomeController  = [[TEWelcomeController alloc] initWithWindowNibName:@"Welcome"];
 
     self.darkMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"darkMode"];
