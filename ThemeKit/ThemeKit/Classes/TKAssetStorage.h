@@ -39,6 +39,11 @@ extern NSString *const TKAssetStorageDidFinishLoadingNotification;
  */
 @property (readonly, copy) NSString *path;
 /**
+ *  Path passed to initWithPath:forWriting:
+ *  @warning This path may or may not be used
+ */
+@property (readonly, copy) NSString *filePath;
+/**
  *  Indicator of if any renditions in this storage have had changes registered to them.
  *  @warning This property will not be useful if the rendition's `-wantsUndoHandling` returns NO.
  */

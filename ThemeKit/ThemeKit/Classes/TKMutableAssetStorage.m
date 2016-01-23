@@ -19,6 +19,7 @@
 - (instancetype)initWithPath:(NSString *)path {
     if ((self = [self init])) {
         self.storage = [[TKClass(CUIMutableCommonAssetStorage) alloc] initWithPath:path forWriting:YES];
+        self.filePath = path;
         [self _beginEnumeration];
     }
     
@@ -26,6 +27,8 @@
 }
 
 - (void)writeToDiskUpdatingChangeCounts:(BOOL)update {
+    if (!self.storage) return;
+    
     NSPredicate *dirtyPredicate = [NSPredicate predicateWithFormat:@"isDirty == YES"];
     NSSet *dirtyAssets = [self.allRenditions filteredSetUsingPredicate:dirtyPredicate];
     
@@ -35,10 +38,15 @@
         if (update)
             [rendition updateChangeCount:NSChangeCleared];
     }
-
+    
+    //TODO: Make this slow compression optional via UI
+    
     // Changed to YES to fix size of files expanding over time
-    // But I feel like it will cause other issues
+    // But should be NO because compact breaks future edits after saving
     [self.storage writeToDiskAndCompact:YES];
+    
+    // Must re-open storage after compacting
+    self.storage = [[TKClass(CUIMutableCommonAssetStorage) alloc] initWithPath:self.filePath forWriting:YES];
 }
 
 - (void)addRendition:(TKRendition *)rendition {

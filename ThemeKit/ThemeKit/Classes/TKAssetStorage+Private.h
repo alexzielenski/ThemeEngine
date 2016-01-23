@@ -13,6 +13,7 @@
 @interface TKAssetStorage () <_CUIInternalLinkRenditionSourceProvider>
 @property (strong) CUICommonAssetStorage *storage;
 @property (readwrite, strong) NSArray *renditionKeyAttributes;
+@property (readwrite, copy) NSString *filePath;
 
 - (void)_beginEnumeration;
 - (void)_enumerateFacets;

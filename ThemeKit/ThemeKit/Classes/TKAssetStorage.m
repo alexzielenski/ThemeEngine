@@ -39,6 +39,7 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
 - (instancetype)initWithPath:(NSString *)path {
     if ((self = [self init])) {
         self.storage = [[TKClass(CUICommonAssetStorage) alloc] initWithPath:path forWriting:NO];
+        self.filePath = path;
         [self _beginEnumeration];
     }
     
