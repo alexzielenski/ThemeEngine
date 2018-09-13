@@ -57,24 +57,6 @@
         CGImageRef unsliced = self.rendition.unslicedImage;
         if (unsliced != NULL) {
             _image = [[NSBitmapImageRep alloc] initWithCGImage:unsliced];
-            
-            // remove backing image after we're done with it
-            CGImageRef *ptr = TKIvarPointer(self.rendition, "_unslicedImage");
-            if (ptr != NULL && *ptr != NULL) {
-                CGImageRelease(*ptr);
-                *ptr = NULL;
-            }
-
-            // This is on CUIThemePixelRendition
-            //!TODO: Circumvent the default unslicedImage implementation
-            //! so that we can reliably throw out unused Apple data.
-            //! and save ram
-//            CGImageRef *image = TKIvarPointer(self.rendition, "unslicedImage");
-//            if (image != NULL) {
-//                if (*image != NULL)
-//                    CGImageRelease(*image);
-//                *image = NULL;
-//            }
         }
     }
     return _image;
