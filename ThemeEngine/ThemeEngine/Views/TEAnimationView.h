@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface TEAnimationView : NSView
+@interface TEAnimationView: NSView
 @property (strong) NSBitmapImageRep *image;
 @property CGFloat frameWidth;
 @property NSUInteger framesPerSecond;

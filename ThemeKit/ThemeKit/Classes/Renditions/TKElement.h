@@ -13,5 +13,5 @@
 @interface TKElement : NSObject
 @property (nonnull, strong) NSSet<TKRendition *> *renditions;
 @property (readonly, nonnull, copy) NSString *name;
-@property (readonly, weak) TKAssetStorage *storage;
+@property (readonly, nullable, weak) TKAssetStorage *storage;
 @end

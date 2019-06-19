@@ -116,9 +116,9 @@
         
         NSURL *dst    = [[tmpURL URLByAppendingPathComponent:[[NSUUID UUID] UUIDString]] URLByAppendingPathExtension:@"tiff"];
         //!TODO Do something with the rtn error
-        NSString *rtn = [script executeFunction:TEAppleScriptExportFunctionName
-                                  withArguments:@[ dst.path ]
-                                          error:nil];
+//        NSString *rtn = [script executeFunction:TEAppleScriptExportFunctionName
+//                                  withArguments:@[ dst.path ]
+//                                          error:nil];
         
         NSString *documentName = [script executeFunction:TEAppleScriptGetFileFunctionName
                                            withArguments:nil
