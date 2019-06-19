@@ -17,7 +17,7 @@ static NSEdgeInsets TEIntegralInsets(NSEdgeInsets insets) {
 
 static const CGFloat sliceSpaceWidth = 2.0;
 
-@interface TESliceImageView ()
+@interface TESliceImageView () <CALayerDelegate>
 @property (strong) CALayer *leftHandle;
 @property (strong) CALayer *topHandle;
 @property (strong) CALayer *bottomHandle;
@@ -576,7 +576,7 @@ static const CGFloat sliceSpaceWidth = 2.0;
 - (BOOL)validateValue:(inout id  __nullable __autoreleasing * __nonnull)ioValue forKeyPath:(nonnull NSString *)inKeyPath error:(out NSError * __nullable __autoreleasing * __nullable)outError {
     NSLog(@"%@", inKeyPath);
     if ([inKeyPath hasSuffix:@"HandlePosition"]) {
-        CGFloat newValue;
+        CGFloat newValue = 0.0;
         CGFloat oldValue = ((NSNumber *)*ioValue).doubleValue;
         if ([inKeyPath isEqualToString:@"leftHandlePosition"]) {
             newValue = [self constrainLeftValue:oldValue];

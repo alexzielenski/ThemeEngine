@@ -51,7 +51,7 @@
             self.collapseConstraint.animator.constant = 0;
             sender.title = @"Show";
         } completionHandler:^{
-            _collapsed = YES;
+            self->_collapsed = YES;
         }];
     } else {
         [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
@@ -62,7 +62,7 @@
         } completionHandler:^{
             // The constraint is no longer needed, we can remove it.
             [self.view removeConstraint:self.collapseConstraint];
-            _collapsed = NO;
+            self->_collapsed = NO;
         }];
     }
 }

@@ -53,7 +53,7 @@
 
 @end
 
-@interface TEAnimationView ()
+@interface TEAnimationView () <CALayerDelegate>
 @property (weak) TESpriteLayer *spriteLayer;
 - (void)_initialize;
 - (void)_invalidateAnimation;

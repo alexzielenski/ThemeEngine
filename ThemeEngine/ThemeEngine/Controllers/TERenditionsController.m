@@ -151,6 +151,9 @@ static const void *PREVIEWIMAGECHANGED = &PREVIEWIMAGECHANGED;
     [[TEExportController sharedExportController] exportRenditions:[self.renditionsArrayController selectedObjects]];
 }
 
+- (IBAction)addRendition:(id)sender {
+    
+}
 
 - (void)setCurrentGroup:(NSInteger)currentGroup {
     // Use this so we can observe arranged objects and regroup everytime it changes

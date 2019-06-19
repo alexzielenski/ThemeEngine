@@ -10,7 +10,7 @@
 #import "TEGradientStopLayer.h"
 #import "NSColor+TE.h"
 
-@interface TEGradientEditor ()
+@interface TEGradientEditor () <CALayerDelegate>
 @property (strong) CALayer *gradientLayer;
 
 @property (strong) NSMutableArray *colorStopLayers;
