@@ -63,6 +63,6 @@
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/alexzielenski/ThemeEngine/master/appcast.xml</string>
+	<string>https://raw.githubusercontent.com/alexzielenski/ThemeEngine/v2/appcast.xml</string>
 </dict>
 </plist>
