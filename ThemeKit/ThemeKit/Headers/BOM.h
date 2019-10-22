@@ -101,21 +101,23 @@ extern OSErr BOMFileClose(BOMFileRef bom);
 //!BOMStorage
 typedef void *BOMStorageRef;
 typedef void *BomSys;
+typedef uint32_t BOMBlockID;
 
 extern BOMStorageRef BOMStorageOpen(const char *path, BOOL forWriting);
+extern void BOMStorageFree(BOMStorageRef theBOM);
 extern BOMStorageRef BOMStorageOpenWithSys(const char *path, BOOL unk, BomSys sys);
 extern const char *BOMStorageFileName(BOMStorageRef storage);
 extern BOOL BOMStorageCommit(BOMStorageRef storage);
 extern BOOL BOMStorageCompact(BOMStorageRef storage);
-extern int BOMStorageGetNamedBlock(BOMStorageRef storage, const char *name);
-extern size_t BOMStorageSizeOfBlock(BOMStorageRef storage, const char *name);
+extern BOMBlockID BOMStorageGetNamedBlock(BOMStorageRef storage, const char *name);
 extern int BOMStorageCount(BOMStorageRef storage);
 extern BomSys BOMStorageGetSys(BOMStorageRef storage);
-
+extern size_t BOMStorageSizeOfBlock(BOMStorageRef inStorage, BOMBlockID inBlockID);
+int BOMStorageCopyFromBlock(BOMStorageRef inStorage, BOMBlockID inBlockID, void *outData);
 extern BOOL BOMBomNewWithStorage(BOMStorageRef storage);
 
 //!BOMTree
-extern BOMTreeRef BOMTreeOpenWithName(BOMStorageRef storage, const char *name); // more args
+extern BOMTreeRef BOMTreeOpenWithName(BOMStorageRef storage, const char *name, bool forWriting); // more args
 extern BOMTreeRef BOMTreeNewWithName(BOMStorageRef storage, const char *name);
 extern int BOMTreeFree(BOMTreeRef tree);
 extern BOOL BOMTreeCopyToTree(BOMTreeRef source, BOMTreeRef dest);

@@ -57,6 +57,7 @@ NSString *CoreThemeTypeToString(CoreThemeType value) {
 
 NSString *TKEXIFOrientationToString(TKEXIFOrientation value) {
     BEGINSTRINGIFY(TKEXIFOrientation, NO)
+    STRINGIFY(TKEXIFOrientationNotApplicable)
     STRINGIFY(TKEXIFOrientationNormal)
     STRINGIFY(TKEXIFOrientationReverse)
     STRINGIFY(TKEXIFOrientationRotate180)

@@ -66,6 +66,8 @@ struct _carheader {
 // You can just pass nothing for the hotspot
 - (const struct renditionkeytoken *)renditionKeyForName:(const char *)arg1 hotSpot:(CGPoint)arg2;
 
+- (void)enumerateKeysAndObjectsWithoutIgnoringUsingBlock:(void (^)(struct renditionkeytoken *keyList, NSData *csiData))arg1;
+
 - (void)enumerateKeysAndObjectsUsingBlock:(void (^)(struct renditionkeytoken *keyList, NSData *csiData))block;
 - (NSArray *)assetKeysMatchingBlock:(id)arg1;
 - (NSArray *)allAssetKeys;

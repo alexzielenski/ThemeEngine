@@ -11,7 +11,7 @@
 // Don't call initWithPropertyList:ofType:
 // Call gradientStopWithPropertyList:ofType:
 // It will choose the correct stop class for you
-extern __nonnull NSString *const TEGradientStopPBoardType;
+extern NSString * _Nonnull const TEGradientStopPBoardType;
 @interface TKGradientStop (Pasteboard) <NSPasteboardReading, NSPasteboardWriting>
 
 + (nullable instancetype)gradientStopWithPropertyList:(nonnull NSDictionary *)list ofType:(nonnull NSString *)type;

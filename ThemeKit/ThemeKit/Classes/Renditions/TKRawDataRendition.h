@@ -13,4 +13,6 @@ extern NSString *const TKUTITypeCoreAnimationArchive;
 @property (nonatomic, strong) NSData *rawData;
 @property (nonatomic, strong) CALayer *rootLayer;
 
+- (CALayer *)copyRootLayer;
+
 @end

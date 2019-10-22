@@ -59,7 +59,7 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
     } else if ([rendition isKindOfClass:TKClass(_CUIThemeGradientRendition)]) {
         return [TKGradientRendition class];
         
-    } else if ([rendition isKindOfClass:TKClass(_CUIPDFRendition)]) {
+    } else if ([rendition isKindOfClass:TKClass(_CUIPDFRendition)] || [rendition isKindOfClass:TKClass(_CUIThemePDFRendition)]) {
         return [TKPDFRendition class];
         
     } else if ([rendition isKindOfClass:TKClass(_CUIRawDataRendition)]) {
@@ -79,6 +79,7 @@ static const void *TKRenditionChangeContext = &TKRenditionChangeContext;
     }
     
     CUIThemeRendition *rendition = [[TKClass(CUIThemeRendition) alloc] initWithCSIData:csiData forKey:key.keyList];
+    if (rendition == nil) return nil;
     return [TKRendition renditionWithCUIRendition:rendition csiData:csiData key:key];
 }
 

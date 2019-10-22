@@ -78,24 +78,40 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
     }
 }
 
-- (CALayer *)rootLayer {
-    if (!_rootLayer &&
-        [self.utiType isEqualToString:TKUTITypeCoreAnimationArchive]) {
+- (CALayer *)copyRootLayer {
+    if ([self.utiType isEqualToString:TKUTITypeCoreAnimationArchive]) {
         NSDictionary *archive = [NSKeyedUnarchiver unarchiveObjectWithData:self.rawData];
-        _rootLayer = [archive objectForKey:@"rootLayer"];
-        _rootLayer.geometryFlipped = [[archive objectForKey:@"geometryFlipped"] boolValue];
+        CALayer *rootLayer = [archive objectForKey:@"rootLayer"];
+        rootLayer.geometryFlipped = [[archive objectForKey:@"geometryFlipped"] boolValue];
+        return rootLayer;
     }
+    return nil;
+}
+
+- (CALayer *)rootLayer {
+    if (!_rootLayer) _rootLayer = self.copyRootLayer;
     
     return _rootLayer;
 }
 
 - (void)setRootLayer:(CALayer *)rootLayer {
+    [self willChangeValueForKey:@"rootLayer"];
+    
+    self.rawData = [NSKeyedArchiver archivedDataWithRootObject:@{
+                                                                 @"rootLayer": rootLayer,
+                                                                 @"geometryFlipped": @(rootLayer.geometryFlipped)
+                                                                 }];
     _rootLayer = rootLayer;
+    self._previewImage = nil;
+    [self didChangeValueForKey:@"rootLayer"];
 }
 
 - (void)setRawData:(NSData *)rawData {
+    [self willChangeValueForKey:@"rawData"];
     _rawData = rawData;
     _rootLayer = nil;
+    self._previewImage = nil;
+    [self didChangeValueForKey:@"rawData"];
 }
 
 + (NSDictionary *)undoProperties {
@@ -114,15 +130,6 @@ NSString *const TKUTITypeCoreAnimationArchive = @"com.apple.coreanimation-archiv
 }
 
 - (CSIGenerator *)generator {
-    if (_rootLayer != nil) {
-        self.rootLayer = [CALayer layer];
-//        NSLog(@"dat hookup");
-//        self.rootLayer.bounds = self.rootLayer.bounds;
-//        self.rootLayer.backgroundColor = [[NSColor greenColor] CGColor];
-        
-        self.rawData = CAEncodeLayerTree(self.rootLayer);
-    }
-    
     CSIGenerator *generator = [[CSIGenerator alloc] initWithRawData:self.rawData
                                                         pixelFormat:self.pixelFormat
                                                              layout:self.layout];

@@ -28,12 +28,12 @@
         return;
     
     if (self.gradient) {
-        __weak typeof(self) weakSelf = self;
+        __strong TKGradient *grad = self.gradient;
         
         self._previewImage = [NSImage imageWithSize:NSMakeSize(64, 64)
                                             flipped:NO
                                      drawingHandler:^BOOL(NSRect dstRect) {
-                                         [weakSelf.gradient drawInRect:dstRect];
+                                         [grad drawInRect:dstRect];
                                          return YES;
                                      }];
     }

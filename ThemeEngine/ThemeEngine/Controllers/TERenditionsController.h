@@ -25,5 +25,6 @@
 
 - (IBAction)addRendition:(id)sender;
 - (IBAction)removeSelection:(id)sender;
+- (IBAction)makeMicaPinkAgain:(id)sender;
 
 @end

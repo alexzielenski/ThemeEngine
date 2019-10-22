@@ -166,6 +166,7 @@ typedef NS_ENUM(NSUInteger, CoreThemeType) {
 };
 
 typedef NS_ENUM(NSUInteger, TKEXIFOrientation) {
+    TKEXIFOrientationNotApplicable    = 0,
     TKEXIFOrientationNormal           = 1,
     TKEXIFOrientationReverse          = 2,
     TKEXIFOrientationRotate180        = 3,

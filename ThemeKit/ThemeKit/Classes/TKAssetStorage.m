@@ -38,6 +38,7 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
 
 - (instancetype)initWithPath:(NSString *)path {
     if ((self = [self init])) {
+        self.catalog = [[CUICatalog alloc] initWithURL:[NSURL fileURLWithPath: path] error:nil];
         self.storage = [[TKClass(CUICommonAssetStorage) alloc] initWithPath:path forWriting:NO];
         self.filePath = path;
         [self _beginEnumeration];
@@ -129,10 +130,11 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
     
     @autoreleasepool {
         __weak typeof(self) weakSelf = self;
-        [self.storage enumerateKeysAndObjectsUsingBlock:^(struct renditionkeytoken *keyList, NSData *csiData) {
-            if (weakSelf) {
+        [self.storage enumerateKeysAndObjectsWithoutIgnoringUsingBlock:^(struct renditionkeytoken *keyList, NSData *csiData) {
+            if (weakSelf != nil && csiData != nil) {
                 CUIRenditionKey *key = [CUIRenditionKey renditionKeyWithKeyList:keyList];
                 TKRendition *rendition = [TKRendition renditionWithCSIData:csiData renditionKey:key];
+
                 if (!rendition.rendition) {
                     NSString *name;
                     CUIThemeRendition *cui = [TKVerifyTool fixedRenditionForCSIData:csiData
@@ -148,8 +150,12 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
                     }
                 }
                 [weakSelf _addRendition: rendition];
+            } else {
+                // null csi data?
+                NSLog(@"couldnt get rendition");
             }
         }];
+        NSLog(@"pared %lu renditions", self.allRenditions.count);
     }
 }
 
@@ -157,7 +163,13 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
     if (!self.storage)
         return;
     
-    BOMTreeRef color_tree = TKIvar(self.storage, BOMTreeRef, _colordb);
+    BOMStorageRef stor = BOMStorageOpen(self.filePath.UTF8String, false);
+    BOMTreeRef color_tree = BOMTreeOpenWithName(stor, "COLORS", false);
+//    if(bomTree == NULL)
+//        return;
+//
+//
+//    BOMTreeRef color_tree = TKIvar(self.storage, BOMTreeRef, _colordb);
     if (color_tree == NULL)
         return;
     
@@ -172,13 +184,15 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
         struct colorkey *key = BOMTreeIteratorKey(iterator);
         struct colordef *value = BOMTreeIteratorValue(iterator);
         
-        TKRendition *rendition = [TKRendition renditionWithColorKey:*key definition:*value];
-        
-        [self _addRendition:rendition];
-        
+        if (key != NULL && value != NULL) {
+            TKRendition *rendition = [TKRendition renditionWithColorKey:*key definition:*value];
+            
+            [self _addRendition:rendition];
+        }
         BOMTreeIteratorNext(iterator);
     }
     BOMTreeIteratorFree(iterator);
+    BOMStorageFree(stor);
 }
 
 - (void)_enumerateFonts {
@@ -267,6 +281,7 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
 
 - (void)_addRendition:(TKRendition *)rendition {
     NSString *elementName = TKElementNameForRendition(rendition, self);
+
     TKElement *element = [self elementWithName:elementName createIfNeeded:YES];
     if (element)
         [element addRendition:rendition];

@@ -143,6 +143,54 @@ static const void *PREVIEWIMAGECHANGED = &PREVIEWIMAGECHANGED;
     NSLog(@"remove rends");
 }
 
+- (IBAction)makeMicaPinkAgain:(id)sender {
+    NSArray *selectedRenditions = [self.renditionsArrayController selectedObjects];
+    for (TKRendition *rendition in selectedRenditions) {
+        if ([rendition isKindOfClass:[TKRawDataRendition class]]) {
+            TKRawDataRendition *rawDataRendition = (TKRawDataRendition *)rendition;
+            if (rawDataRendition.rootLayer != nil) {
+                CALayer *mine = rawDataRendition.copyRootLayer;
+                mine.backgroundColor = [NSColor systemPinkColor].CGColor;
+                for (CALayer *sublayer in mine.sublayers) {
+                    sublayer.backgroundColor = mine.backgroundColor;
+                }
+                rawDataRendition.rootLayer = mine;
+            }
+        }
+    }
+    
+}
+
+- (IBAction)importMica:(id)sender {
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    panel.allowedFileTypes = @[@"caar"];
+    panel.allowsOtherFileTypes = NO;
+    panel.allowsMultipleSelection = NO;
+    if ([panel runModal] == NSModalResponseOK) {
+        NSURL *selectedURL = panel.URL;
+        
+        NSData *caarData = [NSData dataWithContentsOfURL:selectedURL];
+        NSDictionary *unarchived = [NSKeyedUnarchiver unarchiveObjectWithData:caarData];
+        
+        if ([unarchived isKindOfClass:[NSDictionary class]]) {
+            if ([[unarchived objectForKey:@"rootLayer"] isKindOfClass:[CALayer class]]) {
+                NSArray *selectedRenditions = [self.renditionsArrayController selectedObjects];
+                
+                for (TKRendition *rendition in selectedRenditions) {
+                    if ([rendition isKindOfClass:[TKRawDataRendition class]]) {
+                        TKRawDataRendition *rawDataRendition = (TKRawDataRendition *)rendition;
+                        if ([rawDataRendition.utiType isEqualToString:TKUTITypeCoreAnimationArchive]) {
+                            rawDataRendition.rawData = caarData;
+                        }
+                    }
+                }
+
+            }
+        }
+        
+    }
+}
+
 - (IBAction)receiveFromEditor:(id)sender {
     [[TEExportController sharedExportController] importRenditions:[self.renditionsArrayController selectedObjects]];
 }
@@ -250,6 +298,7 @@ static NSString *sanitizeToken(NSString *token) {
             token = [token substringFromIndex:1];
         
         // See if its a specific search with a colon
+        
         NSArray *parameters = [token componentsSeparatedByString:@":"];
 
         // If its just a keyword, search every keyword

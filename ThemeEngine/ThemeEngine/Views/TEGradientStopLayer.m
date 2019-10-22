@@ -51,7 +51,7 @@ static void *kTEStopDirtyContext;
     [self addObserver:self forKeyPath:@"gradientStop.opacity" options:0 context:&kTEStopDirtyContext];
     [self addObserver:self forKeyPath:@"gradientStop.leadOutOpacity" options:0 context:&kTEStopDirtyContext];
     [self addObserver:self forKeyPath:@"gradientStop.location" options:0 context:&kTEStopDirtyContext];
-    [self addObserver:self forKeyPath:@"selected" options:0 context:&kTEStopDirtyContext];
+    //[self addObserver:self forKeyPath:@"selected" options:0 context:&kTEStopDirtyContext];
 }
 
 - (void)dealloc {
@@ -62,7 +62,7 @@ static void *kTEStopDirtyContext;
     [self removeObserver:self forKeyPath:@"gradientStop.leadOutOpacity"];
     [self removeObserver:self forKeyPath:@"gradientStop.leadOutColor"];
     [self removeObserver:self forKeyPath:@"gradientStop.isDoubleStop"];
-    [self removeObserver:self forKeyPath:@"selected"];
+   // [self removeObserver:self forKeyPath:@"selected"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

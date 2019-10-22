@@ -18,6 +18,8 @@
 
 - (instancetype)initWithPath:(NSString *)path {
     if ((self = [self init])) {
+        self.catalog = [[CUIMutableCatalog alloc] initWithURL:[NSURL fileURLWithPath: path] error:nil];
+
         self.storage = [[TKClass(CUIMutableCommonAssetStorage) alloc] initWithPath:path forWriting:YES];
         self.filePath = path;
         [self _beginEnumeration];

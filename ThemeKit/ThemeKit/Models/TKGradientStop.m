@@ -167,6 +167,7 @@
 @dynamic location;
 @dynamic color, leadOutColor;
 @dynamic opacity, leadOutOpacity;
+@dynamic midpointStop;
 
 + (id)gradientStopWithCUIPSDGradientStop:(CUIPSDGradientStop *)stop {
     if (stop.isColorStop) {
@@ -232,6 +233,10 @@
     TKGradientStop *stop = [[TKGradientStop alloc] init];
     stop.location = location;
     return stop;
+}
+
+- (BOOL)isMidpointStop {
+    return !self.isColorStop && !self.isOpacityStop;
 }
 
 // Midpoints don't support this feature

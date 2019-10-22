@@ -67,7 +67,7 @@ static NSArray<NSArray *> *filterPredicates = nil;
     NSScrollView *scrollView = self.tableView.enclosingScrollView;
     NSTableView *table = self.tableView;
     
-    self.tableView.translatesAutoresizingMaskIntoConstraints = YES;
+    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.focusRingType = NSFocusRingTypeNone;
     self.tableHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -110,8 +110,10 @@ static NSArray<NSArray *> *filterPredicates = nil;
 - (void)scopeChanged:(TETexturedScope *)scope {
     if (scope.selectedSegment < filterPredicates.count)
         self.filterPredicate = filterPredicates[scope.selectedSegment][1];
+    
     if (self.tableView.numberOfRows > 0)
         [self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+    [self.tableView reloadData];
 }
 
 - (NSView *)tableView:(NSTableView *)aTableView

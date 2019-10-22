@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A204h" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8121.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -28,9 +28,6 @@
                             </menuItem>
                             <menuItem title="Check For Updates..." id="ANJ-pS-O9C">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="checkForUpdates:" target="Q1v-WF-GPb" id="PtI-78-Q58"/>
-                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                             <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
@@ -392,6 +389,19 @@ CA
                             <menuItem title="Dump Renditions to folder" id="h9G-BU-4AE">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="T98-n8-3Kg"/>
+                            <menuItem title="Make Mica Pink Again" id="FpH-hZ-hga">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="makeMicaPinkAgain:" target="-1" id="zQ1-Rm-P2F"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Import CoreAnimation Archive..." id="fy3-iS-Dq4">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="importMica:" target="-1" id="zje-iY-sWj"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -468,6 +478,5 @@ CA
             </items>
         </menu>
         <userDefaultsController representsSharedInstance="YES" id="XbG-Hc-y3v"/>
-        <customObject id="Q1v-WF-GPb" customClass="SUUpdater"/>
     </objects>
 </document>
