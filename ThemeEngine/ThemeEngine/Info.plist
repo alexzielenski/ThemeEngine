@@ -44,7 +44,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>111</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.lifestyle</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSAppTransportSecurity</key>
@@ -61,7 +63,7 @@
 	<key>OPBlacklisted</key>
 	<true/>
 	<key>SUEnableAutomaticChecks</key>
-	<true/>
+	<false/>
 	<key>SUFeedURL</key>
 	<string>https://raw.githubusercontent.com/alexzielenski/ThemeEngine/v2/appcast.xml</string>
 </dict>
