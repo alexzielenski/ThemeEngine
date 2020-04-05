@@ -56,7 +56,7 @@
         NSArray *slices = nil;
         NSBitmapImageRep *packed = [self packedRepresentationUsingImages:[renditions valueForKeyPath:@"image"] slices:&slices];
         NSURL *url = [tmpURL URLByAppendingPathComponent:[[[NSUUID UUID] UUIDString] stringByAppendingPathExtension:@"png"]];
-        [[packed representationUsingType:NSPNGFileType properties:@{}] writeToURL:url atomically:NO];
+        [[packed representationUsingType:NSBitmapImageFileTypePNG properties:@{}] writeToURL:url atomically:NO];
         
         [[NSWorkspace sharedWorkspace] openURLs:@[ url ]
                         withAppBundleIdentifier:@"com.adobe.Photoshop"

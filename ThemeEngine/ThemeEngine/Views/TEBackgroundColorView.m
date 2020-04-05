@@ -13,7 +13,7 @@
 
 - (void)drawRect:(NSRect)dirtyRect {
     [self.backgroundColor set];
-    NSRectFillUsingOperation(dirtyRect, NSCompositeSourceOver);
+    NSRectFillUsingOperation(dirtyRect, NSCompositingOperationSourceOver);
 }
 
 - (void)viewDidMoveToSuperview {
