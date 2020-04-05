@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8121.17" systemVersion="15A178w" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8121.17"/>
-        <plugIn identifier="com.apple.imagekit.ibplugin" version="8121.17"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <plugIn identifier="com.apple.imagekit.ibplugin" version="16096"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TEElementViewController">
@@ -21,12 +22,12 @@
                 <scrollView focusRingType="none" borderType="none" horizontalLineScroll="64" horizontalPageScroll="10" verticalLineScroll="64" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jtv-fz-Jn0">
                     <rect key="frame" x="0.0" y="0.0" width="347" height="365"/>
                     <clipView key="contentView" copiesOnScroll="NO" id="4Vr-Za-Ac0">
-                        <rect key="frame" x="1" y="1" width="166" height="79"/>
+                        <rect key="frame" x="0.0" y="0.0" width="332" height="365"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <ikImageBrowserView autoresizesSubviews="NO" fixedFrame="YES" constrainsToOriginalSize="YES" animates="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iy7-Xp-SzN">
-                                <rect key="frame" x="0.0" y="0.0" width="347" height="391"/>
-                                <animations/>
+                                <rect key="frame" x="0.0" y="286" width="347" height="391"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
                                 <size key="cellSize" width="44" height="44"/>
                                 <connections>
@@ -37,19 +38,14 @@
                                 </connections>
                             </ikImageBrowserView>
                         </subviews>
-                        <animations/>
-                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
-                    <animations/>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="vq6-0f-tPn">
                         <rect key="frame" x="1" y="80" width="166" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </scroller>
                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Lyh-D3-ly0">
-                        <rect key="frame" x="331" y="0.0" width="16" height="365"/>
+                        <rect key="frame" x="332" y="0.0" width="15" height="365"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </scroller>
                 </scrollView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="A9F-GK-LZb">
@@ -60,9 +56,8 @@
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="yGY-Ka-uar"/>
                             </constraints>
-                            <animations/>
                             <searchFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" id="rTN-Dn-4nS">
-                                <font key="font" metaFont="smallSystem"/>
+                                <font key="font" metaFont="message" size="11"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </searchFieldCell>
@@ -77,7 +72,6 @@
                         <constraint firstItem="Xgc-Ku-r6u" firstAttribute="centerY" secondItem="A9F-GK-LZb" secondAttribute="centerY" id="ZQr-p0-QIp"/>
                         <constraint firstAttribute="trailing" secondItem="Xgc-Ku-r6u" secondAttribute="trailing" constant="20" symbolic="YES" id="tIm-yh-abB"/>
                     </constraints>
-                    <animations/>
                 </customView>
             </subviews>
             <constraints>
@@ -91,7 +85,6 @@
                 <constraint firstItem="A9F-GK-LZb" firstAttribute="leading" secondItem="Z7e-YN-ZIC" secondAttribute="leading" id="lyT-hX-YRh"/>
                 <constraint firstItem="A9F-GK-LZb" firstAttribute="leading" secondItem="Jtv-fz-Jn0" secondAttribute="leading" id="v90-LY-RR7"/>
             </constraints>
-            <animations/>
             <point key="canvasLocation" x="664.5" y="102.5"/>
         </customView>
     </objects>
