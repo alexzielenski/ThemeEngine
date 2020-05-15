@@ -98,7 +98,6 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
         return;
     
     BOMTreeRef facet_tree = TKIvar(self.storage, BOMTreeRef, _facetKeysdb);
-    if (facet_tree == NULL)
         return;
     
     int num_facets = BOMTreeCount(facet_tree);
