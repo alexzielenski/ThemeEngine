@@ -81,7 +81,7 @@ NSString *const TKAssetStorageDidFinishLoadingNotification = @"TKAssetStorageDid
     
     __weak typeof(self) weakSelf = self;
     [self.queue addOperationWithBlock:^{
-        [weakSelf _enumerateFacets];
+        //[weakSelf _enumerateFacets]; // Causes a crash on Catalina.
         [weakSelf _enumerateAssets];
         [weakSelf _enumerateColors];
         [weakSelf _enumerateFonts];
