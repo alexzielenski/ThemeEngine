@@ -189,7 +189,7 @@
 
 - (id)init {
     if ((self = [super init])) {
-        self.backingStop = [[TKClass(CUIPSDGradientStop) alloc] initWithLocation:0.0];
+        self.backingStop = [[CUIPSDGradientStop alloc] initWithLocation:0.0];
     }
     
     return self;
